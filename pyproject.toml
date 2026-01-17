@@ -1,0 +1,25 @@
+[project]
+name = "cfp-pipeline"
+version = "0.1.0"
+description = "CFP aggregator data pipeline"
+authors = [
+    {name = "Your Name"}
+]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx (>=0.28.1,<0.29.0)",
+    "algoliasearch (>=4.35.3,<5.0.0)",
+    "pydantic (>=2.12.5,<3.0.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "rich (>=14.2.0,<15.0.0)",
+    "typer (>=0.21.1,<0.22.0)",
+    "duckduckgo-search (>=8.1.1,<9.0.0)"
+]
+
+
+[project.scripts]
+cfp = "cfp_pipeline.cli:app"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

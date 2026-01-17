@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Environment variables
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Poetry
+poetry.lock
+
+# OS
+.DS_Store
+
+# Cache
+.cache/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
