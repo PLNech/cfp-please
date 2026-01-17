@@ -288,11 +288,15 @@ async def fetch_talks_for_conference(
     clean_name = re.sub(r'\s*20\d{2}\s*', ' ', conference_name).strip()
 
     # Search across multiple years if provided
+    # Add "conference" and tech keywords to avoid music B-sides results
+    tech_keywords = "conference OR tech OR developer OR programming OR software"
+    exclude_music = "-music -band -song -album -remix -live -concert -tour"
+
     if years:
         results_per_year = max(10, max_results // len(years))
         for year in years:
-            # More specific query: "conference name" in quotes + year + presentation/talk
-            query = f'"{clean_name}" {year} presentation OR talk OR keynote'
+            # More specific query with conference context and music exclusion
+            query = f'"{clean_name}" {year} ({tech_keywords}) {exclude_music}'
             console.print(f"[dim]  Searching: '{query}'[/dim]")
             loop = asyncio.get_event_loop()
             results = await loop.run_in_executor(
@@ -301,7 +305,7 @@ async def fetch_talks_for_conference(
             all_results.extend(results)
     else:
         # Search without year filter
-        query = f'"{clean_name}" conference presentation OR talk'
+        query = f'"{clean_name}" ({tech_keywords}) {exclude_music}'
         console.print(f"[dim]  Searching: '{query}'[/dim]")
         loop = asyncio.get_event_loop()
         all_results = await loop.run_in_executor(
@@ -312,6 +316,22 @@ async def fetch_talks_for_conference(
     filtered = []
     seen_urls = set()
 
+    # Music/entertainment keywords to filter out
+    music_keywords = ['official video', 'music video', 'lyric video', 'audio only',
+                      'full album', 'greatest hits', 'best of', 'remaster', 'unplugged',
+                      'mtv', 'vevo', 'gun show', 'guns n roses', 'oasis', 'apex legends',
+                      'beginner guide', 'gaming', 'chromebook', 'amazon shipment', 'vanlife',
+                      'tawheed', 'allah', 'career advice', 'highest paying']
+
+    # Tech keywords - title should contain at least one of these
+    tech_indicators = ['talk', 'presentation', 'keynote', 'session', 'conference',
+                       'developer', 'programming', 'software', 'api', 'cloud',
+                       'kubernetes', 'docker', 'devops', 'security', 'hacking',
+                       'python', 'javascript', 'java', 'react', 'node', 'rust',
+                       'golang', 'typescript', 'microservices', 'architecture',
+                       'ai', 'machine learning', 'data', 'database', 'sql', 'nosql',
+                       'aws', 'azure', 'gcp', 'linux', 'open source', 'meetup']
+
     for r in all_results:
         url = r.get('url', '')
         if url in seen_urls:
@@ -320,14 +340,36 @@ async def fetch_talks_for_conference(
 
         duration = r.get('duration_seconds') or 0
         title_lower = r.get('original_title', '').lower()
+        channel_lower = (r.get('channel') or '').lower()
+        description_lower = (r.get('description') or '').lower()
+        view_count = r.get('view_count') or 0
 
-        # Skip short videos
-        if duration > 0 and duration < 300:
+        # Skip short videos (conference talks are usually 15+ minutes)
+        if duration > 0 and duration < 600:
+            continue
+
+        # Skip videos with suspiciously high view counts (500K is generous for tech talks)
+        if view_count > 500_000:
+            continue
+
+        # Skip music/entertainment content
+        if any(kw in title_lower for kw in music_keywords):
+            continue
+        if any(kw in channel_lower for kw in ['vevo', 'music', 'records', 'entertainment', 'gaming']):
             continue
 
         # Skip non-talks
         skip_keywords = ['trailer', 'teaser', 'promo', 'highlight', 'aftermovie', 'recap', 'shorts']
         if any(kw in title_lower for kw in skip_keywords):
+            continue
+
+        # REQUIRE at least one tech indicator in title, description, or channel
+        has_tech_indicator = (
+            any(kw in title_lower for kw in tech_indicators) or
+            any(kw in description_lower for kw in tech_indicators) or
+            any(kw in channel_lower for kw in tech_indicators)
+        )
+        if not has_tech_indicator:
             continue
 
         filtered.append(r)
