@@ -618,5 +618,97 @@ def talks_stats():
     console.print(f"  Total talks: {stats['num_talks']}")
 
 
+# ===== INTEL COMMANDS =====
+
+
+@app.command()
+def fetch_intel(
+    conference: str = typer.Option(None, "--conference", "-c", help="Single conference name"),
+    limit: int = typer.Option(10, "--limit", "-l", help="Number of conferences to process"),
+    include_ddg: bool = typer.Option(False, "--ddg", help="Include DuckDuckGo search (slower)"),
+    output: str = typer.Option(None, "--output", "-o", help="Save JSON to file"),
+):
+    """Gather intelligence about conferences from HN, GitHub, Reddit, DEV.to.
+
+    Pulls rich data: stories, repos, posts, articles, topics, languages, and more.
+    All keyless APIs - no authentication required.
+    """
+    from cfp_pipeline.enrichers.popularity import gather_conference_intel, gather_intel_batch
+
+    async def run():
+        if conference:
+            console.print(f"[cyan]Gathering intel for: {conference}[/cyan]")
+            intel = await gather_conference_intel(conference, include_ddg=include_ddg)
+            return {conference: intel}
+        else:
+            # Get conferences from pipeline
+            cfps = await run_pipeline(filter_open_only=True)
+            if not cfps:
+                console.print("[yellow]No conferences found[/yellow]")
+                return {}
+
+            selected = cfps[:limit] if limit > 0 else cfps
+            console.print(f"[cyan]Gathering intel for {len(selected)} conferences...[/cyan]")
+
+            names = [cfp.name for cfp in selected]
+            return await gather_intel_batch(names, include_ddg=include_ddg)
+
+    results = asyncio.run(run())
+
+    if not results:
+        raise typer.Exit(0)
+
+    # Summary table
+    table = Table(title=f"Conference Intelligence ({len(results)} conferences)")
+    table.add_column("Conference", style="cyan", max_width=35)
+    table.add_column("Score", justify="right", style="yellow")
+    table.add_column("HN", justify="right")
+    table.add_column("GitHub", justify="right")
+    table.add_column("Reddit", justify="right")
+    table.add_column("DEV.to", justify="right")
+    table.add_column("Topics", max_width=30)
+
+    # Sort by popularity score
+    sorted_results = sorted(results.items(), key=lambda x: x[1].popularity_score, reverse=True)
+
+    for name, intel in sorted_results[:20]:
+        table.add_row(
+            name[:35],
+            f"{intel.popularity_score:.1f}",
+            str(intel.hn_total_stories),
+            str(intel.github_total_repos),
+            str(intel.reddit_total_posts),
+            str(intel.devto_total_articles),
+            ", ".join(intel.all_topics[:3]) or "-",
+        )
+
+    console.print(table)
+
+    # Save to file if requested
+    if output:
+        import json
+        data = {name: intel.to_dict() for name, intel in results.items()}
+        with open(output, "w") as f:
+            json.dump(data, f, indent=2, default=str)
+        console.print(f"\n[green]Saved to {output}[/green]")
+
+    # Show detailed sample
+    if sorted_results:
+        top_name, top_intel = sorted_results[0]
+        console.print(f"\n[bold]Top Conference: {top_name}[/bold]")
+        console.print(f"  HN: {top_intel.hn_total_stories} stories, {top_intel.hn_total_points} pts")
+        console.print(f"  GitHub: {top_intel.github_total_repos} repos, {top_intel.github_total_stars} ⭐")
+        console.print(f"  Reddit: {top_intel.reddit_total_posts} posts in r/{', r/'.join(top_intel.reddit_subreddits[:3])}")
+        console.print(f"  DEV.to: {top_intel.devto_total_articles} articles")
+        console.print(f"  Languages: {', '.join(top_intel.github_languages[:5])}")
+        console.print(f"  Topics: {', '.join(top_intel.all_topics[:10])}")
+        console.print(f"  Related URLs: {len(top_intel.all_related_urls)}")
+
+        if top_intel.hn_stories:
+            console.print(f"\n  [dim]Top HN: {top_intel.hn_stories[0].title}[/dim]")
+        if top_intel.github_repos:
+            console.print(f"  [dim]Top Repo: {top_intel.github_repos[0].full_name} ({top_intel.github_repos[0].stars}⭐)[/dim]")
+
+
 if __name__ == "__main__":
     app()

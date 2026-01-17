@@ -54,13 +54,13 @@ def _extract_speaker_from_title(title: str) -> tuple[str, Optional[str]]:
 
 
 def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
-    """Synchronous YouTube search using yt-dlp."""
+    """Synchronous YouTube search using yt-dlp (flat mode for speed)."""
     import yt_dlp
 
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
-        'extract_flat': True,  # Don't download, just get metadata
+        'extract_flat': True,  # Fast search
         'skip_download': True,
         'ignoreerrors': True,
         'default_search': 'ytsearch',
@@ -70,7 +70,6 @@ def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            # Search YouTube
             search_query = f"ytsearch{max_results}:{query}"
             info = ydl.extract_info(search_query, download=False)
 
@@ -81,30 +80,38 @@ def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
                 if not entry:
                     continue
 
-                # Extract year from upload date
                 year = None
-                upload_date = entry.get('upload_date')  # YYYYMMDD format
+                upload_date = entry.get('upload_date')
                 if upload_date and len(upload_date) >= 4:
                     try:
                         year = int(upload_date[:4])
                     except ValueError:
                         pass
 
-                # Parse title for speaker
                 title = entry.get('title', '')
                 clean_title, speaker = _extract_speaker_from_title(title)
+                video_id = entry.get('id', '')
+                video_url = entry.get('url') or entry.get('webpage_url')
+                if not video_url and video_id:
+                    video_url = f"https://www.youtube.com/watch?v={video_id}"
 
                 results.append({
+                    'id': video_id,
                     'title': clean_title,
                     'original_title': title,
                     'speaker': speaker,
                     'description': (entry.get('description') or '')[:500],
-                    'url': entry.get('url') or f"https://www.youtube.com/watch?v={entry.get('id', '')}",
+                    'url': video_url,
                     'thumbnail_url': entry.get('thumbnail'),
                     'year': year,
                     'duration_seconds': entry.get('duration'),
                     'view_count': entry.get('view_count'),
                     'channel': entry.get('channel') or entry.get('uploader'),
+                    'channel_url': entry.get('channel_url'),
+                    'tags': [],
+                    'categories': [],
+                    'like_count': None,
+                    'comment_count': None,
                 })
 
     except Exception as e:
@@ -112,6 +119,49 @@ def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
         return []
 
     return results
+
+
+def _fetch_video_details(video_ids: list[str]) -> dict[str, dict]:
+    """Fetch full details for specific videos (slower but gets descriptions)."""
+    import yt_dlp
+
+    if not video_ids:
+        return {}
+
+    ydl_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'skip_download': True,
+        'ignoreerrors': True,
+    }
+
+    details = {}
+
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            for vid in video_ids[:20]:  # Limit to avoid slowdown
+                try:
+                    url = f"https://www.youtube.com/watch?v={vid}"
+                    info = ydl.extract_info(url, download=False)
+                    if info:
+                        details[vid] = {
+                            'description': (info.get('description') or '')[:2000],
+                            'duration_seconds': info.get('duration'),
+                            'view_count': info.get('view_count'),
+                            'like_count': info.get('like_count'),
+                            'comment_count': info.get('comment_count'),
+                            'tags': (info.get('tags') or [])[:20],
+                            'categories': info.get('categories') or [],
+                            'channel': info.get('channel') or info.get('uploader'),
+                            'channel_url': info.get('channel_url'),
+                            'upload_date': info.get('upload_date'),
+                        }
+                except Exception:
+                    continue
+    except Exception as e:
+        console.print(f"[dim]Video details fetch error: {e}[/dim]")
+
+    return details
 
 
 async def search_conference_talks(
@@ -316,21 +366,30 @@ async def fetch_talks_for_conference(
     filtered = []
     seen_urls = set()
 
-    # Music/entertainment keywords to filter out
-    music_keywords = ['official video', 'music video', 'lyric video', 'audio only',
-                      'full album', 'greatest hits', 'best of', 'remaster', 'unplugged',
-                      'mtv', 'vevo', 'gun show', 'guns n roses', 'oasis', 'apex legends',
-                      'beginner guide', 'gaming', 'chromebook', 'amazon shipment', 'vanlife',
-                      'tawheed', 'allah', 'career advice', 'highest paying']
+    # Music/entertainment/spam keywords to filter out
+    blocked_keywords = ['official video', 'music video', 'lyric video', 'audio only',
+                        'full album', 'greatest hits', 'best of', 'remaster', 'unplugged',
+                        'mtv', 'vevo', 'gun show', 'guns n roses', 'oasis', 'apex legends',
+                        'beginner guide', 'gaming', 'chromebook', 'amazon shipment', 'vanlife',
+                        'tawheed', 'allah', 'career advice', 'highest paying', 'get rich',
+                        'how to beat', 'slasher', 'walkthrough', 'gameplay', 'playthrough',
+                        'cnc design', 'ultimate guide', 'before 2025', 'before 2026',
+                        'tutorial for beginners', 'course for beginners', 'easy business',
+                        'make money', 'side hustle', 'passive income', 'dropshipping']
 
-    # Tech keywords - title should contain at least one of these
-    tech_indicators = ['talk', 'presentation', 'keynote', 'session', 'conference',
+    # Tech keywords - title/channel should contain at least one of these
+    # Note: "conference" alone is too broad (matches video games), require more specific terms
+    tech_indicators = ['tech talk', 'presentation', 'keynote', 'session', 'meetup',
                        'developer', 'programming', 'software', 'api', 'cloud',
-                       'kubernetes', 'docker', 'devops', 'security', 'hacking',
+                       'kubernetes', 'docker', 'devops', 'infosec', 'cybersecurity',
                        'python', 'javascript', 'java', 'react', 'node', 'rust',
                        'golang', 'typescript', 'microservices', 'architecture',
-                       'ai', 'machine learning', 'data', 'database', 'sql', 'nosql',
-                       'aws', 'azure', 'gcp', 'linux', 'open source', 'meetup']
+                       'machine learning', 'deep learning', 'data science',
+                       'database', 'sql', 'nosql', 'backend', 'frontend', 'fullstack',
+                       'aws', 'azure', 'gcp', 'linux', 'open source', 'github',
+                       'cncf', 'hashicorp', 'terraform', 'ansible', 'jenkins',
+                       'pycon', 'kubecon', 'jsconf', 'rustconf', 'gophercon',
+                       'devoxx', 'qcon', 'strangeloop', 'fosdem', 'defcon', 'bsides']
 
     for r in all_results:
         url = r.get('url', '')
@@ -352,8 +411,8 @@ async def fetch_talks_for_conference(
         if view_count > 500_000:
             continue
 
-        # Skip music/entertainment content
-        if any(kw in title_lower for kw in music_keywords):
+        # Skip music/entertainment/spam content
+        if any(kw in title_lower for kw in blocked_keywords):
             continue
         if any(kw in channel_lower for kw in ['vevo', 'music', 'records', 'entertainment', 'gaming']):
             continue
@@ -377,10 +436,42 @@ async def fetch_talks_for_conference(
     # Sort by views
     filtered.sort(key=lambda x: x.get('view_count') or 0, reverse=True)
 
+    # Limit results
+    filtered = filtered[:max_results]
+
+    # Fetch full details for top talks (to get descriptions)
+    # Only fetch details for top 10 to avoid slowdown
+    top_video_ids = [r.get('id') for r in filtered[:10] if r.get('id')]
+    if top_video_ids:
+        console.print(f"[dim]  Fetching details for top {len(top_video_ids)} talks...[/dim]")
+        loop = asyncio.get_event_loop()
+        details = await loop.run_in_executor(_executor, _fetch_video_details, top_video_ids)
+
+        # Merge details back
+        for r in filtered:
+            vid = r.get('id')
+            if vid and vid in details:
+                d = details[vid]
+                r['description'] = d.get('description') or r.get('description', '')
+                r['duration_seconds'] = d.get('duration_seconds') or r.get('duration_seconds')
+                r['view_count'] = d.get('view_count') or r.get('view_count')
+                r['like_count'] = d.get('like_count')
+                r['comment_count'] = d.get('comment_count')
+                r['tags'] = d.get('tags', [])
+                r['categories'] = d.get('categories', [])
+                r['channel'] = d.get('channel') or r.get('channel')
+                # Extract year from upload_date if available
+                upload_date = d.get('upload_date')
+                if upload_date and len(upload_date) >= 4:
+                    try:
+                        r['year'] = int(upload_date[:4])
+                    except ValueError:
+                        pass
+
     # Convert to Talk objects
     talks = [
         _youtube_result_to_talk(r, conference_id, conference_name)
-        for r in filtered[:max_results]
+        for r in filtered
     ]
 
     console.print(f"[dim]  Found {len(talks)} talks for {conference_name}[/dim]")
