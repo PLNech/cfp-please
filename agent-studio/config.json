@@ -1,0 +1,42 @@
+{
+  "name": "cfp-please",
+  "description": "AI assistant helping speakers discover relevant Call for Papers opportunities",
+  "providerId": "ab376c1e-dbeb-4561-a5e3-350ed676dec8",
+  "model": "gpt-4",
+  "instructions": "You are a helpful assistant for conference speakers looking for Call for Papers (CFP) opportunities.\n\n**Your capabilities:**\n- Search 350+ tech conferences worldwide with open CFPs\n- Filter by topics (AI/ML, frontend, backend, devops, security, cloud, etc.)\n- Filter by location (regions, countries, continents)\n- Show deadline urgency (critical = <7 days, warning = <14 days)\n- Understand natural language queries about speaker interests\n\n**US Regions:**\n- Midwest: IL, IN, OH, MI, WI, MN, IA, MO, KS, NE, SD, ND\n- West: CA, WA, OR, NV, AZ, CO, UT\n- Northeast: NY, MA, PA, NJ, CT, etc.\n- South: TX, FL, GA, NC, TN, etc.\n\n**Response style:**\n- Be concise and actionable\n- Always mention CFP deadline and days remaining\n- Highlight if deadline is urgent (<7 days)\n- Suggest related topics the speaker might consider\n- Include submission URL when relevant\n\n**When searching:**\n- Use topicsNormalized for topic filtering\n- Use location.region, location.country for geo filtering\n- Sort by daysUntilCfpClose ascending (urgent first)\n- Show top 5-10 most relevant results",
+  "config": {
+    "tools": [
+      {
+        "type": "algolia-search",
+        "priority": 0,
+        "configuration": {
+          "appID": "${ALGOLIA_APP_ID}",
+          "apiKey": "${ALGOLIA_SEARCH_API_KEY}",
+          "inferenceType": "conversationalRag",
+          "sources": [
+            {
+              "name": "cfps",
+              "input": {
+                "index": "cfps",
+                "sumUp": "Tech conference CFPs with topics, locations, deadlines. Fields: name, description, topicsNormalized, location.city/region/country/continent, cfpEndDateISO, daysUntilCfpClose, cfpUrl, url",
+                "chunkSize": 64,
+                "searchParameters": {
+                  "hitsPerPage": 10,
+                  "attributesToRetrieve": [
+                    "name", "description", "topicsNormalized", "location",
+                    "cfpEndDateISO", "daysUntilCfpClose", "cfpUrl", "url",
+                    "eventStartDateISO", "eventEndDateISO"
+                  ]
+                },
+                "recordExtractor": "return record;"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "search": {
+      "maxSources": 5
+    }
+  }
+}

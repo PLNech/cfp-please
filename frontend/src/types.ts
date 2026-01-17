@@ -68,11 +68,12 @@ export function getUrgencyLevel(daysUntilClose?: number): UrgencyLevel {
   return 'ok';
 }
 
+// Satellite design system colors
 export function getUrgencyColor(level: UrgencyLevel): string {
   switch (level) {
-    case 'critical': return '#ef4444'; // red
-    case 'warning': return '#f59e0b';  // amber
-    case 'ok': return '#22c55e';       // green
-    default: return '#6b7280';         // gray
+    case 'critical': return '#E5484D'; // Satellite red
+    case 'warning': return '#F5A623';  // Satellite amber
+    case 'ok': return '#30A46C';       // Satellite green
+    default: return '#5A5E9A';         // Satellite secondary
   }
 }

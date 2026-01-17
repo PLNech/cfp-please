@@ -1,21 +1,44 @@
-/* ===== CSS Variables ===== */
+/* ===== Algolia Satellite Design Tokens ===== */
 :root {
-  --color-primary: #5468ff;
-  --color-primary-dark: #4054e0;
-  --color-bg: #f8fafc;
-  --color-surface: #ffffff;
-  --color-text: #1e293b;
-  --color-text-secondary: #64748b;
-  --color-border: #e2e8f0;
-  --color-critical: #ef4444;
-  --color-warning: #f59e0b;
-  --color-ok: #22c55e;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  /* Primary - Algolia Blue */
+  --color-primary: #003DFF;
+  --color-primary-dark: #0032CC;
+  --color-primary-light: #5468FF;
+  --color-primary-bg: rgba(0, 61, 255, 0.08);
+
+  /* Backgrounds */
+  --color-bg: #FCFCFD;
+  --color-bg-alt: #F5F5FA;
+  --color-surface: #FFFFFF;
+
+  /* Text */
+  --color-text: #212121;
+  --color-text-secondary: #5A5E9A;
+  --color-text-muted: #8F8FA3;
+
+  /* Borders */
+  --color-border: #D6D6E7;
+  --color-border-light: #EBEBF2;
+
+  /* Status - Satellite palette */
+  --color-critical: #E5484D;
+  --color-critical-bg: #FFE6E9;
+  --color-warning: #F5A623;
+  --color-warning-bg: #FFF9EC;
+  --color-ok: #30A46C;
+  --color-ok-bg: #E5FDE4;
+
+  /* Shadows - Satellite style */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(0, 61, 255, 0.2);
+
+  /* Radius */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
 /* ===== Reset & Base ===== */
