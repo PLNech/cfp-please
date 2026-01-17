@@ -5,9 +5,10 @@ import { getUrgencyLevel, getUrgencyColor } from '../types';
 interface CFPCardProps {
   hit: CFP;
   onClick?: (cfp: CFP) => void;
+  isHighlighted?: boolean;
 }
 
-export function CFPCard({ hit, onClick }: CFPCardProps) {
+export function CFPCard({ hit, onClick, isHighlighted }: CFPCardProps) {
   const urgency = getUrgencyLevel(hit.daysUntilCfpClose);
   const urgencyColor = getUrgencyColor(urgency);
 
@@ -21,7 +22,7 @@ export function CFPCard({ hit, onClick }: CFPCardProps) {
 
   return (
     <article
-      className="cfp-card"
+      className={`cfp-card${isHighlighted ? ' cfp-card-highlighted' : ''}`}
       onClick={() => onClick?.(hit)}
       style={{
         borderLeft: `4px solid ${urgencyColor}`,

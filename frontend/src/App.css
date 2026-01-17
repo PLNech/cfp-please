@@ -293,8 +293,36 @@ body {
 }
 
 .chat-loading {
-  color: var(--color-text-secondary);
-  font-style: italic;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.chat-loading-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-text-muted);
+  border-radius: 50%;
+  animation: chat-loading-bounce 1.4s infinite ease-in-out both;
+}
+
+.chat-loading-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.chat-loading-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes chat-loading-bounce {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .chat-input-container {
@@ -395,6 +423,25 @@ body {
 
 .cfp-card:hover {
   box-shadow: var(--shadow-md);
+}
+
+.cfp-card-highlighted {
+  background: var(--color-primary-bg);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+  animation: cfp-highlight-pulse 2s ease-in-out;
+}
+
+@keyframes cfp-highlight-pulse {
+  0% {
+    box-shadow: var(--shadow-focus), 0 0 0 0 rgba(0, 61, 255, 0.4);
+  }
+  50% {
+    box-shadow: var(--shadow-focus), 0 0 0 8px rgba(0, 61, 255, 0);
+  }
+  100% {
+    box-shadow: var(--shadow-focus);
+  }
 }
 
 .cfp-card-header {

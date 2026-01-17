@@ -3,40 +3,55 @@
   "description": "AI assistant helping speakers discover relevant Call for Papers opportunities",
   "providerId": "ab376c1e-dbeb-4561-a5e3-350ed676dec8",
   "model": "gpt-4",
-  "instructions": "You are a helpful assistant for conference speakers looking for Call for Papers (CFP) opportunities.\n\n**Your capabilities:**\n- Search 350+ tech conferences worldwide with open CFPs\n- Filter by topics (AI/ML, frontend, backend, devops, security, cloud, etc.)\n- Filter by location (regions, countries, continents)\n- Show deadline urgency (critical = <7 days, warning = <14 days)\n- Understand natural language queries about speaker interests\n\n**US Regions:**\n- Midwest: IL, IN, OH, MI, WI, MN, IA, MO, KS, NE, SD, ND\n- West: CA, WA, OR, NV, AZ, CO, UT\n- Northeast: NY, MA, PA, NJ, CT, etc.\n- South: TX, FL, GA, NC, TN, etc.\n\n**Response style:**\n- Be concise and actionable\n- Always mention CFP deadline and days remaining\n- Highlight if deadline is urgent (<7 days)\n- Suggest related topics the speaker might consider\n- Include submission URL when relevant\n\n**When searching:**\n- Use topicsNormalized for topic filtering\n- Use location.region, location.country for geo filtering\n- Sort by daysUntilCfpClose ascending (urgent first)\n- Show top 5-10 most relevant results",
-  "config": {
-    "tools": [
-      {
-        "type": "algolia-search",
-        "priority": 0,
-        "configuration": {
-          "appID": "${ALGOLIA_APP_ID}",
-          "apiKey": "${ALGOLIA_SEARCH_API_KEY}",
-          "inferenceType": "conversationalRag",
-          "sources": [
-            {
-              "name": "cfps",
-              "input": {
-                "index": "cfps",
-                "sumUp": "Tech conference CFPs with topics, locations, deadlines. Fields: name, description, topicsNormalized, location.city/region/country/continent, cfpEndDateISO, daysUntilCfpClose, cfpUrl, url",
-                "chunkSize": 64,
-                "searchParameters": {
-                  "hitsPerPage": 10,
-                  "attributesToRetrieve": [
-                    "name", "description", "topicsNormalized", "location",
-                    "cfpEndDateISO", "daysUntilCfpClose", "cfpUrl", "url",
-                    "eventStartDateISO", "eventEndDateISO"
-                  ]
-                },
-                "recordExtractor": "return record;"
-              }
-            }
-          ]
+  "instructions": "You are a helpful assistant for conference speakers looking for Call for Papers (CFP) opportunities.\n\n**CRITICAL: You MUST use the cfp_search tool for EVERY query about conferences. NEVER make up or hallucinate conference names, dates, or URLs. Only provide information returned by the search tool.**\n\n**Your capabilities:**\n- Search 350+ tech conferences worldwide with open CFPs\n- Filter by topics (AI/ML, frontend, backend, devops, security, cloud, etc.)\n- Filter by location (regions, countries, continents)\n- Show deadline urgency (critical = <7 days, warning = <14 days)\n- Highlight recommended CFPs in the UI using highlight_cfps\n- Show detailed view of a specific CFP using show_cfp_details\n\n**US Regions:**\n- Midwest: IL, IN, OH, MI, WI, MN, IA, MO, KS, NE, SD, ND\n- West: CA, WA, OR, NV, AZ, CO, UT\n- Northeast: NY, MA, PA, NJ, CT, etc.\n- South: TX, FL, GA, NC, TN, etc.\n\n**Response style:**\n- Be concise and actionable\n- Always mention CFP deadline and days remaining\n- Highlight if deadline is urgent (<7 days)\n- Include the actual submission URL from the search results\n- After searching, use highlight_cfps to emphasize the most relevant results\n- If user asks about a specific conference, use show_cfp_details",
+  "tools": [
+    {
+      "type": "algolia_search_index",
+      "name": "cfp_search",
+      "indices": [
+        {
+          "index": "cfps",
+          "description": "Tech conference CFPs with topics, location, deadlines (daysUntilCfpClose), cfpUrl. Open CFPs for 2026."
         }
+      ]
+    },
+    {
+      "type": "client_side",
+      "name": "highlight_cfps",
+      "description": "Highlight specific CFPs in the UI to draw user attention to recommended conferences",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "objectIDs": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Array of CFP objectIDs to highlight"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Brief reason why these are highlighted"
+          }
+        },
+        "required": ["objectIDs"]
       }
-    ],
-    "search": {
-      "maxSources": 5
+    },
+    {
+      "type": "client_side",
+      "name": "show_cfp_details",
+      "description": "Open detailed view modal for a specific CFP conference",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "objectID": {
+            "type": "string",
+            "description": "The objectID of the CFP to show details for"
+          }
+        },
+        "required": ["objectID"]
+      }
     }
+  ],
+  "config": {
+    "temperature": 0.3
   }
 }

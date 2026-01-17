@@ -16,6 +16,7 @@ from cfp_pipeline.indexers.algolia import (
     get_index_stats,
 )
 from cfp_pipeline.enrichers import enrich_cfps
+from cfp_pipeline.validators import validate_cfp_urls
 
 # Load environment variables (override=True to beat shell env vars)
 load_dotenv(override=True)
@@ -181,6 +182,34 @@ def enrich(
 
 
 @app.command()
+def validate(
+    workers: int = typer.Option(10, "--workers", "-w", help="Concurrent validation requests"),
+):
+    """Validate CFP URLs are reachable (check for 404s)."""
+    # Run pipeline
+    cfps = asyncio.run(run_pipeline(filter_open_only=True))
+
+    if not cfps:
+        console.print("[yellow]No CFPs to validate[/yellow]")
+        raise typer.Exit(0)
+
+    # Validate URLs
+    valid, invalid = asyncio.run(validate_cfp_urls(cfps, max_workers=workers))
+
+    console.print(f"\n[bold]Validation Summary[/bold]")
+    console.print(f"  Total: {len(cfps)}")
+    console.print(f"  [green]Valid: {len(valid)}[/green]")
+    console.print(f"  [red]Invalid: {len(invalid)}[/red]")
+
+    if invalid:
+        console.print(f"\n[bold]Invalid CFPs:[/bold]")
+        for cfp in invalid[:20]:
+            url = cfp.cfp_url or cfp.url or "N/A"
+            console.print(f"  - {cfp.name[:50]}")
+            console.print(f"    [dim]{url}[/dim]")
+
+
+@app.command()
 def sync_enriched(
     index_name: str = typer.Option(
         None, "--index", "-i",
@@ -188,8 +217,9 @@ def sync_enriched(
     ),
     enrich_limit: int = typer.Option(0, "--enrich-limit", help="Enrich up to N CFPs before sync (0 = use cache only)"),
     configure: bool = typer.Option(True, "--configure/--no-configure", help="Configure index settings"),
+    validate: bool = typer.Option(True, "--validate/--no-validate", help="Validate URLs before sync"),
 ):
-    """Fetch, enrich (from cache), and sync to Algolia."""
+    """Fetch, enrich (from cache), validate, and sync to Algolia."""
     index_name = index_name or os.environ.get("ALGOLIA_INDEX_NAME", "cfps")
 
     # Get Algolia client
@@ -209,6 +239,12 @@ def sync_enriched(
     # Enrich (from cache or limited new enrichment)
     limit_val = enrich_limit if enrich_limit > 0 else None
     cfps = asyncio.run(enrich_cfps(cfps, limit=limit_val, force=False))
+
+    # Validate URLs (remove 404s)
+    if validate:
+        cfps, invalid = asyncio.run(validate_cfp_urls(cfps, max_workers=10))
+        if invalid:
+            console.print(f"[yellow]Removed {len(invalid)} invalid CFPs[/yellow]")
 
     # Configure and index
     if configure:
