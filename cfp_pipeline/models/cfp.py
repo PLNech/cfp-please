@@ -68,9 +68,41 @@ class CFP(BaseModel):
     # Full text for search (cleaned page content)
     full_text: Optional[str] = None
 
+    # Intel data (from HN, GitHub, Reddit, DEV.to, DDG)
+    popularity_score: Optional[float] = None  # 0-100 aggregated score
+
+    # Hacker News
+    hn_stories: int = 0  # Story count
+    hn_points: int = 0  # Total points
+    hn_story_titles: list[str] = Field(default_factory=list)  # Top story titles (searchable)
+    hn_comments: list[str] = Field(default_factory=list)  # Top comments (max 20)
+
+    # GitHub
+    github_repos: int = 0  # Related repo count
+    github_stars: int = 0  # Total stars
+    github_languages: list[str] = Field(default_factory=list)  # Top languages
+    github_topics: list[str] = Field(default_factory=list)  # Repo topics
+    github_descriptions: list[str] = Field(default_factory=list)  # Top repo descriptions
+
+    # Reddit
+    reddit_posts: int = 0  # Post count
+    reddit_subreddits: list[str] = Field(default_factory=list)  # Related subreddits
+    reddit_titles: list[str] = Field(default_factory=list)  # Top post titles
+    reddit_comments: list[str] = Field(default_factory=list)  # Top comments (max 20)
+
+    # DEV.to
+    devto_articles: int = 0  # Article count
+    devto_tags: list[str] = Field(default_factory=list)  # Tags
+    devto_titles: list[str] = Field(default_factory=list)  # Article titles
+
+    # Aggregated
+    intel_topics: list[str] = Field(default_factory=list)  # All topics from all sources
+    intel_urls: list[str] = Field(default_factory=list)  # Related URLs
+
     # Meta
     source: str = "callingallpapers"
     enriched: bool = False  # True if LLM enrichment was applied
+    intel_enriched: bool = False  # True if intel data was fetched
     last_updated: int = Field(default_factory=lambda: int(datetime.now().timestamp()))
 
     @computed_field
@@ -116,9 +148,35 @@ class CFP(BaseModel):
             "technologies": self.technologies,
             # Full text for search
             "fullText": self.full_text,
+            # Intel data (popularity, community, freeform text for search)
+            "popularityScore": self.popularity_score,
+            # HN
+            "hnStories": self.hn_stories,
+            "hnPoints": self.hn_points,
+            "hnStoryTitles": self.hn_story_titles[:10],
+            "hnComments": self.hn_comments[:20],  # Rich text for search
+            # GitHub
+            "githubRepos": self.github_repos,
+            "githubStars": self.github_stars,
+            "githubLanguages": self.github_languages,
+            "githubTopics": self.github_topics,
+            "githubDescriptions": self.github_descriptions[:10],
+            # Reddit
+            "redditPosts": self.reddit_posts,
+            "redditSubreddits": self.reddit_subreddits,
+            "redditTitles": self.reddit_titles[:10],
+            "redditComments": self.reddit_comments[:20],  # Rich text for search
+            # DEV.to
+            "devtoArticles": self.devto_articles,
+            "devtoTags": self.devto_tags,
+            "devtoTitles": self.devto_titles[:10],
+            # Aggregated
+            "intelTopics": self.intel_topics,
+            "intelUrls": self.intel_urls[:20],
             # Meta
             "source": self.source,
             "enriched": self.enriched,
+            "intelEnriched": self.intel_enriched,
             "lastUpdated": self.last_updated,
         }
         if self._geoloc:

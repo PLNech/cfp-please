@@ -182,7 +182,7 @@ def _clean_name(name: str) -> str:
 
 
 async def fetch_hn_intel(client: httpx.AsyncClient, name: str) -> dict:
-    """Fetch comprehensive Hacker News data."""
+    """Fetch comprehensive Hacker News data including comments."""
     clean = _clean_name(name)
     result = {
         "stories": [],
@@ -190,6 +190,8 @@ async def fetch_hn_intel(client: httpx.AsyncClient, name: str) -> dict:
         "total_points": 0,
         "total_comments": 0,
         "top_topics": [],
+        "story_titles": [],  # For CFP record
+        "all_comments": [],  # For CFP record
     }
 
     try:
@@ -207,8 +209,6 @@ async def fetch_hn_intel(client: httpx.AsyncClient, name: str) -> dict:
         data = r.json()
 
         result["total_stories"] = data.get("nbHits", 0)
-
-        # Extract topics from titles
         topic_words = []
 
         for hit in data.get("hits", []):
@@ -224,32 +224,36 @@ async def fetch_hn_intel(client: httpx.AsyncClient, name: str) -> dict:
             result["stories"].append(story)
             result["total_points"] += story.points
             result["total_comments"] += story.comments
+            result["story_titles"].append(story.title)
 
-            # Extract topic words
             words = re.findall(r'\b[A-Z][a-z]+(?:[A-Z][a-z]+)*\b', story.title)
             topic_words.extend(words)
 
-        # Get top comments for top 3 stories
-        for story in result["stories"][:3]:
+        # Get top comments for top 5 stories (more comments!)
+        for story in result["stories"][:5]:
             try:
                 story_id = story.hn_url.split("id=")[-1]
                 cr = await client.get(
                     f"https://hn.algolia.com/api/v1/search",
                     params={
                         "tags": f"comment,story_{story_id}",
-                        "hitsPerPage": 5,
+                        "hitsPerPage": 10,  # More comments per story
                     }
                 )
                 if cr.status_code == 200:
                     comments = cr.json().get("hits", [])
-                    story.top_comments = [
-                        c.get("comment_text", "")[:200]
-                        for c in comments if c.get("comment_text")
-                    ][:3]
+                    for c in comments:
+                        text = c.get("comment_text", "")
+                        if text and len(text) > 50:  # Skip very short comments
+                            clean_text = re.sub(r'<[^>]+>', '', text)[:500]  # Strip HTML, limit length
+                            story.top_comments.append(clean_text)
+                            result["all_comments"].append(clean_text)
             except:
                 pass
 
-        # Count topic frequencies
+        # Keep only top 20 comments
+        result["all_comments"] = result["all_comments"][:20]
+
         from collections import Counter
         topic_counts = Counter(topic_words)
         result["top_topics"] = [t for t, _ in topic_counts.most_common(10)]

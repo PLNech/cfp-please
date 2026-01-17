@@ -514,10 +514,12 @@ def fetch_talks(
     limit: int = typer.Option(5, "--limit", "-l", help="Number of conferences to process (0 = all)"),
     talks_per_conf: int = typer.Option(50, "--talks", "-t", help="Max talks per conference"),
     years: str = typer.Option("2023,2024,2025", "--years", "-y", help="Years to search (comma-separated)"),
+    skip_existing: bool = typer.Option(False, "--skip-existing", "-s", help="Skip conferences that already have talks"),
 ):
     """Fetch YouTube talks for conferences and index to Algolia.
 
     Creates a separate 'talks' index linked to CFPs by conference ID.
+    Use --skip-existing to avoid re-fetching conferences that already have talks.
     """
     from cfp_pipeline.enrichers.youtube import fetch_talks_for_conference, fetch_talks_for_conferences
     from cfp_pipeline.indexers.talks import (
@@ -537,12 +539,31 @@ def fetch_talks(
         console.print(f"[red]Error: {e}[/red]")
         raise typer.Exit(1)
 
+    # Get existing conference IDs if skipping
+    existing_conf_ids = set()
+    if skip_existing:
+        try:
+            index_name = get_talks_index_name()
+            # Get all unique conference IDs from talks index
+            result = client.search_single_index(
+                index_name,
+                {"query": "", "hitsPerPage": 0, "facets": ["conference_id"]}
+            )
+            facets = getattr(result, 'facets', {}) or {}
+            if 'conference_id' in facets:
+                existing_conf_ids = set(facets['conference_id'].keys())
+            console.print(f"[dim]Found {len(existing_conf_ids)} conferences with existing talks[/dim]")
+        except Exception as e:
+            console.print(f"[dim]Could not check existing talks: {e}[/dim]")
+
     async def run():
         if conference:
             # Single conference mode
-            # Generate a fake ID from name for testing
             import hashlib
             conf_id = hashlib.sha256(conference.lower().encode()).hexdigest()[:16]
+            if skip_existing and conf_id in existing_conf_ids:
+                console.print(f"[yellow]Skipping {conference} (already has talks)[/yellow]")
+                return []
             console.print(f"[cyan]Fetching talks for: {conference}[/cyan]")
             return await fetch_talks_for_conference(
                 conference_id=conf_id,
@@ -556,6 +577,14 @@ def fetch_talks(
             if not cfps:
                 console.print("[yellow]No conferences found[/yellow]")
                 return []
+
+            # Filter out conferences that already have talks
+            if skip_existing and existing_conf_ids:
+                original_count = len(cfps)
+                cfps = [c for c in cfps if c.object_id not in existing_conf_ids]
+                skipped = original_count - len(cfps)
+                if skipped > 0:
+                    console.print(f"[dim]Skipping {skipped} conferences with existing talks[/dim]")
 
             # Limit conferences
             selected = cfps[:limit] if limit > 0 else cfps
