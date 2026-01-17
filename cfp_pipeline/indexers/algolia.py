@@ -34,21 +34,32 @@ def configure_index(client: SearchClientSync, index_name: str) -> None:
         # Searchable attributes in priority order
         "searchableAttributes": [
             "name",
-            "topics,topicsNormalized",
             "description",
+            "topics,topicsNormalized",
+            "technologies",
             "location.city,location.region,location.country",
         ],
         # Facets for filtering
         "attributesForFaceting": [
-            "filterOnly(cfpStatus)",
+            # Topics
             "searchable(topics)",
             "searchable(topicsNormalized)",
+            # Location
             "searchable(location.region)",
             "searchable(location.country)",
             "searchable(location.continent)",
             "searchable(location.city)",
+            # Enriched fields
+            "searchable(languages)",
+            "searchable(technologies)",
+            "eventFormat",
+            "audienceLevel",
+            # Filtering
+            "filterOnly(cfpEndDate)",
+            "filterOnly(eventStartDate)",
+            "enriched",
         ],
-        # Custom ranking: urgency first
+        # Custom ranking: urgency first (close deadlines rank higher)
         "customRanking": [
             "asc(daysUntilCfpClose)",
             "asc(cfpEndDate)",
@@ -58,7 +69,7 @@ def configure_index(client: SearchClientSync, index_name: str) -> None:
         "minWordSizefor1Typo": 4,
         "minWordSizefor2Typos": 8,
         # Highlighting
-        "attributesToHighlight": ["name", "description", "topics"],
+        "attributesToHighlight": ["name", "description", "topics", "technologies"],
         # Return all attributes by default
         "attributesToRetrieve": ["*"],
         # Pagination
