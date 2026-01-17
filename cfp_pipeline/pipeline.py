@@ -8,7 +8,9 @@ from rich.console import Console
 from rich.table import Table
 
 from cfp_pipeline.models import CFP
-from cfp_pipeline.sources.callingallpapers import get_cfps
+from cfp_pipeline.sources.callingallpapers import get_cfps as get_cap_cfps
+from cfp_pipeline.sources.confstech import get_cfps as get_confstech_cfps
+from cfp_pipeline.sources.developerevents import get_cfps as get_devevents_cfps
 from cfp_pipeline.normalizers.location import normalize_location
 from cfp_pipeline.normalizers.topics import normalize_topics
 
@@ -36,29 +38,91 @@ def enrich_cfp(cfp: CFP) -> CFP:
     return cfp
 
 
+def deduplicate_cfps(cfps: list[CFP]) -> list[CFP]:
+    """Deduplicate CFPs by name similarity and URL.
+
+    Prefers CallingAllPapers records (usually have more metadata).
+    """
+    seen_urls: dict[str, CFP] = {}
+    seen_names: dict[str, CFP] = {}
+
+    # Sort so CAP records come first (preferred)
+    sorted_cfps = sorted(cfps, key=lambda c: 0 if c.source == "callingallpapers" else 1)
+
+    result = []
+    for cfp in sorted_cfps:
+        # Dedupe by CFP URL
+        url_key = (cfp.cfp_url or cfp.url or "").lower().rstrip("/")
+        if url_key and url_key in seen_urls:
+            continue
+
+        # Dedupe by normalized name (rough match)
+        name_key = cfp.name.lower().replace(" ", "").replace("-", "")[:30]
+        if name_key in seen_names:
+            # Same conference, merge topics if confs.tech has more
+            existing = seen_names[name_key]
+            if len(cfp.topics_normalized) > len(existing.topics_normalized):
+                existing.topics_normalized = list(set(existing.topics_normalized + cfp.topics_normalized))
+            continue
+
+        if url_key:
+            seen_urls[url_key] = cfp
+        seen_names[name_key] = cfp
+        result.append(cfp)
+
+    return result
+
+
 async def run_pipeline(
     filter_open_only: bool = True,
+    sources: list[str] | None = None,
 ) -> list[CFP]:
     """Run the full data pipeline.
 
-    1. Fetch from CallingAllPapers
-    2. Enrich with location and topic normalization
-    3. Optionally filter to open CFPs only
+    1. Fetch from all sources (CallingAllPapers + confs.tech)
+    2. Deduplicate
+    3. Enrich with location and topic normalization
+    4. Optionally filter to open CFPs only
+
+    Args:
+        filter_open_only: Only return CFPs with open deadlines
+        sources: List of sources to fetch from (default: all)
 
     Returns:
         List of enriched CFP records ready for indexing.
     """
+    sources = sources or ["callingallpapers", "confs.tech", "developers.events"]
     console.print("\n[bold cyan]Starting CFP Pipeline[/bold cyan]\n")
 
-    # Step 1: Fetch
-    cfps = await get_cfps()
-    console.print(f"[dim]Raw CFPs fetched: {len(cfps)}[/dim]")
+    # Step 1: Fetch from all sources
+    all_cfps: list[CFP] = []
 
-    # Step 2: Enrich
+    if "callingallpapers" in sources:
+        cap_cfps = await get_cap_cfps()
+        console.print(f"[dim]CallingAllPapers: {len(cap_cfps)} CFPs[/dim]")
+        all_cfps.extend(cap_cfps)
+
+    if "confs.tech" in sources:
+        ct_cfps = await get_confstech_cfps()
+        console.print(f"[dim]confs.tech: {len(ct_cfps)} CFPs[/dim]")
+        all_cfps.extend(ct_cfps)
+
+    if "developers.events" in sources:
+        de_cfps = await get_devevents_cfps()
+        console.print(f"[dim]developers.events: {len(de_cfps)} CFPs[/dim]")
+        all_cfps.extend(de_cfps)
+
+    console.print(f"[dim]Total raw: {len(all_cfps)} CFPs[/dim]")
+
+    # Step 2: Deduplicate
+    cfps = deduplicate_cfps(all_cfps)
+    console.print(f"[dim]After dedup: {len(cfps)} CFPs[/dim]")
+
+    # Step 3: Enrich
     console.print("[cyan]Enriching CFPs...[/cyan]")
     enriched = [enrich_cfp(cfp) for cfp in cfps]
 
-    # Step 3: Filter to open CFPs (deadline not passed)
+    # Step 4: Filter to open CFPs (deadline not passed)
     if filter_open_only:
         before_count = len(enriched)
         enriched = [cfp for cfp in enriched if is_cfp_open(cfp)]

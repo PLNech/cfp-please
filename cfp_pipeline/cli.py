@@ -6,6 +6,7 @@ import os
 import typer
 from dotenv import load_dotenv
 from rich.console import Console
+from rich.table import Table
 
 from cfp_pipeline.pipeline import run_pipeline, print_cfp_summary, print_stats
 from cfp_pipeline.indexers.algolia import (
@@ -17,6 +18,8 @@ from cfp_pipeline.indexers.algolia import (
 )
 from cfp_pipeline.enrichers import enrich_cfps
 from cfp_pipeline.validators import validate_cfp_urls
+from cfp_pipeline.extractors.url_store import URLStore
+from cfp_pipeline.extractors.pipeline import extract_from_store, extract_cfp_from_url
 
 # Load environment variables (override=True to beat shell env vars)
 load_dotenv(override=True)
@@ -260,6 +263,359 @@ def sync_enriched(
     console.print(f"  Index: {stats.get('index_name')}")
     console.print(f"  Total records: {stats.get('num_records', 'unknown')}")
     console.print(f"  Enriched records: {enriched_count}")
+
+
+@app.command()
+def collect_urls(
+    source: str = typer.Option(
+        "all", "--source", "-s",
+        help="Source to collect from (all, developerevents, callingallpapers, confstech, cfplist)"
+    ),
+):
+    """Collect conference URLs from sources into the URL store."""
+    store = URLStore()
+
+    async def collect():
+        total_new = 0
+
+        if source in ("all", "developerevents"):
+            from cfp_pipeline.sources.developerevents import get_cfps as get_devevents
+            console.print("[cyan]Collecting from developers.events...[/cyan]")
+            cfps = await get_devevents()
+            urls = [{"url": c.url or c.cfp_url, "name": c.name, "cfp_url": c.cfp_url} for c in cfps if c.url or c.cfp_url]
+            new = store.add_many(urls, source="developers.events")
+            total_new += new
+            console.print(f"  Added {new} new URLs from developers.events")
+
+        if source in ("all", "callingallpapers"):
+            from cfp_pipeline.sources.callingallpapers import get_cfps as get_cap
+            console.print("[cyan]Collecting from CallingAllPapers...[/cyan]")
+            cfps = await get_cap()
+            urls = [{"url": c.url or c.cfp_url, "name": c.name, "cfp_url": c.cfp_url} for c in cfps if c.url or c.cfp_url]
+            new = store.add_many(urls, source="callingallpapers")
+            total_new += new
+            console.print(f"  Added {new} new URLs from CallingAllPapers")
+
+        if source in ("all", "confstech"):
+            from cfp_pipeline.sources.confstech import get_cfps as get_confstech
+            console.print("[cyan]Collecting from confs.tech...[/cyan]")
+            cfps = await get_confstech()
+            urls = [{"url": c.url or c.cfp_url, "name": c.name, "cfp_url": c.cfp_url} for c in cfps if c.url or c.cfp_url]
+            new = store.add_many(urls, source="confs.tech")
+            total_new += new
+            console.print(f"  Added {new} new URLs from confs.tech")
+
+        if source in ("all", "cfplist"):
+            import httpx
+            console.print("[cyan]Collecting from CFPlist API...[/cyan]")
+            try:
+                async with httpx.AsyncClient(timeout=30) as client:
+                    resp = await client.get("https://cfplist.herokuapp.com/api/cfps")
+                    resp.raise_for_status()
+                    data = resp.json()
+                urls = [
+                    {"url": c.get("link"), "name": c.get("conferenceName"), "cfp_url": c.get("cfpLink")}
+                    for c in data if c.get("link")
+                ]
+                new = store.add_many(urls, source="cfplist")
+                total_new += new
+                console.print(f"  Added {new} new URLs from CFPlist")
+            except Exception as e:
+                console.print(f"[yellow]Failed to fetch CFPlist: {e}[/yellow]")
+
+        return total_new
+
+    total = asyncio.run(collect())
+
+    # Show stats
+    stats = store.stats()
+    console.print(f"\n[bold green]Collection complete![/bold green]")
+    console.print(f"  New URLs added: {total}")
+    console.print(f"  Total in store: {stats['total']}")
+    console.print(f"  By source: {stats['by_source']}")
+
+
+@app.command()
+def url_stats():
+    """Show URL store statistics."""
+    from cfp_pipeline.extractors.url_store import RETRYABLE_ERRORS, PERMANENT_ERRORS
+
+    store = URLStore()
+    stats = store.stats()
+
+    console.print(f"\n[bold]URL Store Statistics[/bold]")
+    console.print(f"  Total: {stats['total']}")
+    console.print(f"  Pending: {stats['pending']}")
+    console.print(f"  Extracted: [green]{stats['extracted']}[/green]")
+    console.print(f"  Failed: [red]{stats['failed']}[/red]")
+
+    console.print(f"\n[bold]By Source:[/bold]")
+    for source, count in stats['by_source'].items():
+        console.print(f"  {source}: {count}")
+
+    # SPA vs Classic stats
+    if stats['extracted'] > 0:
+        console.print(f"\n[bold]Rendering Type (extracted sites):[/bold]")
+        console.print(f"  SPA (needed JS): {stats['spa_count']} ({stats['spa_percentage']}%)")
+        console.print(f"  Classic (static): {stats['classic_count']} ({100 - stats['spa_percentage']}%)")
+        if stats['by_fetch_method']:
+            console.print(f"\n[bold]By Fetch Method:[/bold]")
+            for method, count in stats['by_fetch_method'].items():
+                console.print(f"  {method}: {count}")
+
+    # Error breakdown for failed URLs
+    if stats['failed'] > 0:
+        console.print(f"\n[bold]Error Breakdown (failed sites):[/bold]")
+        if stats['by_error_reason']:
+            for reason, count in sorted(stats['by_error_reason'].items(), key=lambda x: -x[1]):
+                is_retryable = reason.lower() in RETRYABLE_ERRORS
+                color = "yellow" if is_retryable else "red"
+                retry_tag = " [retryable]" if is_retryable else " [permanent]"
+                console.print(f"  [{color}]{reason}: {count}{retry_tag}[/{color}]")
+        if stats['by_http_status']:
+            console.print(f"\n[bold]By HTTP Status:[/bold]")
+            for status, count in sorted(stats['by_http_status'].items()):
+                console.print(f"  {status}: {count}")
+
+        # Retry stats
+        console.print(f"\n[bold]Retry Status:[/bold]")
+        console.print(f"  Retryable (total): {stats['retryable_count']}")
+        console.print(f"  Ready for retry now: [cyan]{stats['ready_for_retry']}[/cyan]")
+        console.print(f"  Permanently failed: [red]{stats['permanently_failed']}[/red]")
+
+        if stats['by_retry_count']:
+            console.print(f"\n[bold]By Retry Attempt:[/bold]")
+            for count, num in sorted(stats['by_retry_count'].items()):
+                label = f"Attempt #{count + 1}" if count > 0 else "Not retried yet"
+                console.print(f"  {label}: {num}")
+
+
+@app.command()
+def extract(
+    limit: int = typer.Option(10, "--limit", "-l", help="Max URLs to extract (0 = all pending)"),
+    retry: bool = typer.Option(False, "--retry", "-r", help="Include retryable failed URLs (respects backoff)"),
+    force_retry: bool = typer.Option(False, "--force-retry", "-f", help="Force retry all retryable URLs (ignores backoff)"),
+    workers: int = typer.Option(3, "--workers", "-w", help="Concurrent extractions"),
+    url: str = typer.Option(None, "--url", "-u", help="Extract from a single URL"),
+):
+    """Extract CFP data from pending URLs in the store.
+
+    By default, only processes new/pending URLs. Use --retry to include failed URLs
+    that are eligible for retry (transient errors like timeouts, with exponential backoff).
+
+    Permanent failures (404, 403, low_confidence) are not retried.
+    """
+
+    async def run_extraction():
+        if url:
+            # Single URL extraction
+            console.print(f"[cyan]Extracting from: {url}[/cyan]")
+            cfp = await extract_cfp_from_url(url, source="cli")
+            if cfp:
+                console.print(f"\n[bold green]Extracted:[/bold green]")
+                console.print(f"  Name: {cfp.name}")
+                console.print(f"  Description: {cfp.description[:100] if cfp.description else 'N/A'}...")
+                console.print(f"  CFP Deadline: {cfp.cfp_end_date_iso or 'N/A'}")
+                console.print(f"  Event Date: {cfp.event_start_date_iso or 'N/A'}")
+                console.print(f"  Location: {cfp.location.raw or 'N/A'}")
+                console.print(f"  Topics: {cfp.topics[:5]}")
+                if cfp.full_text:
+                    console.print(f"  Full text: {len(cfp.full_text)} chars")
+                return [cfp]
+            else:
+                console.print("[red]Extraction failed[/red]")
+                return []
+
+        # Batch extraction from store
+        limit_val = limit if limit > 0 else None
+        return await extract_from_store(
+            limit=limit_val,
+            include_retryable=retry or force_retry,
+            force_retry=force_retry,
+            max_concurrent=workers,
+        )
+
+    cfps = asyncio.run(run_extraction())
+
+    if cfps and len(cfps) > 1:
+        # Show summary table
+        table = Table(title=f"Extracted CFPs ({len(cfps)})")
+        table.add_column("Name", style="cyan", max_width=40)
+        table.add_column("Deadline", style="red")
+        table.add_column("Location", style="green")
+        table.add_column("Topics", style="blue", max_width=30)
+
+        for cfp in cfps[:20]:
+            table.add_row(
+                cfp.name[:40],
+                cfp.cfp_end_date_iso or "?",
+                cfp.location.raw[:20] if cfp.location.raw else "?",
+                ", ".join(cfp.topics[:3]) or "-",
+            )
+
+        console.print(table)
+
+
+@app.command()
+def extract_sync(
+    limit: int = typer.Option(50, "--limit", "-l", help="Max URLs to extract"),
+    workers: int = typer.Option(3, "--workers", "-w", help="Concurrent extractions"),
+    index_name: str = typer.Option(
+        None, "--index", "-i",
+        help="Algolia index name (default: ALGOLIA_INDEX_NAME env var)"
+    ),
+):
+    """Extract CFPs from URL store and sync to Algolia."""
+    index_name = index_name or os.environ.get("ALGOLIA_INDEX_NAME", "cfps")
+
+    # Get Algolia client
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    async def run():
+        limit_val = limit if limit > 0 else None
+        return await extract_from_store(limit=limit_val, max_concurrent=workers)
+
+    cfps = asyncio.run(run())
+
+    if not cfps:
+        console.print("[yellow]No CFPs extracted[/yellow]")
+        raise typer.Exit(0)
+
+    # Apply normalizers
+    from cfp_pipeline.normalizers.location import normalize_location
+    from cfp_pipeline.normalizers.topics import normalize_topics
+
+    for cfp in cfps:
+        cfp.location = normalize_location(cfp.location)
+        cleaned, normalized = normalize_topics(cfp.topics)
+        cfp.topics = cleaned
+        cfp.topics_normalized = normalized
+
+    # Index
+    indexed_count = index_cfps(client, index_name, cfps)
+
+    stats = get_index_stats(client, index_name)
+    console.print(f"\n[bold green]Extract & Sync complete![/bold green]")
+    console.print(f"  Extracted: {len(cfps)} CFPs")
+    console.print(f"  Indexed: {indexed_count}")
+    console.print(f"  Total in index: {stats.get('num_records', 'unknown')}")
+
+
+# ===== TALKS COMMANDS =====
+
+
+@app.command()
+def fetch_talks(
+    conference: str = typer.Option(None, "--conference", "-c", help="Single conference name to fetch talks for"),
+    limit: int = typer.Option(5, "--limit", "-l", help="Number of conferences to process (0 = all)"),
+    talks_per_conf: int = typer.Option(50, "--talks", "-t", help="Max talks per conference"),
+    years: str = typer.Option("2023,2024,2025", "--years", "-y", help="Years to search (comma-separated)"),
+):
+    """Fetch YouTube talks for conferences and index to Algolia.
+
+    Creates a separate 'talks' index linked to CFPs by conference ID.
+    """
+    from cfp_pipeline.enrichers.youtube import fetch_talks_for_conference, fetch_talks_for_conferences
+    from cfp_pipeline.indexers.talks import (
+        configure_talks_index,
+        index_talks,
+        get_talks_index_name,
+        get_talks_stats,
+    )
+
+    # Parse years
+    year_list = [int(y.strip()) for y in years.split(",")] if years else None
+
+    # Get Algolia client
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    async def run():
+        if conference:
+            # Single conference mode
+            # Generate a fake ID from name for testing
+            import hashlib
+            conf_id = hashlib.sha256(conference.lower().encode()).hexdigest()[:16]
+            console.print(f"[cyan]Fetching talks for: {conference}[/cyan]")
+            return await fetch_talks_for_conference(
+                conference_id=conf_id,
+                conference_name=conference,
+                max_results=talks_per_conf,
+                years=year_list,
+            )
+        else:
+            # Multi-conference mode - get conferences from pipeline
+            cfps = await run_pipeline(filter_open_only=True)
+            if not cfps:
+                console.print("[yellow]No conferences found[/yellow]")
+                return []
+
+            # Limit conferences
+            selected = cfps[:limit] if limit > 0 else cfps
+            console.print(f"[cyan]Fetching talks for {len(selected)} conferences...[/cyan]")
+
+            conferences = [{"id": cfp.object_id, "name": cfp.name} for cfp in selected]
+            return await fetch_talks_for_conferences(
+                conferences=conferences,
+                max_results_per_conf=talks_per_conf,
+                years=year_list,
+                max_concurrent=2,
+            )
+
+    talks = asyncio.run(run())
+
+    if not talks:
+        console.print("[yellow]No talks found[/yellow]")
+        raise typer.Exit(0)
+
+    # Configure and index
+    configure_talks_index(client)
+    indexed = index_talks(client, talks)
+
+    # Show stats
+    stats = get_talks_stats(client)
+    console.print(f"\n[bold green]Talks sync complete![/bold green]")
+    console.print(f"  Talks fetched: {len(talks)}")
+    console.print(f"  Talks indexed: {indexed}")
+    console.print(f"  Total in index: {stats.get('num_talks', 'unknown')}")
+
+    # Show sample
+    if talks:
+        console.print(f"\n[bold]Sample talks:[/bold]")
+        for talk in talks[:5]:
+            views = f"{talk.view_count:,}" if talk.view_count else "?"
+            console.print(f"  - {talk.title[:50]}...")
+            console.print(f"    [dim]{talk.conference_name} | {talk.year or '?'} | {views} views[/dim]")
+
+
+@app.command()
+def talks_stats():
+    """Show talks index statistics."""
+    from cfp_pipeline.indexers.talks import get_talks_stats, get_talks_index_name
+
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    stats = get_talks_stats(client)
+
+    if "error" in stats:
+        console.print(f"[yellow]Talks index not found or empty[/yellow]")
+        console.print(f"[dim]Run 'cfp fetch-talks' to populate it[/dim]")
+        raise typer.Exit(0)
+
+    console.print(f"\n[bold]Talks Index Statistics[/bold]")
+    console.print(f"  Index: {stats['index_name']}")
+    console.print(f"  Total talks: {stats['num_talks']}")
 
 
 if __name__ == "__main__":

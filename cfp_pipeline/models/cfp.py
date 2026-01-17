@@ -65,6 +65,9 @@ class CFP(BaseModel):
     industries: list[str] = Field(default_factory=list)  # fintech, healthcare, etc.
     technologies: list[str] = Field(default_factory=list)  # React, Kubernetes, etc.
 
+    # Full text for search (cleaned page content)
+    full_text: Optional[str] = None
+
     # Meta
     source: str = "callingallpapers"
     enriched: bool = False  # True if LLM enrichment was applied
@@ -111,6 +114,8 @@ class CFP(BaseModel):
             "talkTypes": self.talk_types,
             "industries": self.industries,
             "technologies": self.technologies,
+            # Full text for search
+            "fullText": self.full_text,
             # Meta
             "source": self.source,
             "enriched": self.enriched,

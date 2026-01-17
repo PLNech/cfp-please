@@ -4,14 +4,72 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
+class ExampleTalk(BaseModel):
+    """A notable talk from this conference found on YouTube."""
+    title: str
+    speaker: Optional[str] = None
+    description: Optional[str] = Field(
+        default=None,
+        description="Talk description/abstract (truncated)"
+    )
+    url: str
+    thumbnail_url: Optional[str] = None
+    year: Optional[int] = None
+    duration_seconds: Optional[int] = None
+    view_count: Optional[int] = None
+    channel: Optional[str] = None
+
+
+class LocationContext(BaseModel):
+    """Tech scene context for a city/country."""
+    city: Optional[str] = None
+    country: Optional[str] = None
+    tech_scene_description: Optional[str] = Field(
+        default=None,
+        description="Description of the local tech scene, major companies, community"
+    )
+    notable_companies: list[str] = Field(
+        default_factory=list,
+        description="Major tech companies headquartered or with offices here"
+    )
+    tech_hubs: list[str] = Field(
+        default_factory=list,
+        description="Nearby tech hubs, coworking spaces, university partnerships"
+    )
+
+
 class EnrichedData(BaseModel):
     """Rich metadata extracted from conference pages via LLM."""
 
-    # Core description (Optional for name-based inference fallback)
+    # ===== CORE DESCRIPTIONS (long, searchable) =====
+
+    # Short description (1-2 sentences, for cards)
     description: Optional[str] = Field(
         default=None,
         description="1-2 sentence description of the conference"
     )
+
+    # Rich description (3-5 paragraphs, for detail pages and search)
+    rich_description: Optional[str] = Field(
+        default=None,
+        description="Comprehensive description covering history, focus areas, notable speakers, community impact"
+    )
+
+    # Audience description (who should attend)
+    audience_description: Optional[str] = Field(
+        default=None,
+        description="Detailed description of who should attend, what they'll learn, career benefits"
+    )
+
+    # ===== SEARCHABLE KEYWORDS =====
+
+    # Keywords for full-text search (extracted + generated)
+    keywords: list[str] = Field(
+        default_factory=list,
+        description="Searchable keywords: technologies, concepts, buzzwords, related terms"
+    )
+
+    # ===== TAXONOMY FIELDS =====
 
     # Topic taxonomy (from our fixed list)
     topics: list[str] = Field(
@@ -25,7 +83,15 @@ class EnrichedData(BaseModel):
         description="Programming languages relevant to this conference"
     )
 
-    # Audience
+    # Specific technologies/frameworks mentioned
+    technologies: list[str] = Field(
+        default_factory=list,
+        description="Specific frameworks/tools: React, Kubernetes, TensorFlow, etc."
+    )
+
+    # ===== AUDIENCE & FORMAT =====
+
+    # Audience level
     audience_level: Optional[str] = Field(
         default=None,
         description="Target audience: beginner, intermediate, advanced, all-levels"
@@ -49,10 +115,18 @@ class EnrichedData(BaseModel):
         description="Industry verticals: fintech, healthcare, gaming, enterprise, startup"
     )
 
-    # Specific technologies/frameworks mentioned
-    technologies: list[str] = Field(
+    # ===== LOCATION CONTEXT =====
+
+    location_context: Optional[LocationContext] = Field(
+        default=None,
+        description="Tech scene context for the conference location"
+    )
+
+    # ===== EXAMPLE TALKS =====
+
+    example_talks: list[ExampleTalk] = Field(
         default_factory=list,
-        description="Specific frameworks/tools: React, Kubernetes, TensorFlow, etc."
+        description="Notable talks from previous editions found on YouTube"
     )
 
 

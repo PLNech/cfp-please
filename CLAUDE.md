@@ -2,13 +2,15 @@
 
 ## Overview
 CFP aggregator with AI-powered discovery. Chat-first UX with map visualization.
+**Two Algolia indexes**: `cfps` (conferences) + `cfps_talks` (YouTube talks with FK).
 
 ## Tech Stack
 - **Backend**: Python + Poetry (cfp_pipeline/)
 - **Frontend**: React + TypeScript + Vite (frontend/)
-- **Search**: Algolia InstantSearch
+- **Search**: Algolia InstantSearch (2 indexes)
 - **Map**: Leaflet + OpenStreetMap
 - **LLM**: Algolia Enablers API (MiniMax M2.1)
+- **YouTube**: yt-dlp (no API key needed)
 
 ## Testing Strategy
 
@@ -108,18 +110,69 @@ Commits: conventional commits (`feat:`, `fix:`, `docs:`, `test:`)
 ## Common Commands
 
 ```bash
-# Pipeline
-poetry run cfp fetch         # Fetch CFPs from CAP
+# CFP Pipeline
+poetry run cfp fetch              # Fetch CFPs from sources
 poetry run cfp enrich --limit 50  # Enrich with LLM
-poetry run cfp sync          # Push to Algolia
+poetry run cfp sync               # Push to Algolia cfps index
+poetry run cfp url-stats          # Show URL extraction stats
+
+# URL Extraction (scrape conference pages)
+poetry run cfp collect-urls       # Collect URLs from all sources
+poetry run cfp extract --limit 50 # Extract CFP data from URLs
+poetry run cfp extract --retry    # Retry failed (transient errors only)
+poetry run cfp extract -f         # Force retry (ignore backoff)
+
+# Talks Pipeline (YouTube)
+poetry run cfp fetch-talks -c "KubeCon" --talks 100  # Single conference
+poetry run cfp fetch-talks --limit 20 --talks 50    # Batch from top CFPs
+poetry run cfp talks-stats                           # Show talks index stats
 
 # Frontend
 cd frontend && npm run dev   # Dev server
 npm run build               # Production build
-npm test                    # Run tests
 
 # Tests
 poetry run pytest tests/ -v
+```
+
+## Architecture
+
+### Models Package (`cfp_pipeline/models/`)
+```
+models/
+├── __init__.py      # Exports: CFP, Location, GeoLoc, Talk
+├── cfp.py           # CFP, Location, GeoLoc, RawCAPRecord
+└── talk.py          # Talk model with conference FK
+```
+**Note**: Use `cfp.object_id` (snake_case) in Python, `objectID` in Algolia.
+
+### URL Extraction Pipeline (`cfp_pipeline/extractors/`)
+```
+extractors/
+├── fetch.py         # httpx + Playwright fallback for SPAs
+├── url_store.py     # Persistent URL store with retry tracking
+├── structured.py    # Schema.org / OpenGraph extraction
+├── heuristics.py    # HTML pattern matching
+└── pipeline.py      # Orchestrates all extractors
+```
+
+### Retry Strategy (URL Extraction)
+- **Retryable errors**: timeout, connection, 429, 5xx
+- **Permanent errors**: 404, 403, low_confidence
+- **Backoff**: 1h → 6h → 24h (max 3 retries)
+
+### Talks Index Schema (`cfps_talks`)
+```json
+{
+  "objectID": "yt_VIDEO_ID",
+  "conference_id": "abc123",     // FK to cfps
+  "conference_name": "KubeCon",
+  "title": "Kubernetes Design Principles",
+  "speaker": "Saad Ali",
+  "year": 2024,                  // Facet
+  "view_count": 139284,
+  "url": "https://youtube.com/watch?v=..."
+}
 ```
 
 ## Algolia Index Schema
@@ -137,3 +190,25 @@ Key fields for search:
 - Always filter to open CFPs: `filters: cfpEndDate > ${now}`
 - Deadline urgency: <=7 days (critical), <=30 days (warning), else OK
 - LLM enrichment: 8 parallel workers, DDG fallback for unreachable URLs
+
+### MiniMax API Tips
+- Model returns `reasoning` + `content` fields
+- Use extended timeouts (60s+) for complex prompts
+- If `content` is null but `reasoning` exists, model is still thinking - retry
+- Step-by-step extraction (description → topics → languages) works better than one-shot
+
+### YouTube Search (yt-dlp)
+- Use quoted conference names: `'"PyCon" 2024 presentation OR talk'`
+- Strip year from conference name before searching (e.g., "KubeCon 2026" → "KubeCon")
+- Filter out shorts (<5min) and non-talk content (trailers, recaps)
+- Sort by view_count for popular talks
+
+### Frontend CSS
+- Design system with CSS custom properties (`--color-primary`, `--space-*`)
+- Mobile-first: bottom nav, slide-over filters, 48px touch targets
+- Spacing scale: 4px base (`--space-1` = 0.25rem)
+
+### Data Quality (as of session)
+- CFPs: 404 open, 0% descriptions, 58% geoloc, 17% topics
+- Talks: separate index, FK to conferences
+- URL store: 597 URLs, ~60% extraction success rate
