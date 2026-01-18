@@ -13,9 +13,25 @@ interface TalkCardProps {
   onInspire?: () => void;
 }
 
+// Generate a consistent gradient based on text (for missing thumbnails)
+function generateGradient(text: string): string {
+  // Simple hash function
+  let hash = 0;
+  for (let i = 0; i < text.length; i++) {
+    hash = text.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  // Generate two colors from hash
+  const hue1 = Math.abs(hash % 360);
+  const hue2 = (hue1 + 40 + (hash % 60)) % 360; // Complementary-ish
+
+  return `linear-gradient(135deg, hsl(${hue1}, 70%, 35%) 0%, hsl(${hue2}, 60%, 25%) 100%)`;
+}
+
 export function TalkCard({ talk, matchScore, onClick, onInspire }: TalkCardProps) {
   const formattedViews = formatViews(talk.view_count);
   const duration = formatDuration(talk.duration_seconds);
+  const gradient = generateGradient(talk.conference_name || talk.title);
 
   return (
     <article className="talk-card" onClick={onClick}>
@@ -27,17 +43,10 @@ export function TalkCard({ talk, matchScore, onClick, onInspire }: TalkCardProps
             loading="lazy"
           />
         ) : (
-          <div className="talk-card-placeholder">
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <polygon points="5 3 19 12 5 21 5 3" />
-            </svg>
+          <div className="talk-card-gradient" style={{ background: gradient }}>
+            <span className="talk-card-gradient-text">
+              {(talk.conference_name || talk.title).slice(0, 2).toUpperCase()}
+            </span>
           </div>
         )}
 
