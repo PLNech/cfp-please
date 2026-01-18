@@ -1,0 +1,23 @@
+{
+  "inspire": {
+    "id": "79e4350e-6284-4dfa-a92a-0e33542a858a",
+    "name": "TalkFlix Inspire",
+    "status": "published"
+  },
+  "match": {
+    "id": "850ccab7-4897-4fe7-ab32-598ac8942e25", 
+    "name": "TalkFlix Match Score",
+    "status": "published"
+  },
+  "hero": {
+    "id": "ef2dfe8f-9c02-42db-90ba-b42356ecd21f",
+    "name": "TalkFlix Hero Selector", 
+    "status": "published"
+  },
+  "chat": {
+    "id": "9f27077f-f2bb-465f-a5cd-80cb8928995e",
+    "name": "cfp-please",
+    "status": "published",
+    "note": "Original general-purpose agent"
+  }
+}
