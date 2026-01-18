@@ -11,21 +11,36 @@ from cfp_pipeline.models.speaker import Speaker, speaker_to_algolia, slugify_nam
 
 console = Console()
 
-# Names that are obviously not real speakers (channels, categories, etc.)
+# Names that are obviously not real speakers (exact match only - no substring matching
+# to avoid blocking pseudonyms like "Mr Robot" or "Sarah Systems")
 BLOCKED_SPEAKER_NAMES = {
     # Generic event types
     "all keynotes", "tech talk", "tech session", "virtual event",
     "dev room", "main stage", "workshop", "tutorial", "panel",
     "lightning talk", "demo", "keynote", "opening", "closing",
+    "live stream", "full talk", "conference talk", "tech talks",
     # Technical terms mistakenly parsed as names
     "functional programming", "java programs interview", "rust dev room",
     "system design", "data structure", "world example", "spring history",
     "maximum efficiency", "the download", "react admin", "azure malayalam",
     "unlocking digital", "code play repeat", "memory safety", "interview java",
+    "java interview", "python interview", "coding interview", "technical interview",
+    "programming tutorial", "coding tutorial", "web development", "software engineering",
+    "software development", "full stack", "front end", "back end", "api design",
     # Common false patterns (Title Case phrases)
     "applied psychology", "the carbon language", "platform engineering",
     "cloud native", "machine learning", "deep learning", "artificial intelligence",
     "open source", "best practices", "design patterns", "code review",
+    "distributed systems", "microservices architecture", "event sourcing",
+    "domain driven design", "test driven development", "behavior driven development",
+    # Channel/playlist names
+    "strange loop", "goto conference", "devoxx", "qcon", "infoq",
+    "tech world", "developer advocate", "devrel", "community",
+    # Common YouTube title fragments
+    "part one", "part two", "part 1", "part 2", "episode 1", "episode 2",
+    "day one", "day two", "day 1", "day 2", "session 1", "session 2",
+    "complete guide", "crash course", "deep dive", "getting started",
+    "introduction to", "beginner guide", "advanced guide", "ultimate guide",
 }
 
 
@@ -233,11 +248,9 @@ def build_speakers_from_talks(
             if not key:
                 continue
 
-            # Filter out obvious non-speaker names
-            name_lower = name.lower()
+            # Filter out obvious non-speaker names (exact match only to avoid blocking pseudonyms)
+            name_lower = name.lower().strip()
             if name_lower in BLOCKED_SPEAKER_NAMES:
-                continue
-            if any(blocked in name_lower for blocked in BLOCKED_SPEAKER_NAMES):
                 continue
 
             data = speaker_data[key]
