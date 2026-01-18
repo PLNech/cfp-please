@@ -9,8 +9,10 @@ import type { Talk } from '../../types';
 interface TalkCardProps {
   talk: Talk;
   matchScore?: number; // 0-100 if profile set
+  position?: number; // Position in list (for analytics)
   onClick?: () => void;
   onInspire?: () => void;
+  onTrackClick?: (objectID: string, position?: number) => void;
 }
 
 // Generate a consistent gradient based on text (for missing thumbnails)
@@ -28,13 +30,21 @@ function generateGradient(text: string): string {
   return `linear-gradient(135deg, hsl(${hue1}, 70%, 35%) 0%, hsl(${hue2}, 60%, 25%) 100%)`;
 }
 
-export function TalkCard({ talk, matchScore, onClick, onInspire }: TalkCardProps) {
+export function TalkCard({ talk, matchScore, position, onClick, onInspire, onTrackClick }: TalkCardProps) {
   const formattedViews = formatViews(talk.view_count);
   const duration = formatDuration(talk.duration_seconds);
   const gradient = generateGradient(talk.conference_name || talk.title);
 
+  const handleClick = () => {
+    // Track click for Insights/Recommend
+    if (onTrackClick && talk.objectID) {
+      onTrackClick(talk.objectID, position);
+    }
+    onClick?.();
+  };
+
   return (
-    <article className="talk-card" onClick={onClick}>
+    <article className="talk-card" onClick={handleClick}>
       <div className="talk-card-thumbnail">
         {talk.thumbnail_url ? (
           <img

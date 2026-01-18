@@ -5,7 +5,7 @@
  * personalization via profile, agent works invisibly.
  */
 
-import React, { useMemo, useCallback, useState } from 'react';
+import React, { useMemo, useCallback, useState, useEffect } from 'react';
 import { Header, ProfileSidebar } from '../components/layout';
 import { HeroSection } from '../components/hero';
 import { CarouselRow } from '../components/carousel';
@@ -14,6 +14,8 @@ import { IntelBadges, TrendingIndicator } from '../components/intel';
 import { InspireModal } from '../components/inspire';
 import { useProfile } from '../hooks/useProfile';
 import { useCarouselData, buildCarouselConfigs } from '../hooks/useCarouselData';
+import { useInsights } from '../hooks/useInsights';
+import { useRelatedTalks } from '../hooks/useRecommend';
 import type { CFP, Talk } from '../types';
 import { getUrgencyLevel, getUrgencyColor } from '../types';
 
@@ -37,12 +39,31 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [inspireTalk, setInspireTalk] = useState<Talk | null>(null);
+  const [selectedTalk, setSelectedTalk] = useState<Talk | null>(null);
+
+  // Insights for click tracking
+  const { clickTalk, clickCFP, clickInspire, viewCarousel } = useInsights();
+
+  // Related talks for selected talk
+  const { relatedTalks, loading: relatedLoading } = useRelatedTalks(
+    selectedTalk?.objectID || null
+  );
 
   // Build carousel configs based on profile
   const configs = useMemo(() => buildCarouselConfigs(profile), [profile]);
 
   // Fetch carousel data
   const { carousels, hero, heroLoading } = useCarouselData(configs, profile);
+
+  // Track carousel views when data loads
+  useEffect(() => {
+    carousels.forEach((data, id) => {
+      if (!data.loading && data.items.length > 0) {
+        const objectIDs = data.items.map((item) => item.objectID).filter(Boolean) as string[];
+        viewCarousel(id, objectIDs);
+      }
+    });
+  }, [carousels, viewCarousel]);
 
   const handleSubmit = useCallback(() => {
     if (hero?.cfpUrl) {
@@ -57,6 +78,22 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
     const talksRow = document.querySelector('[data-carousel="viral-talks"]');
     talksRow?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
+
+  const handleTalkClick = useCallback((talk: Talk, position?: number) => {
+    clickTalk(talk.objectID, position);
+    setSelectedTalk(talk);
+    onTalkClick?.(talk);
+  }, [clickTalk, onTalkClick]);
+
+  const handleCFPClick = useCallback((cfp: CFP, position?: number) => {
+    clickCFP(cfp.objectID, position);
+    onCFPClick?.(cfp);
+  }, [clickCFP, onCFPClick]);
+
+  const handleInspireClick = useCallback((talk: Talk) => {
+    clickInspire(talk.objectID);
+    setInspireTalk(talk);
+  }, [clickInspire]);
 
   return (
     <div className="talkflix">
@@ -90,19 +127,21 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                   title={config.title}
                   loading={data?.loading ?? true}
                 >
-                  {data?.items.map((item) =>
+                  {data?.items.map((item, index) =>
                     isTalksRow ? (
                       <TalkCard
                         key={item.objectID}
                         talk={item as Talk}
-                        onClick={() => onTalkClick?.(item as Talk)}
-                        onInspire={() => setInspireTalk(item as Talk)}
+                        position={index + 1}
+                        onClick={() => handleTalkClick(item as Talk, index + 1)}
+                        onInspire={() => handleInspireClick(item as Talk)}
+                        onTrackClick={clickTalk}
                       />
                     ) : (
                       <CFPCarouselCard
                         key={item.objectID}
                         cfp={item as CFP}
-                        onClick={() => onCFPClick?.(item as CFP)}
+                        onClick={() => handleCFPClick(item as CFP, index + 1)}
                       />
                     )
                   )}
@@ -110,6 +149,28 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
               </div>
             );
           })}
+
+          {/* Related Talks - shown when a talk is selected */}
+          {selectedTalk && relatedTalks.length > 0 && (
+            <div data-carousel="related-talks">
+              <CarouselRow
+                icon="🔗"
+                title={`More like "${selectedTalk.title.slice(0, 30)}..."`}
+                loading={relatedLoading}
+              >
+                {relatedTalks.map((talk, index) => (
+                  <TalkCard
+                    key={talk.objectID}
+                    talk={talk}
+                    position={index + 1}
+                    onClick={() => handleTalkClick(talk, index + 1)}
+                    onInspire={() => handleInspireClick(talk)}
+                    onTrackClick={clickTalk}
+                  />
+                ))}
+              </CarouselRow>
+            </div>
+          )}
         </div>
       </main>
 
