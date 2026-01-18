@@ -1,0 +1,138 @@
+/* TalkIdeasPanel - AI-generated talk suggestions */
+
+.talk-ideas-panel {
+  /* Container */
+}
+
+.talk-ideas-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.talk-ideas-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.talk-idea-card {
+  display: flex;
+  gap: var(--space-3);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  transition: border-color 0.2s;
+}
+
+.talk-idea-card:hover {
+  border-color: var(--color-primary);
+}
+
+.talk-idea-number {
+  width: 32px;
+  height: 32px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.talk-idea-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.talk-idea-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.4;
+}
+
+.talk-idea-description {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.5;
+}
+
+.talk-idea-angle {
+  font-size: 0.75rem;
+  display: flex;
+  gap: var(--space-1);
+  align-items: baseline;
+}
+
+.talk-idea-angle-label {
+  color: var(--color-text-muted);
+}
+
+.talk-idea-angle-text {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.talk-idea-copy {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.talk-idea-copy:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.talk-idea-copy.copied {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+
+.talk-ideas-hint {
+  margin: var(--space-4) 0 0 0;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.talk-ideas-empty {
+  text-align: center;
+  padding: var(--space-6);
+  color: var(--color-text-muted);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .talk-idea-card {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .talk-idea-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
+  }
+
+  .talk-idea-copy {
+    align-self: stretch;
+    text-align: center;
+  }
+}

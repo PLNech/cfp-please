@@ -1,0 +1,168 @@
+/* Skeleton - Loading placeholder animations */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-border) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Card Skeleton */
+.skeleton-card {
+  width: 200px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.skeleton-card-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.skeleton-card-content {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Talk Card Skeleton */
+.skeleton-talk-card {
+  width: 220px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.skeleton-talk-thumbnail {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+
+.skeleton-talk-content {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skeleton-talk-meta {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+/* CFP Card Skeleton */
+.skeleton-cfp-card {
+  width: 200px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.skeleton-cfp-header {
+  width: 100%;
+}
+
+.skeleton-cfp-content {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.skeleton-cfp-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-2);
+}
+
+/* Carousel Row Skeleton */
+.skeleton-carousel-row {
+  padding: var(--space-4) 0;
+}
+
+.skeleton-carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.skeleton-carousel-items {
+  display: flex;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  overflow: hidden;
+}
+
+/* Hero Skeleton */
+.skeleton-hero {
+  min-height: 360px;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%);
+  display: flex;
+  align-items: center;
+  padding: var(--space-6);
+}
+
+.skeleton-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 500px;
+}
+
+.skeleton-hero-countdown {
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+}
+
+.skeleton-hero-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .skeleton-card,
+  .skeleton-talk-card,
+  .skeleton-cfp-card {
+    width: 160px;
+  }
+
+  .skeleton-hero {
+    min-height: 280px;
+    padding: var(--space-4);
+  }
+
+  .skeleton-hero-countdown {
+    gap: var(--space-1);
+  }
+
+  .skeleton-hero-countdown .skeleton {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

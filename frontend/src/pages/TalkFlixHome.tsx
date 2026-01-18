@@ -11,6 +11,7 @@ import { HeroSection } from '../components/hero';
 import { CarouselRow } from '../components/carousel';
 import { TalkCard } from '../components/cards';
 import { IntelBadges, TrendingIndicator } from '../components/intel';
+import { InspireModal } from '../components/inspire';
 import { useProfile } from '../hooks/useProfile';
 import { useCarouselData, buildCarouselConfigs } from '../hooks/useCarouselData';
 import type { CFP, Talk } from '../types';
@@ -19,10 +20,9 @@ import { getUrgencyLevel, getUrgencyColor } from '../types';
 interface TalkFlixHomeProps {
   onCFPClick?: (cfp: CFP) => void;
   onTalkClick?: (talk: Talk) => void;
-  onInspire?: (talk: Talk) => void;
 }
 
-export function TalkFlixHome({ onCFPClick, onTalkClick, onInspire }: TalkFlixHomeProps) {
+export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
   const {
     profile,
     hasProfile,
@@ -36,6 +36,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick, onInspire }: TalkFlixHom
   } = useProfile();
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [inspireTalk, setInspireTalk] = useState<Talk | null>(null);
 
   // Build carousel configs based on profile
   const configs = useMemo(() => buildCarouselConfigs(profile), [profile]);
@@ -95,7 +96,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick, onInspire }: TalkFlixHom
                         key={item.objectID}
                         talk={item as Talk}
                         onClick={() => onTalkClick?.(item as Talk)}
-                        onInspire={() => onInspire?.(item as Talk)}
+                        onInspire={() => setInspireTalk(item as Talk)}
                       />
                     ) : (
                       <CFPCarouselCard
@@ -122,6 +123,16 @@ export function TalkFlixHome({ onCFPClick, onTalkClick, onInspire }: TalkFlixHom
         onToggleFormat={toggleFormat}
         onReset={resetProfile}
       />
+
+      {/* Inspire Modal */}
+      {inspireTalk && (
+        <InspireModal
+          talk={inspireTalk}
+          matchingCFPs={carousels.get('hot-deadlines')?.items as CFP[] || []}
+          onClose={() => setInspireTalk(null)}
+          onSelectCFP={onCFPClick}
+        />
+      )}
     </div>
   );
 }

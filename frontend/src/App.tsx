@@ -5,7 +5,6 @@ import './App.css';
 
 function App() {
   const [selectedCfp, setSelectedCfp] = useState<CFP | null>(null);
-  const [selectedTalk, setSelectedTalk] = useState<Talk | null>(null);
 
   const handleCfpClick = (cfp: CFP) => {
     setSelectedCfp(cfp);
@@ -16,18 +15,11 @@ function App() {
     window.open(talk.url, '_blank', 'noopener');
   };
 
-  const handleInspire = (talk: Talk) => {
-    // TODO: Phase 4 - Open InspireModal with AI-generated talk ideas
-    console.log('Inspire from talk:', talk.title);
-    setSelectedTalk(talk);
-  };
-
   return (
     <>
       <TalkFlixHome
         onCFPClick={handleCfpClick}
         onTalkClick={handleTalkClick}
-        onInspire={handleInspire}
       />
 
       {/* CFP Detail Modal */}
@@ -142,40 +134,6 @@ function App() {
         </div>
       )}
 
-      {/* Inspire Modal - TODO Phase 4 */}
-      {selectedTalk && (
-        <div className="cfp-detail-overlay" onClick={() => setSelectedTalk(null)}>
-          <div className="cfp-detail" onClick={(e) => e.stopPropagation()}>
-            <button className="cfp-detail-close" onClick={() => setSelectedTalk(null)}>
-              ✕
-            </button>
-            <h2 className="cfp-detail-title">Get Inspired</h2>
-            <p className="cfp-detail-desc">
-              Based on <strong>{selectedTalk.title}</strong> by {selectedTalk.speaker}
-            </p>
-            <p className="cfp-detail-encouragement">
-              🚧 AI-powered talk ideas coming soon! This will suggest personalized talk titles
-              and matching CFPs based on your interests.
-            </p>
-            <div className="cfp-detail-actions">
-              <a
-                href={selectedTalk.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                Watch Talk
-              </a>
-              <button
-                className="btn btn-secondary"
-                onClick={() => setSelectedTalk(null)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

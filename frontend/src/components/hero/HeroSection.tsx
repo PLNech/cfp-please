@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react';
 import type { CFP } from '../../types';
 import { IntelBadges, TrendingIndicator } from '../intel/IntelBadges';
+import { SkeletonHero } from '../skeletons';
 
 interface HeroSectionProps {
   cfp: CFP | null;
@@ -17,15 +18,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ cfp, loading = false, onSubmit, onSeeTalks }: HeroSectionProps) {
   if (loading) {
-    return (
-      <section className="hero hero-loading">
-        <div className="hero-skeleton">
-          <div className="hero-skeleton-title" />
-          <div className="hero-skeleton-countdown" />
-          <div className="hero-skeleton-buttons" />
-        </div>
-      </section>
-    );
+    return <SkeletonHero />;
   }
 
   if (!cfp) {

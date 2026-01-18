@@ -1,0 +1,281 @@
+/* InspireModal - Fullscreen inspiration modal */
+
+.inspire-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-4);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.inspire-modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.inspire-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #4f46e5 100%);
+  color: white;
+}
+
+.inspire-modal-source {
+  flex: 1;
+}
+
+.inspire-modal-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+  margin-bottom: var(--space-1);
+}
+
+.inspire-modal-source-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-1) 0;
+  line-height: 1.3;
+}
+
+.inspire-modal-source-meta {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+.inspire-modal-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.inspire-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Content */
+.inspire-modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-5);
+}
+
+/* Loading state */
+.inspire-modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+}
+
+.inspire-modal-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--space-4);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.inspire-modal-loading p {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.inspire-modal-loading-hint {
+  color: var(--color-text-muted) !important;
+  font-size: 0.875rem !important;
+  margin-top: var(--space-2) !important;
+}
+
+/* Error state */
+.inspire-modal-error {
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.inspire-modal-error p {
+  margin: 0 0 var(--space-2) 0;
+  color: var(--color-text);
+}
+
+.inspire-modal-error-detail {
+  color: var(--color-text-muted) !important;
+  font-size: 0.875rem !important;
+}
+
+.inspire-modal-error button {
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* CFPs Section */
+.inspire-modal-cfps {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.inspire-modal-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.inspire-modal-cfp-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.inspire-modal-cfp-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inspire-modal-cfp-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+}
+
+.inspire-modal-cfp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.inspire-modal-cfp-name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.inspire-modal-cfp-score {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: rgba(99, 102, 241, 0.1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.inspire-modal-cfp-why {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.inspire-modal-cfp-meta {
+  display: flex;
+  gap: var(--space-3);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.inspire-modal-cfp-submit {
+  display: inline-block;
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.inspire-modal-cfp-submit:hover {
+  background: #4f46e5;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .inspire-modal-overlay {
+    padding: 0;
+  }
+
+  .inspire-modal {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .inspire-modal-header {
+    padding: var(--space-4);
+  }
+
+  .inspire-modal-source-title {
+    font-size: 1.1rem;
+  }
+
+  .inspire-modal-content {
+    padding: var(--space-4);
+  }
+}

@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Carousel } from './Carousel';
+import { SkeletonCard } from '../skeletons';
 
 interface CarouselRowProps {
   icon: string;
@@ -58,26 +59,15 @@ export function CarouselRow({
 
       {loading ? (
         <div className="carousel-loading">
-          <CarouselSkeleton count={6} />
+          <div className="carousel-track">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
         </div>
       ) : (
         <Carousel>{children}</Carousel>
       )}
     </section>
-  );
-}
-
-// Loading skeleton for carousel items
-function CarouselSkeleton({ count }: { count: number }) {
-  return (
-    <div className="carousel-track">
-      {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="card-skeleton">
-          <div className="card-skeleton-image" />
-          <div className="card-skeleton-title" />
-          <div className="card-skeleton-meta" />
-        </div>
-      ))}
-    </div>
   );
 }
