@@ -1,7 +1,9 @@
 """Algolia indexer for conference speakers."""
 
+import json
 import os
 from collections import defaultdict
+from pathlib import Path
 from typing import Optional
 
 from algoliasearch.search.client import SearchClientSync
@@ -10,6 +12,71 @@ from rich.console import Console
 from cfp_pipeline.models.speaker import Speaker, speaker_to_algolia, slugify_name
 
 console = Console()
+
+
+# ===== ALGOLIA SPEAKERS DATA =====
+# Load known Algolia speakers for name resolution and flagging
+_ALGOLIA_SPEAKERS_DATA: Optional[dict] = None
+_NAME_ALIASES: dict[str, str] = {}
+_ALGOLIA_SPEAKER_IDS: set[str] = set()
+
+
+def _load_algolia_speakers() -> None:
+    """Load Algolia speakers data from JSON file."""
+    global _ALGOLIA_SPEAKERS_DATA, _NAME_ALIASES, _ALGOLIA_SPEAKER_IDS
+
+    if _ALGOLIA_SPEAKERS_DATA is not None:
+        return  # Already loaded
+
+    data_path = Path(__file__).parent.parent.parent / "data" / "algolia_speakers.json"
+    if not data_path.exists():
+        console.print(f"[yellow]Warning: Algolia speakers data not found at {data_path}[/yellow]")
+        _ALGOLIA_SPEAKERS_DATA = {"speakers": [], "name_aliases": {}}
+        return
+
+    with open(data_path) as f:
+        _ALGOLIA_SPEAKERS_DATA = json.load(f)
+
+    # Build name alias map: alias_slug -> canonical_slug
+    _NAME_ALIASES = _ALGOLIA_SPEAKERS_DATA.get("name_aliases", {})
+
+    # Also add aliases from speaker records
+    for speaker in _ALGOLIA_SPEAKERS_DATA.get("speakers", []):
+        canonical = slugify_name(speaker["name"])
+        _ALGOLIA_SPEAKER_IDS.add(canonical)
+        for alias in speaker.get("aliases", []):
+            if alias != canonical:
+                _NAME_ALIASES[alias] = canonical
+
+    console.print(f"[dim]Loaded {len(_ALGOLIA_SPEAKER_IDS)} Algolia speakers, {len(_NAME_ALIASES)} aliases[/dim]")
+
+
+def resolve_speaker_name(name: str) -> tuple[str, str]:
+    """Resolve speaker name to canonical form.
+
+    Returns:
+        Tuple of (canonical_slug, display_name)
+    """
+    _load_algolia_speakers()
+
+    slug = slugify_name(name)
+
+    # Check if this slug is an alias
+    if slug in _NAME_ALIASES:
+        canonical_slug = _NAME_ALIASES[slug]
+        # Find the canonical display name
+        for speaker in _ALGOLIA_SPEAKERS_DATA.get("speakers", []):
+            if slugify_name(speaker["name"]) == canonical_slug:
+                return canonical_slug, speaker["name"]
+        return canonical_slug, name  # Fallback to original name
+
+    return slug, name
+
+
+def is_algolia_speaker(slug: str) -> bool:
+    """Check if a speaker slug belongs to an Algolia employee."""
+    _load_algolia_speakers()
+    return slug in _ALGOLIA_SPEAKER_IDS
 
 # Names that are obviously not real speakers (exact match only - no substring matching
 # to avoid blocking pseudonyms like "Mr Robot" or "Sarah Systems")
@@ -70,6 +137,7 @@ def configure_speakers_index(client: SearchClientSync, index_name: Optional[str]
             "searchable(topics)",
             "searchable(conferences)",
             "filterOnly(achievements)",
+            "filterOnly(is_algolia_speaker)",
             "years_active",
         ],
 
@@ -94,6 +162,7 @@ def configure_speakers_index(client: SearchClientSync, index_name: Optional[str]
             "name",
             "aliases",
             "company",
+            "is_algolia_speaker",
             "talk_count",
             "total_views",
             "max_views",
@@ -243,18 +312,21 @@ def build_speakers_from_talks(
             if not name or len(name) < 2:
                 continue
 
-            # Normalize the name for grouping (lowercase, trimmed)
-            key = slugify_name(name)
-            if not key:
-                continue
-
             # Filter out obvious non-speaker names (exact match only to avoid blocking pseudonyms)
             name_lower = name.lower().strip()
             if name_lower in BLOCKED_SPEAKER_NAMES:
                 continue
 
+            # Resolve name to canonical form (handles aliases like "Louis Nech" -> "Paul-Louis Nech")
+            key, resolved_name = resolve_speaker_name(name)
+            if not key:
+                continue
+
             data = speaker_data[key]
+            # Add both original and resolved names for alias tracking
             data["names"].add(name)
+            if resolved_name != name:
+                data["names"].add(resolved_name)
             data["talks"].append(talk)
 
             views = talk.get("view_count") or 0
@@ -296,10 +368,14 @@ def build_speakers_from_talks(
 
         years = sorted(data["years"]) if data["years"] else []
 
+        # Check if this is an Algolia speaker
+        algolia_speaker = is_algolia_speaker(key)
+
         speaker = Speaker(
             objectID=key,
             name=name,
             aliases=[n for n in names if n != name],
+            is_algolia_speaker=algolia_speaker,
             talk_count=len(data["talks"]),
             total_views=data["views"],
             max_views=data["max_views"],

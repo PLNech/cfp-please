@@ -97,6 +97,7 @@ export interface Speaker {
   name: string;
   aliases?: string[];
   company?: string;
+  is_algolia_speaker?: boolean;
 
   // Stats
   talk_count: number;

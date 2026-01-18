@@ -29,6 +29,10 @@ class Speaker(BaseModel):
         default=None,
         description="Current company/affiliation"
     )
+    is_algolia_speaker: bool = Field(
+        default=False,
+        description="True if speaker is/was an Algolia employee (for UI boost)"
+    )
 
     # ===== AGGREGATED STATS =====
     talk_count: int = Field(default=0, description="Total talks in index")
