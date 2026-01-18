@@ -13,12 +13,19 @@ console = Console()
 
 # Names that are obviously not real speakers (channels, categories, etc.)
 BLOCKED_SPEAKER_NAMES = {
+    # Generic event types
     "all keynotes", "tech talk", "tech session", "virtual event",
-    "functional programming", "java programs interview", "rust dev room",
-    "maximum efficiency", "the download", "react admin", "azure malayalam",
-    "unlocking digital", "code play repeat", "system design",
     "dev room", "main stage", "workshop", "tutorial", "panel",
     "lightning talk", "demo", "keynote", "opening", "closing",
+    # Technical terms mistakenly parsed as names
+    "functional programming", "java programs interview", "rust dev room",
+    "system design", "data structure", "world example", "spring history",
+    "maximum efficiency", "the download", "react admin", "azure malayalam",
+    "unlocking digital", "code play repeat", "memory safety", "interview java",
+    # Common false patterns (Title Case phrases)
+    "applied psychology", "the carbon language", "platform engineering",
+    "cloud native", "machine learning", "deep learning", "artificial intelligence",
+    "open source", "best practices", "design patterns", "code review",
 }
 
 
@@ -152,39 +159,31 @@ def build_speakers_from_talks(
 
     console.print(f"[cyan]Building speakers from {talks_index}...[/cyan]")
 
-    # Fetch all talks with speaker data
-    all_talks = []
-    page = 0
-    hits_per_page = 1000
+    # Fetch ALL talks using browse (no 1000 limit like search)
+    all_talks: list[dict] = []
 
-    while True:
-        result = client.search_single_index(
-            talks_index,
-            {
-                "query": "",
-                "hitsPerPage": hits_per_page,
-                "page": page,
-                "attributesToRetrieve": [
-                    "objectID",
-                    "speaker",
-                    "speakers",
-                    "conference_name",
-                    "view_count",
-                    "year",
-                    "topics",
-                    "title",
-                ],
-            }
-        )
+    # Use browse_objects with aggregator callback to iterate entire index
+    from algoliasearch.search.models.browse_params_object import BrowseParamsObject
 
-        hits = result.hits
-        if not hits:
-            break
+    browse_params = BrowseParamsObject(
+        attributes_to_retrieve=[
+            "objectID",
+            "speaker",
+            "speakers",
+            "conference_name",
+            "view_count",
+            "year",
+            "topics",
+            "title",
+        ],
+        hits_per_page=1000,
+    )
 
-        # Convert Hit objects to dicts
-        for hit in hits:
+    def aggregator(response):
+        """Callback to collect hits from each browse page."""
+        for hit in response.hits:
             talk_dict = {
-                "objectID": getattr(hit, "object_id", None),
+                "objectID": getattr(hit, "object_id", None) or getattr(hit, "objectID", None),
                 "speaker": getattr(hit, "speaker", None),
                 "speakers": getattr(hit, "speakers", []) or [],
                 "conference_name": getattr(hit, "conference_name", None),
@@ -195,10 +194,8 @@ def build_speakers_from_talks(
             }
             all_talks.append(talk_dict)
 
-        page += 1
-
-        if len(all_talks) >= result.nb_hits:
-            break
+    # Browse entire index
+    client.browse_objects(talks_index, aggregator, browse_params)
 
     console.print(f"[dim]Fetched {len(all_talks)} talks[/dim]")
 

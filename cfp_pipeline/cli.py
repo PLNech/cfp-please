@@ -1295,5 +1295,73 @@ def speaker_stats(
             console.print(f"  {achievement}: {count}")
 
 
+@app.command()
+def fix_speakers():
+    """Re-extract speaker names from existing talks using improved regex.
+
+    Useful after improving the speaker extraction patterns.
+    """
+    from algoliasearch.search.models.browse_params_object import BrowseParamsObject
+    from cfp_pipeline.indexers.talks import get_talks_index_name
+    from cfp_pipeline.enrichers.youtube import _extract_speaker_from_title
+
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    index_name = get_talks_index_name()
+    console.print(f"[cyan]Re-extracting speakers from {index_name}...[/cyan]")
+
+    # Collect all talks that need updating
+    updates = []
+
+    browse_params = BrowseParamsObject(
+        attributes_to_retrieve=["objectID", "original_title", "title", "speaker"],
+        hits_per_page=1000,
+    )
+
+    def aggregator(response):
+        for hit in response.hits:
+            object_id = getattr(hit, "object_id", None) or getattr(hit, "objectID", None)
+            original_title = getattr(hit, "original_title", None) or getattr(hit, "title", "")
+            current_speaker = getattr(hit, "speaker", None)
+
+            if not original_title:
+                continue
+
+            # Re-extract speaker
+            clean_title, new_speaker = _extract_speaker_from_title(original_title)
+
+            # Only update if we found a speaker and it's different/new
+            if new_speaker and new_speaker != current_speaker:
+                updates.append({
+                    "objectID": object_id,
+                    "title": clean_title,
+                    "speaker": new_speaker,
+                    "speakers": [new_speaker],
+                })
+
+    client.browse_objects(index_name, aggregator, browse_params)
+
+    console.print(f"[dim]Found {len(updates)} talks to update[/dim]")
+
+    if not updates:
+        console.print("[yellow]No talks need updating[/yellow]")
+        raise typer.Exit(0)
+
+    # Batch update
+    console.print(f"[cyan]Updating {len(updates)} talks...[/cyan]")
+    client.partial_update_objects(index_name, updates)
+
+    console.print(f"[bold green]Updated {len(updates)} talks with speaker names![/bold green]")
+
+    # Show sample
+    console.print(f"\n[bold]Sample updates:[/bold]")
+    for update in updates[:10]:
+        console.print(f"  {update['title'][:40]}... → {update['speaker']}")
+
+
 if __name__ == "__main__":
     app()

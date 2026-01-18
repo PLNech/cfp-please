@@ -55,25 +55,53 @@ def _extract_speaker_from_title(title: str) -> tuple[str, Optional[str]]:
     """Try to extract speaker name from talk title.
 
     Common patterns:
+    - "Talk Title - Speaker Name - NDC London 2024" (conference suffix)
     - "Talk Title - Speaker Name"
     - "Talk Title | Speaker Name"
     - "Speaker Name: Talk Title"
     - "Talk Title by Speaker Name"
     """
-    # Pattern: "Title - Speaker" or "Title | Speaker"
-    match = re.search(r'^(.+?)\s*[-|]\s*([A-Z][a-z]+ [A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*$', title)
+    # Name pattern: First Last or First Middle Last (handles unicode names too)
+    name_pattern = r'[A-Z][a-zàáâãäåæçèéêëìíîïñòóôõöùúûüý]+(?:\s+[A-Z][a-zàáâãäåæçèéêëìíîïñòóôõöùúûüý]+){1,3}'
+
+    # Pattern: "Title - Speaker - Conference/Year" (NDC, JSConf, etc.)
+    # Matches: "You Don't Know Git - Edward Thomson - NDC London 2024"
+    match = re.search(
+        rf'^(.+?)\s*[-–]\s*({name_pattern})\s*[-–]\s*(?:NDC|JSConf|PyCon|GopherCon|React|KubeCon|CNCF|Algolia|DevCon|Conf42|FOSDEM)',
+        title, re.IGNORECASE
+    )
+    if match:
+        return match.group(1).strip(), match.group(2).strip()
+
+    # Pattern: "Title - Speaker - Conference Year" (generic with year at end)
+    match = re.search(
+        rf'^(.+?)\s*[-–]\s*({name_pattern})\s*[-–]\s*.+\s+20\d{{2}}',
+        title
+    )
+    if match:
+        return match.group(1).strip(), match.group(2).strip()
+
+    # Pattern: "Title - Speaker" at end of string
+    match = re.search(rf'^(.+?)\s*[-–|]\s*({name_pattern})\s*$', title)
     if match:
         return match.group(1).strip(), match.group(2).strip()
 
     # Pattern: "Speaker: Title"
-    match = re.search(r'^([A-Z][a-z]+ [A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*:\s*(.+)$', title)
+    match = re.search(rf'^({name_pattern})\s*:\s*(.+)$', title)
     if match:
         return match.group(2).strip(), match.group(1).strip()
 
     # Pattern: "Title by Speaker"
-    match = re.search(r'^(.+?)\s+by\s+([A-Z][a-z]+ [A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s*$', title, re.IGNORECASE)
+    match = re.search(rf'^(.+?)\s+by\s+({name_pattern})\s*$', title, re.IGNORECASE)
     if match:
         return match.group(1).strip(), match.group(2).strip()
+
+    # Pattern: "Title | Speaker | Conference" (pipe-separated with more segments)
+    parts = re.split(r'\s*\|\s*', title)
+    if len(parts) >= 2:
+        for part in parts[1:]:
+            if re.match(rf'^{name_pattern}$', part.strip()):
+                return parts[0].strip(), part.strip()
 
     return title, None
 
