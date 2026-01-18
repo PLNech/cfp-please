@@ -79,6 +79,10 @@ def sync(
         console.print("[yellow]No CFPs to index[/yellow]")
         raise typer.Exit(0)
 
+    # Add favicon fallbacks for CFPs without icons
+    from cfp_pipeline.enrichers.favicon import enrich_cfps_with_favicons
+    asyncio.run(enrich_cfps_with_favicons(cfps))
+
     # Configure index if requested
     if configure:
         configure_index(client, index_name)
@@ -248,6 +252,10 @@ def sync_enriched(
         cfps, invalid = asyncio.run(validate_cfp_urls(cfps, max_workers=10))
         if invalid:
             console.print(f"[yellow]Removed {len(invalid)} invalid CFPs[/yellow]")
+
+    # Add favicon fallbacks for CFPs without icons
+    from cfp_pipeline.enrichers.favicon import enrich_cfps_with_favicons
+    asyncio.run(enrich_cfps_with_favicons(cfps))
 
     # Configure and index
     if configure:
@@ -625,6 +633,269 @@ def fetch_talks(
 
 
 @app.command()
+def add_talks(
+    conference: str = typer.Option(..., "--conference", "-c", help="Conference name"),
+    urls: str = typer.Option(None, "--urls", "-u", help="Comma-separated YouTube URLs"),
+    file: str = typer.Option(None, "--file", "-f", help="File with YouTube URLs (one per line, # comments allowed)"),
+    speaker: str = typer.Option(None, "--speaker", "-s", help="Override speaker name for all talks"),
+):
+    """Add specific YouTube talks to the talks index.
+
+    Provide URLs either directly via --urls or from a file.
+
+    Example:
+        cfp add-talks -c "KubeCon" -u "https://youtube.com/watch?v=abc,https://youtube.com/watch?v=xyz"
+        cfp add-talks -c "PyCon" -f talks.txt -s "Guido van Rossum"
+    """
+    import hashlib
+    from cfp_pipeline.enrichers.youtube import fetch_talks_by_urls
+    from cfp_pipeline.indexers.talks import (
+        configure_talks_index,
+        index_talks,
+        get_talks_stats,
+    )
+
+    # Collect URLs
+    url_list = []
+    if urls:
+        url_list.extend([u.strip() for u in urls.split(",") if u.strip()])
+    if file:
+        try:
+            with open(file, "r") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#"):
+                        # Support "URL # comment" format
+                        url = line.split("#")[0].strip()
+                        if url:
+                            url_list.append(url)
+        except Exception as e:
+            console.print(f"[red]Error reading file: {e}[/red]")
+            raise typer.Exit(1)
+
+    if not url_list:
+        console.print("[red]No URLs provided. Use --urls or --file[/red]")
+        raise typer.Exit(1)
+
+    # Generate conference ID
+    conf_id = hashlib.sha256(conference.lower().encode()).hexdigest()[:16]
+
+    console.print(f"[cyan]Adding {len(url_list)} talks for: {conference}[/cyan]")
+    console.print(f"[dim]Conference ID: {conf_id}[/dim]")
+
+    # Get Algolia client
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    # Build URL items
+    items = [
+        {"url": url, "conference_id": conf_id, "conference_name": conference, "speaker": speaker}
+        for url in url_list
+    ]
+
+    # Fetch talks
+    talks = asyncio.run(fetch_talks_by_urls(items, max_concurrent=3))
+
+    if not talks:
+        console.print("[yellow]No talks fetched[/yellow]")
+        raise typer.Exit(0)
+
+    # Configure and index
+    configure_talks_index(client)
+    indexed = index_talks(client, talks)
+
+    # Show stats
+    stats = get_talks_stats(client)
+    console.print(f"\n[bold green]Talks added![/bold green]")
+    console.print(f"  Fetched: {len(talks)}")
+    console.print(f"  Indexed: {indexed}")
+    console.print(f"  Total in index: {stats.get('num_talks', 'unknown')}")
+
+    # Show what was added
+    console.print(f"\n[bold]Added talks:[/bold]")
+    for talk in talks:
+        views = f"{talk.view_count:,}" if talk.view_count else "?"
+        console.print(f"  - {talk.title[:60]}")
+        console.print(f"    [dim]{talk.speaker or 'Unknown'} | {talk.year or '?'} | {views} views[/dim]")
+
+
+@app.command()
+def import_channel(
+    channel_url: str = typer.Argument(
+        ...,
+        help="YouTube channel URL (e.g., https://www.youtube.com/@Algolia)"
+    ),
+    conference_id: str = typer.Option(
+        "channel-import",
+        "--conference-id", "-c",
+        help="Conference ID for all imported talks"
+    ),
+    conference_name: str = typer.Option(
+        None,
+        "--conference-name", "-n",
+        help="Conference name for all imported talks (default: channel name)"
+    ),
+    limit: int = typer.Option(
+        0, "--limit", "-l",
+        help="Max videos to import (0 = all)"
+    ),
+    min_duration: int = typer.Option(
+        5, "--min-duration", "-d",
+        help="Minimum video duration in minutes (filter shorts)"
+    ),
+    skip_existing: bool = typer.Option(
+        True, "--skip-existing/--no-skip-existing",
+        help="Skip videos already in index"
+    ),
+):
+    """Import all talks from a YouTube channel.
+
+    Example:
+        cfp import-channel https://www.youtube.com/@Algolia -n "Algolia" --limit 100
+    """
+    import yt_dlp
+    from cfp_pipeline.indexers.talks import (
+        configure_talks_index, index_talks, get_talks_stats
+    )
+    from cfp_pipeline.models.talk import Talk
+    from cfp_pipeline.enrichers.youtube import _get_best_thumbnail, _extract_speaker_from_title
+
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    console.print(f"[cyan]Fetching videos from {channel_url}...[/cyan]")
+
+    # Get existing video IDs if skip_existing
+    existing_ids = set()
+    if skip_existing:
+        from cfp_pipeline.indexers.talks import get_talks_index_name
+        index_name = get_talks_index_name()
+        try:
+            page = 0
+            while True:
+                result = client.search_single_index(
+                    index_name,
+                    {"query": "", "hitsPerPage": 1000, "page": page, "attributesToRetrieve": ["objectID"]}
+                )
+                for hit in result.hits:
+                    oid = getattr(hit, "object_id", None) or getattr(hit, "objectID", None)
+                    if oid and oid.startswith("yt_"):
+                        existing_ids.add(oid[3:])  # Strip yt_ prefix
+                if len(result.hits) < 1000:
+                    break
+                page += 1
+            console.print(f"[dim]Found {len(existing_ids)} existing videos in index[/dim]")
+        except Exception:
+            pass
+
+    # Use yt-dlp to get channel videos
+    ydl_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'skip_download': True,
+        'extract_flat': True,
+        'ignoreerrors': True,
+    }
+
+    videos = []
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        # Normalize channel URL to videos page
+        if not channel_url.endswith('/videos'):
+            if channel_url.endswith('/'):
+                channel_url = channel_url[:-1]
+            channel_url = f"{channel_url}/videos"
+
+        result = ydl.extract_info(channel_url, download=False)
+        if result and 'entries' in result:
+            channel_title = result.get('playlist_uploader') or result.get('channel') or 'Unknown'
+            if conference_name is None:
+                conference_name = channel_title
+
+            for entry in result['entries']:
+                if entry is None:
+                    continue
+
+                video_id = entry.get('id', '')
+                if skip_existing and video_id in existing_ids:
+                    continue
+
+                duration = entry.get('duration') or 0
+                if duration < min_duration * 60:
+                    continue
+
+                videos.append(entry)
+
+                if limit > 0 and len(videos) >= limit:
+                    break
+
+    console.print(f"[dim]Found {len(videos)} new videos (>={min_duration}min, not in index)[/dim]")
+
+    if not videos:
+        console.print("[yellow]No new videos to import[/yellow]")
+        raise typer.Exit(0)
+
+    # Convert to Talk objects
+    talks = []
+    for entry in videos:
+        video_id = entry.get('id', '')
+        title = entry.get('title', '')
+        clean_title, speaker = _extract_speaker_from_title(title)
+
+        # Try to extract year from upload date or title
+        year = None
+        upload_date = entry.get('timestamp')
+        if upload_date:
+            from datetime import datetime
+            try:
+                year = datetime.fromtimestamp(upload_date).year
+            except Exception:
+                pass
+
+        talk = Talk(
+            objectID=f"yt_{video_id}",
+            conference_id=conference_id,
+            conference_name=conference_name,
+            title=clean_title,
+            original_title=title,
+            speaker=speaker,
+            description=(entry.get('description') or '')[:500],
+            url=entry.get('url') or f"https://www.youtube.com/watch?v={video_id}",
+            thumbnail_url=_get_best_thumbnail(entry),
+            year=year,
+            duration_seconds=entry.get('duration'),
+            duration_minutes=round((entry.get('duration') or 0) / 60) if entry.get('duration') else None,
+            view_count=entry.get('view_count'),
+        )
+        talks.append(talk)
+
+    # Configure and index
+    configure_talks_index(client)
+    indexed = index_talks(client, talks)
+
+    # Show stats
+    stats = get_talks_stats(client)
+    console.print(f"\n[bold green]Channel import complete![/bold green]")
+    console.print(f"  Channel: {conference_name}")
+    console.print(f"  Imported: {indexed}")
+    console.print(f"  Total in index: {stats.get('num_talks', 'unknown')}")
+
+    # Show sample
+    if talks:
+        console.print(f"\n[bold]Sample imported talks:[/bold]")
+        for talk in talks[:5]:
+            views = f"{talk.view_count:,}" if talk.view_count else "?"
+            thumb = "YES" if talk.thumbnail_url else "NO"
+            console.print(f"  - [{thumb}] {talk.title[:50]}")
+            console.print(f"    [dim]{talk.speaker or 'Unknown'} | {views} views[/dim]")
+
+
+@app.command()
 def talks_stats():
     """Show talks index statistics."""
     from cfp_pipeline.indexers.talks import get_talks_stats, get_talks_index_name
@@ -737,6 +1008,291 @@ def fetch_intel(
             console.print(f"\n  [dim]Top HN: {top_intel.hn_stories[0].title}[/dim]")
         if top_intel.github_repos:
             console.print(f"  [dim]Top Repo: {top_intel.github_repos[0].full_name} ({top_intel.github_repos[0].stars}⭐)[/dim]")
+
+
+@app.command()
+def intel_stats(
+    index_name: str = typer.Option(
+        None, "--index", "-i",
+        help="Algolia index name (default: ALGOLIA_INDEX_NAME env var)"
+    ),
+):
+    """Show intel data statistics for TalkFlix carousel planning."""
+    index_name = index_name or os.environ.get("ALGOLIA_INDEX_NAME", "cfps")
+
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    # Query stats for different carousel categories
+    queries = [
+        ("Total CFPs", ""),
+        ("Intel-enriched", "intelEnriched:true"),
+        ("With popularity score", "popularityScore > 0"),
+        ("With HN stories", "hnStories > 0"),
+        ("With GitHub repos", "githubRepos > 0"),
+        ("With Reddit posts", "redditPosts > 0"),
+        ("Hot deadlines (<=7d)", "daysUntilCfpClose >= 0 AND daysUntilCfpClose <= 7"),
+        ("Warning deadlines (7-30d)", "daysUntilCfpClose > 7 AND daysUntilCfpClose <= 30"),
+    ]
+
+    table = Table(title="Intel Statistics for TalkFlix")
+    table.add_column("Category", style="cyan")
+    table.add_column("Count", justify="right", style="green")
+
+    for name, filters in queries:
+        try:
+            params = {"query": "", "hitsPerPage": 0}
+            if filters:
+                params["filters"] = filters
+            res = client.search_single_index(index_name, params)
+            table.add_row(name, str(res.nb_hits))
+        except Exception as e:
+            table.add_row(name, f"[red]Error: {e}[/red]")
+
+    console.print(table)
+
+    # Also check talks index
+    console.print("\n[bold]Talks Index:[/bold]")
+    talks_index = os.environ.get("ALGOLIA_TALKS_INDEX", "cfps_talks")
+    try:
+        res = client.search_single_index(talks_index, {"query": "", "hitsPerPage": 0})
+        console.print(f"  Total talks: {res.nb_hits}")
+
+        # Viral talks
+        res2 = client.search_single_index(
+            talks_index,
+            {"query": "", "hitsPerPage": 0, "filters": "view_count > 10000"}
+        )
+        console.print(f"  Viral (>10K views): {res2.nb_hits}")
+    except Exception as e:
+        console.print(f"  [red]Error: {e}[/red]")
+
+    # Recommendations
+    console.print("\n[bold]Recommendations:[/bold]")
+    console.print("  - Run [cyan]poetry run cfp sync-intel --limit 0[/cyan] to enrich all CFPs")
+    console.print("  - Run [cyan]poetry run cfp fetch-talks --limit 0 --talks 100[/cyan] for more talks")
+
+
+@app.command()
+def sync_intel(
+    limit: int = typer.Option(20, "--limit", "-l", help="Max CFPs to enrich with intel (0 = all)"),
+    include_ddg: bool = typer.Option(False, "--ddg", help="Include DuckDuckGo search (slower)"),
+    force: bool = typer.Option(False, "--force", "-f", help="Re-gather intel even if already enriched"),
+    index_name: str = typer.Option(
+        None, "--index", "-i",
+        help="Algolia index name (default: ALGOLIA_INDEX_NAME env var)"
+    ),
+):
+    """Gather conference intel (HN, GitHub, Reddit, DEV.to) and sync to Algolia.
+
+    Enriches CFPs with popularity scores, comments, topics, and community data.
+    All keyless APIs - no authentication required.
+    """
+    from cfp_pipeline.enrichers.popularity import enrich_cfps_with_intel
+
+    index_name = index_name or os.environ.get("ALGOLIA_INDEX_NAME", "cfps")
+
+    # Get Algolia client
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    async def run():
+        # Run pipeline to get CFPs
+        cfps = await run_pipeline(filter_open_only=True)
+        if not cfps:
+            return []
+
+        # Enrich with intel
+        limit_val = limit if limit > 0 else None
+        return await enrich_cfps_with_intel(
+            cfps,
+            limit=limit_val,
+            include_ddg=include_ddg,
+            skip_existing=not force,
+        )
+
+    cfps = asyncio.run(run())
+
+    if not cfps:
+        console.print("[yellow]No CFPs to sync[/yellow]")
+        raise typer.Exit(0)
+
+    # Index records
+    indexed_count = index_cfps(client, index_name, cfps)
+
+    # Count intel-enriched
+    intel_count = sum(1 for c in cfps if c.intel_enriched)
+
+    stats = get_index_stats(client, index_name)
+    console.print(f"\n[bold green]Intel sync complete![/bold green]")
+    console.print(f"  Index: {stats.get('index_name')}")
+    console.print(f"  Total records: {stats.get('num_records', 'unknown')}")
+    console.print(f"  Intel-enriched: {intel_count}")
+
+    # Show top by popularity
+    enriched = [c for c in cfps if c.intel_enriched and c.popularity_score]
+    if enriched:
+        top = sorted(enriched, key=lambda x: x.popularity_score or 0, reverse=True)[:5]
+        console.print(f"\n[bold]Top by Popularity:[/bold]")
+        for c in top:
+            console.print(
+                f"  {c.popularity_score:.1f} - {c.name[:40]} "
+                f"(HN:{c.hn_stories}, GH:{c.github_repos}, Reddit:{c.reddit_posts})"
+            )
+
+
+# ===== SPEAKERS COMMANDS =====
+
+
+@app.command()
+def build_speakers(
+    limit: int = typer.Option(0, "--limit", "-l", help="Max speakers to index (0 = all)"),
+    configure: bool = typer.Option(True, "--configure/--no-configure", help="Configure index settings"),
+):
+    """Build speaker profiles from talks index and sync to Algolia.
+
+    Aggregates speaker data from cfps_talks: talks, views, topics, conferences.
+    Computes achievements based on stats.
+    """
+    from cfp_pipeline.indexers.speakers import (
+        configure_speakers_index,
+        build_speakers_from_talks,
+        index_speakers,
+        get_speakers_stats,
+    )
+
+    # Get Algolia client
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    # Build speakers from talks
+    limit_val = limit if limit > 0 else None
+    speakers = build_speakers_from_talks(client, limit=limit_val)
+
+    if not speakers:
+        console.print("[yellow]No speakers found in talks index[/yellow]")
+        raise typer.Exit(0)
+
+    # Configure and index
+    if configure:
+        configure_speakers_index(client)
+
+    indexed = index_speakers(client, speakers)
+
+    # Show stats
+    stats = get_speakers_stats(client)
+    console.print(f"\n[bold green]Speaker index built![/bold green]")
+    console.print(f"  Total speakers: {stats.get('num_speakers', 'unknown')}")
+
+    # Show top speakers
+    console.print(f"\n[bold]Top Speakers by Influence:[/bold]")
+    for speaker in speakers[:10]:
+        badges = " ".join(f"[{a}]" for a in speaker.achievements[:3])
+        console.print(
+            f"  {speaker.influence_score:,.0f} - {speaker.name}"
+            f" ({speaker.talk_count} talks, {speaker.total_views:,} views)"
+        )
+        if badges:
+            console.print(f"    [dim]{badges}[/dim]")
+
+
+@app.command()
+def speaker_stats(
+    top: int = typer.Option(20, "--top", "-t", help="Show top N speakers"),
+    topic: str = typer.Option(None, "--topic", help="Filter by topic"),
+    metric: str = typer.Option("influence", "--metric", "-m", help="Sort by: influence, views, talks"),
+):
+    """Show speaker leaderboard with stats."""
+    from cfp_pipeline.indexers.speakers import get_speakers_index_name, get_speakers_stats
+
+    # Get Algolia client
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    index_name = get_speakers_index_name()
+
+    # Check if index exists
+    stats = get_speakers_stats(client)
+    if "error" in stats:
+        console.print(f"[yellow]Speakers index not found or empty[/yellow]")
+        console.print(f"[dim]Run 'poetry run cfp build-speakers' to create it[/dim]")
+        raise typer.Exit(0)
+
+    # Query speakers
+    params = {"query": "", "hitsPerPage": top}
+
+    if topic:
+        params["filters"] = f"topics:\"{topic}\""
+
+    results = client.search_single_index(index_name, params)
+    speakers = results.hits
+
+    if not speakers:
+        console.print("[yellow]No speakers found[/yellow]")
+        raise typer.Exit(0)
+
+    # Build table
+    title = f"Speaker Leaderboard ({stats['num_speakers']} total)"
+    if topic:
+        title += f" - Topic: {topic}"
+
+    table = Table(title=title)
+    table.add_column("#", style="dim", width=3)
+    table.add_column("Speaker", style="cyan", max_width=25)
+    table.add_column("Company", style="blue", max_width=15)
+    table.add_column("Talks", justify="right")
+    table.add_column("Views", justify="right", style="green")
+    table.add_column("Years", justify="right")
+    table.add_column("Influence", justify="right", style="yellow")
+    table.add_column("Achievements", max_width=30)
+
+    for i, s in enumerate(speakers, 1):
+        views = getattr(s, "total_views", 0) or 0
+        views_str = f"{views // 1000}K" if views >= 1000 else str(views)
+
+        achievements = getattr(s, "achievements", []) or []
+        badges = ", ".join(achievements[:2]) if achievements else "-"
+
+        table.add_row(
+            str(i),
+            (getattr(s, "name", "?") or "?")[:25],
+            (getattr(s, "company", None) or "-")[:15],
+            str(getattr(s, "talk_count", 0) or 0),
+            views_str,
+            str(getattr(s, "active_years", 0) or 0),
+            f"{getattr(s, 'influence_score', 0) or 0:,.0f}",
+            badges,
+        )
+
+    console.print(table)
+
+    # Show summary stats
+    console.print(f"\n[bold]Index Stats:[/bold]")
+    console.print(f"  Total speakers: {stats['num_speakers']}")
+
+    # Achievement breakdown
+    all_achievements = []
+    for s in speakers:
+        all_achievements.extend(getattr(s, "achievements", []) or [])
+
+    if all_achievements:
+        from collections import Counter
+        achievement_counts = Counter(all_achievements).most_common(5)
+        console.print(f"\n[bold]Top Achievements:[/bold]")
+        for achievement, count in achievement_counts:
+            console.print(f"  {achievement}: {count}")
 
 
 if __name__ == "__main__":

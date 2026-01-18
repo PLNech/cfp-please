@@ -265,7 +265,7 @@ async def fetch_hn_intel(client: httpx.AsyncClient, name: str) -> dict:
 
 
 async def fetch_github_intel(client: httpx.AsyncClient, name: str) -> dict:
-    """Fetch comprehensive GitHub data."""
+    """Fetch comprehensive GitHub data including repo descriptions."""
     clean = _clean_name(name)
     result = {
         "repos": [],
@@ -273,6 +273,7 @@ async def fetch_github_intel(client: httpx.AsyncClient, name: str) -> dict:
         "total_stars": 0,
         "languages": [],
         "topics": [],
+        "descriptions": [],  # For CFP record
     }
 
     try:
@@ -313,10 +314,14 @@ async def fetch_github_intel(client: httpx.AsyncClient, name: str) -> dict:
                 languages.append(repo.language)
             all_topics.extend(repo.topics)
 
-        # Dedupe and count
+            # Collect descriptions for search
+            if repo.description:
+                result["descriptions"].append(repo.description[:300])
+
         from collections import Counter
         result["languages"] = [l for l, _ in Counter(languages).most_common(10)]
         result["topics"] = [t for t, _ in Counter(all_topics).most_common(20)]
+        result["descriptions"] = result["descriptions"][:10]
 
     except Exception as e:
         result["error"] = str(e)
@@ -325,19 +330,43 @@ async def fetch_github_intel(client: httpx.AsyncClient, name: str) -> dict:
 
 
 async def fetch_reddit_intel(client: httpx.AsyncClient, name: str) -> dict:
-    """Fetch comprehensive Reddit data."""
+    """Fetch comprehensive Reddit data including post titles and comments."""
     clean = _clean_name(name)
     result = {
         "posts": [],
         "total_posts": 0,
         "subreddits": [],
         "top_flairs": [],
+        "post_titles": [],  # For CFP record
+        "all_comments": [],  # For CFP record
+    }
+
+    # Tech/conference subreddits to prioritize
+    tech_subreddits = {
+        "programming", "webdev", "devops", "kubernetes", "docker", "python",
+        "javascript", "rust", "golang", "java", "dotnet", "aws", "azure",
+        "googlecloud", "linux", "netsec", "cybersecurity", "infosec", "security",
+        "hacking", "reverseengineering", "machinelearning", "datascience", "analytics",
+        "artificial", "learnprogramming", "computerscience", "coding", "software",
+        "softwareengineering", "engineering", "tech", "technology", "conferences",
+        "cscareerquestions", "experienceddevs", "gamedev", "reactjs", "node",
+        "backend", "frontend", "fullstack", "sysadmin", "homelab"
+    }
+
+    # Non-tech subreddits to filter out
+    noise_subreddits = {
+        "kpop", "kpopthoughts", "unpopularkpopopinions", "kpoprants", "kpoppers",
+        "kpop_uncensored", "kpophelp", "music", "popheads", "hiphopheads",
+        "gaming", "games", "leagueoflegends", "valorant", "fortnitebr",
+        "nba", "nfl", "soccer", "formula1", "sports"
     }
 
     try:
+        # Add conference context for better precision - simpler query
+        query = f'{clean} conference'
         r = await client.get(
             "https://www.reddit.com/search.json",
-            params={"q": clean, "limit": 100, "sort": "relevance", "t": "all"},
+            params={"q": query, "limit": 100, "sort": "relevance", "t": "all"},
             headers={"User-Agent": "CFPPlease/1.0 (conference discovery tool)"}
         )
 
@@ -348,12 +377,20 @@ async def fetch_reddit_intel(client: httpx.AsyncClient, name: str) -> dict:
         data = r.json()
         children = data.get("data", {}).get("children", [])
 
-        result["total_posts"] = len(children)
-
         subreddits = []
         flairs = []
 
+        # Filter posts - prioritize tech subreddits, exclude noise
+        filtered_children = []
         for child in children:
+            subreddit = child.get("data", {}).get("subreddit", "").lower()
+            if subreddit in noise_subreddits:
+                continue
+            filtered_children.append(child)
+
+        result["total_posts"] = len(filtered_children)
+
+        for child in filtered_children:
             post_data = child.get("data", {})
             post = RedditPost(
                 title=post_data.get("title", ""),
@@ -370,10 +407,37 @@ async def fetch_reddit_intel(client: httpx.AsyncClient, name: str) -> dict:
             subreddits.append(post.subreddit)
             if post.flair:
                 flairs.append(post.flair)
+            # Collect titles for search
+            result["post_titles"].append(post.title)
+            # Collect selftext as "comments"
+            selftext = post_data.get("selftext") or ""
+            if selftext and len(selftext) > 50:
+                result["all_comments"].append(selftext[:500])
+
+        # Fetch actual top comments from top 5 posts
+        for post in result["posts"][:5]:
+            try:
+                permalink = post.url.replace("https://reddit.com", "")
+                cr = await client.get(
+                    f"https://www.reddit.com{permalink}.json",
+                    params={"limit": 5},
+                    headers={"User-Agent": "CFPPlease/1.0"}
+                )
+                if cr.status_code == 200:
+                    comments_data = cr.json()
+                    if len(comments_data) > 1:
+                        for comment in comments_data[1].get("data", {}).get("children", [])[:5]:
+                            body = comment.get("data", {}).get("body", "")
+                            if body and len(body) > 50 and body != "[deleted]":
+                                result["all_comments"].append(body[:500])
+            except:
+                pass
 
         from collections import Counter
         result["subreddits"] = [s for s, _ in Counter(subreddits).most_common(10)]
         result["top_flairs"] = [f for f, _ in Counter(flairs).most_common(10)]
+        result["post_titles"] = result["post_titles"][:10]
+        result["all_comments"] = result["all_comments"][:20]
 
     except Exception as e:
         result["error"] = str(e)
@@ -641,6 +705,113 @@ async def gather_intel_batch(
         results[name] = intel
 
     return results
+
+
+def apply_intel_to_cfp(cfp: "CFP", intel: ConferenceIntel) -> "CFP":
+    """Apply gathered intelligence data to a CFP record.
+
+    Maps all intel fields to the CFP model for Algolia indexing.
+
+    Args:
+        cfp: CFP record to enrich
+        intel: ConferenceIntel with gathered data
+
+    Returns:
+        Updated CFP with intel data
+    """
+    from cfp_pipeline.models import CFP
+
+    # Popularity score
+    cfp.popularity_score = intel.popularity_score
+
+    # Hacker News
+    cfp.hn_stories = intel.hn_total_stories
+    cfp.hn_points = intel.hn_total_points
+    cfp.hn_story_titles = [s.title for s in intel.hn_stories[:10]]
+    # Collect comments from stories
+    all_hn_comments = []
+    for story in intel.hn_stories[:5]:
+        all_hn_comments.extend(story.top_comments)
+    cfp.hn_comments = all_hn_comments[:20]
+
+    # GitHub
+    cfp.github_repos = intel.github_total_repos
+    cfp.github_stars = intel.github_total_stars
+    cfp.github_languages = intel.github_languages[:10]
+    cfp.github_topics = intel.github_topics[:20]
+    cfp.github_descriptions = [r.description for r in intel.github_repos[:10] if r.description]
+
+    # Reddit
+    cfp.reddit_posts = intel.reddit_total_posts
+    cfp.reddit_subreddits = intel.reddit_subreddits[:10]
+    cfp.reddit_titles = [p.title for p in intel.reddit_posts[:10]]
+    # Collect comments from posts
+    all_reddit_comments = []
+    for post in intel.reddit_posts[:5]:
+        if post.selftext_preview:
+            all_reddit_comments.append(post.selftext_preview)
+    cfp.reddit_comments = all_reddit_comments[:20]
+
+    # DEV.to
+    cfp.devto_articles = intel.devto_total_articles
+    cfp.devto_tags = intel.devto_tags[:15]
+    cfp.devto_titles = [a.title for a in intel.devto_articles[:10]]
+
+    # Aggregated
+    cfp.intel_topics = intel.all_topics[:30]
+    cfp.intel_urls = intel.all_related_urls[:20]
+
+    # Mark as intel-enriched
+    cfp.intel_enriched = True
+
+    return cfp
+
+
+async def enrich_cfps_with_intel(
+    cfps: list["CFP"],
+    limit: int | None = None,
+    include_ddg: bool = False,
+    skip_existing: bool = True,
+) -> list["CFP"]:
+    """Enrich a list of CFPs with intel data.
+
+    Args:
+        cfps: CFPs to enrich
+        limit: Max number to enrich (None = all)
+        include_ddg: Include DuckDuckGo (slower)
+        skip_existing: Skip CFPs that already have intel
+
+    Returns:
+        List of enriched CFPs
+    """
+    # Filter to those needing intel
+    to_process = cfps
+    if skip_existing:
+        to_process = [c for c in cfps if not c.intel_enriched]
+
+    if limit:
+        to_process = to_process[:limit]
+
+    if not to_process:
+        console.print("[dim]All CFPs already have intel data[/dim]")
+        return cfps
+
+    console.print(f"[cyan]Gathering intel for {len(to_process)} CFPs...[/cyan]")
+
+    # Gather intel in batch
+    names = [c.name for c in to_process]
+    intel_map = await gather_intel_batch(names, include_ddg=include_ddg)
+
+    # Apply intel to CFPs
+    cfp_by_name = {c.name: c for c in to_process}
+    for name, intel in intel_map.items():
+        if name in cfp_by_name:
+            apply_intel_to_cfp(cfp_by_name[name], intel)
+
+    enriched_count = sum(1 for c in cfps if c.intel_enriched)
+    console.print(f"[green]Intel enriched: {enriched_count}/{len(cfps)} CFPs[/green]")
+
+    return cfps
 
 
 # CLI test

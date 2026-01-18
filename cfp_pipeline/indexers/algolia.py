@@ -38,6 +38,13 @@ def configure_index(client: SearchClientSync, index_name: str) -> None:
             "topics,topicsNormalized",
             "technologies",
             "location.city,location.region,location.country",
+            # Intel text for search (HN/Reddit comments, GitHub descriptions)
+            "hnStoryTitles",
+            "hnComments",
+            "githubDescriptions",
+            "redditTitles",
+            "redditComments",
+            "intelTopics",
         ],
         # Facets for filtering
         "attributesForFaceting": [
@@ -58,11 +65,28 @@ def configure_index(client: SearchClientSync, index_name: str) -> None:
             "filterOnly(cfpEndDate)",
             "filterOnly(eventStartDate)",
             "enriched",
+            # Intel filtering (for TalkFlix carousels)
+            "filterOnly(intelEnriched)",
+            "filterOnly(popularityScore)",
+            "filterOnly(hnStories)",
+            "filterOnly(hnPoints)",
+            "filterOnly(githubRepos)",
+            "filterOnly(githubStars)",
+            "filterOnly(redditPosts)",
+            "filterOnly(devtoArticles)",
+            "filterOnly(daysUntilCfpClose)",
         ],
         # Custom ranking: urgency first (close deadlines rank higher)
         "customRanking": [
             "asc(daysUntilCfpClose)",
             "asc(cfpEndDate)",
+        ],
+        # Sorting replicas for TalkFlix carousels
+        "replicas": [
+            f"{index_name}_popularity_desc",
+            f"{index_name}_hn_desc",
+            f"{index_name}_github_desc",
+            f"{index_name}_deadline_asc",
         ],
         # Relevance tuning
         "typoTolerance": True,
@@ -78,6 +102,21 @@ def configure_index(client: SearchClientSync, index_name: str) -> None:
     }
 
     client.set_settings(index_name, settings)
+
+    # Configure replica indices for sorting
+    replica_configs = [
+        (f"{index_name}_popularity_desc", ["desc(popularityScore)"]),
+        (f"{index_name}_hn_desc", ["desc(hnPoints)"]),
+        (f"{index_name}_github_desc", ["desc(githubStars)"]),
+        (f"{index_name}_deadline_asc", ["asc(daysUntilCfpClose)"]),
+    ]
+    for replica_name, ranking in replica_configs:
+        try:
+            client.set_settings(replica_name, {"customRanking": ranking})
+            console.print(f"  [dim]Configured replica '{replica_name}'[/dim]")
+        except Exception as e:
+            console.print(f"  [yellow]Warning: Could not configure replica '{replica_name}': {e}[/yellow]")
+
     console.print(f"[green]Index '{index_name}' configured successfully[/green]")
 
 

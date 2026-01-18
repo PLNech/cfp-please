@@ -26,6 +26,31 @@ console = Console()
 _executor = ThreadPoolExecutor(max_workers=4)
 
 
+def _get_best_thumbnail(entry: dict) -> Optional[str]:
+    """Extract best thumbnail URL from yt-dlp entry.
+
+    yt-dlp returns 'thumbnail' for full extracts but only 'thumbnails' array
+    for flat/search extracts. This handles both cases.
+    """
+    # Try singular first (works in full extraction mode)
+    if entry.get('thumbnail'):
+        return entry['thumbnail']
+
+    # Fall back to thumbnails array (search/flat mode)
+    thumbnails = entry.get('thumbnails') or []
+    if not thumbnails:
+        return None
+
+    # Prefer higher resolution thumbnails
+    # Sort by height (descending) and pick the best one
+    sorted_thumbs = sorted(
+        [t for t in thumbnails if t.get('url')],
+        key=lambda t: t.get('height', 0),
+        reverse=True
+    )
+    return sorted_thumbs[0]['url'] if sorted_thumbs else None
+
+
 def _extract_speaker_from_title(title: str) -> tuple[str, Optional[str]]:
     """Try to extract speaker name from talk title.
 
@@ -102,7 +127,7 @@ def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
                     'speaker': speaker,
                     'description': (entry.get('description') or '')[:500],
                     'url': video_url,
-                    'thumbnail_url': entry.get('thumbnail'),
+                    'thumbnail_url': _get_best_thumbnail(entry),
                     'year': year,
                     'duration_seconds': entry.get('duration'),
                     'view_count': entry.get('view_count'),
@@ -475,6 +500,112 @@ async def fetch_talks_for_conference(
     ]
 
     console.print(f"[dim]  Found {len(talks)} talks for {conference_name}[/dim]")
+    return talks
+
+
+def fetch_video_by_url(url: str) -> Optional[dict]:
+    """Fetch full video details for a specific YouTube URL.
+
+    Args:
+        url: YouTube video URL (e.g., https://youtube.com/watch?v=xxx)
+
+    Returns:
+        Dict with video details or None if failed
+    """
+    import yt_dlp
+
+    ydl_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'skip_download': True,
+        'ignoreerrors': True,
+    }
+
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            if not info:
+                return None
+
+            # Extract year from upload_date
+            year = None
+            upload_date = info.get('upload_date')
+            if upload_date and len(upload_date) >= 4:
+                try:
+                    year = int(upload_date[:4])
+                except ValueError:
+                    pass
+
+            title = info.get('title', '')
+            clean_title, speaker = _extract_speaker_from_title(title)
+
+            return {
+                'id': info.get('id', ''),
+                'title': clean_title,
+                'original_title': title,
+                'speaker': speaker,
+                'description': (info.get('description') or '')[:2000],
+                'url': info.get('webpage_url') or url,
+                'thumbnail_url': _get_best_thumbnail(info),
+                'year': year,
+                'duration_seconds': info.get('duration'),
+                'view_count': info.get('view_count'),
+                'like_count': info.get('like_count'),
+                'comment_count': info.get('comment_count'),
+                'channel': info.get('channel') or info.get('uploader'),
+                'channel_url': info.get('channel_url'),
+                'tags': (info.get('tags') or [])[:20],
+                'categories': info.get('categories') or [],
+            }
+    except Exception as e:
+        console.print(f"[dim]Error fetching {url}: {e}[/dim]")
+        return None
+
+
+async def fetch_talks_by_urls(
+    urls: list[dict],  # List of {"url": str, "conference_id": str, "conference_name": str, "speaker"?: str}
+    max_concurrent: int = 3,
+) -> list[Talk]:
+    """Fetch talks from specific YouTube URLs.
+
+    Args:
+        urls: List of dicts with url, conference_id, conference_name, optional speaker override
+        max_concurrent: Max concurrent fetches
+
+    Returns:
+        List of Talk objects
+    """
+    semaphore = asyncio.Semaphore(max_concurrent)
+    loop = asyncio.get_event_loop()
+    talks = []
+
+    async def fetch_one(item: dict) -> Optional[Talk]:
+        async with semaphore:
+            url = item['url']
+            result = await loop.run_in_executor(_executor, fetch_video_by_url, url)
+            if not result:
+                return None
+
+            # Override speaker if provided
+            if item.get('speaker'):
+                result['speaker'] = item['speaker']
+
+            return _youtube_result_to_talk(
+                result,
+                item['conference_id'],
+                item['conference_name'],
+            )
+
+    tasks = [fetch_one(item) for item in urls]
+
+    for coro in asyncio.as_completed(tasks):
+        talk = await coro
+        if talk:
+            talks.append(talk)
+            console.print(f"[green]  ✓ {talk.title[:50]}...[/green]")
+        else:
+            console.print(f"[yellow]  ✗ Failed to fetch a URL[/yellow]")
+
     return talks
 
 
