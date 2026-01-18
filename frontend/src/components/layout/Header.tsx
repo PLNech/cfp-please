@@ -1,25 +1,29 @@
 /**
  * Header - TalkFlix top bar
  *
- * Logo + Search + Profile trigger
+ * Logo + Autocomplete Search + Profile trigger
+ * Search shows autocomplete dropdown with CFPs/Talks/Speakers.
  */
 
-import type { UserProfile } from '../../types';
+import type { UserProfile, CFP, Talk, Speaker } from '../../types';
+import { Autocomplete } from '../autocomplete';
 
 interface HeaderProps {
   profile: UserProfile;
   hasProfile: boolean;
   onProfileClick: () => void;
-  searchQuery?: string;
-  onSearchChange?: (query: string) => void;
+  onCFPSelect?: (cfp: CFP) => void;
+  onTalkSelect?: (talk: Talk) => void;
+  onSpeakerSelect?: (speaker: Speaker) => void;
 }
 
 export function Header({
   profile,
   hasProfile,
   onProfileClick,
-  searchQuery = '',
-  onSearchChange,
+  onCFPSelect,
+  onTalkSelect,
+  onSpeakerSelect,
 }: HeaderProps) {
   return (
     <header className="talkflix-header">
@@ -31,27 +35,12 @@ export function Header({
         <span className="header-tagline">Find your next talk</span>
       </div>
 
-      <div className="header-search">
-        <svg
-          className="header-search-icon"
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-        <input
-          type="search"
+      <div className="header-search-wrapper">
+        <Autocomplete
           placeholder="Search CFPs, talks, speakers..."
-          value={searchQuery}
-          onChange={(e) => onSearchChange?.(e.target.value)}
-          className="header-search-input"
+          onCFPSelect={onCFPSelect}
+          onTalkSelect={onTalkSelect}
+          onSpeakerSelect={onSpeakerSelect}
         />
       </div>
 

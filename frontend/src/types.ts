@@ -91,6 +91,48 @@ export interface Talk {
   popularity_score?: number;
 }
 
+// Speaker from cfps_speakers index
+export interface Speaker {
+  objectID: string;
+  name: string;
+  aliases?: string[];
+  company?: string;
+
+  // Stats
+  talk_count: number;
+  total_views: number;
+  max_views: number;
+  avg_views?: number;
+  influence_score?: number;
+  consistency_score?: number;
+
+  // Timeline
+  years_active: number[];
+  first_talk_year?: number;
+  latest_talk_year?: number;
+  active_years?: number;
+
+  // Topics & Conferences
+  topics: string[];
+  topic_counts?: Record<string, number>;
+  conferences: string[];
+  conference_counts?: Record<string, number>;
+  conference_count?: number;
+
+  // Talk references
+  top_talk_ids: string[];
+  all_talk_ids: string[];
+
+  // Links
+  profile_url?: string;
+  twitter?: string;
+  linkedin?: string;
+  github?: string;
+
+  // Achievements
+  achievements: string[];
+}
+
 // User profile for personalization (localStorage)
 export interface UserProfile {
   topics: string[];
@@ -98,6 +140,10 @@ export interface UserProfile {
   preferredFormats: ('in-person' | 'virtual' | 'hybrid')[];
   viewedCFPs: string[];
   savedCFPs: string[];
+  // TalkFlix Phase 2: Talk & Speaker tracking
+  watchedTalks: string[];      // Last 50 talk IDs (most recent first)
+  favoriteTalks: string[];     // Bookmarked talks (max 50)
+  favoriteSpeakers: string[];  // Followed speakers (max 20)
 }
 
 export const DEFAULT_PROFILE: UserProfile = {
@@ -106,6 +152,9 @@ export const DEFAULT_PROFILE: UserProfile = {
   preferredFormats: [],
   viewedCFPs: [],
   savedCFPs: [],
+  watchedTalks: [],
+  favoriteTalks: [],
+  favoriteSpeakers: [],
 };
 
 // Carousel configuration

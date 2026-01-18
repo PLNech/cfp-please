@@ -1,0 +1,201 @@
+/* Autocomplete dark theme for TalkFlix */
+
+.talkflix-autocomplete {
+  --aa-primary-color-rgb: 255, 107, 107;
+  --aa-muted-color-rgb: 136, 136, 136;
+  --aa-text-color-rgb: 245, 245, 245;
+  --aa-background-color-rgb: 26, 26, 46;
+  --aa-input-background-color-rgb: 13, 13, 13;
+  --aa-panel-background-color-rgb: 26, 26, 46;
+  --aa-overlay-color-rgb: 0, 0, 0;
+  --aa-highlight-color-rgb: 255, 107, 107;
+
+  /* Override classic theme variables */
+  --aa-icon-color-rgb: 136, 136, 136;
+  --aa-selected-color-rgb: 255, 107, 107;
+  --aa-scrollbar-track-background-color-rgb: 26, 26, 46;
+  --aa-scrollbar-thumb-background-color-rgb: 102, 102, 102;
+}
+
+/* Detached mode container */
+.talkflix-autocomplete .aa-Autocomplete {
+  width: 100%;
+}
+
+/* Form */
+.talkflix-autocomplete .aa-Form {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.talkflix-autocomplete .aa-Form:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 107, 107, 0.5);
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+/* Input */
+.talkflix-autocomplete .aa-Input {
+  color: #f5f5f5;
+  font-size: 0.875rem;
+}
+
+.talkflix-autocomplete .aa-Input::placeholder {
+  color: #666;
+}
+
+/* Submit/Clear buttons */
+.talkflix-autocomplete .aa-SubmitIcon,
+.talkflix-autocomplete .aa-ClearIcon {
+  color: #666;
+}
+
+.talkflix-autocomplete .aa-Form:focus-within .aa-SubmitIcon {
+  color: #ff6b6b;
+}
+
+/* Panel */
+.talkflix-autocomplete .aa-Panel {
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.talkflix-autocomplete .aa-Panel--scrollable {
+  max-height: 70vh;
+}
+
+/* Source header */
+.talkflix-autocomplete .aa-SourceHeader {
+  padding: 8px 16px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Items */
+.talkflix-autocomplete .aa-Item {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.talkflix-autocomplete .aa-Item[aria-selected='true'] {
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.talkflix-autocomplete .aa-ItemWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.talkflix-autocomplete .aa-ItemContent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Badges */
+.talkflix-autocomplete .aa-ItemBadge {
+  padding: 2px 8px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.talkflix-autocomplete .aa-ItemBadge--cfp {
+  background: rgba(91, 79, 255, 0.3);
+  color: #818cf8;
+}
+
+.talkflix-autocomplete .aa-ItemBadge--talk {
+  background: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.talkflix-autocomplete .aa-ItemBadge--speaker {
+  background: rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+/* Title */
+.talkflix-autocomplete .aa-ItemTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #f5f5f5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Meta */
+.talkflix-autocomplete .aa-ItemMeta {
+  font-size: 0.75rem;
+  color: #666;
+  white-space: nowrap;
+}
+
+.talkflix-autocomplete .aa-ItemMeta::before {
+  content: '·';
+  margin-right: 4px;
+}
+
+/* No results */
+.talkflix-autocomplete .aa-NoResults {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Footer */
+.talkflix-autocomplete .aa-PanelFooter {
+  padding: 8px 16px;
+  font-size: 0.75rem;
+  color: #666;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+/* Highlight */
+.talkflix-autocomplete mark {
+  background: rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .talkflix-autocomplete .aa-Form {
+    border-radius: 8px;
+  }
+
+  .talkflix-autocomplete .aa-Panel {
+    position: fixed !important;
+    top: 60px !important;
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    max-height: calc(100vh - 80px);
+  }
+
+  .talkflix-autocomplete .aa-ItemTitle {
+    max-width: 150px;
+  }
+}

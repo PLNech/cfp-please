@@ -16,7 +16,11 @@ import { useProfile } from '../hooks/useProfile';
 import { useCarouselData, buildCarouselConfigs } from '../hooks/useCarouselData';
 import { useInsights } from '../hooks/useInsights';
 import { useRelatedTalks } from '../hooks/useRecommend';
-import type { CFP, Talk } from '../types';
+import { useTalksByIds } from '../hooks/useTalksByIds';
+import { useTopSpeakers, useSpeakersByTopic } from '../hooks/useSpeakers';
+import { calculateMatchScore } from '../hooks/useMatchScore';
+import { SpeakerCard, SpeakerModal } from '../components/speakers';
+import type { CFP, Talk, Speaker } from '../types';
 import { getUrgencyLevel, getUrgencyColor } from '../types';
 
 interface TalkFlixHomeProps {
@@ -35,11 +39,16 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
     setExperienceLevel,
     toggleFormat,
     resetProfile,
+    markTalkWatched,
+    toggleFavoriteTalk,
+    isFavoriteTalk,
+    toggleFavoriteSpeaker,
+    isFollowingSpeaker,
   } = useProfile();
 
-  const [searchQuery, setSearchQuery] = useState('');
   const [inspireTalk, setInspireTalk] = useState<Talk | null>(null);
   const [selectedTalk, setSelectedTalk] = useState<Talk | null>(null);
+  const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
 
   // Insights for click tracking
   const { clickTalk, clickCFP, clickInspire, viewCarousel } = useInsights();
@@ -47,6 +56,28 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
   // Related talks for selected talk
   const { relatedTalks, loading: relatedLoading } = useRelatedTalks(
     selectedTalk?.objectID || null
+  );
+
+  // Continue Watching - fetch talks from watchedTalks
+  const { talks: continueTalks, loading: continueLoading } = useTalksByIds(
+    profile.watchedTalks,
+    10
+  );
+
+  // Favorites - fetch talks from favoriteTalks
+  const { talks: favoriteTalks, loading: favoritesLoading } = useTalksByIds(
+    profile.favoriteTalks,
+    20
+  );
+
+  // Top speakers
+  const { speakers: topSpeakers, loading: speakersLoading } = useTopSpeakers(15);
+
+  // Topic-specific speakers (if profile has topics)
+  const primaryTopic = profile.topics.length > 0 ? profile.topics[0] : null;
+  const { speakers: topicSpeakers, loading: topicSpeakersLoading } = useSpeakersByTopic(
+    primaryTopic,
+    10
   );
 
   // Build carousel configs based on profile
@@ -81,9 +112,10 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
 
   const handleTalkClick = useCallback((talk: Talk, position?: number) => {
     clickTalk(talk.objectID, position);
+    markTalkWatched(talk.objectID);
     setSelectedTalk(talk);
     onTalkClick?.(talk);
-  }, [clickTalk, onTalkClick]);
+  }, [clickTalk, markTalkWatched, onTalkClick]);
 
   const handleCFPClick = useCallback((cfp: CFP, position?: number) => {
     clickCFP(cfp.objectID, position);
@@ -95,14 +127,29 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
     setInspireTalk(talk);
   }, [clickInspire]);
 
+  // Handle autocomplete selections
+  const handleAutocompleteSelect = useCallback((cfp: CFP) => {
+    clickCFP(cfp.objectID);
+    onCFPClick?.(cfp);
+  }, [clickCFP, onCFPClick]);
+
+  const handleAutocompleteTalkSelect = useCallback((talk: Talk) => {
+    handleTalkClick(talk);
+  }, [handleTalkClick]);
+
+  const handleAutocompleteSpeakerSelect = useCallback((speaker: Speaker) => {
+    setSelectedSpeaker(speaker);
+  }, []);
+
   return (
     <div className="talkflix">
       <Header
         profile={profile}
         hasProfile={hasProfile}
         onProfileClick={openProfile}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        onCFPSelect={handleAutocompleteSelect}
+        onTalkSelect={handleAutocompleteTalkSelect}
+        onSpeakerSelect={handleAutocompleteSpeakerSelect}
       />
 
       <main className="talkflix-main">
@@ -116,16 +163,69 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
 
         {/* Carousel Rows */}
         <div className="talkflix-rows">
+          {/* Continue Watching - only if user has watched talks */}
+          {continueTalks.length > 0 && (
+            <div data-carousel="continue-watching">
+              <CarouselRow
+                icon="⏯️"
+                title="Continue Watching"
+                loading={continueLoading}
+              >
+                {continueTalks.map((talk, index) => (
+                  <TalkCard
+                    key={talk.objectID}
+                    talk={talk}
+                    position={index + 1}
+                    isFavorite={isFavoriteTalk(talk.objectID)}
+                    onClick={() => handleTalkClick(talk, index + 1)}
+                    onInspire={() => handleInspireClick(talk)}
+                    onToggleFavorite={toggleFavoriteTalk}
+                    onTrackClick={clickTalk}
+                  />
+                ))}
+              </CarouselRow>
+            </div>
+          )}
+
+          {/* Your Favorites - only if user has favorites */}
+          {favoriteTalks.length > 0 && (
+            <div data-carousel="favorites">
+              <CarouselRow
+                icon="❤️"
+                title="Your Favorites"
+                loading={favoritesLoading}
+              >
+                {favoriteTalks.map((talk, index) => (
+                  <TalkCard
+                    key={talk.objectID}
+                    talk={talk}
+                    position={index + 1}
+                    isFavorite={true}
+                    onClick={() => handleTalkClick(talk, index + 1)}
+                    onInspire={() => handleInspireClick(talk)}
+                    onToggleFavorite={toggleFavoriteTalk}
+                    onTrackClick={clickTalk}
+                  />
+                ))}
+              </CarouselRow>
+            </div>
+          )}
+
           {configs.map((config) => {
             const data = carousels.get(config.id);
             const isTalksRow = config.index === 'cfps_talks';
+
+            // Only render carousels that have data (or are still loading)
+            const hasItems = data?.items && data.items.length > 0;
+            const isLoading = data?.loading ?? true;
+            if (!hasItems && !isLoading) return null;
 
             return (
               <div key={config.id} data-carousel={config.id}>
                 <CarouselRow
                   icon={config.icon}
                   title={config.title}
-                  loading={data?.loading ?? true}
+                  loading={isLoading}
                 >
                   {data?.items.map((item, index) =>
                     isTalksRow ? (
@@ -133,14 +233,17 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                         key={item.objectID}
                         talk={item as Talk}
                         position={index + 1}
+                        isFavorite={isFavoriteTalk(item.objectID)}
                         onClick={() => handleTalkClick(item as Talk, index + 1)}
                         onInspire={() => handleInspireClick(item as Talk)}
+                        onToggleFavorite={toggleFavoriteTalk}
                         onTrackClick={clickTalk}
                       />
                     ) : (
                       <CFPCarouselCard
                         key={item.objectID}
                         cfp={item as CFP}
+                        matchScore={hasProfile ? calculateMatchScore(item as CFP, profile).score : undefined}
                         onClick={() => handleCFPClick(item as CFP, index + 1)}
                       />
                     )
@@ -163,9 +266,53 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                     key={talk.objectID}
                     talk={talk}
                     position={index + 1}
+                    isFavorite={isFavoriteTalk(talk.objectID)}
                     onClick={() => handleTalkClick(talk, index + 1)}
                     onInspire={() => handleInspireClick(talk)}
+                    onToggleFavorite={toggleFavoriteTalk}
                     onTrackClick={clickTalk}
+                  />
+                ))}
+              </CarouselRow>
+            </div>
+          )}
+
+          {/* Top Speakers */}
+          {topSpeakers.length > 0 && (
+            <div data-carousel="top-speakers">
+              <CarouselRow
+                icon="🏆"
+                title="Top Speakers"
+                loading={speakersLoading}
+              >
+                {topSpeakers.map((speaker) => (
+                  <SpeakerCard
+                    key={speaker.objectID}
+                    speaker={speaker}
+                    isFollowing={isFollowingSpeaker(speaker.objectID)}
+                    onClick={() => setSelectedSpeaker(speaker)}
+                    onFollow={toggleFavoriteSpeaker}
+                  />
+                ))}
+              </CarouselRow>
+            </div>
+          )}
+
+          {/* Topic Experts - if profile has topics */}
+          {primaryTopic && topicSpeakers.length > 0 && (
+            <div data-carousel="topic-speakers">
+              <CarouselRow
+                icon="🎯"
+                title={`${primaryTopic} Experts`}
+                loading={topicSpeakersLoading}
+              >
+                {topicSpeakers.map((speaker) => (
+                  <SpeakerCard
+                    key={speaker.objectID}
+                    speaker={speaker}
+                    isFollowing={isFollowingSpeaker(speaker.objectID)}
+                    onClick={() => setSelectedSpeaker(speaker)}
+                    onFollow={toggleFavoriteSpeaker}
                   />
                 ))}
               </CarouselRow>
@@ -192,6 +339,19 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
           matchingCFPs={carousels.get('hot-deadlines')?.items as CFP[] || []}
           onClose={() => setInspireTalk(null)}
           onSelectCFP={onCFPClick}
+        />
+      )}
+
+      {/* Speaker Modal */}
+      {selectedSpeaker && (
+        <SpeakerModal
+          speaker={selectedSpeaker}
+          isFollowing={isFollowingSpeaker(selectedSpeaker.objectID)}
+          onClose={() => setSelectedSpeaker(null)}
+          onFollow={toggleFavoriteSpeaker}
+          onTalkClick={onTalkClick}
+          isFavoriteTalk={isFavoriteTalk}
+          onToggleFavoriteTalk={toggleFavoriteTalk}
         />
       )}
     </div>

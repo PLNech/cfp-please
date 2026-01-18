@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TalkFlixHome } from './pages/TalkFlixHome';
-import type { CFP, Talk } from './types';
+import { SearchPage } from './pages/search';
+import type { CFP, Talk, Speaker } from './types';
 import './App.css';
 
 function App() {
@@ -15,12 +17,34 @@ function App() {
     window.open(talk.url, '_blank', 'noopener');
   };
 
+  const handleSpeakerClick = (speaker: Speaker) => {
+    // TODO: Open speaker modal
+    console.log('Speaker clicked:', speaker.name);
+  };
+
   return (
-    <>
-      <TalkFlixHome
-        onCFPClick={handleCfpClick}
-        onTalkClick={handleTalkClick}
-      />
+    <BrowserRouter basename="/cfp-please">
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <TalkFlixHome
+              onCFPClick={handleCfpClick}
+              onTalkClick={handleTalkClick}
+            />
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <SearchPage
+              onCFPClick={handleCfpClick}
+              onTalkClick={handleTalkClick}
+              onSpeakerClick={handleSpeakerClick}
+            />
+          }
+        />
+      </Routes>
 
       {/* CFP Detail Modal */}
       {selectedCfp && (
@@ -133,8 +157,7 @@ function App() {
           </div>
         </div>
       )}
-
-    </>
+    </BrowserRouter>
   );
 }
 

@@ -1,0 +1,179 @@
+/**
+ * Autocomplete - Multi-index search autocomplete for TalkFlix
+ *
+ * Shows suggestions from CFPs, Talks, and Speakers indexes.
+ * Dark theme matching TalkFlix design.
+ */
+
+import { useEffect, useRef } from 'react';
+import { autocomplete } from '@algolia/autocomplete-js';
+import { algoliasearch } from 'algoliasearch';
+import { useNavigate } from 'react-router-dom';
+import {
+  ALGOLIA_APP_ID,
+  ALGOLIA_SEARCH_KEY,
+  ALGOLIA_INDEX_NAME,
+  ALGOLIA_TALKS_INDEX,
+  ALGOLIA_SPEAKERS_INDEX,
+} from '../../config';
+import type { CFP, Talk, Speaker } from '../../types';
+import './Autocomplete.css';
+
+const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
+
+interface AutocompleteProps {
+  placeholder?: string;
+  onCFPSelect?: (cfp: CFP) => void;
+  onTalkSelect?: (talk: Talk) => void;
+  onSpeakerSelect?: (speaker: Speaker) => void;
+}
+
+export function Autocomplete({
+  placeholder = 'Search CFPs, talks, speakers...',
+  onCFPSelect,
+  onTalkSelect,
+  onSpeakerSelect,
+}: AutocompleteProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const search = autocomplete({
+      container: containerRef.current,
+      placeholder,
+      openOnFocus: true,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      getSources({ query }): any {
+        if (!query) {
+          return [];
+        }
+
+        return [
+          // CFPs source
+          {
+            sourceId: 'cfps',
+            async getItems() {
+              const res = await searchClient.searchSingleIndex({
+                indexName: ALGOLIA_INDEX_NAME,
+                searchParams: { query, hitsPerPage: 4 },
+              });
+              return res.hits as unknown as CFP[];
+            },
+            templates: {
+              header() {
+                return '<div class="aa-SourceHeader">CFPs</div>';
+              },
+              item({ item }: { item: unknown }) {
+                const cfp = item as CFP;
+                const meta = cfp.location?.city ? `<span class="aa-ItemMeta">${cfp.location.city}</span>` : '';
+                return `
+                  <div class="aa-ItemWrapper aa-ItemWrapper--cfp">
+                    <div class="aa-ItemContent">
+                      <span class="aa-ItemBadge aa-ItemBadge--cfp">CFP</span>
+                      <span class="aa-ItemTitle">${cfp.name}</span>
+                      ${meta}
+                    </div>
+                  </div>
+                `;
+              },
+              noResults() {
+                return '<div class="aa-NoResults">No CFPs found</div>';
+              },
+            },
+            onSelect({ item }: { item: unknown }) {
+              if (onCFPSelect) {
+                onCFPSelect(item as CFP);
+              }
+            },
+          },
+          // Talks source
+          {
+            sourceId: 'talks',
+            async getItems() {
+              const res = await searchClient.searchSingleIndex({
+                indexName: ALGOLIA_TALKS_INDEX,
+                searchParams: { query, hitsPerPage: 4 },
+              });
+              return res.hits as unknown as Talk[];
+            },
+            templates: {
+              header() {
+                return '<div class="aa-SourceHeader">Talks</div>';
+              },
+              item({ item }: { item: unknown }) {
+                const talk = item as Talk;
+                const meta = talk.speaker ? `<span class="aa-ItemMeta">${talk.speaker}</span>` : '';
+                return `
+                  <div class="aa-ItemWrapper aa-ItemWrapper--talk">
+                    <div class="aa-ItemContent">
+                      <span class="aa-ItemBadge aa-ItemBadge--talk">Talk</span>
+                      <span class="aa-ItemTitle">${talk.title}</span>
+                      ${meta}
+                    </div>
+                  </div>
+                `;
+              },
+              noResults() {
+                return '<div class="aa-NoResults">No talks found</div>';
+              },
+            },
+            onSelect({ item }: { item: unknown }) {
+              if (onTalkSelect) {
+                onTalkSelect(item as Talk);
+              }
+            },
+          },
+          // Speakers source
+          {
+            sourceId: 'speakers',
+            async getItems() {
+              const res = await searchClient.searchSingleIndex({
+                indexName: ALGOLIA_SPEAKERS_INDEX,
+                searchParams: { query, hitsPerPage: 3 },
+              });
+              return res.hits as unknown as Speaker[];
+            },
+            templates: {
+              header() {
+                return '<div class="aa-SourceHeader">Speakers</div>';
+              },
+              item({ item }: { item: unknown }) {
+                const speaker = item as Speaker;
+                const meta = speaker.company ? `<span class="aa-ItemMeta">${speaker.company}</span>` : '';
+                return `
+                  <div class="aa-ItemWrapper aa-ItemWrapper--speaker">
+                    <div class="aa-ItemContent">
+                      <span class="aa-ItemBadge aa-ItemBadge--speaker">Speaker</span>
+                      <span class="aa-ItemTitle">${speaker.name}</span>
+                      ${meta}
+                    </div>
+                  </div>
+                `;
+              },
+              noResults() {
+                return '<div class="aa-NoResults">No speakers found</div>';
+              },
+            },
+            onSelect({ item }: { item: unknown }) {
+              if (onSpeakerSelect) {
+                onSpeakerSelect(item as Speaker);
+              }
+            },
+          },
+        ];
+      },
+      onSubmit({ state }) {
+        // Navigate to search page with query
+        navigate(`/search?q=${encodeURIComponent(state.query)}`);
+      },
+    });
+
+    return () => {
+      search.destroy();
+    };
+  }, [navigate, onCFPSelect, onTalkSelect, onSpeakerSelect, placeholder]);
+
+  return <div ref={containerRef} className="talkflix-autocomplete" />;
+}

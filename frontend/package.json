@@ -7,9 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.19.4",
+    "@algolia/autocomplete-theme-classic": "^1.19.4",
     "@algolia/recommend": "^5.46.3",
     "@types/leaflet": "^1.9.21",
     "algoliasearch": "^5.46.3",
@@ -19,11 +24,14 @@
     "react-dom": "^19.2.0",
     "react-instantsearch": "^7.22.1",
     "react-leaflet": "^5.0.0",
+    "react-router-dom": "^7.12.0",
     "search-insights": "^2.17.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@playwright/test": "^1.57.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
@@ -32,8 +40,10 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "jsdom": "^27.0.1",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
-    "vite": "^7.2.4"
+    "vite": "^7.2.4",
+    "vitest": "^3.2.4"
   }
 }

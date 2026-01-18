@@ -12,6 +12,9 @@ const STORAGE_KEY = 'cfp-profile';
 const MAX_TOPICS = 5;
 const MAX_VIEWED = 20;
 const MAX_SAVED = 50;
+const MAX_WATCHED_TALKS = 50;
+const MAX_FAVORITE_TALKS = 50;
+const MAX_FAVORITE_SPEAKERS = 20;
 
 function loadProfile(): UserProfile {
   try {
@@ -110,6 +113,52 @@ export function useProfile() {
     [profile.savedCFPs]
   );
 
+  // Talk tracking - mark as watched (goes to front, trimmed to 50)
+  const markTalkWatched = useCallback((talkId: string) => {
+    setProfileState((prev) => {
+      // Move to front if already watched, otherwise add
+      const filtered = prev.watchedTalks.filter((id) => id !== talkId);
+      const newWatched = [talkId, ...filtered].slice(0, MAX_WATCHED_TALKS);
+      return { ...prev, watchedTalks: newWatched };
+    });
+  }, []);
+
+  // Talk favorites - toggle bookmark
+  const toggleFavoriteTalk = useCallback((talkId: string) => {
+    setProfileState((prev) => {
+      const exists = prev.favoriteTalks.includes(talkId);
+      if (exists) {
+        return { ...prev, favoriteTalks: prev.favoriteTalks.filter((id) => id !== talkId) };
+      } else if (prev.favoriteTalks.length < MAX_FAVORITE_TALKS) {
+        return { ...prev, favoriteTalks: [talkId, ...prev.favoriteTalks] };
+      }
+      return prev;
+    });
+  }, []);
+
+  const isFavoriteTalk = useCallback(
+    (talkId: string) => profile.favoriteTalks.includes(talkId),
+    [profile.favoriteTalks]
+  );
+
+  // Speaker following
+  const toggleFavoriteSpeaker = useCallback((speakerId: string) => {
+    setProfileState((prev) => {
+      const exists = prev.favoriteSpeakers.includes(speakerId);
+      if (exists) {
+        return { ...prev, favoriteSpeakers: prev.favoriteSpeakers.filter((id) => id !== speakerId) };
+      } else if (prev.favoriteSpeakers.length < MAX_FAVORITE_SPEAKERS) {
+        return { ...prev, favoriteSpeakers: [speakerId, ...prev.favoriteSpeakers] };
+      }
+      return prev;
+    });
+  }, []);
+
+  const isFollowingSpeaker = useCallback(
+    (speakerId: string) => profile.favoriteSpeakers.includes(speakerId),
+    [profile.favoriteSpeakers]
+  );
+
   const hasProfile = profile.topics.length > 0;
 
   const resetProfile = useCallback(() => {
@@ -132,6 +181,12 @@ export function useProfile() {
     markViewed,
     toggleSaved,
     isSaved,
+    // Talk & Speaker tracking
+    markTalkWatched,
+    toggleFavoriteTalk,
+    isFavoriteTalk,
+    toggleFavoriteSpeaker,
+    isFollowingSpeaker,
     resetProfile,
   };
 }
