@@ -23,6 +23,7 @@ Output:
     synthetic_events_talks.csv
 """
 
+import argparse
 import csv
 import hashlib
 import os
@@ -31,6 +32,10 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Generator
 
+from dotenv import load_dotenv
+load_dotenv()  # Load .env file
+
+from algoliasearch.insights.client import InsightsClient
 from algoliasearch.search.client import SearchClientSync
 from rich.console import Console
 from rich.progress import track
@@ -41,9 +46,9 @@ console = Console()
 OUTPUT_DIR = Path(__file__).parent.parent.parent / "data"
 
 # Event generation parameters
-TARGET_EVENTS_CFP = 500  # Target 500 events for CFPs (2x minimum)
-TARGET_EVENTS_TALKS = 1000  # Target 1000 events for talks
-DAYS_BACK = 60  # Events over 60 days
+TARGET_EVENTS_CFP = 800  # Target 800 events for CFPs (>250 needed in 30 days)
+TARGET_EVENTS_TALKS = 1500  # Target 1500 events for talks
+DAYS_BACK = 25  # All events within 25 days (must be <30 for model)
 
 
 def get_algolia_client() -> SearchClientSync:
@@ -112,6 +117,7 @@ def calculate_event_weight(record: dict, is_talk: bool = False) -> int:
     """Calculate how many events a record should generate based on popularity.
 
     Higher popularity = more events = higher probability of appearing in Trending.
+    Base weight ensures every record gets at least 1 event.
     """
     if is_talk:
         views = record.get("view_count", 0) or 0
@@ -119,51 +125,51 @@ def calculate_event_weight(record: dict, is_talk: bool = False) -> int:
 
         # Weight based on views (log scale to avoid massive skew)
         if views > 100000:
-            return 10
+            return 15
         elif views > 50000:
-            return 7
+            return 10
         elif views > 10000:
-            return 5
+            return 7
         elif views > 1000:
-            return 3
+            return 4
         elif popularity > 50:
             return 2
         return 1
     else:
-        # CFP weighting
+        # CFP weighting - more generous to ensure we hit 250+ events
         hn = record.get("hnPoints", 0) or 0
         github = record.get("githubStars", 0) or 0
         popularity = record.get("popularityScore", 0) or 0
 
-        weight = 1
+        weight = 2  # Base weight of 2 (ensures ~800 min events for 400 records)
 
         # HN engagement
         if hn > 100:
-            weight += 5
+            weight += 8
         elif hn > 50:
-            weight += 3
+            weight += 5
         elif hn > 10:
-            weight += 2
+            weight += 3
         elif hn > 0:
-            weight += 1
+            weight += 2
 
         # GitHub engagement
         if github > 1000:
-            weight += 4
+            weight += 6
         elif github > 100:
-            weight += 2
+            weight += 3
         elif github > 0:
             weight += 1
 
         # General popularity
         if popularity > 80:
-            weight += 3
+            weight += 4
         elif popularity > 50:
             weight += 2
         elif popularity > 20:
             weight += 1
 
-        return min(weight, 15)  # Cap at 15
+        return min(weight, 25)  # Higher cap
 
 
 def generate_user_token(seed: str, event_num: int) -> str:
@@ -293,26 +299,99 @@ def generate_talk_events(client: SearchClientSync, index_name: str = "cfps_talks
     return filepath
 
 
+def push_events_to_insights(index_name: str, events: list[dict], batch_size: int = 100):
+    """Push events to Algolia Insights API."""
+    app_id = os.environ.get("ALGOLIA_APP_ID")
+    api_key = os.environ.get("ALGOLIA_API_KEY")
+
+    if not app_id or not api_key:
+        raise ValueError("ALGOLIA_APP_ID and ALGOLIA_API_KEY must be set")
+
+    client = InsightsClient(app_id, api_key)
+
+    console.print(f"[cyan]Pushing {len(events)} events to Insights API for '{index_name}'...[/cyan]")
+
+    # Push in batches
+    total_pushed = 0
+    for i in track(range(0, len(events), batch_size), description="Pushing events"):
+        batch = events[i:i + batch_size]
+
+        # Convert to Insights API format
+        insights_events = []
+        for evt in batch:
+            insights_events.append({
+                "eventType": "conversion",
+                "eventName": evt["eventName"],
+                "index": index_name,
+                "userToken": evt["userToken"],
+                "objectIDs": [evt["objectID"]],
+                "timestamp": int(datetime.fromisoformat(evt["timestamp"].replace("Z", "+00:00")).timestamp() * 1000),
+            })
+
+        try:
+            client.push_events({"events": insights_events})
+            total_pushed += len(batch)
+        except Exception as e:
+            console.print(f"[red]Error pushing batch: {e}[/red]")
+
+    console.print(f"[green]Pushed {total_pushed} events to Insights API[/green]")
+    return total_pushed
+
+
+def load_events_from_csv(filepath: Path) -> list[dict]:
+    """Load events from existing CSV file."""
+    events = []
+    with open(filepath, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            events.append(row)
+    return events
+
+
 def main():
     """Main entry point."""
-    console.print("[bold]Synthetic Events Generator for Algolia Recommend[/bold]")
+    parser = argparse.ArgumentParser(description="Generate and push synthetic events for Algolia Recommend")
+    parser.add_argument("--push", action="store_true", help="Push existing CSV events to Insights API")
+    parser.add_argument("--regenerate", action="store_true", help="Regenerate CSV files with fresh timestamps")
+    parser.add_argument("--index", choices=["cfps", "cfps_talks", "both"], default="both",
+                        help="Which index to process")
+    args = parser.parse_args()
+
+    console.print("[bold]Synthetic Events for Algolia Recommend[/bold]")
     console.print(f"Target: {TARGET_EVENTS_CFP} CFP events, {TARGET_EVENTS_TALKS} talk events")
     console.print(f"Time range: past {DAYS_BACK} days\n")
 
-    client = get_algolia_client()
+    search_client = get_algolia_client()
 
-    # Generate events for both indexes
-    cfp_path = generate_cfp_events(client)
-    talk_path = generate_talk_events(client)
+    cfp_path = OUTPUT_DIR / "synthetic_events_cfps.csv"
+    talk_path = OUTPUT_DIR / "synthetic_events_talks.csv"
 
-    console.print("\n[bold green]Done![/bold green]")
-    console.print("\n[bold]Next steps:[/bold]")
-    console.print("1. Go to https://dashboard.algolia.com → Recommend → Create Model")
-    console.print("2. Select 'Trending Items' model")
-    console.print("3. Select index (cfps or cfps_talks)")
-    console.print("4. Under 'Events collection', click 'One-time upload of past events'")
-    console.print(f"5. Upload the corresponding CSV:\n   - {cfp_path}\n   - {talk_path}")
-    console.print("6. Wait for model training to complete (usually <24h)")
+    # Regenerate CSVs if requested or they don't exist
+    if args.regenerate or not cfp_path.exists() or not talk_path.exists():
+        if args.index in ("cfps", "both"):
+            generate_cfp_events(search_client)
+        if args.index in ("cfps_talks", "both"):
+            generate_talk_events(search_client)
+
+    # Push to Insights API if requested
+    if args.push:
+        if args.index in ("cfps", "both") and cfp_path.exists():
+            cfp_events = load_events_from_csv(cfp_path)
+            push_events_to_insights("cfps", cfp_events)
+
+        if args.index in ("cfps_talks", "both") and talk_path.exists():
+            talk_events = load_events_from_csv(talk_path)
+            push_events_to_insights("cfps_talks", talk_events)
+
+        console.print("\n[bold green]Events pushed![/bold green]")
+        console.print("Model will retrain automatically (usually within 24h)")
+    else:
+        console.print("\n[bold green]CSVs generated![/bold green]")
+        console.print("\n[bold]Options:[/bold]")
+        console.print("1. Run with --push to push events via Insights API")
+        console.print("2. Or upload CSVs manually in Dashboard → Recommend → Create Model")
+        console.print(f"   - {cfp_path}")
+        console.print(f"   - {talk_path}")
 
 
 if __name__ == "__main__":

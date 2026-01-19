@@ -197,6 +197,175 @@ export function useTrendingTalks(limit: number = 10): UseRelatedTalksResult {
 }
 
 /**
+ * Get trending CFPs (most clicked recently)
+ */
+export function useTrendingCFPs(limit: number = 10): UseRelatedCFPsResult {
+  const [trendingCFPs, setTrendingCFPs] = useState<CFP[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    client
+      .getRecommendations({
+        requests: [
+          {
+            indexName: ALGOLIA_INDEX_NAME,
+            model: 'trending-items',
+            maxRecommendations: limit,
+            threshold: 0,
+          },
+        ],
+      })
+      .then((response) => {
+        if (cancelled) return;
+
+        const results = response.results[0];
+        if (results && 'hits' in results) {
+          setTrendingCFPs(results.hits as unknown as CFP[]);
+        } else {
+          setTrendingCFPs([]);
+        }
+        setLoading(false);
+      })
+      .catch((err: Error) => {
+        if (cancelled) return;
+        console.error('Error fetching trending CFPs:', err);
+        setError(err.message || 'Failed to fetch trending CFPs');
+        setTrendingCFPs([]);
+        setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [limit]);
+
+  return { relatedCFPs: trendingCFPs, loading, error };
+}
+
+/**
+ * Get CFPs that look similar to a given CFP (visual/content similarity)
+ */
+export function useLookingSimilar(
+  cfpObjectID: string | null,
+  limit: number = 6
+): UseRelatedCFPsResult {
+  const [similarCFPs, setSimilarCFPs] = useState<CFP[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!cfpObjectID) {
+      setSimilarCFPs([]);
+      return;
+    }
+
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    client
+      .getRecommendations({
+        requests: [
+          {
+            indexName: ALGOLIA_INDEX_NAME,
+            objectID: cfpObjectID,
+            model: 'looking-similar',
+            maxRecommendations: limit,
+            threshold: 0,
+          },
+        ],
+      })
+      .then((response) => {
+        if (cancelled) return;
+
+        const results = response.results[0];
+        if (results && 'hits' in results) {
+          setSimilarCFPs(results.hits as unknown as CFP[]);
+        } else {
+          setSimilarCFPs([]);
+        }
+        setLoading(false);
+      })
+      .catch((err: Error) => {
+        if (cancelled) return;
+        console.error('Error fetching similar CFPs:', err);
+        setError(err.message || 'Failed to fetch similar CFPs');
+        setSimilarCFPs([]);
+        setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cfpObjectID, limit]);
+
+  return { relatedCFPs: similarCFPs, loading, error };
+}
+
+/**
+ * Get trending facet values (e.g., trending topics)
+ */
+export function useTrendingFacets(
+  facetName: string,
+  indexName: string = ALGOLIA_TALKS_INDEX,
+  limit: number = 10
+): { facetValues: Array<{ value: string; score: number }>; loading: boolean; error: string | null } {
+  const [facetValues, setFacetValues] = useState<Array<{ value: string; score: number }>>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    client
+      .getRecommendations({
+        requests: [
+          {
+            indexName,
+            model: 'trending-facets',
+            facetName,
+            maxRecommendations: limit,
+            threshold: 0,
+          },
+        ],
+      })
+      .then((response) => {
+        if (cancelled) return;
+
+        const results = response.results[0];
+        if (results && 'hits' in results) {
+          // Trending facets return facet values with scores
+          setFacetValues(
+            (results.hits as Array<{ facetValue: string; _score: number }>).map((h) => ({
+              value: h.facetValue,
+              score: h._score,
+            }))
+          );
+        } else {
+          setFacetValues([]);
+        }
+        setLoading(false);
+      })
+      .catch((err: Error) => {
+        if (cancelled) return;
+        console.error('Error fetching trending facets:', err);
+        setError(err.message || 'Failed to fetch trending facets');
+        setFacetValues([]);
+        setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [facetName, indexName, limit]);
+
+  return { facetValues, loading, error };
+}
+
+/**
  * Get frequently bought together (talks often watched together)
  */
 export function useFrequentlyWatchedTogether(

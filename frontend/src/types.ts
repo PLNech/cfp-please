@@ -63,6 +63,10 @@ export interface CFP {
   devtoArticles?: number;
   intelEnriched?: boolean;
 
+  // City hero images (from Unsplash)
+  city_image_urls?: string[];    // 5 high-res URLs for variety
+  city_image_thumbs?: string[];  // Thumbnail versions
+
   // Meta
   source: string;
   enriched: boolean;
@@ -75,6 +79,7 @@ export interface Talk {
   conference_id: string;
   conference_name: string;
   conference_slug?: string;
+  conference_location?: string;
   title: string;
   speaker?: string;
   speakers?: string[];
@@ -89,6 +94,17 @@ export interface Talk {
   topics?: string[];
   languages?: string[];
   popularity_score?: number;
+
+  // City hero images (from Unsplash, inherited from conference)
+  city_image_urls?: string[];
+  city_image_thumbs?: string[];
+
+  // Transcript enrichment
+  transcript_enriched?: boolean;
+  transcript_summary?: string;
+  transcript_keywords?: string[];
+  transcript_topics?: string[];
+  transcript_bangers?: string[];  // Quotable punchlines
 }
 
 // Speaker from cfps_speakers index
@@ -134,6 +150,22 @@ export interface Speaker {
   achievements: string[];
 }
 
+// Interview profile from AI conversation
+export interface InterviewProfile {
+  role?: string;                    // "Frontend Engineer", "DevRel", "Engineering Manager"
+  company?: string;                 // Company name or type ("Startup", "Enterprise")
+  techStack?: string[];             // ["React", "TypeScript", "Kubernetes"]
+  sideProjects?: string[];          // Brief descriptions of side projects
+  interests?: string[];             // ["AI/ML", "Open Source", "Developer Experience"]
+  speakingTopics?: string[];        // Topics they'd like to speak about
+  travelWants?: string[];           // Cities/countries they want to visit
+  travelAvoids?: string[];          // Places to avoid (visa issues, preferences)
+  speakingExperience?: 'none' | 'meetups' | 'regional' | 'international';
+  goals?: string[];                 // ["Get first talk", "Speak internationally", "Build personal brand"]
+  interviewedAt?: number;           // Timestamp of last interview
+  rawResponses?: Record<string, string>; // Raw Q&A for context
+}
+
 // User profile for personalization (localStorage)
 export interface UserProfile {
   topics: string[];
@@ -145,6 +177,8 @@ export interface UserProfile {
   watchedTalks: string[];      // Last 50 talk IDs (most recent first)
   favoriteTalks: string[];     // Bookmarked talks (max 50)
   favoriteSpeakers: string[];  // Followed speakers (max 20)
+  // Interview-based profile (from AI conversation)
+  interview?: InterviewProfile;
 }
 
 export const DEFAULT_PROFILE: UserProfile = {

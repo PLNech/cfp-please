@@ -1,7 +1,7 @@
 {
-  "scanned_at": "2026-01-19 13:14:44",
+  "scanned_at": "2026-01-19 16:37:31",
   "total_talks": 4189,
-  "transcripts_available": 4189,
+  "transcripts_available": 4064,
   "talks": [
     {
       "object_id": "yt_DD1fEhcEzY8",
@@ -1516,15 +1516,6 @@
       "priority_score": 14620.0
     },
     {
-      "object_id": "yt_lcyNjgEG9H8",
-      "title": "dotGo 2017 - Francesc Campoy Flores - Machine Learning and Go",
-      "speaker": "",
-      "view_count": 14603,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 14603.0
-    },
-    {
       "object_id": "yt_qDTpLKJ6e4M",
       "title": "The Future of JS and a Multi-Language Web by Kas Perch | JSConf.Asia 2019",
       "speaker": "Web Assembly",
@@ -1658,15 +1649,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 12474.0
-    },
-    {
-      "object_id": "yt_2X698yueu7I",
-      "title": "Next generation AI for developers with the Microsoft Cloud | KEY02",
-      "speaker": "",
-      "view_count": 11511,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 12411.0
     },
     {
       "object_id": "yt_8TLiGHJTlig",
@@ -2938,15 +2920,6 @@
       "priority_score": 5628.0
     },
     {
-      "object_id": "yt_TQptGQlGXqA",
-      "title": "Putting the \"P\" in Preact",
-      "speaker": "Jason Miller",
-      "view_count": 5610,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 5610.0
-    },
-    {
       "object_id": "yt_grRH8e46Pso",
       "title": "dotJS 2024 - Minko Gechev",
       "speaker": "Converging Web Frameworks",
@@ -2954,15 +2927,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 5559.0
-    },
-    {
-      "object_id": "yt_ywfYMQD6yYk",
-      "title": "dotAI 2018 - Aurelien Geron - Knowledge Graphs & Deep Learning at YouTube",
-      "speaker": "",
-      "view_count": 5498,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 5498.0
     },
     {
       "object_id": "yt_panKf9hzUfQ",
@@ -3512,15 +3476,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 4465.0
-    },
-    {
-      "object_id": "yt_0yRsbh1bgtk",
-      "title": "Tutorials - Sebastian Raschka: The Fundamentals of Modern Deep Learning with PyTorch",
-      "speaker": "",
-      "view_count": 4436,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 4436.0
     },
     {
       "object_id": "yt_vd5S_7Qm9WE",
@@ -4162,15 +4117,6 @@
       "priority_score": 3673.0
     },
     {
-      "object_id": "yt_hOspzVbuPfc",
-      "title": "\u25c9 DevSecOps Conf 2021 | Powered",
-      "speaker": "CloudNativeFolks Community",
-      "view_count": 3063,
-      "is_algolia_speaker": false,
-      "year": 2021,
-      "priority_score": 3663.0
-    },
-    {
       "object_id": "yt_k_Hn5G9h5xU",
       "title": "dotAI 2024 - Eliot Andres - Training a foundation image model and deploying it to millions of users",
       "speaker": "",
@@ -4277,15 +4223,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 3535.0
-    },
-    {
-      "object_id": "yt_X25G6ZBzKuM",
-      "title": "How to Build an Admin Dashboard with React Admin || Admin-Panel in ReactJs",
-      "speaker": "",
-      "view_count": 2929,
-      "is_algolia_speaker": false,
-      "year": 2021,
-      "priority_score": 3529.0
     },
     {
       "object_id": "yt_THv-m8niDho",
@@ -5080,15 +5017,6 @@
       "priority_score": 3019.0
     },
     {
-      "object_id": "yt_AUmpOVXFmOw",
-      "title": "\ud83d\udc9b  Integrando Stripe con Symfony y React #symfony #reactjs",
-      "speaker": "",
-      "view_count": 2417,
-      "is_algolia_speaker": false,
-      "year": 2021,
-      "priority_score": 3017.0
-    },
-    {
       "object_id": "yt_nzsFUz2K884",
       "title": "\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u0430 Womazing React JS",
       "speaker": "React Admin",
@@ -5105,15 +5033,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 3005.0
-    },
-    {
-      "object_id": "yt_h1_nyI3z8gI",
-      "title": "dotCSS 2019 - Hakim El Hattab - What breaking interfaces taught me about building better interfaces",
-      "speaker": "",
-      "view_count": 2991,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 2991.0
     },
     {
       "object_id": "yt_smqJzCrLwY4",
@@ -5200,15 +5119,6 @@
       "object_id": "yt_OikwaVcdHG4",
       "title": "Make it Boring",
       "speaker": "Jeremy Wagner",
-      "view_count": 2946,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 2946.0
-    },
-    {
-      "object_id": "yt_J74p5bZf2-k",
-      "title": "dotGo 2017 - Ron Evans - GoCV - Computer Vision Using Go and OpenCV 3",
-      "speaker": "",
       "view_count": 2946,
       "is_algolia_speaker": false,
       "year": 0,
@@ -5411,15 +5321,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 2810.0
-    },
-    {
-      "object_id": "yt_dc-xC_AYt68",
-      "title": "Get the Cloud Fluency with AWS \u958b\u5c55\u4f60\u7684\u96f2\u7aef\u8077\u6daf\u4e4b\u65c5",
-      "speaker": "",
-      "view_count": 2007,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 2807.0
     },
     {
       "object_id": "yt_n_0cz-JwlsU",
@@ -5737,15 +5638,6 @@
       "priority_score": 2630.0
     },
     {
-      "object_id": "yt_xo26fjz5zVQ",
-      "title": "[FR] La \"qualit\u00e9\" audio, mythes et r\u00e9alit\u00e9s (Deezer)",
-      "speaker": "",
-      "view_count": 2623,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 2623.0
-    },
-    {
       "object_id": "yt_XqQJ6-l26QM",
       "title": "dotSwift 2020 - Tim Condon - BFFs for Swift",
       "speaker": "",
@@ -5977,15 +5869,6 @@
       "view_count": 1600,
       "is_algolia_speaker": false,
       "year": 2024,
-      "priority_score": 2500.0
-    },
-    {
-      "object_id": "yt_Uk3ljMUOyRc",
-      "title": "Azure Devops Migration tool (II)",
-      "speaker": "",
-      "view_count": 1900,
-      "is_algolia_speaker": false,
-      "year": 2021,
       "priority_score": 2500.0
     },
     {
@@ -6457,15 +6340,6 @@
       "priority_score": 2321.0
     },
     {
-      "object_id": "yt_hbAr_hMNf2o",
-      "title": "AI\u8d4b\u80fdRust\u7f16\u7a0b \u7528Rust\u66b4\u6253Python\uff01\u5f00\u6e90AI\u52a9\u624b\u5b9e\u6218-",
-      "speaker": "Miley Fu",
-      "view_count": 1319,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 2319.0
-    },
-    {
       "object_id": "yt_qyh9odXW-jM",
       "title": "NDC London Opening Keynote - Tech For Good - Using AI to Make Tech More Accessible",
       "speaker": "Alex Dunn",
@@ -6907,15 +6781,6 @@
       "priority_score": 2135.0
     },
     {
-      "object_id": "yt_2_Genyj6Ti8",
-      "title": "Why K8s Native Infrastructure is the Future: a look at Crossplane",
-      "speaker": "Andrea Giardini",
-      "view_count": 1330,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 2130.0
-    },
-    {
       "object_id": "yt_GqsdiMc49yM",
       "title": "Creating Beautiful LED Art with JavaScript",
       "speaker": "Bryan Hughes",
@@ -7303,15 +7168,6 @@
       "priority_score": 1999.0
     },
     {
-      "object_id": "yt_1ND6COslBKU",
-      "title": "Tutorials - Gil, Jim, Naty, Phillip: Introduction to Ibis: blazing fast analytics with DuckDB...",
-      "speaker": "",
-      "view_count": 1998,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 1998.0
-    },
-    {
       "object_id": "yt_Tyt8QP6YxtU",
       "title": "Infrastructure as Software",
       "speaker": "Paul Stack",
@@ -7481,15 +7337,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 1946.0
-    },
-    {
-      "object_id": "yt_R-75EPLbcNw",
-      "title": "Tutorials - Mike M\u00fcller: Functional Python",
-      "speaker": "",
-      "view_count": 1944,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 1944.0
     },
     {
       "object_id": "yt_owoAlsA2mC8",
@@ -8203,15 +8050,6 @@
       "priority_score": 1787.0
     },
     {
-      "object_id": "yt_uVgxJpSvp-I",
-      "title": "try! Swift Tokyo 2025 - Swift Programming in Japanese",
-      "speaker": "",
-      "view_count": 786,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1786.0
-    },
-    {
       "object_id": "yt_rACS3R8mqM0",
       "title": "dotJS 2019 - Sara Vieira - The complexity in simplicity",
       "speaker": "",
@@ -8291,15 +8129,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 1769.0
-    },
-    {
-      "object_id": "yt_4PKE4-9W8kg",
-      "title": "GStreamer: State of the Union 2024 | FOSDEM 2024",
-      "speaker": "",
-      "view_count": 868,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 1768.0
     },
     {
       "object_id": "yt_EY9YfDJEfCM",
@@ -8716,15 +8545,6 @@
       "priority_score": 1675.0
     },
     {
-      "object_id": "yt__mA4mvYpU68",
-      "title": "Open Source Day 2024 - Alpha Track - Day 1",
-      "speaker": "",
-      "view_count": 774,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 1674.0
-    },
-    {
       "object_id": "yt_qNt06GcQqCA",
       "title": "\"The Long Hello World\" - Noah Kantrowitz (Pycon AU 2025)",
       "speaker": "",
@@ -9103,15 +8923,6 @@
       "priority_score": 1602.0
     },
     {
-      "object_id": "yt_n64VfBhyu9A",
-      "title": "Tutorials - Jose Haro Peralta: Fundamentals of API security with Python",
-      "speaker": "",
-      "view_count": 1601,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 1601.0
-    },
-    {
       "object_id": "yt_0bJ8ywI448o",
       "title": "DEADScript: The Role Of JavaScript In Web Sustainability \u2013 Henri Helvetica, JSNation 2023",
       "speaker": "",
@@ -9301,15 +9112,6 @@
       "priority_score": 1568.0
     },
     {
-      "object_id": "yt_Uydp5R7LepU",
-      "title": "Tutorials - Husni Almoubayyed: Effective Data Visualization",
-      "speaker": "",
-      "view_count": 1568,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 1568.0
-    },
-    {
       "object_id": "yt_lXngPPRaqGg",
       "title": "Lightning Talks - Sunday, May 18th, 2025 AM",
       "speaker": "",
@@ -9353,15 +9155,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 1563.0
-    },
-    {
-      "object_id": "yt_oTzIieqwMW0",
-      "title": "Talks - Ron Nathaniel: How To Monitor and Troubleshoot Applications using OpenTelemetry",
-      "speaker": "",
-      "view_count": 1560,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 1560.0
     },
     {
       "object_id": "yt_g4V-F60LZ4Y",
@@ -9940,15 +9733,6 @@
       "priority_score": 1456.0
     },
     {
-      "object_id": "yt_pVtt1NHhWcw",
-      "title": "Oli Legat \u2013 a11y & Interactive Canvases",
-      "speaker": "",
-      "view_count": 455,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1455.0
-    },
-    {
       "object_id": "yt_OlR7OGsR9Y8",
       "title": "KeyNote",
       "speaker": "Omar Avilez",
@@ -10046,33 +9830,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 1439.0
-    },
-    {
-      "object_id": "yt_v-faNjF-KMo",
-      "title": "EEN T\u00c9 RUSTIGE RUSTWEEK \ud83d\ude05 - Loran Vlog #839 #840 #841",
-      "speaker": "",
-      "view_count": 438,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1438.0
-    },
-    {
-      "object_id": "yt_il2IQK6zzsI",
-      "title": "BSides Sofia 2023 - Keytap acoustic keyboard eavesdropping",
-      "speaker": "",
-      "view_count": 638,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 1438.0
-    },
-    {
-      "object_id": "yt_0TNx3jvvMlc",
-      "title": "GitOps Evolution Through the Lens of a Flux Maintainer - Stefan Prodan, ControlPlane",
-      "speaker": "Stefan Prodan",
-      "view_count": 435,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1435.0
     },
     {
       "object_id": "yt_PM7a5m1_lx8",
@@ -10336,15 +10093,6 @@
       "priority_score": 1401.0
     },
     {
-      "object_id": "yt_ipjXJVTom7o",
-      "title": "React: then & now",
-      "speaker": "",
-      "view_count": 499,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 1399.0
-    },
-    {
       "object_id": "yt_E7930AwAXhc",
       "title": "Algolia eCommerce Analytics",
       "speaker": "Product Demonstration",
@@ -10498,15 +10246,6 @@
       "priority_score": 1380.0
     },
     {
-      "object_id": "yt_qO7sl8_YtJM",
-      "title": "The Secret Sauce of Data Science Management - Shir Meir Lador / WiDS Israel",
-      "speaker": "",
-      "view_count": 779,
-      "is_algolia_speaker": false,
-      "year": 2021,
-      "priority_score": 1379.0
-    },
-    {
       "object_id": "yt_huEzpDoLrqQ",
       "title": "Why Landing Zones Matter (What are they and How to Build One)",
       "speaker": "Simone Bennett",
@@ -10588,15 +10327,6 @@
       "priority_score": 1366.0
     },
     {
-      "object_id": "yt_Iedl20i5pbs",
-      "title": "2025 TUYA Global Developer Summit\u00b7Shenzhen",
-      "speaker": "",
-      "view_count": 365,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1365.0
-    },
-    {
       "object_id": "yt_u9XvhJlnO3o",
       "title": "IGNITES - Language server, Ignition, Ansible inventory, Nix to Docker img, Overengineering website",
       "speaker": "",
@@ -10604,15 +10334,6 @@
       "is_algolia_speaker": false,
       "year": 2023,
       "priority_score": 1364.0
-    },
-    {
-      "object_id": "yt_LMN98OtVoPY",
-      "title": "AWS Summit Tel Aviv 2023 - Develop your ML project with Amazon SageMaker (AIM301)",
-      "speaker": "",
-      "view_count": 562,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 1362.0
     },
     {
       "object_id": "yt_RNjbgCsFtHA",
@@ -10739,15 +10460,6 @@
       "is_algolia_speaker": false,
       "year": 2024,
       "priority_score": 1352.0
-    },
-    {
-      "object_id": "yt_Fcp1eQCeD6U",
-      "title": "Talks - Nicholas H.Tollervey, Paul Everitt: Build Yourself a PyScript",
-      "speaker": "",
-      "view_count": 1351,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 1351.0
     },
     {
       "object_id": "yt_hHgPAft0pvE",
@@ -10892,15 +10604,6 @@
       "is_algolia_speaker": false,
       "year": 2023,
       "priority_score": 1331.0
-    },
-    {
-      "object_id": "yt_45NKJbrs1Z4",
-      "title": "Algolia for Magento 2",
-      "speaker": "Notable Features",
-      "view_count": 1330,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 1330.0
     },
     {
       "object_id": "yt_CnlvlA5jnh0",
@@ -11461,15 +11164,6 @@
       "priority_score": 1273.0
     },
     {
-      "object_id": "yt_qNTPYRLIBwc",
-      "title": "National Conference, Day-3, Session-10, Ishvani Kendra, Pune  (8:30 am to 10:45 am)",
-      "speaker": "",
-      "view_count": 369,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 1269.0
-    },
-    {
       "object_id": "yt_LhYkzhAC7PU",
       "title": "Accessibility with Svelte - Beyond Compiler Warnings by Anuradha Kumari | JSConf Korea 2022",
       "speaker": "",
@@ -11504,15 +11198,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 1268.0
-    },
-    {
-      "object_id": "yt_QPMJ_SXRlHs",
-      "title": "AI Basics for Developers: Start your AI journey today",
-      "speaker": "",
-      "view_count": 265,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1265.0
     },
     {
       "object_id": "yt_l7OQdrUkoVI",
@@ -11801,15 +11486,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 1241.0
-    },
-    {
-      "object_id": "yt_j2jJhCIobTo",
-      "title": "Innovation Unleashed | The Next Horizon of Connected Work with Louise Allen | Connect 2025 Keynote",
-      "speaker": "",
-      "view_count": 239,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1239.0
     },
     {
       "object_id": "yt_5E0qECx6opY",
@@ -12532,15 +12208,6 @@
       "priority_score": 1185.0
     },
     {
-      "object_id": "yt_ZI3HLKwGZJM",
-      "title": "AWS Summit Tel Aviv 2023 - What can you build with AI? No ML experience required (AIM306)",
-      "speaker": "",
-      "view_count": 384,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 1184.0
-    },
-    {
       "object_id": "yt_dovZyy_hG54",
       "title": "dotScale 2016 - Spencer Kimball - Distributed Transactions in CockroachDB",
       "speaker": "",
@@ -13117,15 +12784,6 @@
       "priority_score": 1148.0
     },
     {
-      "object_id": "yt_u8EMd1KhwXc",
-      "title": "[Hebrew] From Zero to Production with Amazon EKS Blueprints for Terraform",
-      "speaker": "",
-      "view_count": 347,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 1147.0
-    },
-    {
       "object_id": "yt_wg_kJHkDHeQ",
       "title": "Transformers for extractive text summarization",
       "speaker": "Anton Guldinskii",
@@ -13591,15 +13249,6 @@
       "view_count": 115,
       "is_algolia_speaker": false,
       "year": 2025,
-      "priority_score": 1115.0
-    },
-    {
-      "object_id": "yt_mOw9X8UTBU8",
-      "title": "Tutorials - Lucas Durand: Building an Interactive \ud83d\udd78\ufe0f Network Graph \ud83d\udd78\ufe0f to Understand Communities \ud83d\udc69\ud83c\udffd\u200d\ud83d\udcbb",
-      "speaker": "",
-      "view_count": 1115,
-      "is_algolia_speaker": false,
-      "year": 0,
       "priority_score": 1115.0
     },
     {
@@ -14161,15 +13810,6 @@
       "priority_score": 1088.0
     },
     {
-      "object_id": "yt_6Qu_2uLaRAo",
-      "title": "Domagoj Vratari\u0107 | Vulnerability regression testing with Nuclei framework",
-      "speaker": "",
-      "view_count": 87,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1087.0
-    },
-    {
       "object_id": "yt_BR9E9Na77Io",
       "title": "What Did Kubernetes Ever Do For Us?",
       "speaker": "",
@@ -14406,15 +14046,6 @@
     {
       "object_id": "yt_mNYb-tzoqmY",
       "title": "KubeCon 2023 - TLA Tech interview with Portworx Venkat",
-      "speaker": "",
-      "view_count": 276,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 1076.0
-    },
-    {
-      "object_id": "yt_CbrQqupH68E",
-      "title": "AWS Summit Tel Aviv 2023 - Patterns of a Migration Journey (JTC203)",
       "speaker": "",
       "view_count": 276,
       "is_algolia_speaker": false,
@@ -15016,15 +14647,6 @@
       "priority_score": 1053.0
     },
     {
-      "object_id": "yt_0V2oTrbKVSc",
-      "title": "Global Power Platform Bootcamp Bulgaria 2022",
-      "speaker": "",
-      "view_count": 353,
-      "is_algolia_speaker": false,
-      "year": 2022,
-      "priority_score": 1053.0
-    },
-    {
       "object_id": "yt_uxoQfRDxN80",
       "title": "How to Embed Open Source Contribution into Your Company's DNA",
       "speaker": "",
@@ -15157,15 +14779,6 @@
       "view_count": 147,
       "is_algolia_speaker": false,
       "year": 2024,
-      "priority_score": 1047.0
-    },
-    {
-      "object_id": "yt_kjJxEvpsEuc",
-      "title": "The Developer Rhapsody",
-      "speaker": "Tobias Modig",
-      "view_count": 47,
-      "is_algolia_speaker": false,
-      "year": 2025,
       "priority_score": 1047.0
     },
     {
@@ -15315,15 +14928,6 @@
     {
       "object_id": "yt_zjyPd4O0wSs",
       "title": "SCND24 - Using SBOMs and Cilium in legacy & cloud native applications - E. Siegert & S. Graf",
-      "speaker": "",
-      "view_count": 144,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 1044.0
-    },
-    {
-      "object_id": "yt_nOauLfN2M-E",
-      "title": "Welcome and Session 5, Technology-Enabled Disruption Conference, Day 2",
       "speaker": "",
       "view_count": 144,
       "is_algolia_speaker": false,
@@ -16402,15 +16006,6 @@
       "priority_score": 1016.0
     },
     {
-      "object_id": "yt_L7nrzc4bNPM",
-      "title": "Webinar 2024/12/18: Build a modern data management architecture with Microsoft Fabric and Lakehouse",
-      "speaker": "",
-      "view_count": 16,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1016.0
-    },
-    {
       "object_id": "yt_8UaKGeZIHHM",
       "title": "AI Is Reshaping the Tech Industry Faster Than Any Previous Technology",
       "speaker": "",
@@ -16715,15 +16310,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 1010.0
-    },
-    {
-      "object_id": "yt_i1c6WZcSZIk",
-      "title": "Global Power Platform Bootcamp 2025 Singapore Keynote",
-      "speaker": "",
-      "view_count": 9,
-      "is_algolia_speaker": false,
-      "year": 2025,
-      "priority_score": 1009.0
     },
     {
       "object_id": "yt_fPLoVBFd_1c",
@@ -17491,15 +17077,6 @@
       "priority_score": 983.0
     },
     {
-      "object_id": "yt_5siI6flge6g",
-      "title": "Tutorials - Pavithra, Andrew, Dharhas: From RAGs to riches: Build an AI document inquiry web-app",
-      "speaker": "",
-      "view_count": 983,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 983.0
-    },
-    {
       "object_id": "yt_5imP28uP5R8",
       "title": "AWS vs GCP - comparing step functions to workflows",
       "speaker": "Fustina Donaghy",
@@ -17887,15 +17464,6 @@
       "priority_score": 961.0
     },
     {
-      "object_id": "yt_50MVwFWe0hA",
-      "title": "Is there #Stress in the world of #Tech?",
-      "speaker": "Crux Conception",
-      "view_count": 961,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 961.0
-    },
-    {
       "object_id": "yt_k25jlIgFDXU",
       "title": "BSides Sofia 2023 - Purple Team assessment",
       "speaker": "",
@@ -18016,15 +17584,6 @@
       "object_id": "yt_kU4Hk7NL-98",
       "title": "Security is not a feature",
       "speaker": "",
-      "view_count": 155,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 955.0
-    },
-    {
-      "object_id": "yt_DAM5wMZngeU",
-      "title": "BSides Sofia 2023",
-      "speaker": "Advanced Enterprise Vulnerability",
       "view_count": 155,
       "is_algolia_speaker": false,
       "year": 2023,
@@ -18400,33 +17959,6 @@
       "priority_score": 942.0
     },
     {
-      "object_id": "yt_jr5jtXfDHOc",
-      "title": "Expanding the Reach of Platform Engineering with Cloud Development Environments",
-      "speaker": "Laurent Balmelli",
-      "view_count": 41,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 941.0
-    },
-    {
-      "object_id": "yt_iCfcou5K3W8",
-      "title": "2 ans de migrations en environnement \"cloud native\" quand on n'est ni une startup, ni dans le CAC40",
-      "speaker": "",
-      "view_count": 41,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 941.0
-    },
-    {
-      "object_id": "yt_W5Fx6gQd2jE",
-      "title": "Azure Spring Clean 2024 : Cloud Fortress : Entra Global Secure Access",
-      "speaker": "",
-      "view_count": 41,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 941.0
-    },
-    {
       "object_id": "yt_GpaDmj2SSFA",
       "title": "Comment Scraper Google Maps SANS Python",
       "speaker": "",
@@ -18533,15 +18065,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 937.0
-    },
-    {
-      "object_id": "yt_Lf6SPHIn2ok",
-      "title": "JDConf 2024 Watch Party in Shanghai\uff5c\u4f7f\u7528 Langchain4j \u548c Azure Container Apps\u6784\u5efa\u667a\u80fd Spring \u5e94\u7528\u7a0b\u5e8f[2]",
-      "speaker": "",
-      "view_count": 36,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 936.0
     },
     {
       "object_id": "yt_UwqnAz9WJ0c",
@@ -18895,15 +18418,6 @@
       "priority_score": 919.0
     },
     {
-      "object_id": "yt_6ma0S32J4-k",
-      "title": "JDConf 2024 Watch Party in Shanghai\uff5cAI \u9a71\u52a8\u7684 Java \u521b\u65b0 - \u5229\u7528 GitHub Copilot \u548c VS Code \u63d0\u5347 Java\u5f00\u53d1\u4f53\u9a8c [1]",
-      "speaker": "",
-      "view_count": 19,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 919.0
-    },
-    {
       "object_id": "yt_ulLIvCY4rpk",
       "title": "DevOpsDays Medellin 2024",
       "speaker": "Shannon Ryan On Stage",
@@ -18933,15 +18447,6 @@
     {
       "object_id": "yt_WZMo6QG1j98",
       "title": "Inclusive Data for 1.3 Billion: Designing Accessible Visualizations",
-      "speaker": "",
-      "view_count": 918,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 918.0
-    },
-    {
-      "object_id": "yt_R8UvJ7XZw8s",
-      "title": "Talks - Erik Tollerud: How Python is Behind the Science of the James Webb Space Telescope",
       "speaker": "",
       "view_count": 918,
       "is_algolia_speaker": false,
@@ -19057,26 +18562,8 @@
       "priority_score": 916.0
     },
     {
-      "object_id": "yt_4Z0lr0tg9gI",
-      "title": "JDConf 2024 Watch Party in Shanghai\uff5cAI \u9a71\u52a8\u7684 Java \u521b\u65b0 - Java \u540c\u5b66\u60a8\u597d\uff0c\u6211\u662f Semantic Kernel [4]",
-      "speaker": "",
-      "view_count": 15,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 915.0
-    },
-    {
       "object_id": "yt_xiqTTF2lCWc",
       "title": "T\u00fcrkiye - Germany Green Film Experience Sharring Project - Day 2 - Forum Session I",
-      "speaker": "",
-      "view_count": 13,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 913.0
-    },
-    {
-      "object_id": "yt_FccwUaxhScY",
-      "title": "JDConf 2024 Watch Party in Shanghai\uff5cAI \u9a71\u52a8\u7684 Java \u521b\u65b0 -  \u5706\u684c\u8ba8\u8bba[5]",
       "speaker": "",
       "view_count": 13,
       "is_algolia_speaker": false,
@@ -19111,15 +18598,6 @@
       "priority_score": 912.0
     },
     {
-      "object_id": "yt_xwsgarQM16s",
-      "title": "BSides Sofia 2023 - Keynote",
-      "speaker": "",
-      "view_count": 111,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 911.0
-    },
-    {
       "object_id": "yt_0tHYU4w1-gk",
       "title": "Tech Talk AI for Developers",
       "speaker": "",
@@ -19127,24 +18605,6 @@
       "is_algolia_speaker": false,
       "year": 2024,
       "priority_score": 911.0
-    },
-    {
-      "object_id": "yt_K-UKnhJzhdo",
-      "title": "JDConf 2024 Watch Party in Shanghai\uff5c\u57fa\u4e8eAzure Spring Apps Enterprise \u5982\u4f55\u5feb\u901f\u90e8\u7f72\u548c\u7ba1\u7406 Intelligent Spring\u5e94\u7528[3]",
-      "speaker": "",
-      "view_count": 10,
-      "is_algolia_speaker": false,
-      "year": 2024,
-      "priority_score": 910.0
-    },
-    {
-      "object_id": "yt_tJFKACcDZmI",
-      "title": "Cloud Native Superpowers with eBPF - Liz Rice | KCD Austria 2023",
-      "speaker": "",
-      "view_count": 109,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 909.0
     },
     {
       "object_id": "yt_VxZbGHwoX-8",
@@ -19426,15 +18886,6 @@
       "priority_score": 895.0
     },
     {
-      "object_id": "yt_dqzAUnOEqms",
-      "title": "P\u0159emysl Kraj\u010dovi\u010d: Platforma pro monitoring a alerting | MeetUpdate",
-      "speaker": "",
-      "view_count": 95,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 895.0
-    },
-    {
       "object_id": "yt_V8x4R6z2bAM",
       "title": "Observe your API with API Gateway Plugins",
       "speaker": "Bobur Umurzokov",
@@ -19505,15 +18956,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 892.0
-    },
-    {
-      "object_id": "yt_ezwfVYRqsy4",
-      "title": "Azure Spring Clean 2023 - An Azure Cloud Adoption Framework for SMB",
-      "speaker": "",
-      "view_count": 90,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 890.0
     },
     {
       "object_id": "yt_UvgY7WlTd_c",
@@ -19678,15 +19120,6 @@
       "priority_score": 880.0
     },
     {
-      "object_id": "yt_h0LmVVtgRpc",
-      "title": "Cyber Game Night at DevSecCon Poland - a BSides Krak\u00f3w warming up event",
-      "speaker": "",
-      "view_count": 80,
-      "is_algolia_speaker": false,
-      "year": 2023,
-      "priority_score": 880.0
-    },
-    {
       "object_id": "yt_65BXQwAyP60",
       "title": "Why Lead Yourself? - Marianne Wahlstr\u00f8m - NDC Oslo 2025",
       "speaker": "",
@@ -19703,15 +19136,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 879.0
-    },
-    {
-      "object_id": "yt_dsL1T1ypN1o",
-      "title": "How We Simplified Cloud",
-      "speaker": "Native Debugging At Scale",
-      "view_count": 178,
-      "is_algolia_speaker": false,
-      "year": 2022,
-      "priority_score": 878.0
     },
     {
       "object_id": "yt__Yh1CUkXTHM",
@@ -19811,15 +19235,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 874.0
-    },
-    {
-      "object_id": "yt_t2WrsyTiZYo",
-      "title": "Optimize spark queries like a pro using execution plans by Noam Brezis Part 1",
-      "speaker": "",
-      "view_count": 173,
-      "is_algolia_speaker": false,
-      "year": 2022,
-      "priority_score": 873.0
     },
     {
       "object_id": "yt_z-PfMzVaIsU",
@@ -19975,15 +19390,6 @@
       "priority_score": 864.0
     },
     {
-      "object_id": "yt_h5t522FnAMc",
-      "title": "Tutorials - Alexandre B A Villares: learning Python while making drawings and animations",
-      "speaker": "",
-      "view_count": 864,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 864.0
-    },
-    {
       "object_id": "yt_AmigNPXnMiY",
       "title": "Jared Winn",
       "speaker": "Best Practices Crosswalks",
@@ -20059,15 +19465,6 @@
       "object_id": "yt_h-Il4OBW5aI",
       "title": "The Cloud Native Runtimes Ecosystem for Performance and...",
       "speaker": "Beyond Orchestration",
-      "view_count": 160,
-      "is_algolia_speaker": false,
-      "year": 2022,
-      "priority_score": 860.0
-    },
-    {
-      "object_id": "yt_BMV81DIRzF0",
-      "title": "The DevOps Architect Journey: From Perl to GoLang - Meetup recording",
-      "speaker": "",
       "view_count": 160,
       "is_algolia_speaker": false,
       "year": 2022,
@@ -20569,15 +19966,6 @@
       "priority_score": 825.0
     },
     {
-      "object_id": "yt_U4Rd93Kz5gI",
-      "title": "GoogleIndiaScholars by Arshi Saleh",
-      "speaker": "Community Lounge",
-      "view_count": 824,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 824.0
-    },
-    {
       "object_id": "yt_juYOFYNy0xE",
       "title": "Prague AWS User Group - Preparing for the Inevitable: Cloud Resiliency and Disaster Recovery on AWS",
       "speaker": "",
@@ -20947,15 +20335,6 @@
       "priority_score": 793.0
     },
     {
-      "object_id": "yt_J0W3_C0HjpE",
-      "title": "Talks - Uzoma Nicholas Muoh: Improving Efficiency in Transportation Networks using Python",
-      "speaker": "",
-      "view_count": 793,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 793.0
-    },
-    {
       "object_id": "yt_2vMrtFkqmQc",
       "title": "Privilege Escalation in Microsoft Azure",
       "speaker": "Christian August Holm Hansen",
@@ -21127,15 +20506,6 @@
       "priority_score": 781.0
     },
     {
-      "object_id": "yt_mNTEXjhBNiU",
-      "title": "What makes data visualisation so effective? - Beno\u00eet Lucet, Dataveyes",
-      "speaker": "Beno\u00eet Lucet",
-      "view_count": 780,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 780.0
-    },
-    {
       "object_id": "yt_lemECmV-epg",
       "title": "Selenium with Python using Robot Framework",
       "speaker": "Monica Oyugi",
@@ -21179,15 +20549,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 779.0
-    },
-    {
-      "object_id": "yt_jiSM1Gxdaj8",
-      "title": "Keynote: Containerizing Deep Learning Using Kubeflow on AWS - Sukanya Mandal, Data Scientist",
-      "speaker": "",
-      "view_count": 278,
-      "is_algolia_speaker": false,
-      "year": 2020,
-      "priority_score": 778.0
     },
     {
       "object_id": "yt_nmCdgyX1jQk",
@@ -21296,15 +20657,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 770.0
-    },
-    {
-      "object_id": "yt_DZxY9FgaLO4",
-      "title": "FOSDEM 2024: Cluster API with Proxmox & Gitops",
-      "speaker": "",
-      "view_count": 767,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 767.0
     },
     {
       "object_id": "yt_8Q20npCLB7U",
@@ -21622,15 +20974,6 @@
       "priority_score": 739.0
     },
     {
-      "object_id": "yt_A-4QCJO9E-M",
-      "title": "Python begynder Del 1",
-      "speaker": "",
-      "view_count": 138,
-      "is_algolia_speaker": false,
-      "year": 2021,
-      "priority_score": 738.0
-    },
-    {
       "object_id": "yt_JLtI1URRXG8",
       "title": "Live Coding Session - Next-gen multi-tenant SaaS with Algolia and Fauna",
       "speaker": "",
@@ -21922,15 +21265,6 @@
       "object_id": "yt_YREBjo-d2Ac",
       "title": "\"Widening the Ferris Net\" | RustConf 2024",
       "speaker": "Rohit Dandamundi",
-      "view_count": 710,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 710.0
-    },
-    {
-      "object_id": "yt_A9JwA2c8VLA",
-      "title": "Talks - Vinicius Mendes: Continuous Deployment and Release of Django Apps",
-      "speaker": "",
       "view_count": 710,
       "is_algolia_speaker": false,
       "year": 0,
@@ -22234,15 +21568,6 @@
       "priority_score": 675.0
     },
     {
-      "object_id": "yt_VLn512ofaSU",
-      "title": "Talks - Hannah, Lalleh, Timothy, Uma: Instrumentation Nightmares: A review of our toughest cases",
-      "speaker": "",
-      "view_count": 675,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 675.0
-    },
-    {
       "object_id": "yt_KUyIjjgYhl0",
       "title": "Cloud Native Chaos Engineering",
       "speaker": "Umasankar Mukkara",
@@ -22405,15 +21730,6 @@
       "priority_score": 654.0
     },
     {
-      "object_id": "yt_pxFBxXtDWUk",
-      "title": "Seasons of Debian \u2013 Summer of Code and Winter of Outreachy diversity",
-      "speaker": "",
-      "view_count": 352,
-      "is_algolia_speaker": false,
-      "year": 2018,
-      "priority_score": 652.0
-    },
-    {
       "object_id": "yt_us21pY1z4fo",
       "title": "Swiss cheese, teamwork and other things we should learn from the aviation industry",
       "speaker": "Jakob Kielland",
@@ -22574,15 +21890,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 637.0
-    },
-    {
-      "object_id": "yt_4C1612WR47k",
-      "title": "Tutorials - Jules Kouatchou, Bruce Van Aartsen: Python Workflows to Extract and Plot Satellite...",
-      "speaker": "",
-      "view_count": 635,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 635.0
     },
     {
       "object_id": "yt__XnYI2Kcck0",
@@ -22884,15 +22191,6 @@
     {
       "object_id": "yt_NQyzFbYZjHk",
       "title": "Talks - \u0141ukasz Langa: Build in-browser 3D experiences with WebGL and PyScript",
-      "speaker": "",
-      "view_count": 600,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 600.0
-    },
-    {
-      "object_id": "yt_2uM4MQtu8Us",
-      "title": "Talks - Bert Wagner: Cross-Server Data Joins on Slow Networks with Python",
       "speaker": "",
       "view_count": 600,
       "is_algolia_speaker": false,
@@ -24007,15 +23305,6 @@
       "priority_score": 497.0
     },
     {
-      "object_id": "yt_BJ2Ve4opPIk",
-      "title": "Sponsor Presentations - An Introduction to Simulation And Ansys For Developers (Sponsor: Ansys)",
-      "speaker": "",
-      "view_count": 497,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 497.0
-    },
-    {
       "object_id": "yt_q3NfA4euhoc",
       "title": "Argo CD Update",
       "speaker": "Project Update",
@@ -24874,15 +24163,6 @@
       "object_id": "yt_ipoXGP3c6Uk",
       "title": "CPU Hardware Counters",
       "speaker": "Bryan Boreham",
-      "view_count": 432,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 432.0
-    },
-    {
-      "object_id": "yt_C4lAU9qXRXw",
-      "title": "Tutorials - Jessica Greene, Chioma Onyekpere: Monitoring carbon emissions: making the impact...",
-      "speaker": "",
       "view_count": 432,
       "is_algolia_speaker": false,
       "year": 0,
@@ -25852,15 +25132,6 @@
       "priority_score": 353.0
     },
     {
-      "object_id": "yt_5kYStwViOws",
-      "title": "OW2con'15 Keynote Daniel Le Berre, Sat4j: from the lab to desktop computers",
-      "speaker": "",
-      "view_count": 352,
-      "is_algolia_speaker": false,
-      "year": 2015,
-      "priority_score": 352.0
-    },
-    {
       "object_id": "yt_1xbPerneIqg",
       "title": "PSF - Update from our Security Engineers",
       "speaker": "",
@@ -25868,15 +25139,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 352.0
-    },
-    {
-      "object_id": "yt_vcMzVi92n-w",
-      "title": "BackstageCon | Welcome + Opening Remarks - Andre Wanlin, Bryan Landes & Balaji Sivasubramanian",
-      "speaker": "",
-      "view_count": 351,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 351.0
     },
     {
       "object_id": "yt_ep-md_RRfJQ",
@@ -25967,15 +25229,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 344.0
-    },
-    {
-      "object_id": "yt_1NWbFcL4-P0",
-      "title": "Sponsor Presentations - State of Python Supply Chain Security (Sponsor: Alpha-Omega)",
-      "speaker": "",
-      "view_count": 343,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 343.0
     },
     {
       "object_id": "yt_aziBbuxD-Pg",
@@ -26401,15 +25654,6 @@
       "priority_score": 312.0
     },
     {
-      "object_id": "yt_3-_gx3KLlIo",
-      "title": "DevOps Transformation, Driving Culture Change - HPE",
-      "speaker": "",
-      "view_count": 312,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 312.0
-    },
-    {
       "object_id": "yt_mMDZzwHI2mI",
       "title": "From AWS EC2 to Cozystack: A Beginner\u2019s Roadmap to Cloud Independence -",
       "speaker": "Kirti Goyal",
@@ -26509,15 +25753,6 @@
       "priority_score": 300.0
     },
     {
-      "object_id": "yt_Abo_55vNywA",
-      "title": "Jorge Vargas, Java Champion",
-      "speaker": "",
-      "view_count": 199,
-      "is_algolia_speaker": false,
-      "year": 2016,
-      "priority_score": 299.0
-    },
-    {
       "object_id": "yt_xOZ1-ZKFq6c",
       "title": "How to increase the conversion rate on your mobile app - Kailin Huang, ContentSquare",
       "speaker": "Kailin Huang",
@@ -26534,15 +25769,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 297.0
-    },
-    {
-      "object_id": "yt_mqg93zv1S-E",
-      "title": "\"Student Showcase\" - Amanda J Hogan, Nicky Ringland, Alison Wong (PyCon AU 2025)",
-      "speaker": "",
-      "view_count": 296,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 296.0
     },
     {
       "object_id": "yt_ZjBDoF_iD9Y",
@@ -26777,15 +26003,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 283.0
-    },
-    {
-      "object_id": "yt_2Ex6WeuY1A4",
-      "title": "Jinal Foflia, India | SotM-Asia 2017",
-      "speaker": "Country Presentation",
-      "view_count": 82,
-      "is_algolia_speaker": false,
-      "year": 2017,
-      "priority_score": 282.0
     },
     {
       "object_id": "yt_mAY3QzG3AQU",
@@ -27130,15 +26347,6 @@
       "priority_score": 258.0
     },
     {
-      "object_id": "yt_V0V8PdVhalY",
-      "title": "FOSDEM 2024: Cluster API with Kubevirt and GitOps",
-      "speaker": "",
-      "view_count": 257,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 257.0
-    },
-    {
       "object_id": "yt_SC_9VvT5xuA",
       "title": "Downsampling in Prometheus",
       "speaker": "Jan Fajerski",
@@ -27177,15 +26385,6 @@
     {
       "object_id": "yt_H-GTRHBqXEM",
       "title": "[Panel discussion] Events: what to capture and why?",
-      "speaker": "",
-      "view_count": 256,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 256.0
-    },
-    {
-      "object_id": "yt_6zWRyNy6y_4",
-      "title": "Yael Oshri Balla @ ReactNext '23 | JWT Magic: A Deep Dive into JSON Web Tokens",
       "speaker": "",
       "view_count": 256,
       "is_algolia_speaker": false,
@@ -27454,15 +26653,6 @@
       "priority_score": 239.0
     },
     {
-      "object_id": "yt_Zou-3gZaNOc",
-      "title": "AWS Summit Tel Aviv 2023 - Observability through Cloud Intelligence Dashboards (COR202)",
-      "speaker": "",
-      "view_count": 239,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 239.0
-    },
-    {
       "object_id": "yt_GIg6Ci5HqJY",
       "title": "The challenges of Angular - Jonathan Palumbo and Patrick Herrmann, Vestiaire Collective",
       "speaker": "",
@@ -27598,15 +26788,6 @@
       "priority_score": 233.0
     },
     {
-      "object_id": "yt_72tDk7t_8Es",
-      "title": "Yanai Edri @ ReactNext '23 | Stories from the React Crypt",
-      "speaker": "",
-      "view_count": 233,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 233.0
-    },
-    {
       "object_id": "yt_5B1D0Sk3MEA",
       "title": "Session 6 - A Global Perspective:  How is the World Energy Economy Transitioning?",
       "speaker": "",
@@ -27695,15 +26876,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 228.0
-    },
-    {
-      "object_id": "yt_6t4BBzcOSPY",
-      "title": "#vuc544   HOMER Open Source SIP Capture",
-      "speaker": "",
-      "view_count": 227,
-      "is_algolia_speaker": false,
-      "year": 2015,
-      "priority_score": 227.0
     },
     {
       "object_id": "yt_3yto-GOSvpU",
@@ -28075,15 +27247,6 @@
       "priority_score": 201.0
     },
     {
-      "object_id": "yt_kUw1eVOZ9tc",
-      "title": "JavaScript Pitfalls",
-      "speaker": "",
-      "view_count": 300,
-      "is_algolia_speaker": false,
-      "year": 2014,
-      "priority_score": 200.0
-    },
-    {
       "object_id": "yt_NVSZ67gZhK0",
       "title": "Go-ing Native: Supercharging Windows Support In Go - Quim Muntal | GopherCon EU 2025",
       "speaker": "Lightning Talk",
@@ -28145,15 +27308,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 198.0
-    },
-    {
-      "object_id": "yt_KZVws9pZgWo",
-      "title": "React Week 2020 - Speaker's Q&A [SRB]",
-      "speaker": "",
-      "view_count": 196,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 196.0
     },
     {
       "object_id": "yt_7zXL6YIBv2c",
@@ -28543,15 +27697,6 @@
       "priority_score": 174.0
     },
     {
-      "object_id": "yt_OYCx1Umds9c",
-      "title": "Hila Israeli @ ReactNext '23 | Empowering Your Career: Mastering the Art of Self-Education",
-      "speaker": "",
-      "view_count": 174,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 174.0
-    },
-    {
       "object_id": "yt_re3vwWHFj4s",
       "title": "The difference between a mentor, a coach and a sponsor - Olivier Garcia, Algolia",
       "speaker": "Olivier Garcia",
@@ -28739,15 +27884,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 166.0
-    },
-    {
-      "object_id": "yt_zHvR5WjJTPE",
-      "title": "Sponsor Presentations - Navigating the AI Labyrinth in Higher Education (Sponsor: WGU)",
-      "speaker": "",
-      "view_count": 165,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 165.0
     },
     {
       "object_id": "yt_cWb2ACyPLDQ",
@@ -29164,15 +28300,6 @@
       "priority_score": 151.0
     },
     {
-      "object_id": "yt_huXqT3SxDho",
-      "title": "The cost of scale - Eran Chetzroni (Algolia)",
-      "speaker": "",
-      "view_count": 150,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 150.0
-    },
-    {
       "object_id": "yt_XeWgjabZH64",
       "title": "How to do smooth animations - Maxime Sarri, Google Arts & Culture",
       "speaker": "",
@@ -29216,15 +28343,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 149.0
-    },
-    {
-      "object_id": "yt_t-aAcn2U84w",
-      "title": "AppSecIL2014 Keynote - Tomer Gershoni: Bringing the product security message to HP Software",
-      "speaker": "",
-      "view_count": 248,
-      "is_algolia_speaker": false,
-      "year": 2014,
-      "priority_score": 148.0
     },
     {
       "object_id": "yt_cXTsLzrujpo",
@@ -29517,15 +28635,6 @@
     {
       "object_id": "yt__shhFLLau60",
       "title": "La French Stack #001 \u2013 Unfiltered AI, Agents & Real-World Impact at Algolia Paris",
-      "speaker": "",
-      "view_count": 139,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 139.0
-    },
-    {
-      "object_id": "yt_Rd5hN_CNdsU",
-      "title": "AWS Summit Tel Aviv 2023 - Leveraging open-source and 3rd party tools for ML on AWS (AIM305)",
       "speaker": "",
       "view_count": 139,
       "is_algolia_speaker": false,
@@ -30334,15 +29443,6 @@
       "priority_score": 115.0
     },
     {
-      "object_id": "yt_fDvh2lIDT_s",
-      "title": "Contributing to Open Source - Day 175",
-      "speaker": "",
-      "view_count": 115,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 115.0
-    },
-    {
       "object_id": "yt_BGQG7gwBxZc",
       "title": "Security In the Cloud- Assuring a Secure InterSystems IRIS Cloud Overlay",
       "speaker": "",
@@ -30478,15 +29578,6 @@
       "priority_score": 111.0
     },
     {
-      "object_id": "yt_Cz2fI2Due58",
-      "title": "AWS Summit Tel Aviv 2023 - Single Pane of Glass: Unifying the Facets of Observability (APN102)",
-      "speaker": "",
-      "view_count": 111,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 111.0
-    },
-    {
       "object_id": "yt_8XPl9QLMfcQ",
       "title": "Adir Kandel @ ReactNext '25 | How to Roll Your React Components Like a Good Inside",
       "speaker": "Out Sushi",
@@ -30526,15 +29617,6 @@
       "object_id": "yt_rohVQQmQwWY",
       "title": "Kubeflow Summit | Welcome + Opening Remarks: A Community Big Enough for Everyone",
       "speaker": "Chase Christensen",
-      "view_count": 110,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 110.0
-    },
-    {
-      "object_id": "yt_qWO40XZ-Emo",
-      "title": "OCCT3D Open Source (Open CASCADE Technology) presentation at FOSDEM 2022",
-      "speaker": "",
       "view_count": 110,
       "is_algolia_speaker": false,
       "year": 0,
@@ -30678,24 +29760,6 @@
     {
       "object_id": "yt_qTBHjTQ4KWc",
       "title": "Cloud Native Rejekts EU 24 | Arena | Day 1",
-      "speaker": "",
-      "view_count": 107,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 107.0
-    },
-    {
-      "object_id": "yt_lwgHMDOY_Zs",
-      "title": "How UW Madison Monitors 25+ Clusters With Cilium and Prometheus Agent... Cory Sherman & Ryan Etten",
-      "speaker": "",
-      "view_count": 107,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 107.0
-    },
-    {
-      "object_id": "yt_eftluD-LMKg",
-      "title": "Michal Gigi @ ReactNext '23 | Recoil to the rescue! How Recoil helped us to manage our React state",
       "speaker": "",
       "view_count": 107,
       "is_algolia_speaker": false,
@@ -30883,15 +29947,6 @@
       "priority_score": 100.0
     },
     {
-      "object_id": "yt_l4GC58Xruyk",
-      "title": "Keynote: The Future of Cloud, New Possibilities - Li Yi (Mark), Alibaba Cloud",
-      "speaker": "",
-      "view_count": 100,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 100.0
-    },
-    {
       "object_id": "yt_hCs1XQ_OHtk",
       "title": "Talks - Jeff Epler: Connecting Old to New with CircuitPython: Retrocomputer input devices on...",
       "speaker": "",
@@ -30984,15 +30039,6 @@
     {
       "object_id": "yt_yrBufEpAGmY",
       "title": "Paris Machine Learning Meetup #7 - Feature engineering: tout un art",
-      "speaker": "",
-      "view_count": 98,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 98.0
-    },
-    {
-      "object_id": "yt_c9ZxKS6iijY",
-      "title": "Sagi Levanon @ NodeTLV '23 | node:test module",
       "speaker": "",
       "view_count": 98,
       "is_algolia_speaker": false,
@@ -31237,15 +30283,6 @@
       "object_id": "yt_smbrrBTAMVg",
       "title": "Run Fast! Catch Performance Regressions in Python",
       "speaker": "Everett Pompeii",
-      "view_count": 93,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 93.0
-    },
-    {
-      "object_id": "yt_qF9H-0GQLeY",
-      "title": "Amit Gazal @ NodeTLV '23 | Generating async iterators is ekstreamly easy, I Promise ;)",
-      "speaker": "",
       "view_count": 93,
       "is_algolia_speaker": false,
       "year": 0,
@@ -31576,15 +30613,6 @@
       "priority_score": 87.0
     },
     {
-      "object_id": "yt_cs6bQxJQy0A",
-      "title": "DevOps MeetUp - OpenTelemetry (05.11.)",
-      "speaker": "",
-      "view_count": 87,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 87.0
-    },
-    {
       "object_id": "yt__g5ub87UC0o",
       "title": "What does open governance mean for JSR? (Fosdem 2025)",
       "speaker": "",
@@ -31723,15 +30751,6 @@
       "object_id": "yt_Slk_T4ap2AA",
       "title": "Family.scss & how to create successful open source projects ( By Lucas Bonomi at CSSParis #6 )",
       "speaker": "",
-      "view_count": 85,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 85.0
-    },
-    {
-      "object_id": "yt_MVfJH0dTAjo",
-      "title": "A Ride to FOSDEM 2025!",
-      "speaker": "Biking Through Brussels",
       "view_count": 85,
       "is_algolia_speaker": false,
       "year": 0,
@@ -32359,15 +31378,6 @@
       "priority_score": 76.0
     },
     {
-      "object_id": "yt_OolO1OGXe-I",
-      "title": "Contributing to Open Source - Day 174",
-      "speaker": "",
-      "view_count": 76,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 76.0
-    },
-    {
       "object_id": "yt_4xxrLeJlR-U",
       "title": "OpenTelemetry developments in Prometheus over the last year - Arve Knudsen, Owen Williams",
       "speaker": "",
@@ -32638,24 +31648,6 @@
       "priority_score": 71.0
     },
     {
-      "object_id": "yt_XZFKFMIxwTM",
-      "title": "BSides Sofia 2023 - Unencrypted malware, the invisible threat",
-      "speaker": "",
-      "view_count": 71,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 71.0
-    },
-    {
-      "object_id": "yt_MDn5hbY2nf4",
-      "title": "Lessons Learned - Alexander Perlman & Michael Zazula, Capital One",
-      "speaker": "Consumer To Contributor",
-      "view_count": 71,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 71.0
-    },
-    {
       "object_id": "yt_G9zjU3AFOBc",
       "title": "BSides Sofia 2024: Expanding Security Horizons: SIMD",
       "speaker": "Based Threats",
@@ -32883,15 +31875,6 @@
     {
       "object_id": "yt_tmSMHKxprdc",
       "title": "MLOps on AWS",
-      "speaker": "",
-      "view_count": 65,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 65.0
-    },
-    {
-      "object_id": "yt_sos3EyJpIYY",
-      "title": "Node.js Israeli Collaborators Panel @ NodeTLV '23",
       "speaker": "",
       "view_count": 65,
       "is_algolia_speaker": false,
@@ -34267,15 +33250,6 @@
       "priority_score": 46.0
     },
     {
-      "object_id": "yt_NcLOZghZq1c",
-      "title": "Contributing to Open Source - Day 177",
-      "speaker": "",
-      "view_count": 46,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 46.0
-    },
-    {
       "object_id": "yt_KgTljsgWDAQ",
       "title": "Cybersecurity Intelligence With Kubeflow... Mustafa Day\u0131o\u011flu & Zeyno Dodd",
       "speaker": "From Edge To Insight",
@@ -35023,15 +33997,6 @@
       "priority_score": 37.0
     },
     {
-      "object_id": "yt_kbp-PC_bhPE",
-      "title": "React Meetup - February 2023",
-      "speaker": "",
-      "view_count": 37,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 37.0
-    },
-    {
       "object_id": "yt_daTFoCCoqho",
       "title": "Securing the Software Factory",
       "speaker": "Jon Peck",
@@ -35500,15 +34465,6 @@
       "priority_score": 31.0
     },
     {
-      "object_id": "yt_WdYKwGzXlAg",
-      "title": "Contributing to Open Source - Day 244",
-      "speaker": "",
-      "view_count": 31,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 31.0
-    },
-    {
       "object_id": "yt_TC8tIiGl398",
       "title": "The Long Arc of Digital Rights: Securing our Open Source Future",
       "speaker": "Sponsored Keynote",
@@ -35926,15 +34882,6 @@
       "object_id": "yt_oRrroGwZ-gc",
       "title": "Mastering Modern Software Distribution - Philip Miglinci, Glasskube",
       "speaker": "Philip Miglinci",
-      "view_count": 26,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 26.0
-    },
-    {
-      "object_id": "yt_YJshaoGtnQI",
-      "title": "Learning Rust Language Using ChatGPT",
-      "speaker": "",
       "view_count": 26,
       "is_algolia_speaker": false,
       "year": 0,
@@ -36994,15 +35941,6 @@
       "priority_score": 14.0
     },
     {
-      "object_id": "yt_RLsSgATFRAI",
-      "title": "Contributing to Open Source - Day 192",
-      "speaker": "",
-      "view_count": 14,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 14.0
-    },
-    {
       "object_id": "yt_R3lWRMigLfM",
       "title": "fosdem 2024 2634 sega dreamcast homebrew with gcc av1",
       "speaker": "",
@@ -37174,15 +36112,6 @@
       "priority_score": 10.0
     },
     {
-      "object_id": "yt_8kTvAaEzu0c",
-      "title": "Open Source - Day 1 part 3 (OBS - clone and build)",
-      "speaker": "",
-      "view_count": 10,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 10.0
-    },
-    {
       "object_id": "yt_-o5kun2OfaA",
       "title": "SQLBits 2023 WIT Interview Series: Hollie Whittles",
       "speaker": "",
@@ -37282,15 +36211,6 @@
       "priority_score": 8.0
     },
     {
-      "object_id": "yt_2FeTmBhtwck",
-      "title": "Open Source - Day 2 (OBS - build continued)",
-      "speaker": "",
-      "view_count": 8,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 8.0
-    },
-    {
       "object_id": "yt_mJoemQnXK7I",
       "title": "Keynote",
       "speaker": "Scaling System Software",
@@ -37334,15 +36254,6 @@
       "is_algolia_speaker": false,
       "year": 0,
       "priority_score": 7.0
-    },
-    {
-      "object_id": "yt_mdoQsY5Uc2E",
-      "title": "Open Source - Day 1 part 2 (OBS - research)",
-      "speaker": "",
-      "view_count": 6,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 6.0
     },
     {
       "object_id": "yt_gz_pyUy3DFw",
@@ -37633,15 +36544,6 @@
       "priority_score": 0.0
     },
     {
-      "object_id": "yt_KEijn4PbViU",
-      "title": "Beer.js Summit Interviews (speakers & partners)",
-      "speaker": "",
-      "view_count": 0,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 0.0
-    },
-    {
       "object_id": "yt_HN_e5hmP5Wk",
       "title": "Naveh Sadeh @ NodeTLV '25 | The Edge of Performance: Pushing Node.js to Its Limits",
       "speaker": "",
@@ -37662,33 +36564,6 @@
     {
       "object_id": "yt_4pwZyfTO7B4",
       "title": "3 Trends Shaping the Madness of March",
-      "speaker": "",
-      "view_count": 0,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 0.0
-    },
-    {
-      "object_id": "yt_zlRUtGdO19U",
-      "title": "Microsoft JDConf 2026 (EMEA)",
-      "speaker": "",
-      "view_count": 0,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 0.0
-    },
-    {
-      "object_id": "yt_cJ1odDNflEA",
-      "title": "Microsoft JDConf 2026 (Americas)",
-      "speaker": "",
-      "view_count": 0,
-      "is_algolia_speaker": false,
-      "year": 0,
-      "priority_score": 0.0
-    },
-    {
-      "object_id": "yt_TyksDmKBHuM",
-      "title": "Microsoft JDConf 2026 (APAC)",
       "speaker": "",
       "view_count": 0,
       "is_algolia_speaker": false,

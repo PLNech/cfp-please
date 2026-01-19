@@ -1,0 +1,1455 @@
+2026-01-19 18:59:29,677 | ============================================================
+2026-01-19 18:59:29,678 | City Images Daemon Started (with exponential backoff)
+2026-01-19 18:59:29,678 | Batch size: 45 | Base retry: 5min
+2026-01-19 18:59:29,678 | ============================================================
+2026-01-19 18:59:31,495 | 
+--- Fetching (40/218 done, 178 remaining) ---
+2026-01-19 18:59:31,626 | HTTP Request: GET https://api.unsplash.com/search/photos?query=London+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 18:59:31,626 | Rate limited at London
+2026-01-19 18:59:31,627 | Rate limited. Backoff 5min until 19:04:31
+2026-01-19 19:04:31,870 | 
+--- Fetching (40/218 done, 178 remaining) ---
+2026-01-19 19:04:32,221 | HTTP Request: GET https://api.unsplash.com/search/photos?query=London+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:32,223 |   London: 5 images
+2026-01-19 19:04:33,646 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Amsterdam+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:33,648 |   Amsterdam: 5 images
+2026-01-19 19:04:35,205 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Tel+Aviv+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:35,208 |   Tel Aviv: 5 images
+2026-01-19 19:04:36,694 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sofia+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:36,696 |   Sofia: 5 images
+2026-01-19 19:04:38,183 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Oslo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:38,185 |   Oslo: 5 images
+2026-01-19 19:04:39,665 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Austin+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:39,667 |   Austin: 5 images
+2026-01-19 19:04:41,148 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Milan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:41,149 |   Milan: 5 images
+2026-01-19 19:04:42,626 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Copenhagen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:42,628 |   Copenhagen: 5 images
+2026-01-19 19:04:44,205 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Madrid+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:44,207 |   Madrid: 5 images
+2026-01-19 19:04:45,754 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Barcelona+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:45,756 |   Barcelona: 5 images
+2026-01-19 19:04:47,335 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Prague+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:47,336 |   Prague: 5 images
+2026-01-19 19:04:48,874 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Berlin+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:48,875 |   Berlin: 5 images
+2026-01-19 19:04:50,387 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:50,389 |   Paris: 5 images
+2026-01-19 19:04:51,928 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Santiago+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:51,929 |   Santiago: 5 images
+2026-01-19 19:04:53,448 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bengaluru+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:53,450 |   Bengaluru: 5 images
+2026-01-19 19:04:54,981 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valencia+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:54,983 |   Valencia: 5 images
+2026-01-19 19:04:56,489 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Stockholm+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:56,490 |   Stockholm: 5 images
+2026-01-19 19:04:58,111 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hamburg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:58,113 |   Hamburg: 5 images
+2026-01-19 19:04:59,588 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mumbai+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:04:59,590 |   Mumbai: 5 images
+2026-01-19 19:05:01,058 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Gdynia+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:01,060 |   Gdynia: 5 images
+2026-01-19 19:05:03,039 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Birmingham+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:03,040 |   Birmingham: 5 images
+2026-01-19 19:05:04,742 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Leipzig+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:04,744 |   Leipzig: 5 images
+2026-01-19 19:05:06,287 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Rome+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:06,288 |   Rome: 5 images
+2026-01-19 19:05:07,790 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Utrecht+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:07,791 |   Utrecht: 5 images
+2026-01-19 19:05:09,273 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Harness+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:09,275 |   Harness: 5 images
+2026-01-19 19:05:10,758 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nashville+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:10,760 |   Nashville: 5 images
+2026-01-19 19:05:12,279 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Tokyo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:12,282 |   Tokyo: 5 images
+2026-01-19 19:05:13,812 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Columbus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:13,814 |   Columbus: 5 images
+2026-01-19 19:05:15,295 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Munich+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:15,296 |   Munich: 5 images
+2026-01-19 19:05:16,792 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Antwerpen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:16,793 |   Antwerpen: 5 images
+2026-01-19 19:05:18,365 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Santo+Domingo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:18,366 |   Santo Domingo: 5 images
+2026-01-19 19:05:20,134 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Turin+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:20,135 |   Turin: 5 images
+2026-01-19 19:05:21,652 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Brussels+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:21,653 |   Brussels: 5 images
+2026-01-19 19:05:23,294 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Dublin+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:23,295 |   Dublin: 5 images
+2026-01-19 19:05:24,874 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Orlando+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:24,876 |   Orlando: 5 images
+2026-01-19 19:05:26,417 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Denver+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:26,419 |   Denver: 5 images
+2026-01-19 19:05:28,000 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Toronto+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:28,001 |   Toronto: 5 images
+2026-01-19 19:05:29,482 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Christchurch+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:29,484 |   Christchurch: 5 images
+2026-01-19 19:05:31,021 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Melbourne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:31,024 |   Melbourne: 5 images
+2026-01-19 19:05:32,671 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pune+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:32,672 |   Pune: 5 images
+2026-01-19 19:05:34,186 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Florence+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:34,188 |   Florence: 5 images
+2026-01-19 19:05:35,770 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Everyman+Canary+Wharf+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:35,772 |   Everyman Canary Wharf: 5 images
+2026-01-19 19:05:37,274 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nairobi+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:37,275 |   Nairobi: 5 images
+2026-01-19 19:05:38,828 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Calgary+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:38,829 |   Calgary: 5 images
+2026-01-19 19:05:40,328 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Durham+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:40,330 |   Durham: 5 images
+2026-01-19 19:05:41,543 | Saved 45 new cities
+2026-01-19 19:05:42,141 | Algolia enriched
+2026-01-19 19:05:42,143 | Full batch done, continuing...
+2026-01-19 19:05:42,392 | 
+--- Fetching (85/218 done, 133 remaining) ---
+2026-01-19 19:05:42,718 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Vancouver+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:42,720 |   Vancouver: 5 images
+2026-01-19 19:05:44,243 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Grand+Rapids+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:44,245 |   Grand Rapids: 3 images
+2026-01-19 19:05:45,673 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:45,675 |   Pordenone: no images found
+2026-01-19 19:05:47,293 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Odense+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:47,295 |   Odense: 5 images
+2026-01-19 19:05:48,837 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Riyadh+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:05:48,839 |   Riyadh: 5 images
+2026-01-19 19:05:50,143 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Krak%C3%B3w+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 19:05:50,144 | Rate limited at Kraków
+2026-01-19 19:05:50,155 | Saved 4 new cities
+2026-01-19 19:05:50,718 | Algolia enriched
+2026-01-19 19:05:50,719 | Rate limited. Backoff 5min until 19:10:50
+2026-01-19 19:10:50,967 | 
+--- Fetching (89/218 done, 129 remaining) ---
+2026-01-19 19:10:50,999 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:10:50,999 |   Pordenone: no images found
+2026-01-19 19:10:52,298 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Krak%C3%B3w+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 19:10:52,299 | Rate limited at Kraków
+2026-01-19 19:10:52,299 | Rate limited. Backoff 10min until 19:20:52
+2026-01-19 19:15:52,300 |   ...5min until retry
+2026-01-19 19:20:52,605 | 
+--- Fetching (89/218 done, 129 remaining) ---
+2026-01-19 19:20:52,741 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:20:52,742 |   Pordenone: no images found
+2026-01-19 19:20:54,054 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Krak%C3%B3w+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 19:20:54,055 | Rate limited at Kraków
+2026-01-19 19:20:54,055 | Rate limited. Backoff 20min until 19:40:54
+2026-01-19 19:25:54,056 |   ...15min until retry
+2026-01-19 19:30:54,056 |   ...10min until retry
+2026-01-19 19:35:54,057 |   ...5min until retry
+2026-01-19 19:40:54,460 | 
+--- Fetching (89/218 done, 129 remaining) ---
+2026-01-19 19:40:54,493 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 19:40:54,494 |   Pordenone: no images found
+2026-01-19 19:40:55,870 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Krak%C3%B3w+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 19:40:55,871 | Rate limited at Kraków
+2026-01-19 19:40:55,871 | Rate limited. Backoff 40min until 20:20:55
+2026-01-19 19:45:55,871 |   ...35min until retry
+2026-01-19 19:50:55,871 |   ...30min until retry
+2026-01-19 19:55:55,871 |   ...25min until retry
+2026-01-19 20:00:55,872 |   ...20min until retry
+2026-01-19 20:05:55,872 |   ...15min until retry
+2026-01-19 20:10:55,872 |   ...10min until retry
+2026-01-19 20:15:55,873 |   ...5min until retry
+2026-01-19 20:20:56,113 | 
+--- Fetching (89/218 done, 129 remaining) ---
+2026-01-19 20:20:56,146 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:20:56,147 |   Pordenone: no images found
+2026-01-19 20:20:57,671 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Krak%C3%B3w+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:20:57,673 |   Kraków: 5 images
+2026-01-19 20:20:59,233 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Warsaw+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:20:59,234 |   Warsaw: 5 images
+2026-01-19 20:21:00,952 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Jacksonville+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:00,953 |   Jacksonville: 5 images
+2026-01-19 20:21:02,385 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:02,386 |   Timişoara: no images found
+2026-01-19 20:21:03,896 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kingston+upon+Hull+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:03,897 |   Kingston upon Hull: 2 images
+2026-01-19 20:21:05,379 | HTTP Request: GET https://api.unsplash.com/search/photos?query=S%C3%A3o+Paulo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:05,380 |   São Paulo: 5 images
+2026-01-19 20:21:06,999 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Lisbon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:07,002 |   Lisbon: 5 images
+2026-01-19 20:21:08,211 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:08,212 |   Skien: no images found
+2026-01-19 20:21:09,650 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:09,651 |   Hilversum: no images found
+2026-01-19 20:21:11,124 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Coimbra+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:11,125 |   Coimbra: 5 images
+2026-01-19 20:21:12,647 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Newport+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:12,649 |   Newport: 4 images
+2026-01-19 20:21:14,151 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Lima+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:14,152 |   Lima: 5 images
+2026-01-19 20:21:15,672 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Richmond+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:15,673 |   Richmond: 5 images
+2026-01-19 20:21:17,289 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bangkok+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:17,290 |   Bangkok: 5 images
+2026-01-19 20:21:18,791 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hyderabad+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:18,793 |   Hyderabad: 5 images
+2026-01-19 20:21:20,231 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:20,232 |   Taldykorgan: no images found
+2026-01-19 20:21:21,670 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:21,670 |   Portorož: no images found
+2026-01-19 20:21:23,264 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wellington+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:23,265 |   Wellington: 5 images
+2026-01-19 20:21:24,734 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pisa+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:24,736 |   Pisa: 5 images
+2026-01-19 20:21:26,434 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pittsburgh+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:26,435 |   Pittsburgh: 5 images
+2026-01-19 20:21:27,916 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mangaluru+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:27,917 |   Mangaluru: 1 images
+2026-01-19 20:21:29,431 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:29,432 |   GUCEC: no images found
+2026-01-19 20:21:30,940 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ljubljana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:30,941 |   Ljubljana: 5 images
+2026-01-19 20:21:32,436 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Grenoble+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:32,438 |   Grenoble: 5 images
+2026-01-19 20:21:33,992 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Davos+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:33,994 |   Davos: 5 images
+2026-01-19 20:21:35,474 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Karlsruhe+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:35,475 |   Karlsruhe: 2 images
+2026-01-19 20:21:36,977 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:36,978 |   Abidjan: no images found
+2026-01-19 20:21:38,467 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Die+Mobiliar+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:38,468 |   Die Mobiliar: 5 images
+2026-01-19 20:21:39,924 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:39,925 |   Chestnut Hill: no images found
+2026-01-19 20:21:41,429 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Budapest+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:41,431 |   Budapest: 5 images
+2026-01-19 20:21:42,897 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ahmedabad+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:42,898 |   Ahmedabad: 5 images
+2026-01-19 20:21:44,432 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Rishon+LeTsiyyon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:44,434 |   Rishon LeTsiyyon: 5 images
+2026-01-19 20:21:45,913 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Winterthur+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:45,913 |   Winterthur: 1 images
+2026-01-19 20:21:47,490 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Palermo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:47,491 |   Palermo: 5 images
+2026-01-19 20:21:48,956 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:48,958 |   Heerlen: no images found
+2026-01-19 20:21:50,564 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Zaragoza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:50,566 |   Zaragoza: 5 images
+2026-01-19 20:21:52,049 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Norwich+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:52,052 |   Norwich: 5 images
+2026-01-19 20:21:53,541 | HTTP Request: GET https://api.unsplash.com/search/photos?query=G%C3%B6teborg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:53,543 |   Göteborg: 5 images
+2026-01-19 20:21:55,102 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nantes+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:55,104 |   Nantes: 5 images
+2026-01-19 20:21:56,571 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:56,572 |   Kongens Lyngby: no images found
+2026-01-19 20:21:58,078 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Cannes+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:58,080 |   Cannes: 5 images
+2026-01-19 20:21:59,290 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:21:59,292 |   Alpharetta: no images found
+2026-01-19 20:22:00,777 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Houston+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:22:00,779 |   Houston: 5 images
+2026-01-19 20:22:02,315 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Antigua+Guatemala+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:22:02,316 |   Antigua Guatemala: 5 images
+2026-01-19 20:22:03,543 | Saved 33 new cities
+2026-01-19 20:22:04,042 | Algolia enriched
+2026-01-19 20:22:04,044 | Partial batch. Waiting 5min...
+2026-01-19 20:27:04,242 | 
+--- Fetching (122/218 done, 96 remaining) ---
+2026-01-19 20:27:04,285 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:04,286 |   Pordenone: no images found
+2026-01-19 20:27:05,494 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:05,495 |   Timişoara: no images found
+2026-01-19 20:27:06,705 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:06,706 |   Skien: no images found
+2026-01-19 20:27:07,918 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:07,919 |   Hilversum: no images found
+2026-01-19 20:27:09,129 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:09,130 |   Taldykorgan: no images found
+2026-01-19 20:27:10,343 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:10,344 |   Portorož: no images found
+2026-01-19 20:27:11,554 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:11,555 |   GUCEC: no images found
+2026-01-19 20:27:12,766 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:12,767 |   Abidjan: no images found
+2026-01-19 20:27:13,980 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:13,981 |   Chestnut Hill: no images found
+2026-01-19 20:27:15,192 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:15,192 |   Heerlen: no images found
+2026-01-19 20:27:16,406 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:16,407 |   Kongens Lyngby: no images found
+2026-01-19 20:27:17,618 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:17,620 |   Alpharetta: no images found
+2026-01-19 20:27:19,576 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Las+Vegas+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:19,578 |   Las Vegas: 5 images
+2026-01-19 20:27:21,097 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Aix-en-Provence+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:21,099 |   Aix-en-Provence: 5 images
+2026-01-19 20:27:22,310 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:22,311 |   Springfield: no images found
+2026-01-19 20:27:24,161 | HTTP Request: GET https://api.unsplash.com/search/photos?query=New+York+City+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:24,163 |   New York City: 5 images
+2026-01-19 20:27:25,677 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Manchester+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:25,678 |   Manchester: 5 images
+2026-01-19 20:27:27,191 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bari+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:27,193 |   Bari: 5 images
+2026-01-19 20:27:28,689 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:28,690 |   Mestre: no images found
+2026-01-19 20:27:30,241 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mexico+City+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:30,242 |   Mexico City: 5 images
+2026-01-19 20:27:32,075 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Colombo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:27:32,077 |   Colombo: 5 images
+2026-01-19 20:27:33,444 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 20:27:33,444 | Rate limited at Umeå
+2026-01-19 20:27:33,456 | Saved 7 new cities
+2026-01-19 20:27:33,938 | Algolia enriched
+2026-01-19 20:27:33,939 | Rate limited. Backoff 5min until 20:32:33
+2026-01-19 20:32:34,157 | 
+--- Fetching (129/218 done, 89 remaining) ---
+2026-01-19 20:32:34,191 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:34,192 |   Pordenone: no images found
+2026-01-19 20:32:35,402 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:35,402 |   Timişoara: no images found
+2026-01-19 20:32:36,611 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:36,612 |   Skien: no images found
+2026-01-19 20:32:37,822 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:37,823 |   Hilversum: no images found
+2026-01-19 20:32:39,033 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:39,033 |   Taldykorgan: no images found
+2026-01-19 20:32:40,244 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:40,244 |   Portorož: no images found
+2026-01-19 20:32:41,453 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:41,454 |   GUCEC: no images found
+2026-01-19 20:32:42,666 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:42,667 |   Abidjan: no images found
+2026-01-19 20:32:43,875 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:43,876 |   Chestnut Hill: no images found
+2026-01-19 20:32:45,085 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:45,085 |   Heerlen: no images found
+2026-01-19 20:32:46,295 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:46,296 |   Kongens Lyngby: no images found
+2026-01-19 20:32:47,505 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:47,505 |   Alpharetta: no images found
+2026-01-19 20:32:48,715 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:48,716 |   Springfield: no images found
+2026-01-19 20:32:49,924 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:32:49,925 |   Mestre: no images found
+2026-01-19 20:32:51,233 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 20:32:51,234 | Rate limited at Umeå
+2026-01-19 20:32:51,234 | Rate limited. Backoff 10min until 20:42:51
+2026-01-19 20:37:51,234 |   ...5min until retry
+2026-01-19 20:42:51,604 | 
+--- Fetching (129/218 done, 89 remaining) ---
+2026-01-19 20:42:51,644 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:42:51,645 |   Pordenone: no images found
+2026-01-19 20:42:52,857 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:42:52,858 |   Timişoara: no images found
+2026-01-19 20:42:54,072 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:42:54,072 |   Skien: no images found
+2026-01-19 20:42:55,280 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:42:55,281 |   Hilversum: no images found
+2026-01-19 20:42:56,489 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:42:56,490 |   Taldykorgan: no images found
+2026-01-19 20:42:57,700 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:42:57,701 |   Portorož: no images found
+2026-01-19 20:42:58,910 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:42:58,910 |   GUCEC: no images found
+2026-01-19 20:43:00,122 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:43:00,123 |   Abidjan: no images found
+2026-01-19 20:43:01,333 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:43:01,334 |   Chestnut Hill: no images found
+2026-01-19 20:43:02,543 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:43:02,544 |   Heerlen: no images found
+2026-01-19 20:43:03,762 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:43:03,763 |   Kongens Lyngby: no images found
+2026-01-19 20:43:04,972 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:43:04,973 |   Alpharetta: no images found
+2026-01-19 20:43:06,181 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:43:06,181 |   Springfield: no images found
+2026-01-19 20:43:07,392 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 20:43:07,393 |   Mestre: no images found
+2026-01-19 20:43:08,708 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 20:43:08,708 | Rate limited at Umeå
+2026-01-19 20:43:08,708 | Rate limited. Backoff 20min until 21:03:08
+2026-01-19 20:48:08,709 |   ...15min until retry
+2026-01-19 20:53:08,709 |   ...10min until retry
+2026-01-19 20:58:08,710 |   ...5min until retry
+2026-01-19 21:03:08,992 | 
+--- Fetching (129/218 done, 89 remaining) ---
+2026-01-19 21:03:09,034 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:09,034 |   Pordenone: no images found
+2026-01-19 21:03:10,242 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:10,243 |   Timişoara: no images found
+2026-01-19 21:03:11,453 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:11,454 |   Skien: no images found
+2026-01-19 21:03:12,665 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:12,665 |   Hilversum: no images found
+2026-01-19 21:03:13,874 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:13,875 |   Taldykorgan: no images found
+2026-01-19 21:03:15,085 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:15,085 |   Portorož: no images found
+2026-01-19 21:03:16,294 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:16,295 |   GUCEC: no images found
+2026-01-19 21:03:17,504 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:17,505 |   Abidjan: no images found
+2026-01-19 21:03:18,713 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:18,713 |   Chestnut Hill: no images found
+2026-01-19 21:03:19,922 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:19,923 |   Heerlen: no images found
+2026-01-19 21:03:21,130 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:21,131 |   Kongens Lyngby: no images found
+2026-01-19 21:03:22,340 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:22,341 |   Alpharetta: no images found
+2026-01-19 21:03:23,550 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:23,550 |   Springfield: no images found
+2026-01-19 21:03:24,764 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:24,766 |   Mestre: no images found
+2026-01-19 21:03:26,253 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:26,253 |   Umeå: no images found
+2026-01-19 21:03:27,688 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:27,688 |   Montrouge: no images found
+2026-01-19 21:03:28,897 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:28,898 |   Castelló de la Plana: no images found
+2026-01-19 21:03:30,380 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:30,380 |   Potenza: no images found
+2026-01-19 21:03:31,859 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:31,860 |   Paris-Châtillon: no images found
+2026-01-19 21:03:33,349 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Newcastle+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:33,351 |   Newcastle: 5 images
+2026-01-19 21:03:34,838 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nancy+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:34,839 |   Nancy: 5 images
+2026-01-19 21:03:36,355 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ghent+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:36,357 |   Ghent: 5 images
+2026-01-19 21:03:37,846 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Tunis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:37,848 |   Tunis: 5 images
+2026-01-19 21:03:39,291 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:39,292 |   Nieuwegein: no images found
+2026-01-19 21:03:40,773 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montr%C3%A9al+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:40,775 |   Montréal: 5 images
+2026-01-19 21:03:41,989 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:41,989 |   Sophia Antipolis: no images found
+2026-01-19 21:03:43,611 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Beijing+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:43,613 |   Beijing: 5 images
+2026-01-19 21:03:45,113 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Murfreesboro+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:45,114 |   Murfreesboro: 1 images
+2026-01-19 21:03:46,587 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Lillehammer+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:46,588 |   Lillehammer: 2 images
+2026-01-19 21:03:47,799 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:47,799 |   Sunny Isles Beach: no images found
+2026-01-19 21:03:49,008 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:49,008 |   Wyndham Grand Hotel: no images found
+2026-01-19 21:03:50,530 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kuala+Lumpur+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:50,531 |   Kuala Lumpur: 5 images
+2026-01-19 21:03:52,010 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kochi+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:52,011 |   Kochi: 5 images
+2026-01-19 21:03:53,600 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Weimar+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:53,601 |   Weimar: 1 images
+2026-01-19 21:03:55,042 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:55,044 |   Opatija: no images found
+2026-01-19 21:03:56,553 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Modena+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:56,554 |   Modena: 5 images
+2026-01-19 21:03:58,065 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kiel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:58,066 |   Kiel: 5 images
+2026-01-19 21:03:59,580 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portland+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:03:59,582 |   Portland: 5 images
+2026-01-19 21:04:01,144 | HTTP Request: GET https://api.unsplash.com/search/photos?query=St.+Louis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:04:01,145 |   St. Louis: 5 images
+2026-01-19 21:04:02,626 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Saint+Paul+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:04:02,628 |   Saint Paul: 5 images
+2026-01-19 21:04:04,126 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Tel-Aviv+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:04:04,127 |   Tel-Aviv: 5 images
+2026-01-19 21:04:05,868 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ho+Chi+Minh+City+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:04:05,870 |   Ho Chi Minh City: 5 images
+2026-01-19 21:04:07,310 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:04:07,311 |   Jaén: no images found
+2026-01-19 21:04:08,830 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Medellin+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:04:08,831 |   Medellin: 5 images
+2026-01-19 21:04:10,335 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ciudad+Aut%C3%B3noma+de+Buenos+Aires+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:04:10,336 |   Ciudad Autónoma de Buenos Aires: 5 images
+2026-01-19 21:04:11,560 | Saved 20 new cities
+2026-01-19 21:04:11,886 | Algolia enriched
+2026-01-19 21:04:11,887 | Partial batch. Waiting 5min...
+2026-01-19 21:09:12,329 | 
+--- Fetching (149/218 done, 69 remaining) ---
+2026-01-19 21:09:12,373 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:12,374 |   Pordenone: no images found
+2026-01-19 21:09:13,582 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:13,582 |   Timişoara: no images found
+2026-01-19 21:09:14,807 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:14,808 |   Skien: no images found
+2026-01-19 21:09:16,018 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:16,019 |   Hilversum: no images found
+2026-01-19 21:09:17,229 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:17,230 |   Taldykorgan: no images found
+2026-01-19 21:09:18,440 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:18,440 |   Portorož: no images found
+2026-01-19 21:09:19,650 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:19,651 |   GUCEC: no images found
+2026-01-19 21:09:20,859 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:20,860 |   Abidjan: no images found
+2026-01-19 21:09:22,070 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:22,071 |   Chestnut Hill: no images found
+2026-01-19 21:09:23,280 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:23,281 |   Heerlen: no images found
+2026-01-19 21:09:24,491 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:24,492 |   Kongens Lyngby: no images found
+2026-01-19 21:09:25,703 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:25,704 |   Alpharetta: no images found
+2026-01-19 21:09:26,913 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:26,914 |   Springfield: no images found
+2026-01-19 21:09:28,122 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:28,123 |   Mestre: no images found
+2026-01-19 21:09:29,334 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:29,335 |   Umeå: no images found
+2026-01-19 21:09:30,544 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:30,545 |   Montrouge: no images found
+2026-01-19 21:09:31,755 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:31,756 |   Castelló de la Plana: no images found
+2026-01-19 21:09:32,969 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:32,970 |   Potenza: no images found
+2026-01-19 21:09:34,183 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:34,184 |   Paris-Châtillon: no images found
+2026-01-19 21:09:35,394 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:35,395 |   Nieuwegein: no images found
+2026-01-19 21:09:36,607 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:36,608 |   Sophia Antipolis: no images found
+2026-01-19 21:09:37,823 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:37,823 |   Sunny Isles Beach: no images found
+2026-01-19 21:09:39,036 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:39,037 |   Wyndham Grand Hotel: no images found
+2026-01-19 21:09:40,247 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:40,248 |   Opatija: no images found
+2026-01-19 21:09:41,459 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:41,460 |   Jaén: no images found
+2026-01-19 21:09:42,928 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bra%C5%9Fov+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:42,930 |   Braşov: 1 images
+2026-01-19 21:09:44,359 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:44,360 |   Espoo: no images found
+2026-01-19 21:09:45,932 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Amsterdam+html5-dom-document-internal-entity1-amp-end+Online+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:45,933 |   Amsterdam html5-dom-document-internal-entity1-amp-end Online: 5 images
+2026-01-19 21:09:47,414 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Seoul+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:47,416 |   Seoul: 5 images
+2026-01-19 21:09:48,629 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:48,631 |   Eisenstadt: no images found
+2026-01-19 21:09:50,159 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Belgrade+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:50,160 |   Belgrade: 5 images
+2026-01-19 21:09:51,631 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Atomis+Hotel+Munich+Airport+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:51,632 |   Atomis Hotel Munich Airport: 1 images
+2026-01-19 21:09:53,124 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Boulder+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:53,125 |   Boulder: 5 images
+2026-01-19 21:09:54,697 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:54,698 |   Bahía Blanca: no images found
+2026-01-19 21:09:56,142 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:56,143 |   Valbonne: no images found
+2026-01-19 21:09:57,754 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Lyon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:57,756 |   Lyon: 5 images
+2026-01-19 21:09:59,238 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Boise+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:09:59,241 |   Boise: 5 images
+2026-01-19 21:10:00,735 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:00,736 |   Niort: no images found
+2026-01-19 21:10:02,287 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chattanooga+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:02,288 |   Chattanooga: 5 images
+2026-01-19 21:10:03,930 | HTTP Request: GET https://api.unsplash.com/search/photos?query=National+Harbor+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:03,932 |   National Harbor: 5 images
+2026-01-19 21:10:05,407 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:05,407 |   Sanford: no images found
+2026-01-19 21:10:06,993 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Gable.ai+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:06,994 |   Gable.ai: 5 images
+2026-01-19 21:10:08,671 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Athens+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:08,673 |   Athens: 5 images
+2026-01-19 21:10:10,235 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Miami+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:10,236 |   Miami: 5 images
+2026-01-19 21:10:11,745 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Brno+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:10:11,746 |   Brno: 5 images
+2026-01-19 21:10:12,961 | Saved 14 new cities
+2026-01-19 21:10:13,483 | Algolia enriched
+2026-01-19 21:10:13,484 | Partial batch. Waiting 5min...
+2026-01-19 21:15:13,824 | 
+--- Fetching (163/218 done, 55 remaining) ---
+2026-01-19 21:15:13,862 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:13,862 |   Pordenone: no images found
+2026-01-19 21:15:15,071 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:15,072 |   Timişoara: no images found
+2026-01-19 21:15:16,281 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:16,281 |   Skien: no images found
+2026-01-19 21:15:17,490 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:17,490 |   Hilversum: no images found
+2026-01-19 21:15:18,697 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:18,698 |   Taldykorgan: no images found
+2026-01-19 21:15:19,908 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:19,908 |   Portorož: no images found
+2026-01-19 21:15:21,119 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:21,120 |   GUCEC: no images found
+2026-01-19 21:15:22,330 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:22,331 |   Abidjan: no images found
+2026-01-19 21:15:23,539 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:23,540 |   Chestnut Hill: no images found
+2026-01-19 21:15:24,748 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:24,748 |   Heerlen: no images found
+2026-01-19 21:15:25,958 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:25,958 |   Kongens Lyngby: no images found
+2026-01-19 21:15:27,167 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:27,168 |   Alpharetta: no images found
+2026-01-19 21:15:28,377 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:28,378 |   Springfield: no images found
+2026-01-19 21:15:29,587 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:29,588 |   Mestre: no images found
+2026-01-19 21:15:30,799 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:30,799 |   Umeå: no images found
+2026-01-19 21:15:32,009 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:32,010 |   Montrouge: no images found
+2026-01-19 21:15:33,218 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:33,218 |   Castelló de la Plana: no images found
+2026-01-19 21:15:34,426 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:34,427 |   Potenza: no images found
+2026-01-19 21:15:35,635 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:35,636 |   Paris-Châtillon: no images found
+2026-01-19 21:15:36,842 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:36,843 |   Nieuwegein: no images found
+2026-01-19 21:15:38,054 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:38,055 |   Sophia Antipolis: no images found
+2026-01-19 21:15:39,266 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:39,267 |   Sunny Isles Beach: no images found
+2026-01-19 21:15:40,478 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:40,479 |   Wyndham Grand Hotel: no images found
+2026-01-19 21:15:41,688 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:41,688 |   Opatija: no images found
+2026-01-19 21:15:42,901 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:42,902 |   Jaén: no images found
+2026-01-19 21:15:44,112 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:44,113 |   Espoo: no images found
+2026-01-19 21:15:45,323 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:45,324 |   Eisenstadt: no images found
+2026-01-19 21:15:46,532 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:46,532 |   Bahía Blanca: no images found
+2026-01-19 21:15:47,740 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:47,741 |   Valbonne: no images found
+2026-01-19 21:15:48,950 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:48,950 |   Niort: no images found
+2026-01-19 21:15:50,159 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:50,160 |   Sanford: no images found
+2026-01-19 21:15:51,661 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Vicenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:51,662 |   Vicenza: 5 images
+2026-01-19 21:15:53,260 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Lagos+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:53,261 |   Lagos: 5 images
+2026-01-19 21:15:54,736 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:54,736 |   Feira de Santana: no images found
+2026-01-19 21:15:56,236 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Buffalo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:15:56,237 |   Buffalo: 5 images
+2026-01-19 21:15:57,542 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 21:15:57,543 | Rate limited at Herzliya
+2026-01-19 21:15:57,562 | Saved 3 new cities
+2026-01-19 21:15:58,118 | Algolia enriched
+2026-01-19 21:15:58,121 | Rate limited. Backoff 5min until 21:20:58
+2026-01-19 21:20:58,421 | 
+--- Fetching (166/218 done, 52 remaining) ---
+2026-01-19 21:20:58,458 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:20:58,459 |   Pordenone: no images found
+2026-01-19 21:20:59,674 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:20:59,675 |   Timişoara: no images found
+2026-01-19 21:21:00,885 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:00,886 |   Skien: no images found
+2026-01-19 21:21:02,096 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:02,097 |   Hilversum: no images found
+2026-01-19 21:21:03,308 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:03,309 |   Taldykorgan: no images found
+2026-01-19 21:21:04,520 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:04,520 |   Portorož: no images found
+2026-01-19 21:21:05,730 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:05,731 |   GUCEC: no images found
+2026-01-19 21:21:06,942 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:06,943 |   Abidjan: no images found
+2026-01-19 21:21:08,153 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:08,154 |   Chestnut Hill: no images found
+2026-01-19 21:21:09,364 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:09,365 |   Heerlen: no images found
+2026-01-19 21:21:10,618 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:10,619 |   Kongens Lyngby: no images found
+2026-01-19 21:21:11,828 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:11,829 |   Alpharetta: no images found
+2026-01-19 21:21:13,038 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:13,039 |   Springfield: no images found
+2026-01-19 21:21:14,249 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:14,249 |   Mestre: no images found
+2026-01-19 21:21:15,458 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:15,458 |   Umeå: no images found
+2026-01-19 21:21:16,668 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:16,668 |   Montrouge: no images found
+2026-01-19 21:21:17,877 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:17,877 |   Castelló de la Plana: no images found
+2026-01-19 21:21:19,086 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:19,087 |   Potenza: no images found
+2026-01-19 21:21:20,297 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:20,298 |   Paris-Châtillon: no images found
+2026-01-19 21:21:21,507 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:21,508 |   Nieuwegein: no images found
+2026-01-19 21:21:22,715 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:22,716 |   Sophia Antipolis: no images found
+2026-01-19 21:21:23,925 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:23,925 |   Sunny Isles Beach: no images found
+2026-01-19 21:21:25,135 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:25,136 |   Wyndham Grand Hotel: no images found
+2026-01-19 21:21:26,345 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:26,346 |   Opatija: no images found
+2026-01-19 21:21:27,559 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:27,560 |   Jaén: no images found
+2026-01-19 21:21:28,769 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:28,770 |   Espoo: no images found
+2026-01-19 21:21:29,981 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:29,982 |   Eisenstadt: no images found
+2026-01-19 21:21:31,191 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:31,192 |   Bahía Blanca: no images found
+2026-01-19 21:21:32,401 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:32,402 |   Valbonne: no images found
+2026-01-19 21:21:33,612 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:33,612 |   Niort: no images found
+2026-01-19 21:21:34,820 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:34,821 |   Sanford: no images found
+2026-01-19 21:21:36,035 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:21:36,036 |   Feira de Santana: no images found
+2026-01-19 21:21:37,342 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 21:21:37,343 | Rate limited at Herzliya
+2026-01-19 21:21:37,343 | Rate limited. Backoff 10min until 21:31:37
+2026-01-19 21:26:37,344 |   ...5min until retry
+2026-01-19 21:31:37,580 | 
+--- Fetching (166/218 done, 52 remaining) ---
+2026-01-19 21:31:37,616 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:37,617 |   Pordenone: no images found
+2026-01-19 21:31:38,830 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:38,830 |   Timişoara: no images found
+2026-01-19 21:31:40,041 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:40,041 |   Skien: no images found
+2026-01-19 21:31:41,254 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:41,254 |   Hilversum: no images found
+2026-01-19 21:31:42,463 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:42,464 |   Taldykorgan: no images found
+2026-01-19 21:31:43,681 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:43,682 |   Portorož: no images found
+2026-01-19 21:31:44,891 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:44,892 |   GUCEC: no images found
+2026-01-19 21:31:46,101 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:46,102 |   Abidjan: no images found
+2026-01-19 21:31:47,310 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:47,311 |   Chestnut Hill: no images found
+2026-01-19 21:31:48,519 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:48,519 |   Heerlen: no images found
+2026-01-19 21:31:49,727 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:49,727 |   Kongens Lyngby: no images found
+2026-01-19 21:31:50,935 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:50,936 |   Alpharetta: no images found
+2026-01-19 21:31:52,153 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:52,153 |   Springfield: no images found
+2026-01-19 21:31:53,363 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:53,363 |   Mestre: no images found
+2026-01-19 21:31:54,571 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:54,572 |   Umeå: no images found
+2026-01-19 21:31:55,780 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:55,781 |   Montrouge: no images found
+2026-01-19 21:31:56,992 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:56,993 |   Castelló de la Plana: no images found
+2026-01-19 21:31:58,201 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:58,202 |   Potenza: no images found
+2026-01-19 21:31:59,411 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:31:59,411 |   Paris-Châtillon: no images found
+2026-01-19 21:32:00,621 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:00,622 |   Nieuwegein: no images found
+2026-01-19 21:32:01,833 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:01,833 |   Sophia Antipolis: no images found
+2026-01-19 21:32:03,043 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:03,044 |   Sunny Isles Beach: no images found
+2026-01-19 21:32:04,253 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:04,254 |   Wyndham Grand Hotel: no images found
+2026-01-19 21:32:05,464 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:05,465 |   Opatija: no images found
+2026-01-19 21:32:06,672 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:06,673 |   Jaén: no images found
+2026-01-19 21:32:07,881 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:07,882 |   Espoo: no images found
+2026-01-19 21:32:09,089 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:09,089 |   Eisenstadt: no images found
+2026-01-19 21:32:10,298 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:10,298 |   Bahía Blanca: no images found
+2026-01-19 21:32:11,506 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:11,507 |   Valbonne: no images found
+2026-01-19 21:32:12,715 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:12,716 |   Niort: no images found
+2026-01-19 21:32:13,931 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:13,932 |   Sanford: no images found
+2026-01-19 21:32:15,180 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:32:15,181 |   Feira de Santana: no images found
+2026-01-19 21:32:16,487 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 21:32:16,487 | Rate limited at Herzliya
+2026-01-19 21:32:16,488 | Rate limited. Backoff 20min until 21:52:16
+2026-01-19 21:37:16,488 |   ...15min until retry
+2026-01-19 21:42:16,488 |   ...10min until retry
+2026-01-19 21:47:16,489 |   ...5min until retry
+2026-01-19 21:52:16,685 | 
+--- Fetching (166/218 done, 52 remaining) ---
+2026-01-19 21:52:16,719 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:16,719 |   Pordenone: no images found
+2026-01-19 21:52:17,931 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:17,932 |   Timişoara: no images found
+2026-01-19 21:52:19,143 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:19,144 |   Skien: no images found
+2026-01-19 21:52:20,352 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:20,353 |   Hilversum: no images found
+2026-01-19 21:52:21,562 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:21,562 |   Taldykorgan: no images found
+2026-01-19 21:52:22,771 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:22,772 |   Portorož: no images found
+2026-01-19 21:52:23,980 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:23,980 |   GUCEC: no images found
+2026-01-19 21:52:25,189 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:25,190 |   Abidjan: no images found
+2026-01-19 21:52:26,399 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:26,400 |   Chestnut Hill: no images found
+2026-01-19 21:52:27,610 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:27,612 |   Heerlen: no images found
+2026-01-19 21:52:28,824 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:28,824 |   Kongens Lyngby: no images found
+2026-01-19 21:52:30,033 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:30,034 |   Alpharetta: no images found
+2026-01-19 21:52:31,243 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:31,244 |   Springfield: no images found
+2026-01-19 21:52:32,453 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:32,454 |   Mestre: no images found
+2026-01-19 21:52:33,664 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:33,664 |   Umeå: no images found
+2026-01-19 21:52:34,872 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:34,872 |   Montrouge: no images found
+2026-01-19 21:52:36,081 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:36,082 |   Castelló de la Plana: no images found
+2026-01-19 21:52:37,291 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:37,292 |   Potenza: no images found
+2026-01-19 21:52:38,504 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:38,505 |   Paris-Châtillon: no images found
+2026-01-19 21:52:39,713 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:39,714 |   Nieuwegein: no images found
+2026-01-19 21:52:40,923 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:40,923 |   Sophia Antipolis: no images found
+2026-01-19 21:52:42,134 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:42,136 |   Sunny Isles Beach: no images found
+2026-01-19 21:52:43,345 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:43,346 |   Wyndham Grand Hotel: no images found
+2026-01-19 21:52:44,555 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:44,556 |   Opatija: no images found
+2026-01-19 21:52:45,766 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:45,766 |   Jaén: no images found
+2026-01-19 21:52:46,975 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:46,975 |   Espoo: no images found
+2026-01-19 21:52:48,186 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:48,187 |   Eisenstadt: no images found
+2026-01-19 21:52:49,396 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:49,396 |   Bahía Blanca: no images found
+2026-01-19 21:52:50,606 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:50,607 |   Valbonne: no images found
+2026-01-19 21:52:51,816 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:51,817 |   Niort: no images found
+2026-01-19 21:52:53,025 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:53,025 |   Sanford: no images found
+2026-01-19 21:52:54,235 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 21:52:54,236 |   Feira de Santana: no images found
+2026-01-19 21:52:55,546 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 403 Forbidden"
+2026-01-19 21:52:55,547 | Rate limited at Herzliya
+2026-01-19 21:52:55,547 | Rate limited. Backoff 40min until 22:32:55
+2026-01-19 21:57:55,547 |   ...35min until retry
+2026-01-19 22:02:55,548 |   ...30min until retry
+2026-01-19 22:07:55,549 |   ...25min until retry
+2026-01-19 22:12:55,549 |   ...20min until retry
+2026-01-19 22:17:55,550 |   ...15min until retry
+2026-01-19 22:22:55,550 |   ...10min until retry
+2026-01-19 22:27:55,551 |   ...5min until retry
+2026-01-19 22:32:55,987 | 
+--- Fetching (166/218 done, 52 remaining) ---
+2026-01-19 22:32:56,029 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:32:56,030 |   Pordenone: no images found
+2026-01-19 22:32:57,240 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:32:57,240 |   Timişoara: no images found
+2026-01-19 22:32:58,448 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:32:58,449 |   Skien: no images found
+2026-01-19 22:32:59,657 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:32:59,657 |   Hilversum: no images found
+2026-01-19 22:33:00,864 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:00,865 |   Taldykorgan: no images found
+2026-01-19 22:33:02,074 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:02,074 |   Portorož: no images found
+2026-01-19 22:33:03,283 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:03,284 |   GUCEC: no images found
+2026-01-19 22:33:04,492 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:04,492 |   Abidjan: no images found
+2026-01-19 22:33:05,701 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:05,701 |   Chestnut Hill: no images found
+2026-01-19 22:33:06,910 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:06,910 |   Heerlen: no images found
+2026-01-19 22:33:08,120 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:08,120 |   Kongens Lyngby: no images found
+2026-01-19 22:33:09,331 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:09,332 |   Alpharetta: no images found
+2026-01-19 22:33:10,540 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:10,541 |   Springfield: no images found
+2026-01-19 22:33:11,749 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:11,750 |   Mestre: no images found
+2026-01-19 22:33:12,960 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:12,961 |   Umeå: no images found
+2026-01-19 22:33:14,169 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:14,169 |   Montrouge: no images found
+2026-01-19 22:33:15,377 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:15,378 |   Castelló de la Plana: no images found
+2026-01-19 22:33:16,588 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:16,589 |   Potenza: no images found
+2026-01-19 22:33:17,800 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:17,802 |   Paris-Châtillon: no images found
+2026-01-19 22:33:19,018 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:19,019 |   Nieuwegein: no images found
+2026-01-19 22:33:20,229 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:20,230 |   Sophia Antipolis: no images found
+2026-01-19 22:33:21,438 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:21,438 |   Sunny Isles Beach: no images found
+2026-01-19 22:33:22,647 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:22,648 |   Wyndham Grand Hotel: no images found
+2026-01-19 22:33:23,856 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:23,857 |   Opatija: no images found
+2026-01-19 22:33:25,071 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:25,072 |   Jaén: no images found
+2026-01-19 22:33:26,283 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:26,285 |   Espoo: no images found
+2026-01-19 22:33:27,495 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:27,497 |   Eisenstadt: no images found
+2026-01-19 22:33:28,707 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:28,708 |   Bahía Blanca: no images found
+2026-01-19 22:33:29,917 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:29,917 |   Valbonne: no images found
+2026-01-19 22:33:31,129 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:31,130 |   Niort: no images found
+2026-01-19 22:33:32,339 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:32,340 |   Sanford: no images found
+2026-01-19 22:33:33,549 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:33,550 |   Feira de Santana: no images found
+2026-01-19 22:33:34,973 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:34,974 |   Herzliya: no images found
+2026-01-19 22:33:36,479 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Zurich+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:36,482 |   Zurich: 5 images
+2026-01-19 22:33:37,950 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Darmstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:37,952 |   Darmstadt: 3 images
+2026-01-19 22:33:39,390 | HTTP Request: GET https://api.unsplash.com/search/photos?query=%C3%85rhus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:39,390 |   Århus: no images found
+2026-01-19 22:33:40,959 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Singapore+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:40,961 |   Singapore: 5 images
+2026-01-19 22:33:42,571 | HTTP Request: GET https://api.unsplash.com/search/photos?query=MaibornWolff+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:42,573 |   MaibornWolff: 5 images
+2026-01-19 22:33:44,083 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Marseille+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:44,084 |   Marseille: 5 images
+2026-01-19 22:33:45,581 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Vilnius+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:45,583 |   Vilnius: 5 images
+2026-01-19 22:33:47,122 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hollywood+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:47,125 |   Hollywood: 5 images
+2026-01-19 22:33:48,567 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongsberg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:48,568 |   Kongsberg: no images found
+2026-01-19 22:33:50,166 | HTTP Request: GET https://api.unsplash.com/search/photos?query=K%C3%B6ln+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:50,168 |   Köln: 5 images
+2026-01-19 22:33:51,605 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Romexpo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:51,606 |   Romexpo: no images found
+2026-01-19 22:33:52,815 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Clermont-Ferrand+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:33:52,817 |   Clermont-Ferrand: no images found
+2026-01-19 22:33:54,048 | Saved 8 new cities
+2026-01-19 22:33:54,490 | Algolia enriched
+2026-01-19 22:33:54,491 | Partial batch. Waiting 5min...
+2026-01-19 22:38:54,720 | 
+--- Fetching (174/223 done, 49 remaining) ---
+2026-01-19 22:38:54,752 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:38:54,753 |   Montrouge: no images found
+2026-01-19 22:38:55,964 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:38:55,966 |   Pordenone: no images found
+2026-01-19 22:38:57,174 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:38:57,175 |   Timişoara: no images found
+2026-01-19 22:38:58,383 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:38:58,384 |   Skien: no images found
+2026-01-19 22:38:59,593 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:38:59,594 |   Hilversum: no images found
+2026-01-19 22:39:00,813 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:00,814 |   Taldykorgan: no images found
+2026-01-19 22:39:02,030 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:02,031 |   Portorož: no images found
+2026-01-19 22:39:03,241 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:03,242 |   GUCEC: no images found
+2026-01-19 22:39:04,452 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:04,453 |   Abidjan: no images found
+2026-01-19 22:39:05,663 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:05,665 |   Chestnut Hill: no images found
+2026-01-19 22:39:06,874 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:06,875 |   Heerlen: no images found
+2026-01-19 22:39:08,088 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:08,089 |   Kongens Lyngby: no images found
+2026-01-19 22:39:09,300 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:09,301 |   Alpharetta: no images found
+2026-01-19 22:39:10,515 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:10,516 |   Springfield: no images found
+2026-01-19 22:39:11,736 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:11,741 |   Mestre: no images found
+2026-01-19 22:39:12,951 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:12,952 |   Umeå: no images found
+2026-01-19 22:39:14,162 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:14,163 |   Castelló de la Plana: no images found
+2026-01-19 22:39:15,372 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:15,373 |   Potenza: no images found
+2026-01-19 22:39:16,582 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:16,583 |   Paris-Châtillon: no images found
+2026-01-19 22:39:17,792 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:17,792 |   Nieuwegein: no images found
+2026-01-19 22:39:19,301 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Aberystwyth+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:19,302 |   Aberystwyth: 1 images
+2026-01-19 22:39:20,511 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:20,511 |   Sophia Antipolis: no images found
+2026-01-19 22:39:21,719 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:21,719 |   Sunny Isles Beach: no images found
+2026-01-19 22:39:22,928 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:22,930 |   Wyndham Grand Hotel: no images found
+2026-01-19 22:39:24,575 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eau+Claire+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:24,576 |   Eau Claire: 5 images
+2026-01-19 22:39:26,103 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Linz+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:26,105 |   Linz: 5 images
+2026-01-19 22:39:27,314 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:27,316 |   Opatija: no images found
+2026-01-19 22:39:28,526 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:28,527 |   Jaén: no images found
+2026-01-19 22:39:29,736 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:29,737 |   Espoo: no images found
+2026-01-19 22:39:30,945 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:30,946 |   Eisenstadt: no images found
+2026-01-19 22:39:32,156 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:32,157 |   Bahía Blanca: no images found
+2026-01-19 22:39:33,365 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:33,367 |   Valbonne: no images found
+2026-01-19 22:39:34,575 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:34,576 |   Niort: no images found
+2026-01-19 22:39:35,785 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:35,785 |   Sanford: no images found
+2026-01-19 22:39:36,993 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:36,994 |   Feira de Santana: no images found
+2026-01-19 22:39:38,203 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:38,204 |   Herzliya: no images found
+2026-01-19 22:39:39,807 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Strasbourg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:39,808 |   Strasbourg: 5 images
+2026-01-19 22:39:41,017 | HTTP Request: GET https://api.unsplash.com/search/photos?query=%C3%85rhus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:41,018 |   Århus: no images found
+2026-01-19 22:39:42,230 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongsberg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:42,231 |   Kongsberg: no images found
+2026-01-19 22:39:43,440 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Romexpo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:43,441 |   Romexpo: no images found
+2026-01-19 22:39:44,649 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Clermont-Ferrand+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:44,649 |   Clermont-Ferrand: no images found
+2026-01-19 22:39:46,177 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Zadar+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:46,180 |   Zadar: 5 images
+2026-01-19 22:39:47,732 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Tbilisi+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:47,733 |   Tbilisi: 5 images
+2026-01-19 22:39:49,284 | HTTP Request: GET https://api.unsplash.com/search/photos?query=J%C5%ABrmala+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:49,285 |   Jūrmala: no images found
+2026-01-19 22:39:50,808 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Cluj+Innovation+Park+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:39:50,809 |   Cluj Innovation Park: 5 images
+2026-01-19 22:39:52,042 | Saved 7 new cities
+2026-01-19 22:39:52,716 | Algolia enriched
+2026-01-19 22:39:52,716 | Partial batch. Waiting 5min...
+2026-01-19 22:44:53,234 | 
+--- Fetching (181/223 done, 42 remaining) ---
+2026-01-19 22:44:53,273 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:44:53,275 |   Montrouge: no images found
+2026-01-19 22:44:54,487 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:44:54,488 |   Pordenone: no images found
+2026-01-19 22:44:55,698 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:44:55,699 |   Timişoara: no images found
+2026-01-19 22:44:56,911 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:44:56,912 |   Skien: no images found
+2026-01-19 22:44:58,121 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:44:58,122 |   Hilversum: no images found
+2026-01-19 22:44:59,330 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:44:59,331 |   Taldykorgan: no images found
+2026-01-19 22:45:00,541 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:00,542 |   Portorož: no images found
+2026-01-19 22:45:01,751 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:01,752 |   GUCEC: no images found
+2026-01-19 22:45:02,961 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:02,962 |   Abidjan: no images found
+2026-01-19 22:45:04,170 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:04,171 |   Chestnut Hill: no images found
+2026-01-19 22:45:05,381 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:05,381 |   Heerlen: no images found
+2026-01-19 22:45:06,592 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:06,593 |   Kongens Lyngby: no images found
+2026-01-19 22:45:07,806 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:07,807 |   Alpharetta: no images found
+2026-01-19 22:45:09,018 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:09,020 |   Springfield: no images found
+2026-01-19 22:45:10,232 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:10,233 |   Mestre: no images found
+2026-01-19 22:45:11,444 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:11,446 |   Umeå: no images found
+2026-01-19 22:45:12,656 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:12,657 |   Castelló de la Plana: no images found
+2026-01-19 22:45:13,867 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:13,869 |   Potenza: no images found
+2026-01-19 22:45:15,079 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:15,081 |   Paris-Châtillon: no images found
+2026-01-19 22:45:16,291 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:16,292 |   Nieuwegein: no images found
+2026-01-19 22:45:17,501 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:17,502 |   Sophia Antipolis: no images found
+2026-01-19 22:45:18,713 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:18,714 |   Sunny Isles Beach: no images found
+2026-01-19 22:45:19,928 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:19,930 |   Wyndham Grand Hotel: no images found
+2026-01-19 22:45:21,141 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:21,142 |   Opatija: no images found
+2026-01-19 22:45:22,356 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:22,357 |   Jaén: no images found
+2026-01-19 22:45:23,566 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:23,566 |   Espoo: no images found
+2026-01-19 22:45:24,779 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:24,781 |   Eisenstadt: no images found
+2026-01-19 22:45:25,991 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:25,993 |   Bahía Blanca: no images found
+2026-01-19 22:45:27,206 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:27,207 |   Valbonne: no images found
+2026-01-19 22:45:28,418 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:28,418 |   Niort: no images found
+2026-01-19 22:45:29,629 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:29,630 |   Sanford: no images found
+2026-01-19 22:45:30,840 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:30,842 |   Feira de Santana: no images found
+2026-01-19 22:45:32,052 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:32,054 |   Herzliya: no images found
+2026-01-19 22:45:33,266 | HTTP Request: GET https://api.unsplash.com/search/photos?query=%C3%85rhus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:33,266 |   Århus: no images found
+2026-01-19 22:45:34,477 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongsberg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:34,479 |   Kongsberg: no images found
+2026-01-19 22:45:35,689 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Romexpo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:35,690 |   Romexpo: no images found
+2026-01-19 22:45:36,900 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Clermont-Ferrand+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:36,900 |   Clermont-Ferrand: no images found
+2026-01-19 22:45:38,112 | HTTP Request: GET https://api.unsplash.com/search/photos?query=J%C5%ABrmala+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:38,113 |   Jūrmala: no images found
+2026-01-19 22:45:39,674 | HTTP Request: GET https://api.unsplash.com/search/photos?query=NORD+Events+Center+by+Globalworth+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:39,675 |   NORD Events Center by Globalworth: no images found
+2026-01-19 22:45:41,344 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Cambridge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:41,346 |   Cambridge: 5 images
+2026-01-19 22:45:42,973 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Baltimore+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:42,976 |   Baltimore: 5 images
+2026-01-19 22:45:44,636 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Boston+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:45:44,638 |   Boston: 5 images
+2026-01-19 22:45:45,861 | Saved 3 new cities
+2026-01-19 22:45:46,556 | Algolia enriched
+2026-01-19 22:45:46,557 | Partial batch. Waiting 5min...
+2026-01-19 22:50:46,889 | 
+--- Fetching (184/223 done, 39 remaining) ---
+2026-01-19 22:50:46,928 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:46,929 |   Montrouge: no images found
+2026-01-19 22:50:48,144 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:48,145 |   Pordenone: no images found
+2026-01-19 22:50:49,354 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:49,355 |   Timişoara: no images found
+2026-01-19 22:50:50,567 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:50,567 |   Skien: no images found
+2026-01-19 22:50:51,778 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:51,779 |   Hilversum: no images found
+2026-01-19 22:50:52,992 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:52,993 |   Taldykorgan: no images found
+2026-01-19 22:50:54,203 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:54,204 |   Portorož: no images found
+2026-01-19 22:50:55,412 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:55,413 |   GUCEC: no images found
+2026-01-19 22:50:56,623 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:56,624 |   Abidjan: no images found
+2026-01-19 22:50:57,837 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:57,838 |   Chestnut Hill: no images found
+2026-01-19 22:50:59,048 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:50:59,049 |   Heerlen: no images found
+2026-01-19 22:51:00,259 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:00,260 |   Kongens Lyngby: no images found
+2026-01-19 22:51:01,468 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:01,469 |   Alpharetta: no images found
+2026-01-19 22:51:02,678 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:02,679 |   Springfield: no images found
+2026-01-19 22:51:03,888 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:03,888 |   Mestre: no images found
+2026-01-19 22:51:05,097 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:05,098 |   Umeå: no images found
+2026-01-19 22:51:06,308 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:06,308 |   Castelló de la Plana: no images found
+2026-01-19 22:51:07,516 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:07,517 |   Potenza: no images found
+2026-01-19 22:51:08,726 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:08,727 |   Paris-Châtillon: no images found
+2026-01-19 22:51:09,937 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:09,938 |   Nieuwegein: no images found
+2026-01-19 22:51:11,147 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:11,148 |   Sophia Antipolis: no images found
+2026-01-19 22:51:12,357 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:12,358 |   Sunny Isles Beach: no images found
+2026-01-19 22:51:13,566 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:13,567 |   Wyndham Grand Hotel: no images found
+2026-01-19 22:51:14,791 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:14,792 |   Opatija: no images found
+2026-01-19 22:51:16,001 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:16,002 |   Jaén: no images found
+2026-01-19 22:51:17,212 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:17,213 |   Espoo: no images found
+2026-01-19 22:51:18,425 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:18,426 |   Eisenstadt: no images found
+2026-01-19 22:51:19,635 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:19,636 |   Bahía Blanca: no images found
+2026-01-19 22:51:20,845 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:20,846 |   Valbonne: no images found
+2026-01-19 22:51:22,054 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:22,055 |   Niort: no images found
+2026-01-19 22:51:23,265 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:23,266 |   Sanford: no images found
+2026-01-19 22:51:24,476 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:24,477 |   Feira de Santana: no images found
+2026-01-19 22:51:25,686 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:25,688 |   Herzliya: no images found
+2026-01-19 22:51:26,898 | HTTP Request: GET https://api.unsplash.com/search/photos?query=%C3%85rhus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:26,899 |   Århus: no images found
+2026-01-19 22:51:28,109 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongsberg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:28,111 |   Kongsberg: no images found
+2026-01-19 22:51:29,321 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Romexpo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:29,322 |   Romexpo: no images found
+2026-01-19 22:51:30,531 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Clermont-Ferrand+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:30,532 |   Clermont-Ferrand: no images found
+2026-01-19 22:51:31,742 | HTTP Request: GET https://api.unsplash.com/search/photos?query=J%C5%ABrmala+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:31,742 |   Jūrmala: no images found
+2026-01-19 22:51:32,951 | HTTP Request: GET https://api.unsplash.com/search/photos?query=NORD+Events+Center+by+Globalworth+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:51:32,952 |   NORD Events Center by Globalworth: no images found
+2026-01-19 22:51:34,153 | Partial batch. Waiting 5min...
+2026-01-19 22:56:34,573 | 
+--- Fetching (184/223 done, 39 remaining) ---
+2026-01-19 22:56:34,606 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:34,606 |   Montrouge: no images found
+2026-01-19 22:56:35,816 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:35,817 |   Pordenone: no images found
+2026-01-19 22:56:37,027 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:37,028 |   Timişoara: no images found
+2026-01-19 22:56:38,238 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:38,240 |   Skien: no images found
+2026-01-19 22:56:39,448 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:39,448 |   Hilversum: no images found
+2026-01-19 22:56:40,679 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:40,680 |   Taldykorgan: no images found
+2026-01-19 22:56:41,890 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:41,892 |   Portorož: no images found
+2026-01-19 22:56:43,101 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:43,101 |   GUCEC: no images found
+2026-01-19 22:56:44,309 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:44,310 |   Abidjan: no images found
+2026-01-19 22:56:45,519 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:45,520 |   Chestnut Hill: no images found
+2026-01-19 22:56:46,728 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:46,729 |   Heerlen: no images found
+2026-01-19 22:56:47,938 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:47,938 |   Kongens Lyngby: no images found
+2026-01-19 22:56:49,146 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:49,147 |   Alpharetta: no images found
+2026-01-19 22:56:50,356 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:50,356 |   Springfield: no images found
+2026-01-19 22:56:51,564 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:51,565 |   Mestre: no images found
+2026-01-19 22:56:52,773 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:52,773 |   Umeå: no images found
+2026-01-19 22:56:53,982 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:53,983 |   Castelló de la Plana: no images found
+2026-01-19 22:56:55,194 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:55,195 |   Potenza: no images found
+2026-01-19 22:56:56,401 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:56,402 |   Paris-Châtillon: no images found
+2026-01-19 22:56:57,609 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:57,610 |   Nieuwegein: no images found
+2026-01-19 22:56:58,819 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:56:58,819 |   Sophia Antipolis: no images found
+2026-01-19 22:57:00,027 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:00,028 |   Sunny Isles Beach: no images found
+2026-01-19 22:57:01,235 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:01,236 |   Wyndham Grand Hotel: no images found
+2026-01-19 22:57:02,447 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:02,447 |   Opatija: no images found
+2026-01-19 22:57:03,654 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:03,655 |   Jaén: no images found
+2026-01-19 22:57:04,865 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:04,866 |   Espoo: no images found
+2026-01-19 22:57:06,074 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:06,074 |   Eisenstadt: no images found
+2026-01-19 22:57:07,281 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:07,282 |   Bahía Blanca: no images found
+2026-01-19 22:57:08,489 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:08,489 |   Valbonne: no images found
+2026-01-19 22:57:09,697 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:09,698 |   Niort: no images found
+2026-01-19 22:57:10,907 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:10,907 |   Sanford: no images found
+2026-01-19 22:57:12,117 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:12,117 |   Feira de Santana: no images found
+2026-01-19 22:57:13,325 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:13,326 |   Herzliya: no images found
+2026-01-19 22:57:14,534 | HTTP Request: GET https://api.unsplash.com/search/photos?query=%C3%85rhus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:14,534 |   Århus: no images found
+2026-01-19 22:57:15,743 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongsberg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:15,743 |   Kongsberg: no images found
+2026-01-19 22:57:16,950 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Romexpo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:16,951 |   Romexpo: no images found
+2026-01-19 22:57:18,160 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Clermont-Ferrand+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:18,160 |   Clermont-Ferrand: no images found
+2026-01-19 22:57:19,370 | HTTP Request: GET https://api.unsplash.com/search/photos?query=J%C5%ABrmala+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:19,371 |   Jūrmala: no images found
+2026-01-19 22:57:20,579 | HTTP Request: GET https://api.unsplash.com/search/photos?query=NORD+Events+Center+by+Globalworth+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 22:57:20,579 |   NORD Events Center by Globalworth: no images found
+2026-01-19 22:57:21,780 | Partial batch. Waiting 5min...
+2026-01-19 23:02:22,226 | 
+--- Fetching (184/223 done, 39 remaining) ---
+2026-01-19 23:02:22,261 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:22,262 |   Montrouge: no images found
+2026-01-19 23:02:23,470 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:23,471 |   Pordenone: no images found
+2026-01-19 23:02:24,679 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:24,680 |   Timişoara: no images found
+2026-01-19 23:02:25,890 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:25,891 |   Skien: no images found
+2026-01-19 23:02:27,100 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:27,101 |   Hilversum: no images found
+2026-01-19 23:02:28,308 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:28,308 |   Taldykorgan: no images found
+2026-01-19 23:02:29,516 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:29,517 |   Portorož: no images found
+2026-01-19 23:02:30,725 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:30,726 |   GUCEC: no images found
+2026-01-19 23:02:31,934 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:31,935 |   Abidjan: no images found
+2026-01-19 23:02:33,144 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:33,145 |   Chestnut Hill: no images found
+2026-01-19 23:02:34,352 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:34,353 |   Heerlen: no images found
+2026-01-19 23:02:35,563 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:35,564 |   Kongens Lyngby: no images found
+2026-01-19 23:02:36,772 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:36,773 |   Alpharetta: no images found
+2026-01-19 23:02:37,981 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:37,981 |   Springfield: no images found
+2026-01-19 23:02:39,189 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:39,189 |   Mestre: no images found
+2026-01-19 23:02:40,401 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:40,401 |   Umeå: no images found
+2026-01-19 23:02:41,609 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:41,610 |   Castelló de la Plana: no images found
+2026-01-19 23:02:42,818 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:42,818 |   Potenza: no images found
+2026-01-19 23:02:44,026 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:44,026 |   Paris-Châtillon: no images found
+2026-01-19 23:02:45,234 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:45,234 |   Nieuwegein: no images found
+2026-01-19 23:02:46,444 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:46,444 |   Sophia Antipolis: no images found
+2026-01-19 23:02:47,653 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:47,654 |   Sunny Isles Beach: no images found
+2026-01-19 23:02:48,862 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:48,862 |   Wyndham Grand Hotel: no images found
+2026-01-19 23:02:50,071 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:50,072 |   Opatija: no images found
+2026-01-19 23:02:51,280 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:51,281 |   Jaén: no images found
+2026-01-19 23:02:52,489 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:52,491 |   Espoo: no images found
+2026-01-19 23:02:53,700 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:53,701 |   Eisenstadt: no images found
+2026-01-19 23:02:54,910 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:54,911 |   Bahía Blanca: no images found
+2026-01-19 23:02:56,120 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:56,120 |   Valbonne: no images found
+2026-01-19 23:02:57,329 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:57,331 |   Niort: no images found
+2026-01-19 23:02:58,540 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:58,541 |   Sanford: no images found
+2026-01-19 23:02:59,750 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:02:59,751 |   Feira de Santana: no images found
+2026-01-19 23:03:00,960 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:03:00,961 |   Herzliya: no images found
+2026-01-19 23:03:02,174 | HTTP Request: GET https://api.unsplash.com/search/photos?query=%C3%85rhus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:03:02,175 |   Århus: no images found
+2026-01-19 23:03:03,384 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongsberg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:03:03,385 |   Kongsberg: no images found
+2026-01-19 23:03:04,593 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Romexpo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:03:04,595 |   Romexpo: no images found
+2026-01-19 23:03:05,803 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Clermont-Ferrand+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:03:05,803 |   Clermont-Ferrand: no images found
+2026-01-19 23:03:07,012 | HTTP Request: GET https://api.unsplash.com/search/photos?query=J%C5%ABrmala+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:03:07,013 |   Jūrmala: no images found
+2026-01-19 23:03:08,222 | HTTP Request: GET https://api.unsplash.com/search/photos?query=NORD+Events+Center+by+Globalworth+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:03:08,222 |   NORD Events Center by Globalworth: no images found
+2026-01-19 23:03:09,423 | Partial batch. Waiting 5min...
+2026-01-19 23:08:09,682 | 
+--- Fetching (184/223 done, 39 remaining) ---
+2026-01-19 23:08:09,723 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Montrouge+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:09,724 |   Montrouge: no images found
+2026-01-19 23:08:10,933 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Pordenone+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:10,934 |   Pordenone: no images found
+2026-01-19 23:08:12,146 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Timi%C5%9Foara+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:12,148 |   Timişoara: no images found
+2026-01-19 23:08:13,356 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Skien+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:13,357 |   Skien: no images found
+2026-01-19 23:08:14,567 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Hilversum+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:14,568 |   Hilversum: no images found
+2026-01-19 23:08:15,777 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Taldykorgan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:15,777 |   Taldykorgan: no images found
+2026-01-19 23:08:16,988 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Portoro%C5%BE+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:16,990 |   Portorož: no images found
+2026-01-19 23:08:18,200 | HTTP Request: GET https://api.unsplash.com/search/photos?query=GUCEC+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:18,200 |   GUCEC: no images found
+2026-01-19 23:08:19,408 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Abidjan+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:19,409 |   Abidjan: no images found
+2026-01-19 23:08:20,617 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Chestnut+Hill+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:20,617 |   Chestnut Hill: no images found
+2026-01-19 23:08:21,825 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Heerlen+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:21,826 |   Heerlen: no images found
+2026-01-19 23:08:23,034 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongens+Lyngby+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:23,035 |   Kongens Lyngby: no images found
+2026-01-19 23:08:24,244 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Alpharetta+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:24,245 |   Alpharetta: no images found
+2026-01-19 23:08:25,454 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Springfield+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:25,454 |   Springfield: no images found
+2026-01-19 23:08:26,662 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Mestre+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:26,663 |   Mestre: no images found
+2026-01-19 23:08:27,872 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ume%C3%A5+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:27,873 |   Umeå: no images found
+2026-01-19 23:08:29,082 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Castell%C3%B3+de+la+Plana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:29,083 |   Castelló de la Plana: no images found
+2026-01-19 23:08:30,292 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Potenza+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:30,293 |   Potenza: no images found
+2026-01-19 23:08:31,503 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Paris-Ch%C3%A2tillon+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:31,504 |   Paris-Châtillon: no images found
+2026-01-19 23:08:32,711 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Nieuwegein+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:32,712 |   Nieuwegein: no images found
+2026-01-19 23:08:33,920 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sophia+Antipolis+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:33,921 |   Sophia Antipolis: no images found
+2026-01-19 23:08:35,129 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sunny+Isles+Beach+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:35,130 |   Sunny Isles Beach: no images found
+2026-01-19 23:08:36,338 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Wyndham+Grand+Hotel+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:36,339 |   Wyndham Grand Hotel: no images found
+2026-01-19 23:08:37,546 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Opatija+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:37,547 |   Opatija: no images found
+2026-01-19 23:08:38,755 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Ja%C3%A9n+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:38,756 |   Jaén: no images found
+2026-01-19 23:08:39,964 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Espoo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:39,965 |   Espoo: no images found
+2026-01-19 23:08:41,172 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Eisenstadt+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:41,173 |   Eisenstadt: no images found
+2026-01-19 23:08:42,381 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Bah%C3%ADa+Blanca+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:42,382 |   Bahía Blanca: no images found
+2026-01-19 23:08:43,590 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Valbonne+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:43,590 |   Valbonne: no images found
+2026-01-19 23:08:44,799 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Niort+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:44,800 |   Niort: no images found
+2026-01-19 23:08:46,008 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Sanford+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:46,009 |   Sanford: no images found
+2026-01-19 23:08:47,217 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Feira+de+Santana+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:47,218 |   Feira de Santana: no images found
+2026-01-19 23:08:48,426 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Herzliya+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:48,427 |   Herzliya: no images found
+2026-01-19 23:08:49,635 | HTTP Request: GET https://api.unsplash.com/search/photos?query=%C3%85rhus+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:49,636 |   Århus: no images found
+2026-01-19 23:08:50,845 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Kongsberg+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:50,845 |   Kongsberg: no images found
+2026-01-19 23:08:52,055 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Romexpo+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:52,056 |   Romexpo: no images found
+2026-01-19 23:08:53,265 | HTTP Request: GET https://api.unsplash.com/search/photos?query=Clermont-Ferrand+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:53,266 |   Clermont-Ferrand: no images found
+2026-01-19 23:08:54,475 | HTTP Request: GET https://api.unsplash.com/search/photos?query=J%C5%ABrmala+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:54,476 |   Jūrmala: no images found
+2026-01-19 23:08:55,685 | HTTP Request: GET https://api.unsplash.com/search/photos?query=NORD+Events+Center+by+Globalworth+iconic+skyline+cityscape&per_page=5&orientation=landscape&content_filter=high "HTTP/1.1 200 OK"
+2026-01-19 23:08:55,686 |   NORD Events Center by Globalworth: no images found
+2026-01-19 23:08:56,886 | Partial batch. Waiting 5min...

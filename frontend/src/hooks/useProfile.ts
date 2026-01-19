@@ -160,9 +160,15 @@ export function useProfile() {
   );
 
   const hasProfile = profile.topics.length > 0;
+  const hasInterview = !!profile.interview?.interviewedAt;
 
   const resetProfile = useCallback(() => {
     setProfileState({ ...DEFAULT_PROFILE });
+  }, []);
+
+  // Interview profile - set from AI conversation
+  const setInterview = useCallback((interview: UserProfile['interview']) => {
+    setProfileState((prev) => ({ ...prev, interview }));
   }, []);
 
   const openProfile = useCallback(() => setIsProfileOpen(true), []);
@@ -171,6 +177,7 @@ export function useProfile() {
   return {
     profile,
     hasProfile,
+    hasInterview,
     isProfileOpen,
     openProfile,
     closeProfile,
@@ -188,6 +195,8 @@ export function useProfile() {
     toggleFavoriteSpeaker,
     isFollowingSpeaker,
     resetProfile,
+    // Interview profile
+    setInterview,
   };
 }
 

@@ -17,18 +17,22 @@ interface TalkCardProps {
   onTrackClick?: (objectID: string, position?: number) => void;
 }
 
-// Generate a consistent gradient based on text (for missing thumbnails)
+// Generate YouTube thumbnail URL from objectID (yt_VIDEO_ID format)
+function getYouTubeThumbnail(objectID: string): string | null {
+  if (!objectID.startsWith('yt_')) return null;
+  const videoId = objectID.slice(3);
+  // maxresdefault is 1280x720, falls back gracefully if unavailable
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+// Generate a consistent gradient based on text (ultimate fallback)
 function generateGradient(text: string): string {
-  // Simple hash function
   let hash = 0;
   for (let i = 0; i < text.length; i++) {
     hash = text.charCodeAt(i) + ((hash << 5) - hash);
   }
-
-  // Generate two colors from hash
   const hue1 = Math.abs(hash % 360);
-  const hue2 = (hue1 + 40 + (hash % 60)) % 360; // Complementary-ish
-
+  const hue2 = (hue1 + 40 + (hash % 60)) % 360;
   return `linear-gradient(135deg, hsl(${hue1}, 70%, 35%) 0%, hsl(${hue2}, 60%, 25%) 100%)`;
 }
 
@@ -36,6 +40,9 @@ export function TalkCard({ talk, matchScore, position, isFavorite, onClick, onIn
   const formattedViews = formatViews(talk.view_count);
   const duration = formatDuration(talk.duration_seconds);
   const gradient = generateGradient(talk.conference_name || talk.title);
+
+  // Thumbnail priority: stored > YouTube auto-generated > gradient fallback
+  const thumbnailUrl = talk.thumbnail_url || getYouTubeThumbnail(talk.objectID);
 
   const handleClick = () => {
     // Track click for Insights/Recommend
@@ -55,19 +62,38 @@ export function TalkCard({ talk, matchScore, position, isFavorite, onClick, onIn
   return (
     <article className="talk-card" onClick={handleClick}>
       <div className="talk-card-thumbnail">
-        {talk.thumbnail_url ? (
+        {thumbnailUrl ? (
           <img
-            src={talk.thumbnail_url}
+            src={thumbnailUrl}
             alt={talk.title}
             loading="lazy"
+            onError={(e) => {
+              // If YouTube thumb fails, hide img and show gradient
+              (e.target as HTMLImageElement).style.display = 'none';
+              const parent = (e.target as HTMLImageElement).parentElement;
+              if (parent) {
+                const fallback = parent.querySelector('.talk-card-gradient') as HTMLElement;
+                if (fallback) fallback.style.display = 'flex';
+              }
+            }}
           />
-        ) : (
-          <div className="talk-card-gradient" style={{ background: gradient }}>
-            <span className="talk-card-gradient-text">
-              {(talk.conference_name || talk.title).slice(0, 2).toUpperCase()}
-            </span>
-          </div>
-        )}
+        ) : null}
+        {/* Gradient fallback - hidden by default if we have a thumbnail */}
+        <div
+          className="talk-card-gradient"
+          style={{ background: gradient, display: thumbnailUrl ? 'none' : 'flex' }}
+        >
+          <span className="talk-card-gradient-text">
+            {(talk.conference_name || talk.title).split(' ').slice(0, 2).join(' ')}
+          </span>
+        </div>
+
+        {/* Play button overlay */}
+        <div className="talk-card-play-overlay">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
 
         {duration && <span className="talk-card-duration">{duration}</span>}
 

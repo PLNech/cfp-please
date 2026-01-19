@@ -16,9 +16,14 @@ export function IntelBadges({ cfp, compact = false }: IntelBadgesProps) {
 
   if (cfp.hnStories && cfp.hnStories > 0) {
     badges.push({
-      icon: 'Y',
+      icon: null,
+      svg: (
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" style={{ marginRight: 2 }}>
+          <path d="M0 0v24h24V0H0zm12.3 12.5v5.2h-1.3v-5.2L7.5 6.3h1.5l2.7 5 2.6-5h1.5l-3.5 6.2z"/>
+        </svg>
+      ),
       label: 'HN',
-      value: cfp.hnPoints || cfp.hnStories,
+      value: formatCount(cfp.hnPoints || cfp.hnStories),
       title: `${cfp.hnStories} stories, ${cfp.hnPoints || 0} points on Hacker News`,
       className: 'intel-badge-hn',
     });
@@ -75,7 +80,7 @@ export function IntelBadges({ cfp, compact = false }: IntelBadgesProps) {
           title={badge.title}
         >
           {badge.svg || <span className="intel-badge-icon">{badge.icon}</span>}
-          {!compact && <span className="intel-badge-value">{badge.value}</span>}
+          <span className="intel-badge-value">{badge.value}</span>
         </span>
       ))}
     </div>

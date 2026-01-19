@@ -13,10 +13,11 @@ import { CarouselRow } from '../components/carousel';
 import { TalkCard } from '../components/cards';
 import { IntelBadges, TrendingIndicator } from '../components/intel';
 import { InspireModal } from '../components/inspire';
+import { TalkPlayer } from '../components/player';
 import { useProfile } from '../hooks/useProfile';
 import { useCarouselData, buildCarouselConfigs } from '../hooks/useCarouselData';
 import { useInsights } from '../hooks/useInsights';
-import { useRelatedTalks } from '../hooks/useRecommend';
+import { useRelatedTalks, useTrendingTalks, useTrendingCFPs } from '../hooks/useRecommend';
 import { useTalksByIds } from '../hooks/useTalksByIds';
 import { useTopSpeakers, useSpeakersByTopic } from '../hooks/useSpeakers';
 import { calculateMatchScore } from '../hooks/useMatchScore';
@@ -45,10 +46,12 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
     isFavoriteTalk,
     toggleFavoriteSpeaker,
     isFollowingSpeaker,
+    setInterview,
   } = useProfile();
 
   const [inspireTalk, setInspireTalk] = useState<Talk | null>(null);
   const [selectedTalk, setSelectedTalk] = useState<Talk | null>(null);
+  const [playerTalk, setPlayerTalk] = useState<Talk | null>(null);
   const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
 
   const navigate = useNavigate();
@@ -84,6 +87,10 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
 
   // Top speakers
   const { speakers: topSpeakers, loading: speakersLoading } = useTopSpeakers(15);
+
+  // Trending from Recommend models
+  const { relatedTalks: trendingTalks, loading: trendingTalksLoading } = useTrendingTalks(12);
+  const { relatedCFPs: trendingCFPs, loading: trendingCFPsLoading } = useTrendingCFPs(12);
 
   // Topic-specific speakers (if profile has topics)
   const primaryTopic = profile.topics.length > 0 ? profile.topics[0] : null;
@@ -126,6 +133,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
     clickTalk(talk.objectID, position);
     markTalkWatched(talk.objectID);
     setSelectedTalk(talk);
+    setPlayerTalk(talk); // Open the player modal
     onTalkClick?.(talk);
   }, [clickTalk, markTalkWatched, onTalkClick]);
 
@@ -217,6 +225,50 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                     onInspire={() => handleInspireClick(talk)}
                     onToggleFavorite={toggleFavoriteTalk}
                     onTrackClick={clickTalk}
+                  />
+                ))}
+              </CarouselRow>
+            </div>
+          )}
+
+          {/* Trending Talks - from Recommend model */}
+          {(trendingTalks.length > 0 || trendingTalksLoading) && (
+            <div data-carousel="trending-talks">
+              <CarouselRow
+                icon="🔥"
+                title="Trending Talks"
+                loading={trendingTalksLoading}
+              >
+                {trendingTalks.map((talk, index) => (
+                  <TalkCard
+                    key={talk.objectID}
+                    talk={talk}
+                    position={index + 1}
+                    isFavorite={isFavoriteTalk(talk.objectID)}
+                    onClick={() => handleTalkClick(talk, index + 1)}
+                    onInspire={() => handleInspireClick(talk)}
+                    onToggleFavorite={toggleFavoriteTalk}
+                    onTrackClick={clickTalk}
+                  />
+                ))}
+              </CarouselRow>
+            </div>
+          )}
+
+          {/* Trending CFPs - from Recommend model */}
+          {(trendingCFPs.length > 0 || trendingCFPsLoading) && (
+            <div data-carousel="trending-cfps">
+              <CarouselRow
+                icon="📈"
+                title="Trending CFPs"
+                loading={trendingCFPsLoading}
+              >
+                {trendingCFPs.map((cfp, index) => (
+                  <CFPCarouselCard
+                    key={cfp.objectID}
+                    cfp={cfp}
+                    matchScore={hasProfile ? calculateMatchScore(cfp, profile).score : undefined}
+                    onClick={() => handleCFPClick(cfp, index + 1)}
                   />
                 ))}
               </CarouselRow>
@@ -342,6 +394,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
         onSetExperience={setExperienceLevel}
         onToggleFormat={toggleFormat}
         onReset={resetProfile}
+        onInterviewComplete={setInterview}
       />
 
       {/* Inspire Modal */}
@@ -363,10 +416,20 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
           isFollowing={isFollowingSpeaker(selectedSpeaker.objectID)}
           onClose={() => setSelectedSpeaker(null)}
           onFollow={toggleFavoriteSpeaker}
-          onTalkClick={onTalkClick}
+          onTalkClick={(talk) => setPlayerTalk(talk)}
           onConferenceClick={handleConferenceSearch}
           isFavoriteTalk={isFavoriteTalk}
           onToggleFavoriteTalk={toggleFavoriteTalk}
+        />
+      )}
+
+      {/* Talk Player Modal */}
+      {playerTalk && (
+        <TalkPlayer
+          talk={playerTalk}
+          isOpen={!!playerTalk}
+          onClose={() => setPlayerTalk(null)}
+          onTrackWatch={(talkId) => markTalkWatched(talkId)}
         />
       )}
     </div>
@@ -380,18 +443,50 @@ interface CFPCarouselCardProps {
   onClick?: () => void;
 }
 
+// Pick a random city image (consistent per CFP using objectID as seed)
+function pickCityImage(cfp: CFP): string | null {
+  if (!cfp.city_image_urls?.length) return null;
+  // Use objectID hash for consistent random selection
+  let hash = 0;
+  for (let i = 0; i < cfp.objectID.length; i++) {
+    hash = cfp.objectID.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % cfp.city_image_urls.length;
+  return cfp.city_image_urls[index];
+}
+
 function CFPCarouselCard({ cfp, matchScore, onClick }: CFPCarouselCardProps) {
   const urgency = getUrgencyLevel(cfp.daysUntilCfpClose);
   const urgencyColor = getUrgencyColor(urgency);
+  const cityImage = useMemo(() => pickCityImage(cfp), [cfp]);
+  const hasCityImage = !!cityImage;
 
   return (
     <article
-      className="cfp-carousel-card"
+      className={`cfp-carousel-card ${hasCityImage ? 'has-city-image' : ''}`}
       onClick={onClick}
       style={{ '--urgency-color': urgencyColor } as React.CSSProperties}
     >
       <div className="cfp-carousel-card-header">
-        {cfp.iconUrl ? (
+        {cityImage ? (
+          <>
+            <img
+              src={cityImage}
+              alt={cfp.location?.city || ''}
+              className="cfp-carousel-card-city-bg"
+              loading="lazy"
+            />
+            <div className="cfp-carousel-card-city-overlay" />
+            {cfp.iconUrl && (
+              <img
+                src={cfp.iconUrl}
+                alt=""
+                className="cfp-carousel-card-icon-overlay"
+                loading="lazy"
+              />
+            )}
+          </>
+        ) : cfp.iconUrl ? (
           <img
             src={cfp.iconUrl}
             alt=""
@@ -399,7 +494,11 @@ function CFPCarouselCard({ cfp, matchScore, onClick }: CFPCarouselCardProps) {
             loading="lazy"
           />
         ) : (
-          <div className="cfp-carousel-card-gradient" />
+          <div className="cfp-carousel-card-gradient">
+            <span className="cfp-carousel-card-gradient-text">
+              {cfp.name.split(' ').slice(0, 2).join(' ')}
+            </span>
+          </div>
         )}
         <TrendingIndicator popularityScore={cfp.popularityScore} />
       </div>

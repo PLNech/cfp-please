@@ -1,0 +1,218 @@
+/**
+ * TalkPlayer - Privacy-minded YouTube player modal
+ */
+
+.talk-player-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.talk-player-modal {
+  background: #1a1a1a;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.talk-player-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  z-index: 10;
+  transition: all 0.15s ease;
+}
+
+.talk-player-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Video container */
+.talk-player-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.talk-player-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Click-to-load poster */
+.talk-player-poster {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.talk-player-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.talk-player-play-btn {
+  position: absolute;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.talk-player-poster:hover .talk-player-play-btn {
+  transform: scale(1.1);
+}
+
+.talk-player-privacy-notice {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
+/* Talk info */
+.talk-player-info {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.talk-player-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.talk-player-meta {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.talk-player-speaker {
+  color: #a5b4fc;
+}
+
+.talk-player-conference {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.talk-player-year {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.talk-player-views {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Transcript summary */
+.talk-player-summary {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.talk-player-summary h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.talk-player-summary p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+/* Bangers */
+.talk-player-bangers {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.talk-player-bangers h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.talk-player-bangers ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.talk-player-bangers li {
+  margin-bottom: 0.75rem;
+  padding-left: 1rem;
+  font-size: 0.9375rem;
+  color: #fbbf24;
+  font-style: italic;
+  border-left: 2px solid #fbbf24;
+  line-height: 1.5;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .talk-player-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .talk-player-modal {
+    border-radius: 16px 16px 0 0;
+    max-height: 95vh;
+  }
+
+  .talk-player-info {
+    padding: 1rem;
+  }
+
+  .talk-player-title {
+    font-size: 1.125rem;
+  }
+}

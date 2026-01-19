@@ -4,10 +4,10 @@
  * Full InstantSearch experience as a separate route.
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
-import { InstantSearch, useHits, useSearchBox, useConfigure, useRefinementList } from 'react-instantsearch';
+import { InstantSearch, useHits, useSearchBox, useConfigure, useRefinementList, useInstantSearch } from 'react-instantsearch';
 import {
   ALGOLIA_APP_ID,
   ALGOLIA_SEARCH_KEY,
@@ -17,6 +17,7 @@ import {
 } from '../../config';
 import type { CFP, Talk, Speaker } from '../../types';
 import { useProfile } from '../../hooks/useProfile';
+import { useInsights } from '../../hooks/useInsights';
 import './SearchPage.css';
 
 const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
@@ -35,10 +36,24 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
   const [activeTab, setActiveTab] = useState<ResultType>('all');
   const navigate = useNavigate();
   const { isFavoriteTalk, toggleFavoriteTalk, markTalkWatched } = useProfile();
+  const { clickCFP, clickTalk } = useInsights();
 
   const handleBack = () => {
     navigate('/');
   };
+
+  // Track CFP click with position and queryID for click analytics
+  const handleCFPClick = useCallback((cfp: CFP, position: number, queryID?: string) => {
+    clickCFP(cfp.objectID, position, queryID);
+    onCFPClick?.(cfp);
+  }, [clickCFP, onCFPClick]);
+
+  // Track Talk click with position and queryID for click analytics
+  const handleTalkClick = useCallback((talk: Talk, position: number, queryID?: string) => {
+    clickTalk(talk.objectID, position, queryID);
+    markTalkWatched(talk.objectID);
+    onTalkClick?.(talk);
+  }, [clickTalk, markTalkWatched, onTalkClick]);
 
   return (
     <div className="search-page">
@@ -74,7 +89,7 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
             <CFPSearchSection
               initialQuery={initialQuery}
               showTitle={activeTab === 'all'}
-              onCFPClick={onCFPClick}
+              onCFPClick={handleCFPClick}
             />
           </InstantSearch>
         )}
@@ -84,10 +99,7 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
             <TalkSearchSection
               initialQuery={initialQuery}
               showTitle={activeTab === 'all'}
-              onTalkClick={(talk) => {
-                markTalkWatched(talk.objectID);
-                onTalkClick?.(talk);
-              }}
+              onTalkClick={handleTalkClick}
               isFavorite={isFavoriteTalk}
               onToggleFavorite={toggleFavoriteTalk}
             />
@@ -112,13 +124,18 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
 interface CFPSearchSectionProps {
   initialQuery: string;
   showTitle: boolean;
-  onCFPClick?: (cfp: CFP) => void;
+  onCFPClick?: (cfp: CFP, position: number, queryID?: string) => void;
 }
 
 function CFPSearchSection({ initialQuery, showTitle, onCFPClick }: CFPSearchSectionProps) {
-  useConfigure({ hitsPerPage: showTitle ? 6 : 20 });
+  useConfigure({
+    hitsPerPage: showTitle ? 6 : 20,
+    clickAnalytics: true, // Enable queryID in response
+  });
   const { query, refine } = useSearchBox();
   const { items: hits } = useHits<CFP>();
+  const { results } = useInstantSearch();
+  const queryID = results?.queryID;
 
   // Set initial query on mount
   useMemo(() => {
@@ -126,6 +143,10 @@ function CFPSearchSection({ initialQuery, showTitle, onCFPClick }: CFPSearchSect
       refine(initialQuery);
     }
   }, [initialQuery]);
+
+  const handleClick = useCallback((cfp: CFP, position: number) => {
+    onCFPClick?.(cfp, position, queryID);
+  }, [onCFPClick, queryID]);
 
   return (
     <section className="search-section">
@@ -137,8 +158,12 @@ function CFPSearchSection({ initialQuery, showTitle, onCFPClick }: CFPSearchSect
         {hits.length === 0 ? (
           <p className="search-no-results">No CFPs found</p>
         ) : (
-          hits.map((cfp) => (
-            <CFPResultCard key={cfp.objectID} cfp={cfp} onClick={() => onCFPClick?.(cfp)} />
+          hits.map((cfp, index) => (
+            <CFPResultCard
+              key={cfp.objectID}
+              cfp={cfp}
+              onClick={() => handleClick(cfp, index + 1)}
+            />
           ))
         )}
       </div>
@@ -195,21 +220,30 @@ function CFPResultCard({ cfp, onClick }: { cfp: CFP; onClick: () => void }) {
 interface TalkSearchSectionProps {
   initialQuery: string;
   showTitle: boolean;
-  onTalkClick?: (talk: Talk) => void;
+  onTalkClick?: (talk: Talk, position: number, queryID?: string) => void;
   isFavorite: (id: string) => boolean;
   onToggleFavorite: (id: string) => void;
 }
 
 function TalkSearchSection({ initialQuery, showTitle, onTalkClick, isFavorite, onToggleFavorite }: TalkSearchSectionProps) {
-  useConfigure({ hitsPerPage: showTitle ? 6 : 20 });
+  useConfigure({
+    hitsPerPage: showTitle ? 6 : 20,
+    clickAnalytics: true,
+  });
   const { query, refine } = useSearchBox();
   const { items: hits } = useHits<Talk>();
+  const { results } = useInstantSearch();
+  const queryID = results?.queryID;
 
   useMemo(() => {
     if (initialQuery && query !== initialQuery) {
       refine(initialQuery);
     }
   }, [initialQuery]);
+
+  const handleClick = useCallback((talk: Talk, position: number) => {
+    onTalkClick?.(talk, position, queryID);
+  }, [onTalkClick, queryID]);
 
   return (
     <section className="search-section">
@@ -220,12 +254,12 @@ function TalkSearchSection({ initialQuery, showTitle, onTalkClick, isFavorite, o
         {hits.length === 0 ? (
           <p className="search-no-results">No talks found</p>
         ) : (
-          hits.map((talk) => (
+          hits.map((talk, index) => (
             <TalkResultCard
               key={talk.objectID}
               talk={talk}
               isFavorite={isFavorite(talk.objectID)}
-              onClick={() => onTalkClick?.(talk)}
+              onClick={() => handleClick(talk, index + 1)}
               onToggleFavorite={() => onToggleFavorite(talk.objectID)}
             />
           ))

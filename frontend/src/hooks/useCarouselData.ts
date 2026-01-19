@@ -125,17 +125,26 @@ export function useCarouselData(
   }, []);
 
   const fetchAll = useCallback(async () => {
-    // Initialize loading state
-    const initialData = new Map<string, CarouselData>();
-    configs.forEach((config) => {
-      initialData.set(config.id, {
-        id: config.id,
-        items: [],
-        loading: true,
-        error: null,
+    // Set loading state while preserving existing data (prevents flash)
+    setCarousels(prev => {
+      const updated = new Map(prev);
+      configs.forEach((config) => {
+        const existing = updated.get(config.id);
+        if (existing) {
+          // Keep existing items while loading
+          updated.set(config.id, { ...existing, loading: true });
+        } else {
+          // New carousel, initialize loading
+          updated.set(config.id, {
+            id: config.id,
+            items: [],
+            loading: true,
+            error: null,
+          });
+        }
       });
+      return updated;
     });
-    setCarousels(initialData);
     setHeroLoading(true);
 
     // Fetch hero and all carousels in parallel

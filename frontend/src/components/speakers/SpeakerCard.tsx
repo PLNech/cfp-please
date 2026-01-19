@@ -17,11 +17,46 @@ interface SpeakerCardProps {
 }
 
 /**
- * Generate Gravatar URL for an email address.
+ * Generate avatar URLs to try, in priority order.
+ * Uses multiple sources for better coverage.
  */
-function getGravatarUrl(email: string, size: number = 80): string {
-  const hash = md5(email.toLowerCase().trim());
-  return `https://gravatar.com/avatar/${hash}?d=404&s=${size}`;
+function getAvatarUrls(speaker: Speaker): string[] {
+  const urls: string[] = [];
+  const size = 80;
+
+  // 1. GitHub avatar (most reliable if username exists)
+  if (speaker.github) {
+    urls.push(`https://github.com/${speaker.github}.png?size=${size}`);
+  }
+
+  // 2. Twitter avatar via unavatar.io (handles API rate limits)
+  if (speaker.twitter) {
+    urls.push(`https://unavatar.io/twitter/${speaker.twitter}?fallback=false`);
+  }
+
+  // 3. LinkedIn via unavatar.io
+  if (speaker.linkedin) {
+    // Extract username from LinkedIn URL if needed
+    const linkedinMatch = speaker.linkedin.match(/linkedin\.com\/in\/([^\/\?]+)/);
+    if (linkedinMatch) {
+      urls.push(`https://unavatar.io/linkedin/${linkedinMatch[1]}?fallback=false`);
+    }
+  }
+
+  // 4. Gravatar with potential email patterns
+  const emailPatterns = speaker.is_algolia_speaker
+    ? getAlgoliaEmailPatterns(speaker.name)
+    : [];
+  for (const email of emailPatterns) {
+    const hash = md5(email.toLowerCase().trim());
+    urls.push(`https://gravatar.com/avatar/${hash}?d=404&s=${size}`);
+  }
+
+  // 5. UI Avatars as fallback (always works, generates from name)
+  const encodedName = encodeURIComponent(speaker.name);
+  urls.push(`https://ui-avatars.com/api/?name=${encodedName}&size=${size}&background=667eea&color=fff&bold=true`);
+
+  return urls;
 }
 
 /**
@@ -36,23 +71,21 @@ function getAlgoliaEmailPatterns(name: string): string[] {
   const firstClean = firstName.replace(/-/g, '');
 
   const patterns = [
-    `${firstClean}.${lastName}@algolia.com`,      // sarah.dayan
-    `${firstClean}${lastName}@algolia.com`,       // sarahdayan
+    `${firstClean}.${lastName}@algolia.com`,
+    `${firstClean}${lastName}@algolia.com`,
   ];
 
-  // For hyphenated names like "Paul-Louis", try initials
   if (firstName.includes('-')) {
     const initials = firstName.split('-').map(p => p[0]).join('');
-    patterns.push(`${initials}@algolia.com`);     // pln
+    patterns.push(`${initials}@algolia.com`);
   }
 
   return patterns;
 }
 
 export function SpeakerCard({ speaker, isFollowing, onClick, onFollow }: SpeakerCardProps) {
-  const [gravatarUrl, setGravatarUrl] = useState<string | null>(null);
-  const [gravatarFailed, setGravatarFailed] = useState(false);
-  const [emailPatternIndex, setEmailPatternIndex] = useState(0);
+  const [avatarUrlIndex, setAvatarUrlIndex] = useState(0);
+  const [avatarLoaded, setAvatarLoaded] = useState(false);
 
   const initials = speaker.name
     .split(' ')
@@ -61,28 +94,27 @@ export function SpeakerCard({ speaker, isFollowing, onClick, onFollow }: Speaker
     .slice(0, 2)
     .toUpperCase();
 
-  const emailPatterns = speaker.is_algolia_speaker
-    ? getAlgoliaEmailPatterns(speaker.name)
-    : [];
+  // Get all potential avatar URLs to try
+  const avatarUrls = getAvatarUrls(speaker);
+  const currentAvatarUrl = avatarUrls[avatarUrlIndex];
 
-  // Try to load Gravatar for Algolia speakers
+  // Reset when speaker changes
   useEffect(() => {
-    if (speaker.is_algolia_speaker && emailPatterns.length > 0) {
-      setGravatarUrl(getGravatarUrl(emailPatterns[0]));
-      setEmailPatternIndex(0);
-      setGravatarFailed(false);
-    }
-  }, [speaker.name, speaker.is_algolia_speaker]);
+    setAvatarUrlIndex(0);
+    setAvatarLoaded(false);
+  }, [speaker.objectID]);
 
-  // Handle Gravatar load failure - try next email pattern
-  const handleGravatarError = () => {
-    const nextIndex = emailPatternIndex + 1;
-    if (nextIndex < emailPatterns.length) {
-      setEmailPatternIndex(nextIndex);
-      setGravatarUrl(getGravatarUrl(emailPatterns[nextIndex]));
-    } else {
-      setGravatarFailed(true);
+  // Handle avatar load failure - try next URL
+  const handleAvatarError = () => {
+    const nextIndex = avatarUrlIndex + 1;
+    if (nextIndex < avatarUrls.length) {
+      setAvatarUrlIndex(nextIndex);
+      setAvatarLoaded(false);
     }
+  };
+
+  const handleAvatarLoad = () => {
+    setAvatarLoaded(true);
   };
 
   const formatViews = (views: number) => {
@@ -98,8 +130,6 @@ export function SpeakerCard({ speaker, isFollowing, onClick, onFollow }: Speaker
     }
   };
 
-  const showGravatar = gravatarUrl && !gravatarFailed;
-
   return (
     <article className={`speaker-card ${speaker.is_algolia_speaker ? 'is-algolia-speaker' : ''}`} onClick={onClick}>
       {/* Algolia badge for internal speakers */}
@@ -111,18 +141,21 @@ export function SpeakerCard({ speaker, isFollowing, onClick, onFollow }: Speaker
         </div>
       )}
 
-      {/* Avatar with Gravatar fallback */}
+      {/* Avatar - tries multiple sources: GitHub, Twitter, LinkedIn, Gravatar, UI Avatars */}
       <div className="speaker-card-avatar">
-        {showGravatar ? (
+        {currentAvatarUrl && (
           <img
-            src={gravatarUrl}
+            key={currentAvatarUrl}
+            src={currentAvatarUrl}
             alt={speaker.name}
-            onError={handleGravatarError}
+            onError={handleAvatarError}
+            onLoad={handleAvatarLoad}
             className="speaker-card-avatar-img"
+            style={{ opacity: avatarLoaded ? 1 : 0 }}
           />
-        ) : (
-          initials
         )}
+        {/* Show initials while loading or as ultimate fallback */}
+        {!avatarLoaded && initials}
       </div>
 
       <h3 className="speaker-card-name">{speaker.name}</h3>
