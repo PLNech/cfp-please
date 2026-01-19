@@ -1,0 +1,321 @@
+{
+  "total": 29,
+  "speakers": [
+    {
+      "speaker": "Sarah Dayan",
+      "speaker_id": "sarah-dayan",
+      "videos": [
+        {
+          "video_id": "TsgsaV576SY",
+          "title": "Learning from the Mistakes of a v1 by Sarah Dayan at JSCONF.BE 2020",
+          "duration": 3585.0,
+          "channel": "JSConf Belgium The Belgian JS Conference",
+          "view_count": 213,
+          "match_reason": "keyword: jsconf"
+        },
+        {
+          "video_id": "BDBycj8ttvs",
+          "title": "The Future of Search (with Sarah Dayan)",
+          "duration": 3837.0,
+          "channel": "leerob",
+          "view_count": 2022,
+          "match_reason": "keyword: search"
+        },
+        {
+          "video_id": "g6wtyg3O4Fo",
+          "title": "Utility First CSS Isn\u2019t Inline Styles | Sarah Dayan | CSS Day 2024",
+          "duration": 3142.0,
+          "channel": "Web Conferences Amsterdam",
+          "view_count": 7031,
+          "match_reason": "keyword: css day"
+        },
+        {
+          "video_id": "R50q4NES6Iw",
+          "title": "dotCSS 2019 - Sarah Dayan - In Defense of Utility-First CSS",
+          "duration": 1062.0,
+          "channel": "dotconferences",
+          "view_count": 10814,
+          "match_reason": "keyword: dotcss"
+        },
+        {
+          "video_id": "m6ID-dv2f34",
+          "title": "Falsehoods programmers believe about money - Sarah Dayan",
+          "duration": 1961.0,
+          "channel": "Nearform",
+          "view_count": 1459,
+          "match_reason": "keyword: nearform"
+        },
+        {
+          "video_id": "LXR1DRm-Gzo",
+          "title": "Sarah Dayan - Test-Driven Development with Vue.js - Vue.js Amsterdam 2020",
+          "duration": 1436.0,
+          "channel": "Vuejs Amsterdam",
+          "view_count": 4580,
+          "match_reason": "keyword: vuejs amsterdam"
+        },
+        {
+          "video_id": "x6j27eq9mKA",
+          "title": "Inside Intercom: Algolia\u2019s Sarah Dayan on what sets a staff plus engineer apart",
+          "duration": 2126.0,
+          "channel": "Intercom",
+          "view_count": 302,
+          "match_reason": "keyword: algolia"
+        },
+        {
+          "video_id": "WUZnJy5MxrY",
+          "title": "\"Outstanding Search Experiences with Remix and Algolia\" by Sarah Dayan at #RemixConf \ud83d\udcbf",
+          "duration": 1301.0,
+          "channel": "Remix",
+          "view_count": 5755,
+          "match_reason": "keyword: algolia"
+        },
+        {
+          "video_id": "DD1fEhcEzY8",
+          "title": "Test driven development with Vue.js by Sarah Dayan",
+          "duration": 1867.0,
+          "channel": "VueConf Toronto",
+          "view_count": 36604,
+          "match_reason": "keyword: vue.js"
+        }
+      ]
+    },
+    {
+      "speaker": "Dustin Coates",
+      "speaker_id": "dustin-coates",
+      "videos": [
+        {
+          "video_id": "1Wp53PDln5U",
+          "title": "Dustin Coates (Algolia) : Fury Road to a worldwide API",
+          "duration": 744.0,
+          "channel": "B2B Rocks",
+          "view_count": 119,
+          "match_reason": "keyword: algolia"
+        },
+        {
+          "video_id": "P01XNVJyh4E",
+          "title": "Toward Increased Understanding: Semantic Search of the Future - Dustin Coates, Algolia",
+          "duration": 825.0,
+          "channel": "Algolia",
+          "view_count": 482,
+          "match_reason": "keyword: algolia"
+        },
+        {
+          "video_id": "mwU_GUzoGNs",
+          "title": "Using Algolia to add voice search to your Alexa skills with Dustin Coates - Dabble Lab #172",
+          "duration": 1378.0,
+          "channel": "Dabble Lab",
+          "view_count": 484,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    },
+    {
+      "speaker": "Maria Lungu",
+      "speaker_id": "maria-lungu",
+      "videos": [
+        {
+          "video_id": "pnt-0pS-bNo",
+          "title": "How we Collaborate to build trustworthy Shopping Assistants - Maria Lungu, Paul-Louis Nech - MICES",
+          "duration": 2080.0,
+          "channel": "MIx-Camp E-commerce Search",
+          "view_count": 66,
+          "match_reason": "keyword: search"
+        }
+      ]
+    },
+    {
+      "speaker": "Paul-Louis Nech",
+      "speaker_id": "paul-louis-nech",
+      "videos": [
+        {
+          "video_id": "pnt-0pS-bNo",
+          "title": "How we Collaborate to build trustworthy Shopping Assistants - Maria Lungu, Paul-Louis Nech - MICES",
+          "duration": 2080.0,
+          "channel": "MIx-Camp E-commerce Search",
+          "view_count": 66,
+          "match_reason": "keyword: search"
+        }
+      ]
+    },
+    {
+      "speaker": "Haroen Viaene",
+      "speaker_id": "haroen-viaene",
+      "videos": [
+        {
+          "video_id": "TW7mZEWoTlo",
+          "title": "Live Coding Session - Making a negative filter widget for InstantSearch - Haroen Viaene, Algolia",
+          "duration": 3793.0,
+          "channel": "Algolia",
+          "view_count": 1766,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    },
+    {
+      "speaker": "Keshia Rose",
+      "speaker_id": "keshia-rose",
+      "videos": [
+        {
+          "video_id": "HteK89-xC24",
+          "title": "Demo Lab: Connector and Flow APIs - Keshia Rose, Algolia",
+          "duration": 3766.0,
+          "channel": "Algolia",
+          "view_count": 302,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    },
+    {
+      "speaker": "Abhijit Mehta",
+      "speaker_id": "abhijit-mehta",
+      "videos": [
+        {
+          "video_id": "nXbdxQULVjw",
+          "title": "Webinar: Build Products Developers Love by fmr Twilio Staff Product Manager, Abhijit Mehta",
+          "duration": 1253.0,
+          "channel": "Product School",
+          "view_count": 400,
+          "match_reason": "keyword: twilio"
+        },
+        {
+          "video_id": "pnaUAuJ4Xn4",
+          "title": "Webinar: User Story Maps - Communication Tool for PMs by fmr Twilio Staff PM, Abhijit Mehta",
+          "duration": 2059.0,
+          "channel": "Product School",
+          "view_count": 848,
+          "match_reason": "keyword: twilio"
+        }
+      ]
+    },
+    {
+      "speaker": "Chuck Meyer",
+      "speaker_id": "chuck-meyer",
+      "videos": [
+        {
+          "video_id": "mCXDNNYGuSA",
+          "title": "Add Search to Any Webflow site using Algolia with Chuck Meyer",
+          "duration": 3621.0,
+          "channel": "Automate All the Things",
+          "view_count": 3926,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    },
+    {
+      "speaker": "Lucas Bonomi",
+      "speaker_id": "lucas-bonomi",
+      "videos": [
+        {
+          "video_id": "Slk_T4ap2AA",
+          "title": "Family.scss & how to create successful open source projects ( By Lucas Bonomi at CSSParis #6 )",
+          "duration": 1226.0,
+          "channel": "Algolia",
+          "view_count": 85,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    },
+    {
+      "speaker": "Raed Chammam",
+      "speaker_id": "raed-chammam",
+      "videos": [
+        {
+          "video_id": "un5PKNsdHPM",
+          "title": "Image Search for Product Recommendations - Raed Chammam, Paul-Louis Nech - MICES 2024",
+          "duration": 1768.0,
+          "channel": "MIx-Camp E-commerce Search",
+          "view_count": 86,
+          "match_reason": "keyword: search"
+        }
+      ]
+    },
+    {
+      "speaker": "Khalid Elassaad",
+      "speaker_id": "khalid-elassaad",
+      "videos": [
+        {
+          "video_id": "AHDJM-KLdnw",
+          "title": "DX delight: An exploration of new documentation - Khalid Elassaad and Lo\u00efc Say, Algolia",
+          "duration": 921.0,
+          "channel": "Algolia",
+          "view_count": 392,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    },
+    {
+      "speaker": "Ciprian Borodescu",
+      "speaker_id": "ciprian-borodescu",
+      "videos": [
+        {
+          "video_id": "DcYgOkdn0FE",
+          "title": "Listen. Learn. Lead - 3 stories from Ciprian Borodescu, Head of Algolia Romania",
+          "duration": 1049.0,
+          "channel": "StepFWD",
+          "view_count": 43,
+          "match_reason": "keyword: algolia"
+        },
+        {
+          "video_id": "vVuBm21Wnyw",
+          "title": "What Can Stoicism Teach You About Entrepreneurship with Ciprian Borodescu from Algolia | Ep.22",
+          "duration": 3669.0,
+          "channel": "The Recursive",
+          "view_count": 163,
+          "match_reason": "keyword: algolia"
+        },
+        {
+          "video_id": "ga3gX1fs8vg",
+          "title": "CIPRIAN BORODESCU & ALEXANDRA ANGHEL - AI enhanced UX",
+          "duration": 2553.0,
+          "channel": "Devoxx",
+          "view_count": 353,
+          "match_reason": "keyword: devoxx"
+        },
+        {
+          "video_id": "WSn9mYJj8XE",
+          "title": "Demo Lab: Hacking Personalization - Ciprian Borodescu, Algolia",
+          "duration": 2522.0,
+          "channel": "Algolia",
+          "view_count": 443,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    },
+    {
+      "speaker": "Nicolas Fiorini",
+      "speaker_id": "nicolas-fiorini",
+      "videos": [
+        {
+          "video_id": "ZeA95GGvh9s",
+          "title": "Nicolas Fiorini \"The relevance search in PubMed\"",
+          "duration": 3074.0,
+          "channel": "Ai2",
+          "view_count": 467,
+          "match_reason": "keyword: search"
+        }
+      ]
+    },
+    {
+      "speaker": "Alexandre Collin",
+      "speaker_id": "alexandre-collin",
+      "videos": [
+        {
+          "video_id": "4k0fHS_lro0",
+          "title": "Algolia - UX in the age of GenerativeAI, Making features usable, trusted and used - by Alex Collin",
+          "duration": 1983.0,
+          "channel": "Algolia",
+          "view_count": 157,
+          "match_reason": "keyword: algolia"
+        },
+        {
+          "video_id": "YfR9oyzoWbc",
+          "title": "How to build a search-as-you-type application in under 15mn with Algolia - Tim Carry & Alex Collin",
+          "duration": 1915.0,
+          "channel": "Serverlessconf",
+          "view_count": 5806,
+          "match_reason": "keyword: algolia"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Julien Bourdeau",
+    "objectID": "julien-bourdeau",
+    "email": "julien.bourdeau@algolia.com",
+    "talk_count": 2,
+    "total_views": 15916
+  },
+  {
+    "name": "Nuno Maduro",
+    "objectID": "nuno-maduro",
+    "email": "nuno.maduro@algolia.com",
+    "talk_count": 1,
+    "total_views": 5567
+  },
+  {
+    "name": "Marie Thuret",
+    "objectID": "marie-thuret",
+    "email": "mthuret@algolia.com",
+    "talk_count": 1,
+    "total_views": 2813
+  },
+  {
+    "name": "Eunjae Lee",
+    "objectID": "eunjae-lee",
+    "email": "eunjae.lee@algolia.com",
+    "talk_count": 1,
+    "total_views": 1919
+  },
+  {
+    "name": "Guy Daher",
+    "objectID": "guy-daher",
+    "email": "guy.daher@algolia.com",
+    "talk_count": 1,
+    "total_views": 1580
+  },
+  {
+    "name": "Sylvain Pace",
+    "objectID": "sylvain-pace",
+    "email": "sylvain.pace@algolia.com",
+    "talk_count": 1,
+    "total_views": 1501
+  },
+  {
+    "name": "Emily Hayman",
+    "objectID": "emily-hayman",
+    "email": "emily.hayman@algolia.com",
+    "talk_count": 1,
+    "total_views": 1131
+  }
+]

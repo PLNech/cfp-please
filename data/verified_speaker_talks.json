@@ -1,0 +1,711 @@
+{
+  "verified_at": "2026-01-18 21:59:46",
+  "total_verified": 81,
+  "discoveries": [
+    {
+      "speaker": "Sarah Dayan",
+      "speaker_id": "sarah-dayan",
+      "videos": [
+        {
+          "video_id": "TsgsaV576SY",
+          "title": "Learning from the Mistakes of a v1 by Sarah Dayan at JSCONF.BE 2020",
+          "duration": 3585.0,
+          "channel": "JSConf Belgium The Belgian JS Conference",
+          "view_count": 213
+        },
+        {
+          "video_id": "BDBycj8ttvs",
+          "title": "The Future of Search (with Sarah Dayan)",
+          "duration": 3837.0,
+          "channel": "leerob",
+          "view_count": 2022
+        },
+        {
+          "video_id": "g6wtyg3O4Fo",
+          "title": "Utility First CSS Isn\u2019t Inline Styles | Sarah Dayan | CSS Day 2024",
+          "duration": 3142.0,
+          "channel": "Web Conferences Amsterdam",
+          "view_count": 7031
+        },
+        {
+          "video_id": "R50q4NES6Iw",
+          "title": "dotCSS 2019 - Sarah Dayan - In Defense of Utility-First CSS",
+          "duration": 1062.0,
+          "channel": "dotconferences",
+          "view_count": 10814
+        },
+        {
+          "video_id": "m6ID-dv2f34",
+          "title": "Falsehoods programmers believe about money - Sarah Dayan",
+          "duration": 1961.0,
+          "channel": "Nearform",
+          "view_count": 1459
+        },
+        {
+          "video_id": "LXR1DRm-Gzo",
+          "title": "Sarah Dayan - Test-Driven Development with Vue.js - Vue.js Amsterdam 2020",
+          "duration": 1436.0,
+          "channel": "Vuejs Amsterdam",
+          "view_count": 4580
+        },
+        {
+          "video_id": "x6j27eq9mKA",
+          "title": "Inside Intercom: Algolia\u2019s Sarah Dayan on what sets a staff plus engineer apart",
+          "duration": 2126.0,
+          "channel": "Intercom",
+          "view_count": 302
+        },
+        {
+          "video_id": "HW0BvDCSspE",
+          "title": "From PHP to Javascript | Sarah Dayan's programming journey | Prismic",
+          "duration": 1268.0,
+          "channel": "Prismic",
+          "view_count": 1279
+        },
+        {
+          "video_id": "WUZnJy5MxrY",
+          "title": "\"Outstanding Search Experiences with Remix and Algolia\" by Sarah Dayan at #RemixConf \ud83d\udcbf",
+          "duration": 1301.0,
+          "channel": "Remix",
+          "view_count": 5755
+        }
+      ]
+    },
+    {
+      "speaker": "Dustin Coates",
+      "speaker_id": "dustin-coates",
+      "videos": [
+        {
+          "video_id": "1Wp53PDln5U",
+          "title": "Dustin Coates (Algolia) : Fury Road to a worldwide API",
+          "duration": 744.0,
+          "channel": "B2B Rocks",
+          "view_count": 119
+        },
+        {
+          "video_id": "P01XNVJyh4E",
+          "title": "Toward Increased Understanding: Semantic Search of the Future - Dustin Coates, Algolia",
+          "duration": 825.0,
+          "channel": "Algolia",
+          "view_count": 482
+        },
+        {
+          "video_id": "mwU_GUzoGNs",
+          "title": "Using Algolia to add voice search to your Alexa skills with Dustin Coates - Dabble Lab #172",
+          "duration": 1378.0,
+          "channel": "Dabble Lab",
+          "view_count": 484
+        }
+      ]
+    },
+    {
+      "speaker": "Maria Lungu",
+      "speaker_id": "maria-lungu",
+      "videos": [
+        {
+          "video_id": "N0PoQOEHtzg",
+          "title": "\u274c\ufe0f\ud83d\ude31Maria Lungu to Marinescu-why are you provoking me, why are you making me talk...scandal betwee...",
+          "duration": 678.0,
+          "channel": "MireasaBreakingNews ",
+          "view_count": 453
+        }
+      ]
+    },
+    {
+      "speaker": "David Bacon",
+      "speaker_id": "david-bacon",
+      "videos": [
+        {
+          "video_id": "U1PXka-Sbq4",
+          "title": "David Bacon - 2011 Gandhi-King Conference",
+          "duration": 3679.0,
+          "channel": "Mid-South Peace and Justice Center",
+          "view_count": 174
+        },
+        {
+          "video_id": "Tuq-elBmXnM",
+          "title": "Issues Confronting Farmworkers Today: A Talk by David Bacon",
+          "duration": 3556.0,
+          "channel": "Tawny Paul",
+          "view_count": 12
+        },
+        {
+          "video_id": "Fq0Ytc-_59Q",
+          "title": "This Week: Interview with Labor Reporter David Bacon",
+          "duration": 399.0,
+          "channel": "KQED",
+          "view_count": 327
+        },
+        {
+          "video_id": "Pyw34Fxd4kM",
+          "title": "Red Lens Podcast Episode 6: David Bacon on US-Mexico border photography",
+          "duration": 4256.0,
+          "channel": "Red Lens Podcast",
+          "view_count": 26
+        },
+        {
+          "video_id": "DDcMl_VdBmM",
+          "title": "Economic Approaches to Software Correctness, David Bacon",
+          "duration": 2972.0,
+          "channel": "Workshop on Software Correctness and Reliability 2013",
+          "view_count": 284
+        },
+        {
+          "video_id": "488uhjl1nrk",
+          "title": "Business Ink- UP Close Interview with PLH Chairman, David Bacon.",
+          "duration": 1158.0,
+          "channel": "Rob Corse-Scott",
+          "view_count": 48
+        },
+        {
+          "video_id": "EiVRSa9VEao",
+          "title": "noone gets to talk: Dan Soder, Ian Fidance, Jordan Jensen, David Bacon",
+          "duration": 641.0,
+          "channel": "Comedians Opening Cards No Coffee",
+          "view_count": 2677
+        },
+        {
+          "video_id": "ocBR3dnZrhc",
+          "title": "COVID, Immigration, and Issues Confronting Farmworkers Today : A Talk By Activist David Bacon",
+          "duration": 3583.0,
+          "channel": "UCLA History-Geography Project",
+          "view_count": 59
+        },
+        {
+          "video_id": "_w1oUkaIMOk",
+          "title": "ROD GRAY AND DAVID BACON INTERVIEW",
+          "duration": 4747.0,
+          "channel": "Owls Nest BBQ Show",
+          "view_count": 217
+        },
+        {
+          "video_id": "RWNOGDaaJ5g",
+          "title": "Bacon Engineering is a one-stop shop for bespoke engineering solutions",
+          "duration": 383.0,
+          "channel": "MTDCNC",
+          "view_count": 1798
+        }
+      ]
+    },
+    {
+      "speaker": "Tom Clark",
+      "speaker_id": "tom-clark",
+      "videos": [
+        {
+          "video_id": "fE7ax03FHVk",
+          "title": "Tom Clark Presentation",
+          "duration": 1811.0,
+          "channel": "Steve Chrismer",
+          "view_count": 3
+        },
+        {
+          "video_id": "MuitZAJqo_U",
+          "title": "Transforming Consciousness: A Talk by Tom Clark",
+          "duration": 3680.0,
+          "channel": "Buffalo State Freethinkers",
+          "view_count": 7123
+        },
+        {
+          "video_id": "fvM0sdqWzLc",
+          "title": "Tom Clark talk on the benefits of determinism",
+          "duration": 2860.0,
+          "channel": "Tom Clark",
+          "view_count": 1784
+        },
+        {
+          "video_id": "9SNjPKCn1K0",
+          "title": "May 13 Expo: Capital CFO Ignites the Conversation with Tom Clark",
+          "duration": 1095.0,
+          "channel": "Virtual Propane Expo",
+          "view_count": 3
+        },
+        {
+          "video_id": "yezftBxgiOU",
+          "title": "May 13 Expo: Capital CFO Ignites the Conversation with Tom Clark",
+          "duration": 1085.0,
+          "channel": "Virtual Propane Expo",
+          "view_count": 11
+        },
+        {
+          "video_id": "xc1KRq59JUo",
+          "title": "ITV Technology Forum: Common Platform Specification v0.1.0-alpha (Tom Clark)",
+          "duration": 2859.0,
+          "channel": "Tom Clark",
+          "view_count": 113
+        },
+        {
+          "video_id": "DAN0_WrS6ho",
+          "title": "Tom Clark's Talk in King's Class",
+          "duration": 2534.0,
+          "channel": "Spring Creek Church WI",
+          "view_count": 140
+        },
+        {
+          "video_id": "EWK_IAX9Pjo",
+          "title": "Tom Clark Keynote - YEC 2021",
+          "duration": 1604.0,
+          "channel": "The YEC UK",
+          "view_count": 6
+        },
+        {
+          "video_id": "v4PenrAwDMo",
+          "title": "ITV TechForum: CPv2 (Tom Clark)",
+          "duration": 2232.0,
+          "channel": "Tom Clark",
+          "view_count": 96
+        },
+        {
+          "video_id": "6QUUdX76JtE",
+          "title": "Surfing the Storms of Life | Tom Clark on Art, Faith & His New Book Impacted | Raw Surf Podcast",
+          "duration": 1590.0,
+          "channel": "Raw Surf",
+          "view_count": 62
+        },
+        {
+          "video_id": "xCsANNlZVhY",
+          "title": "The Patton Report Episode 8: An Interview With Tom Clark",
+          "duration": 3675.0,
+          "channel": "Boink Studios",
+          "view_count": 5
+        },
+        {
+          "video_id": "dQ9Ry_uXAys",
+          "title": "Nick Clegg talks to Prospect's Tom Clark | Lib Dem conference 2017",
+          "duration": 4648.0,
+          "channel": "Prospect Magazine",
+          "view_count": 876
+        },
+        {
+          "video_id": "rMq1hf72S8g",
+          "title": "Canada\u2019s New York Consul General Tom Clark at the Bloomberg Canadian Finance Conference 2024",
+          "duration": 710.0,
+          "channel": "Bloomberg Live",
+          "view_count": 223
+        },
+        {
+          "video_id": "TjUtTQl7mDY",
+          "title": "Cleantech Innovate - Ocean Array Systems - Tom Clark",
+          "duration": 304.0,
+          "channel": "Cleantech Innovate",
+          "view_count": 143
+        },
+        {
+          "video_id": "alks6cBO-eg",
+          "title": "Tony Clark Realtors Podcast: Angela Clark and Tom Clark, Service & Owensboro Kentucky Real Estate",
+          "duration": 557.0,
+          "channel": "Tony Clark Realtors  Owensboro Kentucky",
+          "view_count": 74
+        },
+        {
+          "video_id": "exwtTKEpyjI",
+          "title": "Plane Talk with Tom Clark (March 21, 2016)",
+          "duration": 342.0,
+          "channel": "Erin OToole",
+          "view_count": 169
+        },
+        {
+          "video_id": "-T8nt3EHSdo",
+          "title": "The Father's Heart Show with Papa Tom    On News/Talk WSIC wsicnews.com",
+          "duration": 1637.0,
+          "channel": "WSIC News",
+          "view_count": 13
+        }
+      ]
+    },
+    {
+      "speaker": "Hamish Ogilvy",
+      "speaker_id": "hamish-ogilvy",
+      "videos": [
+        {
+          "video_id": "vgolhSJa26g",
+          "title": "Go Sydney Meetup June 2015 | Binary Encoding in Go with Hamish Ogilvy",
+          "duration": 1769.0,
+          "channel": "The Go Programming Language",
+          "view_count": 5385
+        }
+      ]
+    },
+    {
+      "speaker": "Haroen Viaene",
+      "speaker_id": "haroen-viaene",
+      "videos": [
+        {
+          "video_id": "Tj1LcjzdVBM",
+          "title": "Haroen Viaene - You\u2019re probably making an API client",
+          "duration": 1768.0,
+          "channel": "OdesaJS Conference",
+          "view_count": 172
+        },
+        {
+          "video_id": "TW7mZEWoTlo",
+          "title": "Live Coding Session - Making a negative filter widget for InstantSearch - Haroen Viaene, Algolia",
+          "duration": 3793.0,
+          "channel": "Algolia",
+          "view_count": 1766
+        }
+      ]
+    },
+    {
+      "speaker": "Keshia Rose",
+      "speaker_id": "keshia-rose",
+      "videos": [
+        {
+          "video_id": "HteK89-xC24",
+          "title": "Demo Lab: Connector and Flow APIs - Keshia Rose, Algolia",
+          "duration": 3766.0,
+          "channel": "Algolia",
+          "view_count": 302
+        },
+        {
+          "video_id": "cuUlFy-djpA",
+          "title": "How We Got Rich In 30 Days With Action on 1 Idea! Keshia Blak|Cash Talk Podcast W Electric Kashflow",
+          "duration": 2742.0,
+          "channel": "From Unknown To Unforgettable  - Jerome Stampley ",
+          "view_count": 111
+        }
+      ]
+    },
+    {
+      "speaker": "Abhijit Mehta",
+      "speaker_id": "abhijit-mehta",
+      "videos": [
+        {
+          "video_id": "nXbdxQULVjw",
+          "title": "Webinar: Build Products Developers Love by fmr Twilio Staff Product Manager, Abhijit Mehta",
+          "duration": 1253.0,
+          "channel": "Product School",
+          "view_count": 400
+        },
+        {
+          "video_id": "pnaUAuJ4Xn4",
+          "title": "Webinar: User Story Maps - Communication Tool for PMs by fmr Twilio Staff PM, Abhijit Mehta",
+          "duration": 2059.0,
+          "channel": "Product School",
+          "view_count": 848
+        }
+      ]
+    },
+    {
+      "speaker": "Alphonse Bouy",
+      "speaker_id": "alphonse-bouy",
+      "videos": [
+        {
+          "video_id": "XpmsSaQg7XI",
+          "title": "[005] Alphonse Bouy - D\u00e9bugger un composant React legacy : cas pratique (2024/11/20)",
+          "duration": 1375.0,
+          "channel": "React Paris Meetup",
+          "view_count": 35
+        }
+      ]
+    },
+    {
+      "speaker": "Chuck Meyer",
+      "speaker_id": "chuck-meyer",
+      "videos": [
+        {
+          "video_id": "Jzc5MWznXHU",
+          "title": "Talking \"Toast\" & \"Jam\" with Nurse Chuck",
+          "duration": 829.0,
+          "channel": "Jamie Kennedy",
+          "view_count": 1378
+        },
+        {
+          "video_id": "WxCPqXUFAyY",
+          "title": "23rd of February - Tech talk with Chuck, GrassValley",
+          "duration": 1834.0,
+          "channel": "Bridge Technologies",
+          "view_count": 137
+        },
+        {
+          "video_id": "mCXDNNYGuSA",
+          "title": "Add Search to Any Webflow site using Algolia with Chuck Meyer",
+          "duration": 3621.0,
+          "channel": "Automate All the Things",
+          "view_count": 3926
+        }
+      ]
+    },
+    {
+      "speaker": "Rasit Abay",
+      "speaker_id": "rasit-abay",
+      "videos": [
+        {
+          "video_id": "l2I45GqREgE",
+          "title": "Poincar\u00e9 Podcast #12 - Rasit Abay",
+          "duration": 3698.0,
+          "channel": "Matteo Manzi",
+          "view_count": 212
+        }
+      ]
+    },
+    {
+      "speaker": "Lucas Bonomi",
+      "speaker_id": "lucas-bonomi",
+      "videos": [
+        {
+          "video_id": "Slk_T4ap2AA",
+          "title": "Family.scss & how to create successful open source projects ( By Lucas Bonomi at CSSParis #6 )",
+          "duration": 1226.0,
+          "channel": "Algolia",
+          "view_count": 85
+        }
+      ]
+    },
+    {
+      "speaker": "Raed Chammam",
+      "speaker_id": "raed-chammam",
+      "videos": [
+        {
+          "video_id": "un5PKNsdHPM",
+          "title": "Image Search for Product Recommendations - Raed Chammam, Paul-Louis Nech - MICES 2024",
+          "duration": 1768.0,
+          "channel": "MIx-Camp E-commerce Search",
+          "view_count": 86
+        }
+      ]
+    },
+    {
+      "speaker": "Khalid Elassaad",
+      "speaker_id": "khalid-elassaad",
+      "videos": [
+        {
+          "video_id": "AHDJM-KLdnw",
+          "title": "DX delight: An exploration of new documentation - Khalid Elassaad and Lo\u00efc Say, Algolia",
+          "duration": 921.0,
+          "channel": "Algolia",
+          "view_count": 392
+        }
+      ]
+    },
+    {
+      "speaker": "Ciprian Borodescu",
+      "speaker_id": "ciprian-borodescu",
+      "videos": [
+        {
+          "video_id": "JP4G2-Gd1jI",
+          "title": "Our confidence crumbled, we failed, and felt stuck | Ciprian Borodescu | Speech| ILF Bucharest Tech",
+          "duration": 807.0,
+          "channel": "I Love Failure",
+          "view_count": 124
+        },
+        {
+          "video_id": "DcYgOkdn0FE",
+          "title": "Listen. Learn. Lead - 3 stories from Ciprian Borodescu, Head of Algolia Romania",
+          "duration": 1049.0,
+          "channel": "StepFWD",
+          "view_count": 43
+        },
+        {
+          "video_id": "vVuBm21Wnyw",
+          "title": "What Can Stoicism Teach You About Entrepreneurship with Ciprian Borodescu from Algolia | Ep.22",
+          "duration": 3669.0,
+          "channel": "The Recursive",
+          "view_count": 163
+        },
+        {
+          "video_id": "ga3gX1fs8vg",
+          "title": "CIPRIAN BORODESCU & ALEXANDRA ANGHEL - AI enhanced UX",
+          "duration": 2553.0,
+          "channel": "Devoxx",
+          "view_count": 353
+        },
+        {
+          "video_id": "WSn9mYJj8XE",
+          "title": "Demo Lab: Hacking Personalization - Ciprian Borodescu, Algolia",
+          "duration": 2522.0,
+          "channel": "Algolia",
+          "view_count": 443
+        }
+      ]
+    },
+    {
+      "speaker": "Nicolas Fiorini",
+      "speaker_id": "nicolas-fiorini",
+      "videos": [
+        {
+          "video_id": "ZeA95GGvh9s",
+          "title": "Nicolas Fiorini \"The relevance search in PubMed\"",
+          "duration": 3074.0,
+          "channel": "Ai2",
+          "view_count": 467
+        }
+      ]
+    },
+    {
+      "speaker": "Alexandre Collin",
+      "speaker_id": "alexandre-collin",
+      "videos": [
+        {
+          "video_id": "4k0fHS_lro0",
+          "title": "Algolia - UX in the age of GenerativeAI, Making features usable, trusted and used - by Alex Collin",
+          "duration": 1983.0,
+          "channel": "Algolia",
+          "view_count": 157
+        },
+        {
+          "video_id": "YfR9oyzoWbc",
+          "title": "How to build a search-as-you-type application in under 15mn with Algolia - Tim Carry & Alex Collin",
+          "duration": 1915.0,
+          "channel": "Serverlessconf",
+          "view_count": 5806
+        }
+      ]
+    },
+    {
+      "speaker": "Xavier Grand",
+      "speaker_id": "xavier-grand",
+      "videos": [
+        {
+          "video_id": "DwWCxTO-aqI",
+          "title": "Ontario Holstein Genetic Marketing Workshop: Dr Francois-Xavier Grand - L'Alliance Boviteq",
+          "duration": 2932.0,
+          "channel": "OntarioHolsteins",
+          "view_count": 238
+        }
+      ]
+    },
+    {
+      "speaker": "Taylor Johnson",
+      "speaker_id": "taylor-johnson",
+      "videos": [
+        {
+          "video_id": "LZqUr5uqfhw",
+          "title": "Buzz | Brad Pitt, Aaron Taylor-Johnson & Brian Tyree Henry Talk Bullet Train",
+          "duration": 326.0,
+          "channel": "Onic Entertainment",
+          "view_count": 38928
+        },
+        {
+          "video_id": "ywLlIY9qbes",
+          "title": "Emma Corrin & Aaron Taylor-Johnson talk NOSFERATU, learning from mistakes & the pressure of time",
+          "duration": 413.0,
+          "channel": "movieweather",
+          "view_count": 3154
+        },
+        {
+          "video_id": "6TWUH2Rgqk0",
+          "title": "Sam Taylor-Johnson and Aaron Taylor-Johnson talk A Million Little Pieces and working together again.",
+          "duration": 632.0,
+          "channel": "Soundtracking Extra with Edith Bowman",
+          "view_count": 1533
+        },
+        {
+          "video_id": "Rh8Gw7KVUfM",
+          "title": "BULLET TRAIN Press Conference Berlin BRAD PITT + JOEY KING + AARON TAYLOR-JOHNSON very funny - SCARS",
+          "duration": 1289.0,
+          "channel": "CELEBRITY INTERVIEWS Parviz Khosrawi",
+          "view_count": 4245
+        },
+        {
+          "video_id": "Ck2zVeH3eGQ",
+          "title": "'Kraven The Hunter' Aaron Taylor-Johnson Talks Playing Kraven & Past Roles | Explain This | Esquire",
+          "duration": 436.0,
+          "channel": "Esquire",
+          "view_count": 89315
+        },
+        {
+          "video_id": "wnMWE8M3ZLI",
+          "title": "Godzilla press conference: Bryan Cranston, Aaron Taylor-Johnson, Elizabeth Olsen, Gareth Edwards",
+          "duration": 2067.0,
+          "channel": "The Upcoming",
+          "view_count": 2641
+        },
+        {
+          "video_id": "uIrWa4nLpFY",
+          "title": "Aaron Taylor-Johnson & Elizabeth Olsen interview | Avengers: Age of Ultron",
+          "duration": 504.0,
+          "channel": "KISS",
+          "view_count": 136441
+        },
+        {
+          "video_id": "5o5qakxGjoM",
+          "title": "Elizabeth Olsen & Aaron Taylor-Johnson 'Avengers: Age of Ultron' Exclusive Interview: SDCC (2014) HD",
+          "duration": 700.0,
+          "channel": "Movieclips Action",
+          "view_count": 184053
+        },
+        {
+          "video_id": "Vq6ciAJNa40",
+          "title": "Elizabeth Olsen, Aaron Taylor-Johnson and Bryan Cranston Talk Godzilla At Press Conference",
+          "duration": 320.0,
+          "channel": "Entertainmentwise",
+          "view_count": 666
+        },
+        {
+          "video_id": "GYQShEvRVvk",
+          "title": "Bellator 261: Taylor Johnson apologizes for trash talk",
+          "duration": 397.0,
+          "channel": "Cageside Press",
+          "view_count": 194
+        }
+      ]
+    },
+    {
+      "speaker": "Kyle Fox",
+      "speaker_id": "kyle-fox",
+      "videos": [
+        {
+          "video_id": "XQzw5ujVOV4",
+          "title": "Live Chat: UFC in 2013 talk, UFC on FOX 8 preview",
+          "duration": 5385.0,
+          "channel": "MMAFightingonSBN",
+          "view_count": null
+        },
+        {
+          "video_id": "WV5HzuCOVqo",
+          "title": "In the Nic of Time with Kyle Fox,Chief Software Officer,Western Development Division, U.S. Air Force",
+          "duration": 5239.0,
+          "channel": "ATARC Channel",
+          "view_count": 39
+        },
+        {
+          "video_id": "bNVWlheEfxQ",
+          "title": "2012 Shaq and Rick Fox Talk Dunks",
+          "duration": 386.0,
+          "channel": "MegaFocsisProduction",
+          "view_count": 10458
+        }
+      ]
+    },
+    {
+      "speaker": "David Howden",
+      "speaker_id": "david-howden",
+      "videos": [
+        {
+          "video_id": "PxwzRPPW1Ow",
+          "title": "Simplifying Storage by David Howden - Go Meetup, October 2016",
+          "duration": 2188.0,
+          "channel": "golang-syd",
+          "view_count": 568
+        },
+        {
+          "video_id": "FA7R9Um2uok",
+          "title": "David Howden \u2013 The Truth About Unemployment \u2013 interview \u2013 Goldstein on Gelt",
+          "duration": 806.0,
+          "channel": "Douglas Goldstein",
+          "view_count": 134
+        },
+        {
+          "video_id": "lMTpVt8N6gI",
+          "title": "Viv Williams' interview with Howden Group insurance brokers",
+          "duration": 2067.0,
+          "channel": "Conscious Solutions",
+          "view_count": 92
+        }
+      ]
+    },
+    {
+      "speaker": "Jia Lei",
+      "speaker_id": "jia-lei",
+      "videos": [
+        {
+          "video_id": "Oan9Cgx3sUU",
+          "title": "Jia Lei Li ROS Navigation Project Presentation",
+          "duration": 1583.0,
+          "channel": "Becoming a ROS Developer",
+          "view_count": 52
+        }
+      ]
+    }
+  ]
+}

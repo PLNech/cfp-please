@@ -1363,5 +1363,56 @@ def fix_speakers():
         console.print(f"  {update['title'][:40]}... → {update['speaker']}")
 
 
+# ===== Recommend Model Setup =====
+
+
+@app.command("generate-events")
+def generate_events(
+    target_cfps: int = typer.Option(500, "--cfps", help="Target number of CFP events"),
+    target_talks: int = typer.Option(1000, "--talks", help="Target number of talk events"),
+    days: int = typer.Option(60, "--days", help="Event time range (days back)"),
+):
+    """Generate synthetic conversion events for Algolia Recommend Trending models.
+
+    Creates CSV files based on popularity signals (HN points, GitHub stars, view counts).
+    Upload these to Algolia Dashboard → Recommend → Create Model → One-time upload.
+    """
+    from cfp_pipeline.scripts.generate_synthetic_events import (
+        get_algolia_client,
+        generate_cfp_events,
+        generate_talk_events,
+        TARGET_EVENTS_CFP,
+        TARGET_EVENTS_TALKS,
+        DAYS_BACK,
+    )
+    import cfp_pipeline.scripts.generate_synthetic_events as gen
+
+    # Override defaults if provided
+    gen.TARGET_EVENTS_CFP = target_cfps
+    gen.TARGET_EVENTS_TALKS = target_talks
+    gen.DAYS_BACK = days
+
+    console.print("[bold]Synthetic Events Generator for Algolia Recommend[/bold]")
+    console.print(f"Target: {target_cfps} CFP events, {target_talks} talk events")
+    console.print(f"Time range: past {days} days\n")
+
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    cfp_path = generate_cfp_events(client)
+    talk_path = generate_talk_events(client)
+
+    console.print("\n[bold green]Done![/bold green]")
+    console.print("\n[bold]Next steps:[/bold]")
+    console.print("1. Go to https://dashboard.algolia.com → Recommend → Create Model")
+    console.print("2. Select 'Trending Items' model")
+    console.print("3. Select index (cfps or cfps_talks)")
+    console.print("4. Under 'Events collection', click 'One-time upload of past events'")
+    console.print(f"5. Upload the corresponding CSV:\n   - {cfp_path}\n   - {talk_path}")
+
+
 if __name__ == "__main__":
     app()

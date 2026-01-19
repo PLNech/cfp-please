@@ -191,7 +191,7 @@
 }
 
 .inspire-modal-cfp-card {
-  background: var(--color-background);
+  background: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4);

@@ -1,0 +1,2060 @@
+{
+  "discovered_at": "2026-01-18 21:59:46",
+  "speakers_searched": 37,
+  "discoveries": [
+    {
+      "speaker": "Sarah Dayan",
+      "speaker_id": "sarah-dayan",
+      "new_videos": [
+        {
+          "video_id": "TsgsaV576SY",
+          "title": "Learning from the Mistakes of a v1 by Sarah Dayan at JSCONF.BE 2020",
+          "duration": 3585.0,
+          "channel": "JSConf Belgium The Belgian JS Conference",
+          "view_count": 213
+        },
+        {
+          "video_id": "BDBycj8ttvs",
+          "title": "The Future of Search (with Sarah Dayan)",
+          "duration": 3837.0,
+          "channel": "leerob",
+          "view_count": 2022
+        },
+        {
+          "video_id": "g6wtyg3O4Fo",
+          "title": "Utility First CSS Isn\u2019t Inline Styles | Sarah Dayan | CSS Day 2024",
+          "duration": 3142.0,
+          "channel": "Web Conferences Amsterdam",
+          "view_count": 7031
+        },
+        {
+          "video_id": "R50q4NES6Iw",
+          "title": "dotCSS 2019 - Sarah Dayan - In Defense of Utility-First CSS",
+          "duration": 1062.0,
+          "channel": "dotconferences",
+          "view_count": 10814
+        },
+        {
+          "video_id": "m6ID-dv2f34",
+          "title": "Falsehoods programmers believe about money - Sarah Dayan",
+          "duration": 1961.0,
+          "channel": "Nearform",
+          "view_count": 1459
+        },
+        {
+          "video_id": "LXR1DRm-Gzo",
+          "title": "Sarah Dayan - Test-Driven Development with Vue.js - Vue.js Amsterdam 2020",
+          "duration": 1436.0,
+          "channel": "Vuejs Amsterdam",
+          "view_count": 4580
+        },
+        {
+          "video_id": "7WQ00Y-80qs",
+          "title": "JavaScript Autocomplete (with Sarah Dayan) \u2014 Learn With Jason",
+          "duration": 5388.0,
+          "channel": "CodeTV",
+          "view_count": 4063
+        },
+        {
+          "video_id": "PcrzsCdoFoY",
+          "title": "CSS best practices - Introduction to Atomic CSS ft Sarah Dayan | Prismic",
+          "duration": 1139.0,
+          "channel": "Prismic",
+          "view_count": 5404
+        },
+        {
+          "video_id": "x6j27eq9mKA",
+          "title": "Inside Intercom: Algolia\u2019s Sarah Dayan on what sets a staff plus engineer apart",
+          "duration": 2126.0,
+          "channel": "Intercom",
+          "view_count": 302
+        },
+        {
+          "video_id": "HhLeb38T7D0",
+          "title": "Olle Br\u00e5ne och Sarah Dayan fr\u00e5n IAB Sveriges task force Programmatic",
+          "duration": 655.0,
+          "channel": "IAB Sverige",
+          "view_count": 151
+        },
+        {
+          "video_id": "HW0BvDCSspE",
+          "title": "From PHP to Javascript | Sarah Dayan's programming journey | Prismic",
+          "duration": 1268.0,
+          "channel": "Prismic",
+          "view_count": 1279
+        },
+        {
+          "video_id": "WUZnJy5MxrY",
+          "title": "\"Outstanding Search Experiences with Remix and Algolia\" by Sarah Dayan at #RemixConf \ud83d\udcbf",
+          "duration": 1301.0,
+          "channel": "Remix",
+          "view_count": 5755
+        },
+        {
+          "video_id": "OiAMdmUucPM",
+          "title": "JSJ 351: Dinero.js with Sarah Dayan",
+          "duration": 4330.0,
+          "channel": "Top End Devs",
+          "view_count": 162
+        },
+        {
+          "video_id": "pr2Ww5i6YqE",
+          "title": "How FDI contributes to sustainable development and in which conditions ? - Sarah Dayan, OECD",
+          "duration": 512.0,
+          "channel": "ANIMA Investment Network",
+          "view_count": 145
+        },
+        {
+          "video_id": "IZWgOfW9wHg",
+          "title": "IAB Sweden Programmatic All Event: Sarah Dayan, PHD Media & Olle Br\u00e5ne, Bauer Media",
+          "duration": 643.0,
+          "channel": "IAB Sverige",
+          "view_count": 348
+        },
+        {
+          "video_id": "HuU0nxo20lU",
+          "title": "IAB Sweden Programmatic Event 2021 \u2013 Sara Dayan & Rikard Bildsten",
+          "duration": 929.0,
+          "channel": "IAB Sverige",
+          "view_count": 132
+        },
+        {
+          "video_id": "DD1fEhcEzY8",
+          "title": "Test driven development with Vue.js by Sarah Dayan",
+          "duration": 1867.0,
+          "channel": "VueConf Toronto",
+          "view_count": 36604
+        },
+        {
+          "video_id": "KU6YAAnShuc",
+          "title": "Building Canada's Sustainable Resource Future with Foreign Direct Investment | Sarah Fedorchuk",
+          "duration": 887.0,
+          "channel": "TheFutureEconomy.ca",
+          "view_count": 100
+        },
+        {
+          "video_id": "knP48VEhDNw",
+          "title": "Serverless Functions & Vue.JS - Sarah Drasner - Serverless London 2018",
+          "duration": 2565.0,
+          "channel": "ServerlessDays",
+          "view_count": 278
+        }
+      ]
+    },
+    {
+      "speaker": "Dustin Coates",
+      "speaker_id": "dustin-coates",
+      "new_videos": [
+        {
+          "video_id": "N4chH6YCnsk",
+          "title": "An introduction to Google Assistant development with Dustin Coates - Dabble Lab #151",
+          "duration": 2831.0,
+          "channel": "Dabble Lab",
+          "view_count": 360
+        },
+        {
+          "video_id": "1Wp53PDln5U",
+          "title": "Dustin Coates (Algolia) : Fury Road to a worldwide API",
+          "duration": 744.0,
+          "channel": "B2B Rocks",
+          "view_count": 119
+        },
+        {
+          "video_id": "P01XNVJyh4E",
+          "title": "Toward Increased Understanding: Semantic Search of the Future - Dustin Coates, Algolia",
+          "duration": 825.0,
+          "channel": "Algolia",
+          "view_count": 482
+        },
+        {
+          "video_id": "vTXcz6f8V1E",
+          "title": "VUX World Live: The Rundown with Dustin Coates and Claire Mitchell",
+          "duration": 3397.0,
+          "channel": "VUX World",
+          "view_count": 39
+        },
+        {
+          "video_id": "mwU_GUzoGNs",
+          "title": "Using Algolia to add voice search to your Alexa skills with Dustin Coates - Dabble Lab #172",
+          "duration": 1378.0,
+          "channel": "Dabble Lab",
+          "view_count": 484
+        }
+      ]
+    },
+    {
+      "speaker": "Maria Lungu",
+      "speaker_id": "maria-lungu",
+      "new_videos": [
+        {
+          "video_id": "AXxhiXBI4N8",
+          "title": "The Price of Greatness is True Responsibility | Maria Lungu | TEDxUBotswana",
+          "duration": 633.0,
+          "channel": "TEDx Talks",
+          "view_count": 592
+        },
+        {
+          "video_id": "pnt-0pS-bNo",
+          "title": "How we Collaborate to build trustworthy Shopping Assistants - Maria Lungu, Paul-Louis Nech - MICES",
+          "duration": 2080.0,
+          "channel": "MIx-Camp E-commerce Search",
+          "view_count": 66
+        },
+        {
+          "video_id": "DV8cmHvFE6Y",
+          "title": "Maria Lungu, dezv\u0103luiri dup\u0103 separarea de Mircea Eremia: \u201cAm aflat totul din pres\u0103, am fost \u0219ocat\u0103\u201d",
+          "duration": 1087.0,
+          "channel": "WOWnews",
+          "view_count": 11284
+        },
+        {
+          "video_id": "BzXpLTP2EZU",
+          "title": "Maria Lungu at unREDacted with Rodica Cior\u0103nic\u0103",
+          "duration": 3033.0,
+          "channel": "Rodica Cior\u0103nic\u0103",
+          "view_count": 57962
+        },
+        {
+          "video_id": "Ms47KAMnQWw",
+          "title": "O seara in familie cu Gabi Lungu si Catalin Lungu",
+          "duration": 3606.0,
+          "channel": "Rusalina Russu",
+          "view_count": 24965
+        },
+        {
+          "video_id": "N0PoQOEHtzg",
+          "title": "\u274c\ufe0f\ud83d\ude31Maria Lungu to Marinescu-why are you provoking me, why are you making me talk...scandal betwee...",
+          "duration": 678.0,
+          "channel": "MireasaBreakingNews ",
+          "view_count": 453
+        },
+        {
+          "video_id": "UTZ3LwDFVyk",
+          "title": "R\u0103zboinica Maria Lungu, comentarii \u00een stilu-i caracteristic",
+          "duration": 458.0,
+          "channel": "La M\u0103ru\u021b\u0103",
+          "view_count": 4763
+        },
+        {
+          "video_id": "VDHPNshRu6s",
+          "title": "\ud83d\ude32\u2757\ufe0fMaria Lungu makes harsh accusations against Marinescu\u2757\ufe0f\ud83d\ude32",
+          "duration": 1545.0,
+          "channel": "OnXShow",
+          "view_count": 581
+        },
+        {
+          "video_id": "LNj4btYjFA4",
+          "title": "\ud83d\udc96Maria Lungu a c\u0103zut \u00een capcana IUBIRII! Ce propunere i-a f\u0103cut Mircea Eremia?",
+          "duration": 672.0,
+          "channel": "Xtra Night Show",
+          "view_count": 9438
+        },
+        {
+          "video_id": "wUsIFo1NlhA",
+          "title": "Jador a \u00eempins-o pe Maria Lungu \u00een ap\u0103 la Survivor All Star. Cum \u0219i-a cerut scuze vedeta?",
+          "duration": 839.0,
+          "channel": "Catalin Maruta",
+          "view_count": 14208
+        },
+        {
+          "video_id": "2r9EwAvUgio",
+          "title": "Maria Lungu, despre afacerea pe care urmeaz\u0103 s\u0103 o lanseze: E un produs s\u0103n\u0103tos!",
+          "duration": 527.0,
+          "channel": "Xtra Night Show",
+          "view_count": 3720
+        },
+        {
+          "video_id": "G_SbK7uUQVw",
+          "title": "Maria Lungu \u25cf Live in Targoviste (cu 3NIGMATYK ) \u25cf 9 Decembrie 2019",
+          "duration": 820.0,
+          "channel": "Maria Lungu",
+          "view_count": 337
+        },
+        {
+          "video_id": "lTIME5ro9nQ",
+          "title": "2020: Maria Lungu & 3NIGMATYK la BABY BOOM SHOW \u25cf Bucuresti, Romexpo",
+          "duration": 1028.0,
+          "channel": "Maria Lungu",
+          "view_count": 288
+        },
+        {
+          "video_id": "pkRHX2LepgE",
+          "title": "Maria Lungu, eliminat\u0103 de la SURVIVOR spre fericirea r\u0103zboinicilor",
+          "duration": 1402.0,
+          "channel": "La M\u0103ru\u021b\u0103",
+          "view_count": 31901
+        },
+        {
+          "video_id": "LIFOKbP8v9M",
+          "title": "Mariana Harjevschi si Gabi Lungu la Cine vine la noi",
+          "duration": 597.0,
+          "channel": "LIVE STUDIO, TV Moldova 1",
+          "view_count": 451
+        },
+        {
+          "video_id": "r3wlG5EQya0",
+          "title": "Culisele iubirii cu Bianca Com\u0103nici. Maria, \u00een lacrimi \u201c\u00cemi doream afec\u021biune din partea lui George\u201d",
+          "duration": 2066.0,
+          "channel": "WOWnews",
+          "view_count": 48810
+        }
+      ]
+    },
+    {
+      "speaker": "Paul-Louis Nech",
+      "speaker_id": "paul-louis-nech",
+      "new_videos": [
+        {
+          "video_id": "pnt-0pS-bNo",
+          "title": "How we Collaborate to build trustworthy Shopping Assistants - Maria Lungu, Paul-Louis Nech - MICES",
+          "duration": 2080.0,
+          "channel": "MIx-Camp E-commerce Search",
+          "view_count": 66
+        },
+        {
+          "video_id": "un0cFiN65yg",
+          "title": "Coop\u00e9rer avec d'autres m\u00e9tiers - Paul-Louis Nech",
+          "duration": 2506.0,
+          "channel": "Association e-BIGO",
+          "view_count": 96
+        }
+      ]
+    },
+    {
+      "speaker": "David Bacon",
+      "speaker_id": "david-bacon",
+      "new_videos": [
+        {
+          "video_id": "vAQBnP_9w6Y",
+          "title": "David Bacon speaking at the DSA National Convention",
+          "duration": 1975.0,
+          "channel": "Herb Shore",
+          "view_count": 374
+        },
+        {
+          "video_id": "U1PXka-Sbq4",
+          "title": "David Bacon - 2011 Gandhi-King Conference",
+          "duration": 3679.0,
+          "channel": "Mid-South Peace and Justice Center",
+          "view_count": 174
+        },
+        {
+          "video_id": "cHjjafytKqA",
+          "title": "In-Conversation with David Bacon & Kevin De Le\u00f3n: Movements for Change in California",
+          "duration": 3478.0,
+          "channel": "Stanford University Libraries",
+          "view_count": 194
+        },
+        {
+          "video_id": "WfyQv_C-VEw",
+          "title": "MORE THAN A WALL / M\u00c1S QUE UN MURO By David Bacon",
+          "duration": 4854.0,
+          "channel": "UCLA Latin American Institute",
+          "view_count": 133
+        },
+        {
+          "video_id": "l4AhuX3ju4Y",
+          "title": "David Bacon | More Than A Wall: M\u00e1s Que Un Muro",
+          "duration": 5441.0,
+          "channel": "Labor Solidarity Project",
+          "view_count": 64
+        },
+        {
+          "video_id": "jIaqJjCCwnA",
+          "title": "Fedsprout David Bacon & Related Acts Training",
+          "duration": 2437.0,
+          "channel": "Fedsprout",
+          "view_count": 14
+        },
+        {
+          "video_id": "Tuq-elBmXnM",
+          "title": "Issues Confronting Farmworkers Today: A Talk by David Bacon",
+          "duration": 3556.0,
+          "channel": "Tawny Paul",
+          "view_count": 12
+        },
+        {
+          "video_id": "cIhxoJNFvfk",
+          "title": "Ponencia magistral. M\u00e1s que un Muro / More than a Wall. David Bacon",
+          "duration": 2691.0,
+          "channel": "Conferencia Binacional On Border Issues",
+          "view_count": 67
+        },
+        {
+          "video_id": "IZ9M-ceUDPg",
+          "title": "Colorlines Critical Issues: Rinku Sen and David Bacon",
+          "duration": 566.0,
+          "channel": "AccidentalAmerican",
+          "view_count": 529
+        },
+        {
+          "video_id": "Nhezcns7ZqY",
+          "title": "ICSS 20200927   Labor and Immigration   David Bacon",
+          "duration": 7451.0,
+          "channel": "ICSS Marxist",
+          "view_count": 47
+        },
+        {
+          "video_id": "Pd4OLdaoxvg",
+          "title": "David Bacon - How Globalization Creates Migration and Criminalizes Immigrants",
+          "duration": 4986.0,
+          "channel": "pdxjustice Media Productions",
+          "view_count": 9065
+        },
+        {
+          "video_id": "uR8uKS-MPfc",
+          "title": "AMBC Speaking Event - David Bacon Introduces Chloe Cole!",
+          "duration": 720.0,
+          "channel": "David Bacon",
+          "view_count": 54
+        },
+        {
+          "video_id": "NNwQOMzWHBw",
+          "title": "David Bacon - How Globalization Creates Migration and Criminalizes Immigrants",
+          "duration": 600.0,
+          "channel": "pdxjustice Media Productions",
+          "view_count": 2988
+        },
+        {
+          "video_id": "GO5FH-OCGr4",
+          "title": "David Bacon, Current Immigration under Trump",
+          "duration": 1730.0,
+          "channel": "Latin Waves Media",
+          "view_count": 48
+        },
+        {
+          "video_id": "xSrPedY9S64",
+          "title": "San Diego Mesa College Art Gallery presents David Bacon",
+          "duration": 4785.0,
+          "channel": "San Diego Mesa College",
+          "view_count": 6
+        },
+        {
+          "video_id": "Fq0Ytc-_59Q",
+          "title": "This Week: Interview with Labor Reporter David Bacon",
+          "duration": 399.0,
+          "channel": "KQED",
+          "view_count": 327
+        },
+        {
+          "video_id": "4dG07F6ILO0",
+          "title": "UW Allen School Colloquium: David Bacon (Google)",
+          "duration": 4032.0,
+          "channel": "Paul G. Allen School",
+          "view_count": 693
+        },
+        {
+          "video_id": "LrHZo4UfZ2E",
+          "title": "Global and Identity Challenges - April 15, 2015 - David Bacon",
+          "duration": 3000.0,
+          "channel": "CSUSonoma",
+          "view_count": 20
+        },
+        {
+          "video_id": "jUUzrvGP2ck",
+          "title": "Truthout Radio with David Bacon 11-20-12",
+          "duration": 898.0,
+          "channel": "Ted Asregadoo",
+          "view_count": null
+        },
+        {
+          "video_id": "Pyw34Fxd4kM",
+          "title": "Red Lens Podcast Episode 6: David Bacon on US-Mexico border photography",
+          "duration": 4256.0,
+          "channel": "Red Lens Podcast",
+          "view_count": 26
+        },
+        {
+          "video_id": "CJKwQ5MDdAM",
+          "title": "David Bacon on the \"NAFTA Flu\"",
+          "duration": 536.0,
+          "channel": "FoodFirst",
+          "view_count": 233
+        },
+        {
+          "video_id": "WEkifI20Sek",
+          "title": "David Bacon on Trade and Immigration Policies",
+          "duration": 2626.0,
+          "channel": "San Francisco Living Wage",
+          "view_count": 103
+        },
+        {
+          "video_id": "5GrQawfNbIM",
+          "title": "David Bacon on Corporate Labor Responsibility",
+          "duration": 319.0,
+          "channel": "CGTN Global Business",
+          "view_count": 161
+        },
+        {
+          "video_id": "DDcMl_VdBmM",
+          "title": "Economic Approaches to Software Correctness, David Bacon",
+          "duration": 2972.0,
+          "channel": "Workshop on Software Correctness and Reliability 2013",
+          "view_count": 284
+        },
+        {
+          "video_id": "HIyJP58NRhQ",
+          "title": "David Bacon - Designing for ethics: How UX can lead in the age of AI",
+          "duration": 1155.0,
+          "channel": "UXCamp Naarm | Melbourne",
+          "view_count": 89
+        },
+        {
+          "video_id": "DWpaPDaMLsI",
+          "title": "(3/3) David Bacon on PNM & Climate Change in New Mexico (9/15/2012)",
+          "duration": 596.0,
+          "channel": "0ccupyNewMexico",
+          "view_count": 15
+        },
+        {
+          "video_id": "hkq0ClxnZGw",
+          "title": "ICSS 20220626 - More Than a Wall - David Bacon",
+          "duration": 7108.0,
+          "channel": "ICSS Marxist",
+          "view_count": 69
+        },
+        {
+          "video_id": "ZeVNEWlrgCM",
+          "title": "American Agitators & Delano Manongs- Reel Work Labor Film Festival w/ David Bacon & Elbina Rafizadeh",
+          "duration": 5623.0,
+          "channel": "John Doe13k",
+          "view_count": 256
+        },
+        {
+          "video_id": "_Y1tiZhjMY8",
+          "title": "Masked Marvel Mystery - David Bacon",
+          "duration": 756.0,
+          "channel": "Shaun789",
+          "view_count": 1234
+        },
+        {
+          "video_id": "488uhjl1nrk",
+          "title": "Business Ink- UP Close Interview with PLH Chairman, David Bacon.",
+          "duration": 1158.0,
+          "channel": "Rob Corse-Scott",
+          "view_count": 48
+        },
+        {
+          "video_id": "EiVRSa9VEao",
+          "title": "noone gets to talk: Dan Soder, Ian Fidance, Jordan Jensen, David Bacon",
+          "duration": 641.0,
+          "channel": "Comedians Opening Cards No Coffee",
+          "view_count": 2677
+        },
+        {
+          "video_id": "ajeyTQI_QB4",
+          "title": "David Bacon November 15, 2019",
+          "duration": 1840.0,
+          "channel": "David Feldman",
+          "view_count": 34
+        },
+        {
+          "video_id": "_GeFicJq9_4",
+          "title": "David Bacon December 20, 2019",
+          "duration": 2075.0,
+          "channel": "David Feldman",
+          "view_count": 28
+        },
+        {
+          "video_id": "hy40R9ccgTk",
+          "title": "\"Running the Race: Vision Sunday 2025\" with David Bacon",
+          "duration": 1204.0,
+          "channel": "St Jude's Church, Southsea",
+          "view_count": 12
+        },
+        {
+          "video_id": "Eci7-6YaSG8",
+          "title": "(2/3) David Bacon on LANL & Climate Change in New Mexico (9/15/2012)",
+          "duration": 557.0,
+          "channel": "0ccupyNewMexico",
+          "view_count": 7
+        },
+        {
+          "video_id": "ocBR3dnZrhc",
+          "title": "COVID, Immigration, and Issues Confronting Farmworkers Today : A Talk By Activist David Bacon",
+          "duration": 3583.0,
+          "channel": "UCLA History-Geography Project",
+          "view_count": 59
+        },
+        {
+          "video_id": "zWKrMT0Pvdw",
+          "title": "David Bacon December 26, 2020",
+          "duration": 1350.0,
+          "channel": "David Feldman",
+          "view_count": 13
+        },
+        {
+          "video_id": "LF0dcdeAme0",
+          "title": "Mike Zint speech at David Bacon\"s Photo Exhibit",
+          "duration": 442.0,
+          "channel": "Mike Zint",
+          "view_count": 146
+        },
+        {
+          "video_id": "9h2x7yt80j8",
+          "title": "David Bacon December 25, 2020",
+          "duration": 2730.0,
+          "channel": "David Feldman",
+          "view_count": 15
+        },
+        {
+          "video_id": "ChBPNFE6GMw",
+          "title": "Mike Lee speech at David Bacon's photo exhibit",
+          "duration": 467.0,
+          "channel": "Mike Zint",
+          "view_count": 151
+        },
+        {
+          "video_id": "_w1oUkaIMOk",
+          "title": "ROD GRAY AND DAVID BACON INTERVIEW",
+          "duration": 4747.0,
+          "channel": "Owls Nest BBQ Show",
+          "view_count": 217
+        },
+        {
+          "video_id": "-BvjU4qz0zY",
+          "title": "David Bacon December 31, 2020",
+          "duration": 4045.0,
+          "channel": "David Feldman",
+          "view_count": 23
+        },
+        {
+          "video_id": "W62fTUp4nDE",
+          "title": "ICSS 20230507 The Struggle for Housing in California   David Bacon",
+          "duration": 5171.0,
+          "channel": "ICSS Marxist",
+          "view_count": 58
+        },
+        {
+          "video_id": "QLg9O7tDUAY",
+          "title": "David Bacon With John Kerry December 17, 2019",
+          "duration": 1760.0,
+          "channel": "David Feldman",
+          "view_count": 25
+        },
+        {
+          "video_id": "pp4-CBu0uX8",
+          "title": "David Bacon January 3, 2020",
+          "duration": 5155.0,
+          "channel": "David Feldman",
+          "view_count": 26
+        },
+        {
+          "video_id": "egWaCNpGt9s",
+          "title": "In the Fields of the North: David Bacon Exhibit Part 2",
+          "duration": 1566.0,
+          "channel": "RJ MARTINEZ",
+          "view_count": 126
+        },
+        {
+          "video_id": "RWNOGDaaJ5g",
+          "title": "Bacon Engineering is a one-stop shop for bespoke engineering solutions",
+          "duration": 383.0,
+          "channel": "MTDCNC",
+          "view_count": 1798
+        },
+        {
+          "video_id": "R9CHvJ7u0SM",
+          "title": "Dave Bacon: Enlarging the \"IS\" in\u00a0NISQ",
+          "duration": 2636.0,
+          "channel": "QuICS",
+          "view_count": 210
+        }
+      ]
+    },
+    {
+      "speaker": "Tom Clark",
+      "speaker_id": "tom-clark",
+      "new_videos": [
+        {
+          "video_id": "fE7ax03FHVk",
+          "title": "Tom Clark Presentation",
+          "duration": 1811.0,
+          "channel": "Steve Chrismer",
+          "view_count": 3
+        },
+        {
+          "video_id": "MuitZAJqo_U",
+          "title": "Transforming Consciousness: A Talk by Tom Clark",
+          "duration": 3680.0,
+          "channel": "Buffalo State Freethinkers",
+          "view_count": 7123
+        },
+        {
+          "video_id": "2mz1CDywP14",
+          "title": "Tom Clark (4 of 4) @ ReasonFest 2011",
+          "duration": 707.0,
+          "channel": "KU Soma",
+          "view_count": 44
+        },
+        {
+          "video_id": "zXZH2C5RMGc",
+          "title": "Tom Clark (1 of 4) @ ReasonFest 2011",
+          "duration": 894.0,
+          "channel": "KU Soma",
+          "view_count": 76
+        },
+        {
+          "video_id": "bidg6W2fnOY",
+          "title": "Tom Clark (2 of 4) @ ReasonFest 2011",
+          "duration": 885.0,
+          "channel": "KU Soma",
+          "view_count": 33
+        },
+        {
+          "video_id": "fvM0sdqWzLc",
+          "title": "Tom Clark talk on the benefits of determinism",
+          "duration": 2860.0,
+          "channel": "Tom Clark",
+          "view_count": 1784
+        },
+        {
+          "video_id": "k0VBFKXroCE",
+          "title": "Tom Clark (3 of 4) @ ReasonFest",
+          "duration": 853.0,
+          "channel": "KU Soma",
+          "view_count": 36
+        },
+        {
+          "video_id": "rFi8jz0-WvM",
+          "title": "How To Make People Uncomfortable. Tom Clark - Full Special",
+          "duration": 2169.0,
+          "channel": "Dry Bar Comedy",
+          "view_count": 927295
+        },
+        {
+          "video_id": "x1_pfxrM_r8",
+          "title": "Tom Clark Anheuser-Busch",
+          "duration": 1673.0,
+          "channel": "Richard Mauro Ricchiuti",
+          "view_count": 174
+        },
+        {
+          "video_id": "b8odw1wV3BQ",
+          "title": "Tom Clark - Pragmatic Determinism",
+          "duration": 3846.0,
+          "channel": "Freethought Arizona",
+          "view_count": 759
+        },
+        {
+          "video_id": "9SNjPKCn1K0",
+          "title": "May 13 Expo: Capital CFO Ignites the Conversation with Tom Clark",
+          "duration": 1095.0,
+          "channel": "Virtual Propane Expo",
+          "view_count": 3
+        },
+        {
+          "video_id": "yezftBxgiOU",
+          "title": "May 13 Expo: Capital CFO Ignites the Conversation with Tom Clark",
+          "duration": 1085.0,
+          "channel": "Virtual Propane Expo",
+          "view_count": 11
+        },
+        {
+          "video_id": "YB_yOdgU6NY",
+          "title": "Tom Clark 4 of 4) @ ReasonFest 2011",
+          "duration": 707.0,
+          "channel": "ReasonFest",
+          "view_count": 4
+        },
+        {
+          "video_id": "HipO4hjxehI",
+          "title": "Hosting HISF 2016 | Tom Clark",
+          "duration": 614.0,
+          "channel": "Speakers Spotlight",
+          "view_count": 49
+        },
+        {
+          "video_id": "hhS4AvrZK8E",
+          "title": "Dr. Tom Clark--Dean's Seminar",
+          "duration": 4121.0,
+          "channel": "SchurzLibrary",
+          "view_count": 295
+        },
+        {
+          "video_id": "xc1KRq59JUo",
+          "title": "ITV Technology Forum: Common Platform Specification v0.1.0-alpha (Tom Clark)",
+          "duration": 2859.0,
+          "channel": "Tom Clark",
+          "view_count": 113
+        },
+        {
+          "video_id": "n5HQaUyf1lA",
+          "title": "Tom Clark: Fireside Chat",
+          "duration": 1258.0,
+          "channel": "The Breakout Project",
+          "view_count": 67
+        },
+        {
+          "video_id": "hkkveRHHY5g",
+          "title": "ReasonFest '11: Tom Clark - Implications of Worldview Naturalism 1 of 4",
+          "duration": 771.0,
+          "channel": "Philonoist42",
+          "view_count": 548
+        },
+        {
+          "video_id": "I-KV3TK3vWo",
+          "title": "The APAT Show with Tom Clark (S1 EP26)",
+          "duration": 10502.0,
+          "channel": "APAT Archive Channel",
+          "view_count": 14
+        },
+        {
+          "video_id": "DAN0_WrS6ho",
+          "title": "Tom Clark's Talk in King's Class",
+          "duration": 2534.0,
+          "channel": "Spring Creek Church WI",
+          "view_count": 140
+        },
+        {
+          "video_id": "EWK_IAX9Pjo",
+          "title": "Tom Clark Keynote - YEC 2021",
+          "duration": 1604.0,
+          "channel": "The YEC UK",
+          "view_count": 6
+        },
+        {
+          "video_id": "EBhuC_whbsw",
+          "title": "Dr. Tom Clark: How Does Cannabis Reduce Obesity Rates?",
+          "duration": 998.0,
+          "channel": "SchurzLibrary",
+          "view_count": 447
+        },
+        {
+          "video_id": "72BKghej_zA",
+          "title": "ReasonFest '11: Tom Clark - Implications of Worldview Naturalism 2 of 4",
+          "duration": 901.0,
+          "channel": "Philonoist42",
+          "view_count": 254
+        },
+        {
+          "video_id": "v4PenrAwDMo",
+          "title": "ITV TechForum: CPv2 (Tom Clark)",
+          "duration": 2232.0,
+          "channel": "Tom Clark",
+          "view_count": 96
+        },
+        {
+          "video_id": "vafb5hdpoxo",
+          "title": "Tom Clark - Adventures On Two Wheels",
+          "duration": 567.0,
+          "channel": "Old Tom Rides",
+          "view_count": 272
+        },
+        {
+          "video_id": "6QUUdX76JtE",
+          "title": "Surfing the Storms of Life | Tom Clark on Art, Faith & His New Book Impacted | Raw Surf Podcast",
+          "duration": 1590.0,
+          "channel": "Raw Surf",
+          "view_count": 62
+        },
+        {
+          "video_id": "xCsANNlZVhY",
+          "title": "The Patton Report Episode 8: An Interview With Tom Clark",
+          "duration": 3675.0,
+          "channel": "Boink Studios",
+          "view_count": 5
+        },
+        {
+          "video_id": "EYvCJhFJOQI",
+          "title": "Part 3 of Tom Clark's speech to the Freethought Association",
+          "duration": 584.0,
+          "channel": "rhetoricalmonkey",
+          "view_count": 569
+        },
+        {
+          "video_id": "dQ9Ry_uXAys",
+          "title": "Nick Clegg talks to Prospect's Tom Clark | Lib Dem conference 2017",
+          "duration": 4648.0,
+          "channel": "Prospect Magazine",
+          "view_count": 876
+        },
+        {
+          "video_id": "XH9J42PC_68",
+          "title": "ReasonFest '11: Tom Clark - The Implications of Worldview Naturalism 3 of 4",
+          "duration": 839.0,
+          "channel": "Philonoist42",
+          "view_count": 127
+        },
+        {
+          "video_id": "yGHd1JKf1qU",
+          "title": "Tom Clark, Head of Common Platform @ ITV: Are you happy at work?",
+          "duration": 1116.0,
+          "channel": "The Exchange",
+          "view_count": 709
+        },
+        {
+          "video_id": "rMq1hf72S8g",
+          "title": "Canada\u2019s New York Consul General Tom Clark at the Bloomberg Canadian Finance Conference 2024",
+          "duration": 710.0,
+          "channel": "Bloomberg Live",
+          "view_count": 223
+        },
+        {
+          "video_id": "4eDsoTAoQKk",
+          "title": "PBA Commissioner Tom Clark On The State Of Bowling & The PBA | Tour Talk",
+          "duration": 6784.0,
+          "channel": "Virtue Bowling Supply",
+          "view_count": 8112
+        },
+        {
+          "video_id": "TGA4uTKORso",
+          "title": "Ep. 55: What Really Happens When We Die? \u2013 Tom Clark",
+          "duration": 4381.0,
+          "channel": "Atheists United",
+          "view_count": 1048
+        },
+        {
+          "video_id": "MFLz5dxc5sc",
+          "title": "June 17 Expo: Women in Propane Ignite the Conversation with Tom Clark",
+          "duration": 1435.0,
+          "channel": "Virtual Propane Expo",
+          "view_count": 12
+        },
+        {
+          "video_id": "V94BUQ7aijM",
+          "title": "JLL Denver 2016 Horizon Event: Tom Clark",
+          "duration": 1011.0,
+          "channel": "JLL Denver",
+          "view_count": 24
+        },
+        {
+          "video_id": "J0wTRuHr4PY",
+          "title": "Dr. Tom Clark: \"Marijuana: the Therapeutic and Preventative Power of Cannabis\"",
+          "duration": 5974.0,
+          "channel": "Julie Feighery",
+          "view_count": 736
+        },
+        {
+          "video_id": "-tQyQtUnE1A",
+          "title": "Tom Clark in Ukraine",
+          "duration": 403.0,
+          "channel": "Global News",
+          "view_count": 312
+        },
+        {
+          "video_id": "RTvcceM7Tz0",
+          "title": "2021 AMSAT Dr. Tom Clark, K3IO, Memorial Space Symposium and Annual General Meeting",
+          "duration": 29235.0,
+          "channel": "The Radio Amateur Satellite Corporation",
+          "view_count": 1526
+        },
+        {
+          "video_id": "6XXhsSUnHuI",
+          "title": "Solving for Happiness at ITV - Tom Clark",
+          "duration": 1276.0,
+          "channel": "IT Revolution",
+          "view_count": 237
+        },
+        {
+          "video_id": "evZoLB3nlO4",
+          "title": "ITV's Common Platform: Now with Added Windows - Tom Clark",
+          "duration": 1496.0,
+          "channel": "IT Revolution",
+          "view_count": 252
+        },
+        {
+          "video_id": "DgxJzncv2jY",
+          "title": "Construction Defects Update  | Q&A with Tom Clark",
+          "duration": 505.0,
+          "channel": "Denver Metro Association of Realtors\u00ae",
+          "view_count": 111
+        },
+        {
+          "video_id": "TjUtTQl7mDY",
+          "title": "Cleantech Innovate - Ocean Array Systems - Tom Clark",
+          "duration": 304.0,
+          "channel": "Cleantech Innovate",
+          "view_count": 143
+        },
+        {
+          "video_id": "QqKPx6EKaY4",
+          "title": "Death, Nothingness, and Subjectivity | Tom Clark",
+          "duration": 4375.0,
+          "channel": "Chris | Entertaining Ideas",
+          "view_count": 3729
+        },
+        {
+          "video_id": "alks6cBO-eg",
+          "title": "Tony Clark Realtors Podcast: Angela Clark and Tom Clark, Service & Owensboro Kentucky Real Estate",
+          "duration": 557.0,
+          "channel": "Tony Clark Realtors  Owensboro Kentucky",
+          "view_count": 74
+        },
+        {
+          "video_id": "RYe_6COjfLE",
+          "title": "\"A Guided Tour of Dunder Methods\" - Tom Clark (Kiwi Pycon XI)",
+          "duration": 6162.0,
+          "channel": "Python New Zealand",
+          "view_count": 265
+        },
+        {
+          "video_id": "JOsYzUXysxU",
+          "title": "Gardening With Perennials with Speaker Tom Clark: 4-26-23",
+          "duration": 3955.0,
+          "channel": "Hadley Media",
+          "view_count": 117
+        },
+        {
+          "video_id": "TGA4uTKORso",
+          "title": "Ep. 55: What Really Happens When We Die? \u2013 Tom Clark",
+          "duration": 4381.0,
+          "channel": "Atheists United",
+          "view_count": 1048
+        },
+        {
+          "video_id": "exwtTKEpyjI",
+          "title": "Plane Talk with Tom Clark (March 21, 2016)",
+          "duration": 342.0,
+          "channel": "Erin OToole",
+          "view_count": 169
+        },
+        {
+          "video_id": "AgIesvSYd8A",
+          "title": "Tom Clark's Main Event Episode 280",
+          "duration": 4432.0,
+          "channel": "Wrestling Rumors",
+          "view_count": 9
+        },
+        {
+          "video_id": "WcItnEGmmmg",
+          "title": "Tom Clark...over the years....",
+          "duration": 400.0,
+          "channel": "Tom Clark",
+          "view_count": 5
+        },
+        {
+          "video_id": "4766ydbO_GI",
+          "title": "DOES London 2016 w/ Tom Clark of ITV",
+          "duration": 304.0,
+          "channel": "Techstrong TV",
+          "view_count": 62
+        },
+        {
+          "video_id": "-cIBfbYk3p0",
+          "title": "John Hills and Tom Clark on the Post-Recession Era",
+          "duration": 420.0,
+          "channel": "The RSA",
+          "view_count": 1386
+        },
+        {
+          "video_id": "zvdkC4T1JfY",
+          "title": "Scott Cooper invites Tom Clark, ED of The Fort Gordon Alliance to speak to Edgefield Residents",
+          "duration": 1822.0,
+          "channel": "Scott Cooper",
+          "view_count": 185
+        },
+        {
+          "video_id": "9NkCFw6ELn8",
+          "title": "Downsizing SPOILER Ep 71 with Tom Clark - Comedy Film Nerds",
+          "duration": 2496.0,
+          "channel": "Comedy Film Nerds",
+          "view_count": 85
+        },
+        {
+          "video_id": "-T8nt3EHSdo",
+          "title": "The Father's Heart Show with Papa Tom    On News/Talk WSIC wsicnews.com",
+          "duration": 1637.0,
+          "channel": "WSIC News",
+          "view_count": 13
+        },
+        {
+          "video_id": "04MuGJbhOLs",
+          "title": "Tom Clark",
+          "duration": 514.0,
+          "channel": "Dave Gourdoux",
+          "view_count": 8
+        },
+        {
+          "video_id": "4eDsoTAoQKk",
+          "title": "PBA Commissioner Tom Clark On The State Of Bowling & The PBA | Tour Talk",
+          "duration": 6784.0,
+          "channel": "Virtue Bowling Supply",
+          "view_count": 8112
+        },
+        {
+          "video_id": "IL3kY0cubgY",
+          "title": "The Ignite with Tom Clark Series \u2013 Odorant Testing and Propane Jurisdictional Accounts",
+          "duration": 1108.0,
+          "channel": "Virtual Propane Expo",
+          "view_count": 32
+        },
+        {
+          "video_id": "G1J1l8y1RoA",
+          "title": "Peaches and Powerbombs Episode 1 w/ Guest: Tom Clark",
+          "duration": 3565.0,
+          "channel": "Peaches and Powerbombs",
+          "view_count": 44
+        },
+        {
+          "video_id": "LjspJZgpptk",
+          "title": "The Commissioning by Tom Clark",
+          "duration": 783.0,
+          "channel": "St Peter's Battersea",
+          "view_count": 10
+        },
+        {
+          "video_id": "wpxFT4bWJBM",
+          "title": "2 23 25, Tom Clark, Go Transform Your World 4",
+          "duration": 1540.0,
+          "channel": "Tom Clark",
+          "view_count": 5
+        }
+      ]
+    },
+    {
+      "speaker": "Hamish Ogilvy",
+      "speaker_id": "hamish-ogilvy",
+      "new_videos": [
+        {
+          "video_id": "vgolhSJa26g",
+          "title": "Go Sydney Meetup June 2015 | Binary Encoding in Go with Hamish Ogilvy",
+          "duration": 1769.0,
+          "channel": "The Go Programming Language",
+          "view_count": 5385
+        }
+      ]
+    },
+    {
+      "speaker": "Haroen Viaene",
+      "speaker_id": "haroen-viaene",
+      "new_videos": [
+        {
+          "video_id": "Tj1LcjzdVBM",
+          "title": "Haroen Viaene - You\u2019re probably making an API client",
+          "duration": 1768.0,
+          "channel": "OdesaJS Conference",
+          "view_count": 172
+        },
+        {
+          "video_id": "462dXFuUg5o",
+          "title": "Abstract Components - Haroen Viaene - ParisJS #84",
+          "duration": 1907.0,
+          "channel": "ParisJS",
+          "view_count": 96
+        },
+        {
+          "video_id": "TW7mZEWoTlo",
+          "title": "Live Coding Session - Making a negative filter widget for InstantSearch - Haroen Viaene, Algolia",
+          "duration": 3793.0,
+          "channel": "Algolia",
+          "view_count": 1766
+        }
+      ]
+    },
+    {
+      "speaker": "Keshia Rose",
+      "speaker_id": "keshia-rose",
+      "new_videos": [
+        {
+          "video_id": "lxQqUmXnURU",
+          "title": "How to Get the Most Out of Your BI Tools - Keshia Rose | Crunch 2019",
+          "duration": 2494.0,
+          "channel": "CraftHub Events",
+          "view_count": 95
+        },
+        {
+          "video_id": "HteK89-xC24",
+          "title": "Demo Lab: Connector and Flow APIs - Keshia Rose, Algolia",
+          "duration": 3766.0,
+          "channel": "Algolia",
+          "view_count": 302
+        },
+        {
+          "video_id": "cuUlFy-djpA",
+          "title": "How We Got Rich In 30 Days With Action on 1 Idea! Keshia Blak|Cash Talk Podcast W Electric Kashflow",
+          "duration": 2742.0,
+          "channel": "From Unknown To Unforgettable  - Jerome Stampley ",
+          "view_count": 111
+        }
+      ]
+    },
+    {
+      "speaker": "Abhijit Mehta",
+      "speaker_id": "abhijit-mehta",
+      "new_videos": [
+        {
+          "video_id": "nXbdxQULVjw",
+          "title": "Webinar: Build Products Developers Love by fmr Twilio Staff Product Manager, Abhijit Mehta",
+          "duration": 1253.0,
+          "channel": "Product School",
+          "view_count": 400
+        },
+        {
+          "video_id": "pnaUAuJ4Xn4",
+          "title": "Webinar: User Story Maps - Communication Tool for PMs by fmr Twilio Staff PM, Abhijit Mehta",
+          "duration": 2059.0,
+          "channel": "Product School",
+          "view_count": 848
+        }
+      ]
+    },
+    {
+      "speaker": "Alphonse Bouy",
+      "speaker_id": "alphonse-bouy",
+      "new_videos": [
+        {
+          "video_id": "XpmsSaQg7XI",
+          "title": "[005] Alphonse Bouy - D\u00e9bugger un composant React legacy : cas pratique (2024/11/20)",
+          "duration": 1375.0,
+          "channel": "React Paris Meetup",
+          "view_count": 35
+        }
+      ]
+    },
+    {
+      "speaker": "Chuck Meyer",
+      "speaker_id": "chuck-meyer",
+      "new_videos": [
+        {
+          "video_id": "ZjokvTCVLw0",
+          "title": "Chuck Meyer - IP Roadmap for Media Production 10/16",
+          "duration": 4632.0,
+          "channel": "SMPTE - Sacramento Section",
+          "view_count": 119
+        },
+        {
+          "video_id": "NfS7zg8-pus",
+          "title": "1813 PRESENTS Chuck Meyer 9ThCourt of Appeals candidate",
+          "duration": 372.0,
+          "channel": "Kevin Steele",
+          "view_count": 13
+        },
+        {
+          "video_id": "Nof5iJx4xoA",
+          "title": "Memories of Chuck Meyer (UC Berkeley) and Reno Sales (Anaconda)",
+          "duration": 456.0,
+          "channel": "Society of Economic Geologists, Inc.",
+          "view_count": 533
+        },
+        {
+          "video_id": "LMib_t2H-8Y",
+          "title": "Chuck Meyer for Judge, 410th District Court",
+          "duration": 3781.0,
+          "channel": "MCTP",
+          "view_count": 110
+        },
+        {
+          "video_id": "LuWWvNdImVc",
+          "title": "BPTV Episode 38: Chuck Meyer",
+          "duration": 572.0,
+          "channel": "Bold Penguin",
+          "view_count": 50
+        },
+        {
+          "video_id": "zWgYFo8n14U",
+          "title": "Chuck Meyer in for Rick & Suds (May 15, 1991)",
+          "duration": 2191.0,
+          "channel": "Neil Rogers Show",
+          "view_count": 58
+        },
+        {
+          "video_id": "B2-G-h92OL8",
+          "title": "Chuck Meyer speaks about an Article V Convention of the States",
+          "duration": 3986.0,
+          "channel": "TexasPatriots PAC",
+          "view_count": 29
+        },
+        {
+          "video_id": "_g5p8yn_jg4",
+          "title": "Chuck Meyer - Republican Primary Candidate for Congress: CD-36",
+          "duration": 714.0,
+          "channel": "Ron Heck",
+          "view_count": 33
+        },
+        {
+          "video_id": "U0o8phL82Uc",
+          "title": "1813 PRESENTS A LOOK AT CHUCK MEYER FOR 9th Court of Appeals Chief Justice",
+          "duration": 372.0,
+          "channel": "1813 News - Kevin Steele",
+          "view_count": 15
+        },
+        {
+          "video_id": "r9KX3AJj_XQ",
+          "title": "Chuck Meyer for Chief Justice 9th Court of Appeals, Texas",
+          "duration": 406.0,
+          "channel": "1813 News - Kevin Steele",
+          "view_count": 370
+        },
+        {
+          "video_id": "Jzc5MWznXHU",
+          "title": "Talking \"Toast\" & \"Jam\" with Nurse Chuck",
+          "duration": 829.0,
+          "channel": "Jamie Kennedy",
+          "view_count": 1378
+        },
+        {
+          "video_id": "WxCPqXUFAyY",
+          "title": "23rd of February - Tech talk with Chuck, GrassValley",
+          "duration": 1834.0,
+          "channel": "Bridge Technologies",
+          "view_count": 137
+        },
+        {
+          "video_id": "mCXDNNYGuSA",
+          "title": "Add Search to Any Webflow site using Algolia with Chuck Meyer",
+          "duration": 3621.0,
+          "channel": "Automate All the Things",
+          "view_count": 3926
+        },
+        {
+          "video_id": "pCbFedhS2pU",
+          "title": "Coding Badly with Joe and Chuck - Search Powered Snake?",
+          "duration": 5559.0,
+          "channel": "Battlesnake",
+          "view_count": 39
+        }
+      ]
+    },
+    {
+      "speaker": "Rasit Abay",
+      "speaker_id": "rasit-abay",
+      "new_videos": [
+        {
+          "video_id": "l2I45GqREgE",
+          "title": "Poincar\u00e9 Podcast #12 - Rasit Abay",
+          "duration": 3698.0,
+          "channel": "Matteo Manzi",
+          "view_count": 212
+        }
+      ]
+    },
+    {
+      "speaker": "Lucas Bonomi",
+      "speaker_id": "lucas-bonomi",
+      "new_videos": [
+        {
+          "video_id": "Slk_T4ap2AA",
+          "title": "Family.scss & how to create successful open source projects ( By Lucas Bonomi at CSSParis #6 )",
+          "duration": 1226.0,
+          "channel": "Algolia",
+          "view_count": 85
+        }
+      ]
+    },
+    {
+      "speaker": "Raed Chammam",
+      "speaker_id": "raed-chammam",
+      "new_videos": [
+        {
+          "video_id": "un5PKNsdHPM",
+          "title": "Image Search for Product Recommendations - Raed Chammam, Paul-Louis Nech - MICES 2024",
+          "duration": 1768.0,
+          "channel": "MIx-Camp E-commerce Search",
+          "view_count": 86
+        }
+      ]
+    },
+    {
+      "speaker": "Khalid Elassaad",
+      "speaker_id": "khalid-elassaad",
+      "new_videos": [
+        {
+          "video_id": "AHDJM-KLdnw",
+          "title": "DX delight: An exploration of new documentation - Khalid Elassaad and Lo\u00efc Say, Algolia",
+          "duration": 921.0,
+          "channel": "Algolia",
+          "view_count": 392
+        }
+      ]
+    },
+    {
+      "speaker": "Ciprian Borodescu",
+      "speaker_id": "ciprian-borodescu",
+      "new_videos": [
+        {
+          "video_id": "JP4G2-Gd1jI",
+          "title": "Our confidence crumbled, we failed, and felt stuck | Ciprian Borodescu | Speech| ILF Bucharest Tech",
+          "duration": 807.0,
+          "channel": "I Love Failure",
+          "view_count": 124
+        },
+        {
+          "video_id": "DcYgOkdn0FE",
+          "title": "Listen. Learn. Lead - 3 stories from Ciprian Borodescu, Head of Algolia Romania",
+          "duration": 1049.0,
+          "channel": "StepFWD",
+          "view_count": 43
+        },
+        {
+          "video_id": "vVuBm21Wnyw",
+          "title": "What Can Stoicism Teach You About Entrepreneurship with Ciprian Borodescu from Algolia | Ep.22",
+          "duration": 3669.0,
+          "channel": "The Recursive",
+          "view_count": 163
+        },
+        {
+          "video_id": "ga3gX1fs8vg",
+          "title": "CIPRIAN BORODESCU & ALEXANDRA ANGHEL - AI enhanced UX",
+          "duration": 2553.0,
+          "channel": "Devoxx",
+          "view_count": 353
+        },
+        {
+          "video_id": "WSn9mYJj8XE",
+          "title": "Demo Lab: Hacking Personalization - Ciprian Borodescu, Algolia",
+          "duration": 2522.0,
+          "channel": "Algolia",
+          "view_count": 443
+        }
+      ]
+    },
+    {
+      "speaker": "Nicolas Fiorini",
+      "speaker_id": "nicolas-fiorini",
+      "new_videos": [
+        {
+          "video_id": "ZeA95GGvh9s",
+          "title": "Nicolas Fiorini \"The relevance search in PubMed\"",
+          "duration": 3074.0,
+          "channel": "Ai2",
+          "view_count": 467
+        }
+      ]
+    },
+    {
+      "speaker": "Alexandre Collin",
+      "speaker_id": "alexandre-collin",
+      "new_videos": [
+        {
+          "video_id": "4k0fHS_lro0",
+          "title": "Algolia - UX in the age of GenerativeAI, Making features usable, trusted and used - by Alex Collin",
+          "duration": 1983.0,
+          "channel": "Algolia",
+          "view_count": 157
+        },
+        {
+          "video_id": "YfR9oyzoWbc",
+          "title": "How to build a search-as-you-type application in under 15mn with Algolia - Tim Carry & Alex Collin",
+          "duration": 1915.0,
+          "channel": "Serverlessconf",
+          "view_count": 5806
+        },
+        {
+          "video_id": "e2UnV7aRqpQ",
+          "title": "Guillaume Alexandre - Sourcing Challenge Show - Episode 5",
+          "duration": 2292.0,
+          "channel": "Sourcing Challenge Show",
+          "view_count": 666
+        }
+      ]
+    },
+    {
+      "speaker": "Xavier Grand",
+      "speaker_id": "xavier-grand",
+      "new_videos": [
+        {
+          "video_id": "JgO_s8fJNZI",
+          "title": "Breaking indexing for thousands of customers with one bug - Xavier Grand",
+          "duration": 1456.0,
+          "channel": "Best of Web",
+          "view_count": 7
+        },
+        {
+          "video_id": "DwWCxTO-aqI",
+          "title": "Ontario Holstein Genetic Marketing Workshop: Dr Francois-Xavier Grand - L'Alliance Boviteq",
+          "duration": 2932.0,
+          "channel": "OntarioHolsteins",
+          "view_count": 238
+        },
+        {
+          "video_id": "gc7bRl3kDWc",
+          "title": "PCC Grand Alumni Homecoming 2015 - 1 of 7",
+          "duration": 3520.0,
+          "channel": "Klase Nubenta",
+          "view_count": 555
+        },
+        {
+          "video_id": "6oGJ87110R0",
+          "title": "Votive Mass of Thanksgiving: Grand Alumni Homecoming",
+          "duration": 4349.0,
+          "channel": "USJ-R Official",
+          "view_count": 290
+        },
+        {
+          "video_id": "SSqDbOzTl9M",
+          "title": "Bishop-Elect Xavier Brand",
+          "duration": 455.0,
+          "channel": "GreaterLife2000",
+          "view_count": 1002
+        },
+        {
+          "video_id": "EQAKl2lRVFc",
+          "title": "Nov. 28th, 2015 Xavier School Grand Alumni Homecoming Party",
+          "duration": 4067.0,
+          "channel": "Universal Paparazzi Kid Prodigy",
+          "view_count": 3172
+        },
+        {
+          "video_id": "IE9R6w1P_Tk",
+          "title": "2022 Grand Alumni Homecoming Reunion",
+          "duration": 8471.0,
+          "channel": "Saint Louis Center Baguio",
+          "view_count": 1022
+        }
+      ]
+    },
+    {
+      "speaker": "Taylor Johnson",
+      "speaker_id": "taylor-johnson",
+      "new_videos": [
+        {
+          "video_id": "SEz-AQNnI7U",
+          "title": "Flinch w/ Harry Styles & Aaron Taylor-Johnson",
+          "duration": 360.0,
+          "channel": "The Late Late Show with James Corden",
+          "view_count": 15456497
+        },
+        {
+          "video_id": "lOZLD0TfoL8",
+          "title": "Aaron Taylor-Johnson Bulked Up For A Role With Help From In-N-Out",
+          "duration": 351.0,
+          "channel": "The Late Show with Stephen Colbert",
+          "view_count": 530144
+        },
+        {
+          "video_id": "Hn7aB-1mwtU",
+          "title": "\u200bIf You Only Knew: Sam & Aaron Taylor-Johnson",
+          "duration": 322.0,
+          "channel": "Larry King",
+          "view_count": 207307
+        },
+        {
+          "video_id": "i8pp0LM_kLg",
+          "title": "Sam & Aaron Taylor Johnson S1 E8",
+          "duration": 1325.0,
+          "channel": "Newsweek Conversations",
+          "view_count": 9436
+        },
+        {
+          "video_id": "giT7Y4J4Z_g",
+          "title": "DP/30: Anna Karenina, director Joe Wright, actors Keira Knightley, Jude Law, Aaron Taylor-Johnson",
+          "duration": 1932.0,
+          "channel": "DP/30: The Oral History Of Hollywood",
+          "view_count": 489645
+        },
+        {
+          "video_id": "LZqUr5uqfhw",
+          "title": "Buzz | Brad Pitt, Aaron Taylor-Johnson & Brian Tyree Henry Talk Bullet Train",
+          "duration": 326.0,
+          "channel": "Onic Entertainment",
+          "view_count": 38928
+        },
+        {
+          "video_id": "ywLlIY9qbes",
+          "title": "Emma Corrin & Aaron Taylor-Johnson talk NOSFERATU, learning from mistakes & the pressure of time",
+          "duration": 413.0,
+          "channel": "movieweather",
+          "view_count": 3154
+        },
+        {
+          "video_id": "6TWUH2Rgqk0",
+          "title": "Sam Taylor-Johnson and Aaron Taylor-Johnson talk A Million Little Pieces and working together again.",
+          "duration": 632.0,
+          "channel": "Soundtracking Extra with Edith Bowman",
+          "view_count": 1533
+        },
+        {
+          "video_id": "4VKP607WDLU",
+          "title": "Aaron Taylor-Johnson (Late Night with Jimmy Fallon)",
+          "duration": 405.0,
+          "channel": "Olivia Night",
+          "view_count": 102343
+        },
+        {
+          "video_id": "9cHHK_ypNZw",
+          "title": "Aaron Taylor-Johnson Joins Brittany Broski's Royal Court",
+          "duration": 932.0,
+          "channel": "Royal Court",
+          "view_count": 2518870
+        },
+        {
+          "video_id": "s9ZSQbt6wtM",
+          "title": "Alan Puts Weird Images In Paul Bettany & Aaron Taylor Johnson's Mind | Alan Carr Chatty Man",
+          "duration": 454.0,
+          "channel": "Alan Carr: Chatty Man",
+          "view_count": 14616
+        },
+        {
+          "video_id": "Rh8Gw7KVUfM",
+          "title": "BULLET TRAIN Press Conference Berlin BRAD PITT + JOEY KING + AARON TAYLOR-JOHNSON very funny - SCARS",
+          "duration": 1289.0,
+          "channel": "CELEBRITY INTERVIEWS Parviz Khosrawi",
+          "view_count": 4245
+        },
+        {
+          "video_id": "Ck2zVeH3eGQ",
+          "title": "'Kraven The Hunter' Aaron Taylor-Johnson Talks Playing Kraven & Past Roles | Explain This | Esquire",
+          "duration": 436.0,
+          "channel": "Esquire",
+          "view_count": 89315
+        },
+        {
+          "video_id": "_i5tvQjNECE",
+          "title": "Aaron & Sam Taylor-Johnson Synastry",
+          "duration": 1399.0,
+          "channel": "Ms Charlotte Astrology",
+          "view_count": 8014
+        },
+        {
+          "video_id": "tFeMuBaWnmE",
+          "title": "Sam Taylor-Johnson & Aaron Taylor-Johnson Discuss \u2018A Million Little Pieces\u2019",
+          "duration": 1192.0,
+          "channel": "BUILD Series LDN",
+          "view_count": 18565
+        },
+        {
+          "video_id": "wnMWE8M3ZLI",
+          "title": "Godzilla press conference: Bryan Cranston, Aaron Taylor-Johnson, Elizabeth Olsen, Gareth Edwards",
+          "duration": 2067.0,
+          "channel": "The Upcoming",
+          "view_count": 2641
+        },
+        {
+          "video_id": "u0TZtLRwqL4",
+          "title": "Conversation with Aaron Taylor-Johnson",
+          "duration": 2778.0,
+          "channel": "Locarno Film Festival",
+          "view_count": 19646
+        },
+        {
+          "video_id": "uIrWa4nLpFY",
+          "title": "Aaron Taylor-Johnson & Elizabeth Olsen interview | Avengers: Age of Ultron",
+          "duration": 504.0,
+          "channel": "KISS",
+          "view_count": 136441
+        },
+        {
+          "video_id": "5o5qakxGjoM",
+          "title": "Elizabeth Olsen & Aaron Taylor-Johnson 'Avengers: Age of Ultron' Exclusive Interview: SDCC (2014) HD",
+          "duration": 700.0,
+          "channel": "Movieclips Action",
+          "view_count": 184053
+        },
+        {
+          "video_id": "Vq6ciAJNa40",
+          "title": "Elizabeth Olsen, Aaron Taylor-Johnson and Bryan Cranston Talk Godzilla At Press Conference",
+          "duration": 320.0,
+          "channel": "Entertainmentwise",
+          "view_count": 666
+        },
+        {
+          "video_id": "USFfN3Gxsh8",
+          "title": "Director Doug Liman And Actor Aaron Taylor Johnson Discuss New Film \"The Wall\"",
+          "duration": 1993.0,
+          "channel": "BUILD Series",
+          "view_count": 5965
+        },
+        {
+          "video_id": "GYQShEvRVvk",
+          "title": "Bellator 261: Taylor Johnson apologizes for trash talk",
+          "duration": 397.0,
+          "channel": "Cageside Press",
+          "view_count": 194
+        }
+      ]
+    },
+    {
+      "speaker": "Stefan Crespo",
+      "speaker_id": "stefan-crespo",
+      "new_videos": [
+        {
+          "video_id": "g9gw6K1S4Y0",
+          "title": "Stefan Crespo-Donaire -The Tribal Heartbeat: Decoding Engineer Culture",
+          "duration": 1523.0,
+          "channel": "TPM Events",
+          "view_count": 63
+        }
+      ]
+    },
+    {
+      "speaker": "Xavier Roche",
+      "speaker_id": "xavier-roche",
+      "new_videos": [
+        {
+          "video_id": "cWB42xtYjN4",
+          "title": "Des airs aux rails, de l\u2019\u00c9cole du commissariat de l\u2019air \u00e0 la SNCF \u2013 Parcours de Xavier Roche",
+          "duration": 1783.0,
+          "channel": "ANews S\u00e9curit\u00e9",
+          "view_count": 559
+        },
+        {
+          "video_id": "KxtCh_4vkME",
+          "title": "Grand t\u00e9moin Xavier Roche \u00ab Quels enjeux et quelles solutions dans les transports ? \u00bb Colloque UMAY",
+          "duration": 981.0,
+          "channel": "UMAY",
+          "view_count": 90
+        }
+      ]
+    },
+    {
+      "speaker": "Kyle Fox",
+      "speaker_id": "kyle-fox",
+      "new_videos": [
+        {
+          "video_id": "FTJQ_9KDj_I",
+          "title": "Significant TV. Kyle Fox, PowerMatch",
+          "duration": 927.0,
+          "channel": "SignificantTV",
+          "view_count": 22
+        },
+        {
+          "video_id": "jmrqASPZH1U",
+          "title": "Kyle Fox PD Session 2",
+          "duration": 597.0,
+          "channel": "Kyle Fox",
+          "view_count": 19
+        },
+        {
+          "video_id": "-v8nRI7AmVs",
+          "title": "Kyle Fox meets Boxing Connected",
+          "duration": 349.0,
+          "channel": "Boxing Connected",
+          "view_count": 606
+        },
+        {
+          "video_id": "OCxPsECzTxk",
+          "title": "PD Session 1 Kyle Fox",
+          "duration": 805.0,
+          "channel": "Kyle Fox",
+          "view_count": 9
+        },
+        {
+          "video_id": "hTUxR7wzoQA",
+          "title": "Let's talk about the rise of Software Defined Weapons with Kyle Fox, U.S. Air Force",
+          "duration": 6213.0,
+          "channel": "In the Nic of Time",
+          "view_count": 296
+        },
+        {
+          "video_id": "a7qe-Vz0PVo",
+          "title": "Behind The Virtual Lens Ep2 ft. Kyle Fox",
+          "duration": 1814.0,
+          "channel": "DozingVRC",
+          "view_count": 114
+        },
+        {
+          "video_id": "-4k7t9MVDPs",
+          "title": "Faith & Trials with Kyle Fox",
+          "duration": 2839.0,
+          "channel": "Redemption Calvary",
+          "view_count": 27
+        },
+        {
+          "video_id": "tjjQa7EO3H0",
+          "title": "Kyle Kulinski SHOCKS Fox News",
+          "duration": 339.0,
+          "channel": "The Young Turks",
+          "view_count": 276410
+        },
+        {
+          "video_id": "wXf6D9Bhwoo",
+          "title": "Kyle Fox from Imago Dei Eastside and Marvel SNAP",
+          "duration": 3817.0,
+          "channel": "SavePoint Ministries",
+          "view_count": 111
+        },
+        {
+          "video_id": "5O8YRLIfZz0",
+          "title": "NBA Champion Rick Fox & Twitch Gamer Kyle Fox at Twin Galaxies with 2NerdGirls",
+          "duration": 591.0,
+          "channel": "theStreamtv",
+          "view_count": 3092
+        },
+        {
+          "video_id": "XQzw5ujVOV4",
+          "title": "Live Chat: UFC in 2013 talk, UFC on FOX 8 preview",
+          "duration": 5385.0,
+          "channel": "MMAFightingonSBN",
+          "view_count": null
+        },
+        {
+          "video_id": "ZV6xpCbq9I4",
+          "title": "Ignarism; DRUNKLOSOPHY - Kyle's Fox Appearnce and Alex Jones gets BANNED",
+          "duration": 5235.0,
+          "channel": "Ignar Husky",
+          "view_count": 73
+        },
+        {
+          "video_id": "WV5HzuCOVqo",
+          "title": "In the Nic of Time with Kyle Fox,Chief Software Officer,Western Development Division, U.S. Air Force",
+          "duration": 5239.0,
+          "channel": "ATARC Channel",
+          "view_count": 39
+        },
+        {
+          "video_id": "ATwk4dgJ-S4",
+          "title": "Local Agency Pavement Preservation  Ryan Worsman Jim Major - Dave DesFosses  Kyle Fox Scott Kinmond",
+          "duration": 3424.0,
+          "channel": "National Center for Pavement Preservation",
+          "view_count": 46
+        },
+        {
+          "video_id": "GthQ_b5K-7I",
+          "title": "Character Study: Joshua - Kyle Fox",
+          "duration": 3820.0,
+          "channel": "Redemption Calvary",
+          "view_count": 33
+        },
+        {
+          "video_id": "8VsCr-KMsq0",
+          "title": "Kyle Fox's failed Rangers takeover bid assessed",
+          "duration": 1936.0,
+          "channel": "The Rangers Review",
+          "view_count": 8852
+        },
+        {
+          "video_id": "bNVWlheEfxQ",
+          "title": "2012 Shaq and Rick Fox Talk Dunks",
+          "duration": 386.0,
+          "channel": "MegaFocsisProduction",
+          "view_count": 10458
+        },
+        {
+          "video_id": "KSB3TNPEx6Q",
+          "title": "The Hunt for Nine-Toes - 1 - Fox Plays Borderlands GOTY Enhanced (Twitch VOD)",
+          "duration": 2879.0,
+          "channel": "Dez and Fox Play",
+          "view_count": 14
+        }
+      ]
+    },
+    {
+      "speaker": "David Howden",
+      "speaker_id": "david-howden",
+      "new_videos": [
+        {
+          "video_id": "HScfv6wUTuU",
+          "title": "Ep 53 No end game. The journey to Ithaka: David Howden CEO Howden Group Holdings",
+          "duration": 3826.0,
+          "channel": "The Voice of Insurance",
+          "view_count": 51
+        },
+        {
+          "video_id": "i2gxnPU5w3k",
+          "title": "FERMA Forum 2022 Replay. Leadership Pitch David Howden: Leadership, Inspiration and Transition",
+          "duration": 333.0,
+          "channel": "FERMA: Anticipating Changes, Shaping the Future",
+          "view_count": 4210
+        },
+        {
+          "video_id": "v1KvpUoDXN0",
+          "title": "In Conversation with David Howden of Hyperion Insurance | CogX 2020",
+          "duration": 1359.0,
+          "channel": "CogX",
+          "view_count": 2833
+        },
+        {
+          "video_id": "vBgZ1QRvzBc",
+          "title": "CBC   David Howden, CEO of Howden Group Holdings",
+          "duration": 2931.0,
+          "channel": "Cardiff Business Club",
+          "view_count": 924
+        },
+        {
+          "video_id": "9wwZc-aLqBw",
+          "title": "Crisis in Iceland | David Howden",
+          "duration": 3582.0,
+          "channel": "Instytut Misesa",
+          "view_count": 840
+        },
+        {
+          "video_id": "G1qxb2yFPZI",
+          "title": "Why do we have recessions? AEF #4 David Howden",
+          "duration": 2653.0,
+          "channel": "AEF",
+          "view_count": 1235
+        },
+        {
+          "video_id": "N6G_WZefg3Y",
+          "title": "The Euro Cr David Howden",
+          "duration": 3737.0,
+          "channel": "Trenton Elena",
+          "view_count": 4
+        },
+        {
+          "video_id": "ZmqVP1qfLbY",
+          "title": "The Euro Cr David Howden",
+          "duration": 3413.0,
+          "channel": "sven jacobs",
+          "view_count": 2
+        },
+        {
+          "video_id": "euM2z_FWwMg",
+          "title": "The Euro Cr | David Howden",
+          "duration": 3986.0,
+          "channel": "Elena EisseCatherine",
+          "view_count": 6
+        },
+        {
+          "video_id": "tcJaTJ1VpTg",
+          "title": "Banking | David Howden",
+          "duration": 2953.0,
+          "channel": "misesmedia",
+          "view_count": 834
+        },
+        {
+          "video_id": "t-9VBgkvHpE",
+          "title": "Banking | David Howden",
+          "duration": 2697.0,
+          "channel": "misesmedia",
+          "view_count": 3474
+        },
+        {
+          "video_id": "JHFRrqkvV7A",
+          "title": "David Howden on Europe and fiat currency",
+          "duration": 1217.0,
+          "channel": "Dorthey Piano",
+          "view_count": 8
+        },
+        {
+          "video_id": "KXYe6mIY0TE",
+          "title": "The Place of Finance and Financial Markets in a Free Society | David Howden",
+          "duration": 2631.0,
+          "channel": "misesmedia",
+          "view_count": 3153
+        },
+        {
+          "video_id": "zItgiPwSHIM",
+          "title": "The Euro Crisis | David Howden",
+          "duration": 2943.0,
+          "channel": "misesmedia",
+          "view_count": 7298
+        },
+        {
+          "video_id": "PxwzRPPW1Ow",
+          "title": "Simplifying Storage by David Howden - Go Meetup, October 2016",
+          "duration": 2188.0,
+          "channel": "golang-syd",
+          "view_count": 568
+        },
+        {
+          "video_id": "pwc_YNTzcmU",
+          "title": "Subjective Value and Market Prices | David Howden",
+          "duration": 2592.0,
+          "channel": "misesmedia",
+          "view_count": 4483
+        },
+        {
+          "video_id": "rQzQl9vDDmE",
+          "title": "The Euro Cr David Howden and Gold Report",
+          "duration": 3237.0,
+          "channel": "Erskine Charles William",
+          "view_count": 6
+        },
+        {
+          "video_id": "l3DHJ3pILz4",
+          "title": "Subjective Value and Market Prices David Howden",
+          "duration": 3212.0,
+          "channel": "Trenton Elena",
+          "view_count": 14
+        },
+        {
+          "video_id": "trHlLzKWZ3Q",
+          "title": "The Austrian Theory of the Business Cycle | David Howden",
+          "duration": 2612.0,
+          "channel": "misesmedia",
+          "view_count": 12468
+        },
+        {
+          "video_id": "sBx4QDgZUCc",
+          "title": "PFP106 | Howden, Machaj, Gertchev, Polleit, Cantor,\u00a0Discussion, Q&A (PFS 2013)",
+          "duration": 2709.0,
+          "channel": "Property and Freedom Society",
+          "view_count": 144
+        },
+        {
+          "video_id": "1Lv3MokrUdI",
+          "title": "David Howden on Europe and fiat currency",
+          "duration": 1032.0,
+          "channel": "EconomyT1me",
+          "view_count": 5
+        },
+        {
+          "video_id": "2qUKSh3ePEs",
+          "title": "David Howden on Europe and fiat currency",
+          "duration": 1032.0,
+          "channel": "Goldmoney",
+          "view_count": 1807
+        },
+        {
+          "video_id": "7v5U6BvOQIk",
+          "title": "The Euro Cr | David Howden",
+          "duration": 4556.0,
+          "channel": "Elinor Michael",
+          "view_count": 5
+        },
+        {
+          "video_id": "FA7R9Um2uok",
+          "title": "David Howden \u2013 The Truth About Unemployment \u2013 interview \u2013 Goldstein on Gelt",
+          "duration": 806.0,
+          "channel": "Douglas Goldstein",
+          "view_count": 134
+        },
+        {
+          "video_id": "mERetJytkyY",
+          "title": "Trivial Objections to Fractional Reserve Free Banking | David Howden",
+          "duration": 3604.0,
+          "channel": "misesmedia",
+          "view_count": 8141
+        },
+        {
+          "video_id": "DYyuQAAf7lw",
+          "title": "Health Informatics New Zealand (HiNZ) 2018 - Umbrellar's Head of Cloud David Howden",
+          "duration": 711.0,
+          "channel": "Umbrellar Technology Group",
+          "view_count": 166
+        },
+        {
+          "video_id": "qmbAvcARcso",
+          "title": "ENGAGE EMEA 2020: Howden Case Study",
+          "duration": 2643.0,
+          "channel": "Smartsheet",
+          "view_count": 448
+        },
+        {
+          "video_id": "4ORnniP5zsU",
+          "title": "Matthew Gregson of Howden: Are you ready for the next generation of benefits and wellbeing strategy?",
+          "duration": 1273.0,
+          "channel": "REBA Global",
+          "view_count": 278
+        },
+        {
+          "video_id": "Rs9bCNPsSf4",
+          "title": "What Is the Rate of Return on the Louisiana Purchase? | by David Howden & Daniel Atienza",
+          "duration": 700.0,
+          "channel": "LibertyInOurTime",
+          "view_count": 67
+        },
+        {
+          "video_id": "lMTpVt8N6gI",
+          "title": "Viv Williams' interview with Howden Group insurance brokers",
+          "duration": 2067.0,
+          "channel": "Conscious Solutions",
+          "view_count": 92
+        },
+        {
+          "video_id": "sDBJmAkTMMc",
+          "title": "Austin Economic Q&A - May 2020 with David Tandy",
+          "duration": 3023.0,
+          "channel": "Texas National Title",
+          "view_count": 93
+        }
+      ]
+    },
+    {
+      "speaker": "Jia Lei",
+      "speaker_id": "jia-lei",
+      "new_videos": [
+        {
+          "video_id": "Oan9Cgx3sUU",
+          "title": "Jia Lei Li ROS Navigation Project Presentation",
+          "duration": 1583.0,
+          "channel": "Becoming a ROS Developer",
+          "view_count": 52
+        }
+      ]
+    }
+  ],
+  "total_new_videos": 271
+}
