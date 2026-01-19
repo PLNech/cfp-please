@@ -7,462 +7,1028 @@
   "speakers": [
     {
       "name": "Sarah Dayan",
-      "aliases": ["sarah-dayan"],
-      "titles": ["Staff Software Engineer", "Principal Software Engineer"],
-      "devcon_years": [2022, 2023, 2024, 2025],
+      "aliases": [
+        "sarah-dayan"
+      ],
+      "titles": [
+        "Staff Software Engineer",
+        "Principal Software Engineer"
+      ],
+      "devcon_years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
       "talks": [
-        {"year": 2022, "title": "Delivering Developer Experience Excellence"},
-        {"year": 2023, "title": "AI for Commerce - Live Coding"},
-        {"year": 2025, "title": "Search & discovery UI generation with AI"}
+        {
+          "year": 2022,
+          "title": "Delivering Developer Experience Excellence"
+        },
+        {
+          "year": 2023,
+          "title": "AI for Commerce - Live Coding"
+        },
+        {
+          "year": 2025,
+          "title": "Search & discovery UI generation with AI"
+        }
       ],
       "twitter": "frontstuff_io",
       "github": "sarahdayan"
     },
     {
       "name": "Paul-Louis Nech",
-      "aliases": ["paul-louis-nech", "louis-nech", "PLN", "plnech"],
-      "titles": ["Senior ML Engineer", "Staff Machine Learning Engineer"],
-      "devcon_years": [2022, 2024, 2025],
+      "aliases": [
+        "paul-louis-nech",
+        "louis-nech",
+        "PLN",
+        "plnech"
+      ],
+      "titles": [
+        "Senior ML Engineer",
+        "Staff Machine Learning Engineer"
+      ],
+      "devcon_years": [
+        2022,
+        2024,
+        2025
+      ],
       "talks": [
-        {"year": 2022, "title": "Craft a Discovery Experience in 30 minutes"},
-        {"year": 2024, "title": "RAG Panel (Retrieval Augmented Generation)"},
-        {"year": 2025, "title": "The Fellowship of AI: How you need both Galadriel and Gandalf to build AI that users will love"}
+        {
+          "year": 2022,
+          "title": "Craft a Discovery Experience in 30 minutes"
+        },
+        {
+          "year": 2024,
+          "title": "RAG Panel (Retrieval Augmented Generation)"
+        },
+        {
+          "year": 2025,
+          "title": "The Fellowship of AI: How you need both Galadriel and Gandalf to build AI that users will love"
+        }
       ],
       "linkedin": "plnech"
     },
     {
       "name": "Bernadette Nixon",
-      "aliases": ["bernadette-nixon"],
-      "titles": ["CEO"],
-      "devcon_years": [2022, 2023, 2024, 2025]
+      "aliases": [
+        "bernadette-nixon"
+      ],
+      "titles": [
+        "CEO"
+      ],
+      "devcon_years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ]
     },
     {
       "name": "Xavier Grand",
-      "aliases": ["xavier-grand"],
-      "titles": ["CTO"],
-      "devcon_years": [2024, 2025]
+      "aliases": [
+        "xavier-grand"
+      ],
+      "titles": [
+        "CTO"
+      ],
+      "devcon_years": [
+        2024,
+        2025
+      ]
     },
     {
       "name": "Dustin Coates",
-      "aliases": ["dustin-coates"],
-      "titles": ["Principal Product Manager"],
-      "devcon_years": [2022, 2024],
+      "aliases": [
+        "dustin-coates"
+      ],
+      "titles": [
+        "Principal Product Manager"
+      ],
+      "devcon_years": [
+        2022,
+        2024
+      ],
       "talks": [
-        {"year": 2022, "title": "Toward Increased Understanding - Semantic search of the future"}
+        {
+          "year": 2022,
+          "title": "Toward Increased Understanding - Semantic search of the future"
+        }
       ]
     },
     {
       "name": "Keshia Rose",
-      "aliases": ["keshia-rose"],
-      "titles": ["Staff Product Manager", "Sr Product Manager"],
-      "devcon_years": [2022, 2023],
+      "aliases": [
+        "keshia-rose"
+      ],
+      "titles": [
+        "Staff Product Manager",
+        "Sr Product Manager"
+      ],
+      "devcon_years": [
+        2022,
+        2023
+      ],
       "talks": [
-        {"year": 2022, "title": "Expedite your implementation with Connectors & Flow"},
-        {"year": 2023, "title": "Data Connectivity made easy, Algolia's no-code connector platform"}
+        {
+          "year": 2022,
+          "title": "Expedite your implementation with Connectors & Flow"
+        },
+        {
+          "year": 2023,
+          "title": "Data Connectivity made easy, Algolia's no-code connector platform"
+        }
       ]
     },
     {
       "name": "Ciprian Borodescu",
-      "aliases": ["ciprian-borodescu", "chip-borodescu"],
-      "titles": ["AI Product Manager"],
-      "devcon_years": [2022],
+      "aliases": [
+        "ciprian-borodescu",
+        "chip-borodescu"
+      ],
+      "titles": [
+        "AI Product Manager"
+      ],
+      "devcon_years": [
+        2022
+      ],
       "talks": [
-        {"year": 2022, "title": "7 Dysfunctions of Personalization Engines"}
+        {
+          "year": 2022,
+          "title": "7 Dysfunctions of Personalization Engines"
+        }
       ]
     },
     {
       "name": "Alexandre Collin",
-      "aliases": ["alexandre-collin"],
-      "titles": ["Product Manager - Frontend eXperiences", "Search UX Specialist", "Optimization Subject Matter Expert"],
-      "devcon_years": [2022, 2024, 2025],
+      "aliases": [
+        "alexandre-collin"
+      ],
+      "titles": [
+        "Product Manager - Frontend eXperiences",
+        "Search UX Specialist",
+        "Optimization Subject Matter Expert"
+      ],
+      "devcon_years": [
+        2022,
+        2024,
+        2025
+      ],
       "talks": [
-        {"year": 2022, "title": "InstantSearch, from its launch 7 years ago until today"}
+        {
+          "year": 2022,
+          "title": "InstantSearch, from its launch 7 years ago until today"
+        }
       ]
     },
     {
       "name": "Khalid Elassaad",
-      "aliases": ["khalid-elassaad"],
-      "titles": ["Sr. Technical Program Manager", "Sr. Product Manager"],
-      "devcon_years": [2022, 2023],
+      "aliases": [
+        "khalid-elassaad"
+      ],
+      "titles": [
+        "Sr. Technical Program Manager",
+        "Sr. Product Manager"
+      ],
+      "devcon_years": [
+        2022,
+        2023
+      ],
       "talks": [
-        {"year": 2022, "title": "Manual work goes Bye-Bye with the new Algolia CLI"},
-        {"year": 2023, "title": "DX delight: An exploration of new documentation"}
+        {
+          "year": 2022,
+          "title": "Manual work goes Bye-Bye with the new Algolia CLI"
+        },
+        {
+          "year": 2023,
+          "title": "DX delight: An exploration of new documentation"
+        }
       ]
     },
     {
       "name": "Ben Lower",
-      "aliases": ["ben-lower"],
-      "titles": ["Developer Experience Leader"],
-      "devcon_years": [2022]
+      "aliases": [
+        "ben-lower"
+      ],
+      "titles": [
+        "Developer Experience Leader"
+      ],
+      "devcon_years": [
+        2022
+      ]
     },
     {
       "name": "Betty Suravech",
-      "aliases": ["betty-suravech"],
-      "titles": ["Engineering Team Lead"],
-      "devcon_years": [2022]
+      "aliases": [
+        "betty-suravech"
+      ],
+      "titles": [
+        "Engineering Team Lead"
+      ],
+      "devcon_years": [
+        2022
+      ]
     },
     {
       "name": "Dhaya Benmessaoud",
-      "aliases": ["dhaya-benmessaoud"],
-      "titles": ["Senior Frontend Engineer"],
-      "devcon_years": [2022]
+      "aliases": [
+        "dhaya-benmessaoud"
+      ],
+      "titles": [
+        "Senior Frontend Engineer"
+      ],
+      "devcon_years": [
+        2022
+      ]
     },
     {
       "name": "Vladislav Fitc",
-      "aliases": ["vladislav-fitc", "vlad-fitc"],
-      "titles": ["Senior iOS Engineer"],
-      "devcon_years": [2022]
+      "aliases": [
+        "vladislav-fitc",
+        "vlad-fitc"
+      ],
+      "titles": [
+        "Senior iOS Engineer"
+      ],
+      "devcon_years": [
+        2022
+      ]
     },
     {
       "name": "Mouaad Aallam",
-      "aliases": ["mouaad-aallam"],
-      "titles": ["Android Engineer"],
-      "devcon_years": [2022]
+      "aliases": [
+        "mouaad-aallam"
+      ],
+      "titles": [
+        "Android Engineer"
+      ],
+      "devcon_years": [
+        2022
+      ]
     },
     {
       "name": "Julien Paroche",
-      "aliases": ["julien-paroche"],
-      "titles": ["Senior Product Manager Search"],
-      "devcon_years": [2022]
+      "aliases": [
+        "julien-paroche"
+      ],
+      "titles": [
+        "Senior Product Manager Search"
+      ],
+      "devcon_years": [
+        2022
+      ]
     },
     {
       "name": "Reshma Iyer",
-      "aliases": ["reshma-iyer"],
-      "titles": ["Director of Product Marketing, Ecommerce"],
-      "devcon_years": [2022]
+      "aliases": [
+        "reshma-iyer"
+      ],
+      "titles": [
+        "Director of Product Marketing, Ecommerce"
+      ],
+      "devcon_years": [
+        2022
+      ]
     },
     {
       "name": "Bharat Guruprakash",
-      "aliases": ["bharat-guruprakash"],
-      "titles": ["Chief Product Officer"],
-      "devcon_years": [2023]
+      "aliases": [
+        "bharat-guruprakash"
+      ],
+      "titles": [
+        "Chief Product Officer"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Chuck Meyer",
-      "aliases": ["chuck-meyer"],
-      "titles": ["Sr. Developer Relations Engineer", "Lead Developer Advocate"],
-      "devcon_years": [2023, 2025]
+      "aliases": [
+        "chuck-meyer"
+      ],
+      "titles": [
+        "Sr. Developer Relations Engineer",
+        "Lead Developer Advocate"
+      ],
+      "devcon_years": [
+        2023,
+        2025
+      ]
     },
     {
       "name": "Nicolas Fiorini",
-      "aliases": ["nicolas-fiorini"],
-      "titles": ["Director, Engineering - Recommend"],
-      "devcon_years": [2023],
+      "aliases": [
+        "nicolas-fiorini"
+      ],
+      "titles": [
+        "Director, Engineering - Recommend"
+      ],
+      "devcon_years": [
+        2023
+      ],
       "talks": [
-        {"year": 2023, "title": "The impact of ChatGPT on smart apps"}
+        {
+          "year": 2023,
+          "title": "The impact of ChatGPT on smart apps"
+        }
       ]
     },
     {
       "name": "Raed Chammam",
-      "aliases": ["raed-chammam"],
-      "titles": ["Software Engineer - Recommend"],
-      "devcon_years": [2023],
+      "aliases": [
+        "raed-chammam"
+      ],
+      "titles": [
+        "Software Engineer - Recommend"
+      ],
+      "devcon_years": [
+        2023
+      ],
       "talks": [
-        {"year": 2023, "title": "A vibe is worth a thousand words: Recommendations from your own pictures"}
+        {
+          "year": 2023,
+          "title": "A vibe is worth a thousand words: Recommendations from your own pictures"
+        }
       ]
     },
     {
       "name": "Abhijit Mehta",
-      "aliases": ["abhijit-mehta"],
-      "titles": ["Director of Product - Search"],
-      "devcon_years": [2023]
+      "aliases": [
+        "abhijit-mehta"
+      ],
+      "titles": [
+        "Director of Product - Search"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Jerome Cohonner",
-      "aliases": ["jerome-cohonner", "jérôme-cohonner"],
-      "titles": ["Customer Solution Architect"],
-      "devcon_years": [2023]
+      "aliases": [
+        "jerome-cohonner",
+        "j\u00e9r\u00f4me-cohonner"
+      ],
+      "titles": [
+        "Customer Solution Architect"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Alphonse Bouy",
-      "aliases": ["alphonse-bouy"],
-      "titles": ["Software Engineer - Search Apps"],
-      "devcon_years": [2023]
+      "aliases": [
+        "alphonse-bouy"
+      ],
+      "titles": [
+        "Software Engineer - Search Apps"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Loic Say",
-      "aliases": ["loic-say", "loïc-say"],
-      "titles": ["Software Engineer"],
-      "devcon_years": [2023]
+      "aliases": [
+        "loic-say",
+        "lo\u00efc-say"
+      ],
+      "titles": [
+        "Software Engineer"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Hamish Ogilvy",
-      "aliases": ["hamish-ogilvy"],
-      "titles": ["VP Artificial Intelligence"],
-      "devcon_years": [2023]
+      "aliases": [
+        "hamish-ogilvy"
+      ],
+      "titles": [
+        "VP Artificial Intelligence"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Cat Weiss",
-      "aliases": ["cat-weiss"],
-      "titles": ["Developer Support Engineer"],
-      "devcon_years": [2023],
+      "aliases": [
+        "cat-weiss"
+      ],
+      "titles": [
+        "Developer Support Engineer"
+      ],
+      "devcon_years": [
+        2023
+      ],
       "talks": [
-        {"year": 2023, "title": "Continuous search improvement using Google Tag Manager"}
+        {
+          "year": 2023,
+          "title": "Continuous search improvement using Google Tag Manager"
+        }
       ]
     },
     {
       "name": "Tatsuro Handa",
-      "aliases": ["tatsuro-handa"],
-      "titles": ["Staff Developer Support Engineer"],
-      "devcon_years": [2023],
+      "aliases": [
+        "tatsuro-handa"
+      ],
+      "titles": [
+        "Staff Developer Support Engineer"
+      ],
+      "devcon_years": [
+        2023
+      ],
       "talks": [
-        {"year": 2023, "title": "Solving Algolia's most common issues"}
+        {
+          "year": 2023,
+          "title": "Solving Algolia's most common issues"
+        }
       ]
     },
     {
       "name": "Lucas Bonomi",
-      "aliases": ["lucas-bonomi"],
-      "titles": ["Sr. Software Engineer - Visibility", "Sr Developer Advocate"],
-      "devcon_years": [2023, 2024],
+      "aliases": [
+        "lucas-bonomi"
+      ],
+      "titles": [
+        "Sr. Software Engineer - Visibility",
+        "Sr Developer Advocate"
+      ],
+      "devcon_years": [
+        2023,
+        2024
+      ],
       "talks": [
-        {"year": 2023, "title": "Creating a r/place clone with Algolia"}
+        {
+          "year": 2023,
+          "title": "Creating a r/place clone with Algolia"
+        }
       ]
     },
     {
       "name": "Haroen Viaene",
-      "aliases": ["haroen-viaene"],
-      "titles": ["Sr. Software Engineer - Frontend Experiences"],
-      "devcon_years": [2023],
+      "aliases": [
+        "haroen-viaene"
+      ],
+      "titles": [
+        "Sr. Software Engineer - Frontend Experiences"
+      ],
+      "devcon_years": [
+        2023
+      ],
       "talks": [
-        {"year": 2023, "title": "What's new in InstantSearch"}
+        {
+          "year": 2023,
+          "title": "What's new in InstantSearch"
+        }
       ]
     },
     {
       "name": "Rasit Abay",
-      "aliases": ["rasit-abay"],
-      "titles": ["Sr Data Scientist"],
-      "devcon_years": [2023],
+      "aliases": [
+        "rasit-abay"
+      ],
+      "titles": [
+        "Sr Data Scientist"
+      ],
+      "devcon_years": [
+        2023
+      ],
       "talks": [
-        {"year": 2023, "title": "Fine-tuning LLMs for Search"}
+        {
+          "year": 2023,
+          "title": "Fine-tuning LLMs for Search"
+        }
       ]
     },
     {
       "name": "Maria Lungu",
-      "aliases": ["maria-lungu"],
-      "titles": ["Software Engineer"],
-      "devcon_years": [2024, 2025],
+      "aliases": [
+        "maria-lungu"
+      ],
+      "titles": [
+        "Software Engineer"
+      ],
+      "devcon_years": [
+        2024,
+        2025
+      ],
       "talks": [
-        {"year": 2025, "title": "The Fellowship of AI: How you need both Galadriel and Gandalf to build AI that users will love"}
+        {
+          "year": 2025,
+          "title": "The Fellowship of AI: How you need both Galadriel and Gandalf to build AI that users will love"
+        }
       ]
     },
     {
       "name": "Tatyana Herman",
-      "aliases": ["tatyana-herman"],
-      "titles": ["Product Manager", "Sr Product Manager"],
-      "devcon_years": [2024, 2025]
+      "aliases": [
+        "tatyana-herman"
+      ],
+      "titles": [
+        "Product Manager",
+        "Sr Product Manager"
+      ],
+      "devcon_years": [
+        2024,
+        2025
+      ]
     },
     {
       "name": "Ben Greenbank",
-      "aliases": ["ben-greenbank"],
-      "titles": ["Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "ben-greenbank"
+      ],
+      "titles": [
+        "Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Joni Khattar",
-      "aliases": ["joni-khattar"],
-      "titles": ["Sr Product Manager", "Sr. Product Manager - Data Platform & Connections"],
-      "devcon_years": [2024, 2025]
+      "aliases": [
+        "joni-khattar"
+      ],
+      "titles": [
+        "Sr Product Manager",
+        "Sr. Product Manager - Data Platform & Connections"
+      ],
+      "devcon_years": [
+        2024,
+        2025
+      ]
     },
     {
       "name": "Morgan Leroi",
-      "aliases": ["morgan-leroi"],
-      "titles": ["Staff Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "morgan-leroi"
+      ],
+      "titles": [
+        "Staff Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Imogen Lovera",
-      "aliases": ["imogen-lovera"],
-      "titles": ["Sr Product Manager"],
-      "devcon_years": [2024]
+      "aliases": [
+        "imogen-lovera"
+      ],
+      "titles": [
+        "Sr Product Manager"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Emmanuel Krebs",
-      "aliases": ["emmanuel-krebs"],
-      "titles": ["Senior Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "emmanuel-krebs"
+      ],
+      "titles": [
+        "Senior Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Taylor Johnson",
-      "aliases": ["taylor-johnson"],
-      "titles": ["Senior Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "taylor-johnson"
+      ],
+      "titles": [
+        "Senior Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Etienne Martin",
-      "aliases": ["etienne-martin"],
-      "titles": ["VP of Products"],
-      "devcon_years": [2024]
+      "aliases": [
+        "etienne-martin"
+      ],
+      "titles": [
+        "VP of Products"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Jehee Choi",
-      "aliases": ["jehee-choi", "j-choi"],
-      "titles": ["Developer Support Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "jehee-choi",
+        "j-choi"
+      ],
+      "titles": [
+        "Developer Support Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "David Bacon",
-      "aliases": ["david-bacon"],
-      "titles": ["Customer Success Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "david-bacon"
+      ],
+      "titles": [
+        "Customer Success Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Francois Chalifour",
-      "aliases": ["francois-chalifour", "françois-chalifour"],
-      "titles": ["Senior Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "francois-chalifour",
+        "fran\u00e7ois-chalifour"
+      ],
+      "titles": [
+        "Senior Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Tom Clark",
-      "aliases": ["tom-clark"],
-      "titles": ["Senior Principal Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "tom-clark"
+      ],
+      "titles": [
+        "Senior Principal Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Stefan Crespo",
-      "aliases": ["stefan-crespo"],
-      "titles": ["Sr. Technical Program Manager"],
-      "devcon_years": [2024]
+      "aliases": [
+        "stefan-crespo"
+      ],
+      "titles": [
+        "Sr. Technical Program Manager"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Aymeric Giraudet",
-      "aliases": ["aymeric-giraudet"],
-      "titles": ["Sr. Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "aymeric-giraudet"
+      ],
+      "titles": [
+        "Sr. Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Emir Belkahia",
-      "aliases": ["emir-belkahia"],
-      "titles": ["Sr. Customer Success Manager", "Staff Customer Success Manager"],
-      "devcon_years": [2024, 2025]
+      "aliases": [
+        "emir-belkahia"
+      ],
+      "titles": [
+        "Sr. Customer Success Manager",
+        "Staff Customer Success Manager"
+      ],
+      "devcon_years": [
+        2024,
+        2025
+      ]
     },
     {
       "name": "Marcus Walters",
-      "aliases": ["marcus-walters"],
-      "titles": ["Customer Solutions Architect"],
-      "devcon_years": [2024]
+      "aliases": [
+        "marcus-walters"
+      ],
+      "titles": [
+        "Customer Solutions Architect"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Elias Ingea",
-      "aliases": ["elias-ingea"],
-      "titles": ["Solutions Architect", "Senior Technical Lead"],
-      "devcon_years": [2023, 2024]
+      "aliases": [
+        "elias-ingea"
+      ],
+      "titles": [
+        "Solutions Architect",
+        "Senior Technical Lead"
+      ],
+      "devcon_years": [
+        2023,
+        2024
+      ]
     },
     {
       "name": "Shahmir Ejaz",
-      "aliases": ["shahmir-ejaz"],
-      "titles": ["Software Engineer"],
-      "devcon_years": [2024]
+      "aliases": [
+        "shahmir-ejaz"
+      ],
+      "titles": [
+        "Software Engineer"
+      ],
+      "devcon_years": [
+        2024
+      ]
     },
     {
       "name": "Nick Vlku",
-      "aliases": ["nick-vlku"],
-      "titles": ["VP, Product Growth"],
-      "devcon_years": [2025]
+      "aliases": [
+        "nick-vlku"
+      ],
+      "titles": [
+        "VP, Product Growth"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Laure Carli",
-      "aliases": ["laure-carli"],
-      "titles": ["Deputy General Counsel"],
-      "devcon_years": [2025]
+      "aliases": [
+        "laure-carli"
+      ],
+      "titles": [
+        "Deputy General Counsel"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Patrick Loomis",
-      "aliases": ["patrick-loomis"],
-      "titles": ["Product Lead, Generative AI"],
-      "devcon_years": [2025],
+      "aliases": [
+        "patrick-loomis"
+      ],
+      "titles": [
+        "Product Lead, Generative AI"
+      ],
+      "devcon_years": [
+        2025
+      ],
       "talks": [
-        {"year": 2025, "title": "From Months to Weeks: Building Production AI Agents with Persistent Memory"}
+        {
+          "year": 2025,
+          "title": "From Months to Weeks: Building Production AI Agents with Persistent Memory"
+        }
       ]
     },
     {
       "name": "Zachary Nickerson",
-      "aliases": ["zachary-nickerson"],
-      "titles": ["Sr. Product Manager"],
-      "devcon_years": [2025]
+      "aliases": [
+        "zachary-nickerson"
+      ],
+      "titles": [
+        "Sr. Product Manager"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "David Howden",
-      "aliases": ["david-howden"],
-      "titles": ["Principal Architect"],
-      "devcon_years": [2025]
+      "aliases": [
+        "david-howden"
+      ],
+      "titles": [
+        "Principal Architect"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Oscar Meunier",
-      "aliases": ["oscar-meunier"],
-      "titles": ["Solutions Engineer"],
-      "devcon_years": [2025]
+      "aliases": [
+        "oscar-meunier"
+      ],
+      "titles": [
+        "Solutions Engineer"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Natan Yagudayev",
-      "aliases": ["natan-yagudayev"],
-      "titles": ["Engineering Manager"],
-      "devcon_years": [2025]
+      "aliases": [
+        "natan-yagudayev"
+      ],
+      "titles": [
+        "Engineering Manager"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Kyle Fox",
-      "aliases": ["kyle-fox"],
-      "titles": ["Sr. Product Manager"],
-      "devcon_years": [2025]
+      "aliases": [
+        "kyle-fox"
+      ],
+      "titles": [
+        "Sr. Product Manager"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Jia Lei",
-      "aliases": ["jia-lei"],
-      "titles": ["Staff Product Manager"],
-      "devcon_years": [2025]
+      "aliases": [
+        "jia-lei"
+      ],
+      "titles": [
+        "Staff Product Manager"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Antoine Hemery",
-      "aliases": ["antoine-hemery", "antoine-hémery"],
-      "titles": ["Staff Software Engineer"],
-      "devcon_years": [2025],
+      "aliases": [
+        "antoine-hemery",
+        "antoine-h\u00e9mery"
+      ],
+      "titles": [
+        "Staff Software Engineer"
+      ],
+      "devcon_years": [
+        2025
+      ],
       "talks": [
-        {"year": 2025, "title": "How unintended double encryption crippled our search engine performance"}
+        {
+          "year": 2025,
+          "title": "How unintended double encryption crippled our search engine performance"
+        }
       ]
     },
     {
       "name": "Xavier Roche",
-      "aliases": ["xavier-roche"],
-      "titles": ["Sr. Software Engineer"],
-      "devcon_years": [2025]
+      "aliases": [
+        "xavier-roche"
+      ],
+      "titles": [
+        "Sr. Software Engineer"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Quentin Renaud",
-      "aliases": ["quentin-renaud"],
-      "titles": ["Site Reliability Engineer"],
-      "devcon_years": [2025]
+      "aliases": [
+        "quentin-renaud"
+      ],
+      "titles": [
+        "Site Reliability Engineer"
+      ],
+      "devcon_years": [
+        2025
+      ]
     },
     {
       "name": "Raymond Rutjes",
-      "aliases": ["raymond-rutjes"],
-      "titles": ["Software Engineer"],
+      "aliases": [
+        "raymond-rutjes"
+      ],
+      "titles": [
+        "Software Engineer"
+      ],
       "devcon_years": [],
       "talks": [
-        {"title": "Building Vue InstantSearch", "conference": "Vue.js Amsterdam"}
+        {
+          "title": "Building Vue InstantSearch",
+          "conference": "Vue.js Amsterdam"
+        }
       ]
     },
     {
       "name": "Debanshi Bheda",
-      "aliases": ["debanshi-bheda"],
-      "titles": ["Global Alliance Director"],
-      "devcon_years": [2023]
+      "aliases": [
+        "debanshi-bheda"
+      ],
+      "titles": [
+        "Global Alliance Director"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Micah Garside-White",
-      "aliases": ["micah-garside-white"],
-      "titles": ["Lead Channel Solutions Engineer"],
-      "devcon_years": [2023]
+      "aliases": [
+        "micah-garside-white"
+      ],
+      "titles": [
+        "Lead Channel Solutions Engineer"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Ji-won Eun",
-      "aliases": ["ji-won-eun"],
-      "titles": ["Associate Customer Success Engineer"],
-      "devcon_years": [2023]
+      "aliases": [
+        "ji-won-eun"
+      ],
+      "titles": [
+        "Associate Customer Success Engineer"
+      ],
+      "devcon_years": [
+        2023
+      ]
     },
     {
       "name": "Stephen Tweeddale",
-      "aliases": ["stephen-tweeddale"],
-      "titles": ["Customer Success Engineer"],
-      "devcon_years": [2023]
+      "aliases": [
+        "stephen-tweeddale"
+      ],
+      "titles": [
+        "Customer Success Engineer"
+      ],
+      "devcon_years": [
+        2023
+      ]
+    },
+    {
+      "name": "Julien Bourdeau",
+      "aliases": [
+        "julien-bourdeau"
+      ],
+      "titles": [],
+      "devcon_years": []
+    },
+    {
+      "name": "Nuno Maduro",
+      "aliases": [
+        "nuno-maduro"
+      ],
+      "titles": [],
+      "devcon_years": []
+    },
+    {
+      "name": "Marie Thuret",
+      "aliases": [
+        "marie-thuret",
+        "mthuret"
+      ],
+      "titles": [],
+      "devcon_years": []
+    },
+    {
+      "name": "Eunjae Lee",
+      "aliases": [
+        "eunjae-lee"
+      ],
+      "titles": [],
+      "devcon_years": []
+    },
+    {
+      "name": "Guy Daher",
+      "aliases": [
+        "guy-daher"
+      ],
+      "titles": [],
+      "devcon_years": []
+    },
+    {
+      "name": "Sylvain Pace",
+      "aliases": [
+        "sylvain-pace"
+      ],
+      "titles": [],
+      "devcon_years": []
+    },
+    {
+      "name": "Emily Hayman",
+      "aliases": [
+        "emily-hayman"
+      ],
+      "titles": [],
+      "devcon_years": []
     }
   ],
   "name_aliases": {
