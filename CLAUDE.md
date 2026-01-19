@@ -77,14 +77,55 @@ npm test
 npm run test:coverage
 ```
 
-### E2E Tests (future)
+### E2E Tests (Playwright)
 
-**Framework**: Playwright
+**Framework**: Playwright (headless chromium)
 
-**Key Flows**:
-- Search → Results → Map markers update
-- Filter → Results narrow → Map zooms
-- Click marker → Detail modal opens
+**Config**: `frontend/playwright.config.ts`
+- baseURL: `http://localhost:5177/cfp-please/`
+- Screenshots: `frontend/screenshots/`
+- Tests: `frontend/e2e/`
+
+**Run Tests**:
+```bash
+cd frontend
+npx playwright test e2e/ --project=chromium
+```
+
+**Testing Patterns**:
+1. **Screenshot-driven debugging**: Always save screenshots for visual verification
+   ```typescript
+   await page.screenshot({ path: './screenshots/test-name.png', fullPage: true });
+   ```
+
+2. **Position assertions**: Verify dropdown/panel positioning
+   ```typescript
+   const inputBox = await input.boundingBox();
+   const panelBox = await panel.boundingBox();
+   const distance = panelBox.y - (inputBox.y + inputBox.height);
+   expect(distance).toBeLessThan(50); // Panel should be near input
+   ```
+
+3. **Specific selectors**: Avoid broad selectors that match multiple elements
+   ```typescript
+   // Bad: matches carousel headers too
+   page.locator('[class*="header"]')
+   // Good: specific class
+   page.locator('.talkflix-header')
+   ```
+
+4. **Section filtering with regex**: Use regex for partial matches
+   ```typescript
+   page.locator('.search-section-title').filter({ hasText: /^CFPs/ })
+   ```
+
+5. **Wait for network**: Use networkidle for SPAs
+   ```typescript
+   await page.waitForLoadState('networkidle');
+   ```
+
+**Key Tests**:
+- `test-search.spec.ts`: Autocomplete positioning, search page dark theme, multi-index results
 
 ## Environment Variables
 

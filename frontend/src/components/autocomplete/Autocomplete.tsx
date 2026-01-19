@@ -35,13 +35,17 @@ export function Autocomplete({
   onSpeakerSelect,
 }: AutocompleteProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !panelRef.current) return;
 
     const search = autocomplete({
       container: containerRef.current,
+      panelContainer: panelRef.current, // Render panel inside our container
+      panelPlacement: 'input-wrapper-width',
+      detachedMediaQuery: 'none', // Disable detached mode
       placeholder,
       openOnFocus: true,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,24 +66,24 @@ export function Autocomplete({
               return res.hits as unknown as CFP[];
             },
             templates: {
-              header() {
-                return '<div class="aa-SourceHeader">CFPs</div>';
+              header({ html }: { html: typeof String.raw }) {
+                return html`<div class="aa-SourceHeader">CFPs</div>`;
               },
-              item({ item }: { item: unknown }) {
+              item({ item, html }: { item: unknown; html: typeof String.raw }) {
                 const cfp = item as CFP;
-                const meta = cfp.location?.city ? `<span class="aa-ItemMeta">${cfp.location.city}</span>` : '';
-                return `
+                const meta = cfp.location?.city || '';
+                return html`
                   <div class="aa-ItemWrapper aa-ItemWrapper--cfp">
                     <div class="aa-ItemContent">
                       <span class="aa-ItemBadge aa-ItemBadge--cfp">CFP</span>
                       <span class="aa-ItemTitle">${cfp.name}</span>
-                      ${meta}
+                      ${meta ? html`<span class="aa-ItemMeta">${meta}</span>` : ''}
                     </div>
                   </div>
                 `;
               },
-              noResults() {
-                return '<div class="aa-NoResults">No CFPs found</div>';
+              noResults({ html }: { html: typeof String.raw }) {
+                return html`<div class="aa-NoResults">No CFPs found</div>`;
               },
             },
             onSelect({ item }: { item: unknown }) {
@@ -99,24 +103,24 @@ export function Autocomplete({
               return res.hits as unknown as Talk[];
             },
             templates: {
-              header() {
-                return '<div class="aa-SourceHeader">Talks</div>';
+              header({ html }: { html: typeof String.raw }) {
+                return html`<div class="aa-SourceHeader">Talks</div>`;
               },
-              item({ item }: { item: unknown }) {
+              item({ item, html }: { item: unknown; html: typeof String.raw }) {
                 const talk = item as Talk;
-                const meta = talk.speaker ? `<span class="aa-ItemMeta">${talk.speaker}</span>` : '';
-                return `
+                const meta = talk.speaker || '';
+                return html`
                   <div class="aa-ItemWrapper aa-ItemWrapper--talk">
                     <div class="aa-ItemContent">
                       <span class="aa-ItemBadge aa-ItemBadge--talk">Talk</span>
                       <span class="aa-ItemTitle">${talk.title}</span>
-                      ${meta}
+                      ${meta ? html`<span class="aa-ItemMeta">${meta}</span>` : ''}
                     </div>
                   </div>
                 `;
               },
-              noResults() {
-                return '<div class="aa-NoResults">No talks found</div>';
+              noResults({ html }: { html: typeof String.raw }) {
+                return html`<div class="aa-NoResults">No talks found</div>`;
               },
             },
             onSelect({ item }: { item: unknown }) {
@@ -136,24 +140,24 @@ export function Autocomplete({
               return res.hits as unknown as Speaker[];
             },
             templates: {
-              header() {
-                return '<div class="aa-SourceHeader">Speakers</div>';
+              header({ html }: { html: typeof String.raw }) {
+                return html`<div class="aa-SourceHeader">Speakers</div>`;
               },
-              item({ item }: { item: unknown }) {
+              item({ item, html }: { item: unknown; html: typeof String.raw }) {
                 const speaker = item as Speaker;
-                const meta = speaker.company ? `<span class="aa-ItemMeta">${speaker.company}</span>` : '';
-                return `
+                const meta = speaker.company || '';
+                return html`
                   <div class="aa-ItemWrapper aa-ItemWrapper--speaker">
                     <div class="aa-ItemContent">
                       <span class="aa-ItemBadge aa-ItemBadge--speaker">Speaker</span>
                       <span class="aa-ItemTitle">${speaker.name}</span>
-                      ${meta}
+                      ${meta ? html`<span class="aa-ItemMeta">${meta}</span>` : ''}
                     </div>
                   </div>
                 `;
               },
-              noResults() {
-                return '<div class="aa-NoResults">No speakers found</div>';
+              noResults({ html }: { html: typeof String.raw }) {
+                return html`<div class="aa-NoResults">No speakers found</div>`;
               },
             },
             onSelect({ item }: { item: unknown }) {
@@ -175,5 +179,10 @@ export function Autocomplete({
     };
   }, [navigate, onCFPSelect, onTalkSelect, onSpeakerSelect, placeholder]);
 
-  return <div ref={containerRef} className="talkflix-autocomplete" />;
+  return (
+    <div className="talkflix-autocomplete">
+      <div ref={containerRef} className="talkflix-autocomplete-input" />
+      <div ref={panelRef} className="talkflix-autocomplete-panel" />
+    </div>
+  );
 }

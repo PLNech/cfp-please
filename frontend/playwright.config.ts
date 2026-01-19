@@ -8,9 +8,9 @@ export default defineConfig({
   workers: 1,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:5174/cfp-please/',
+    baseURL: 'http://localhost:5177/cfp-please/',
     trace: 'on-first-retry',
-    headless: false, // Headful by default for dev
+    headless: true, // Headless for CI/testing
     viewport: { width: 1400, height: 900 },
   },
   projects: [
@@ -21,7 +21,7 @@ export default defineConfig({
   ],
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:5174/cfp-please/',
+    url: 'http://localhost:5177/cfp-please/',
     reuseExistingServer: true,
   },
 });

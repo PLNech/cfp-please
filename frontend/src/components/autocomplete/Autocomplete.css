@@ -15,6 +15,24 @@
   --aa-selected-color-rgb: 255, 107, 107;
   --aa-scrollbar-track-background-color-rgb: 26, 26, 46;
   --aa-scrollbar-thumb-background-color-rgb: 102, 102, 102;
+
+  /* Container positioning */
+  position: relative;
+  width: 100%;
+}
+
+/* Input container */
+.talkflix-autocomplete-input {
+  width: 100%;
+}
+
+/* Panel container - positioned below input */
+.talkflix-autocomplete-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 /* Detached mode container */
@@ -57,12 +75,13 @@
 }
 
 /* Panel */
-.talkflix-autocomplete .aa-Panel {
+.talkflix-autocomplete .aa-Panel,
+.talkflix-autocomplete-panel .aa-Panel {
+  margin-top: 8px;
   background: #1a1a2e;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
   max-height: 70vh;
   overflow-y: auto;
 }
