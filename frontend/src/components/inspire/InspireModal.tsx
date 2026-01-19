@@ -17,9 +17,11 @@ interface InspireModalProps {
   matchingCFPs?: CFP[];
   onClose: () => void;
   onSelectCFP?: (cfp: CFP) => void;
+  onSpeakerClick?: (speakerName: string) => void;
+  onConferenceClick?: (conferenceName: string) => void;
 }
 
-export function InspireModal({ talk, matchingCFPs = [], onClose, onSelectCFP }: InspireModalProps) {
+export function InspireModal({ talk, matchingCFPs = [], onClose, onSelectCFP, onSpeakerClick, onConferenceClick }: InspireModalProps) {
   const { profile } = useProfile();
   const { generateInspiration, isGenerating, error } = useAgentGeneration();
   const [result, setResult] = useState<InspirationResult | null>(null);
@@ -65,8 +67,31 @@ export function InspireModal({ talk, matchingCFPs = [], onClose, onSelectCFP }: 
             <span className="inspire-modal-label">Inspired by</span>
             <h3 className="inspire-modal-source-title">{talk.title}</h3>
             <span className="inspire-modal-source-meta">
-              {talk.speaker && `${talk.speaker} • `}
-              {talk.conference_name}
+              {talk.speaker && (
+                <>
+                  <button
+                    className="inspire-modal-link"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSpeakerClick?.(talk.speaker!);
+                    }}
+                  >
+                    {talk.speaker}
+                  </button>
+                  {' • '}
+                </>
+              )}
+              {talk.conference_name && (
+                <button
+                  className="inspire-modal-link"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onConferenceClick?.(talk.conference_name!);
+                  }}
+                >
+                  {talk.conference_name}
+                </button>
+              )}
             </span>
           </div>
           <button className="inspire-modal-close" onClick={onClose}>

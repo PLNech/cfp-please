@@ -6,6 +6,7 @@
  */
 
 import React, { useMemo, useCallback, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Header, ProfileSidebar } from '../components/layout';
 import { HeroSection } from '../components/hero';
 import { CarouselRow } from '../components/carousel';
@@ -49,6 +50,17 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
   const [inspireTalk, setInspireTalk] = useState<Talk | null>(null);
   const [selectedTalk, setSelectedTalk] = useState<Talk | null>(null);
   const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
+
+  const navigate = useNavigate();
+
+  // Navigate to search with speaker or conference query
+  const handleSpeakerSearch = useCallback((speakerName: string) => {
+    navigate(`/search?q=${encodeURIComponent(speakerName)}`);
+  }, [navigate]);
+
+  const handleConferenceSearch = useCallback((conferenceName: string) => {
+    navigate(`/search?q=${encodeURIComponent(conferenceName)}`);
+  }, [navigate]);
 
   // Insights for click tracking
   const { clickTalk, clickCFP, clickInspire, viewCarousel } = useInsights();
@@ -339,6 +351,8 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
           matchingCFPs={carousels.get('hot-deadlines')?.items as CFP[] || []}
           onClose={() => setInspireTalk(null)}
           onSelectCFP={onCFPClick}
+          onSpeakerClick={handleSpeakerSearch}
+          onConferenceClick={handleConferenceSearch}
         />
       )}
 
@@ -350,6 +364,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
           onClose={() => setSelectedSpeaker(null)}
           onFollow={toggleFavoriteSpeaker}
           onTalkClick={onTalkClick}
+          onConferenceClick={handleConferenceSearch}
           isFavoriteTalk={isFavoriteTalk}
           onToggleFavoriteTalk={toggleFavoriteTalk}
         />

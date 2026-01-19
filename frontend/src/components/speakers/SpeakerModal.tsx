@@ -14,6 +14,7 @@ interface SpeakerModalProps {
   onClose: () => void;
   onFollow?: (speakerId: string) => void;
   onTalkClick?: (talk: Talk) => void;
+  onConferenceClick?: (conferenceName: string) => void;
   isFavoriteTalk?: (talkId: string) => boolean;
   onToggleFavoriteTalk?: (talkId: string) => void;
 }
@@ -24,6 +25,7 @@ export function SpeakerModal({
   onClose,
   onFollow,
   onTalkClick,
+  onConferenceClick,
   isFavoriteTalk,
   onToggleFavoriteTalk,
 }: SpeakerModalProps) {
@@ -135,12 +137,16 @@ export function SpeakerModal({
             <h3 className="speaker-modal-section-title">Conferences</h3>
             <div className="speaker-modal-conferences">
               {speaker.conferences.slice(0, 6).map((conf) => (
-                <span key={conf} className="conference-tag">
+                <button
+                  key={conf}
+                  className="conference-tag clickable"
+                  onClick={() => onConferenceClick?.(conf)}
+                >
                   {conf}
                   {speaker.conference_counts?.[conf] && (
                     <span className="conf-count">{speaker.conference_counts[conf]}x</span>
                   )}
-                </span>
+                </button>
               ))}
             </div>
           </div>

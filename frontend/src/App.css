@@ -2433,6 +2433,16 @@ body {
   color: var(--color-text-secondary);
 }
 
+.conference-tag.clickable {
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.conference-tag.clickable:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
 .topic-count,
 .conf-count {
   margin-left: 4px;
