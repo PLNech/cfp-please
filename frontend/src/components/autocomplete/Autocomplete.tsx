@@ -17,6 +17,9 @@ import {
   ALGOLIA_SPEAKERS_INDEX,
 } from '../../config';
 import type { CFP, Talk, Speaker } from '../../types';
+// Import Algolia theme first, then our overrides
+// @ts-expect-error - No type declarations for theme CSS
+import '@algolia/autocomplete-theme-classic';
 import './Autocomplete.css';
 
 const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);

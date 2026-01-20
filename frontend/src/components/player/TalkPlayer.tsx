@@ -95,7 +95,7 @@ export function TalkPlayer({ talk, isOpen, onClose, onTrackWatch }: TalkPlayerPr
                 </svg>
               </div>
               <div className="talk-player-privacy-notice">
-                Click to load from YouTube (privacy-enhanced)
+                Click to load from YouTube
               </div>
             </div>
           )}

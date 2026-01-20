@@ -249,6 +249,17 @@ Key fields for search:
 - Mobile-first: bottom nav, slide-over filters, 48px touch targets
 - Spacing scale: 4px base (`--space-1` = 0.25rem)
 
+### UX Quality Gates (CRITICAL)
+**Always visually verify UI changes with Playwright screenshots before considering done.**
+- After any CSS/component change: `npx playwright screenshot http://localhost:5173/cfp-please/ screenshots/verify.png`
+- Check: dark theme consistency, alignment, no white boxes on dark backgrounds, proper spacing
+- Third-party components (autocomplete, datepickers, modals) MUST be themed to match the app
+- Never ship UI that "looks broken" - if something looks off, fix it before moving on
+- Common gotchas:
+  - Algolia autocomplete default theme is light - always override with dark theme CSS
+  - CSS variables may not cascade to third-party components
+  - Input fields need explicit background/border colors in dark themes
+
 ### Data Quality (as of session)
 - CFPs: 404 open, 0% descriptions, 58% geoloc, 17% topics
 - Talks: separate index, FK to conferences
