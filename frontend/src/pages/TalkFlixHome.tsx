@@ -268,6 +268,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                     key={cfp.objectID}
                     cfp={cfp}
                     matchScore={hasProfile ? calculateMatchScore(cfp, profile).score : undefined}
+                    matchReasons={hasProfile ? calculateMatchScore(cfp, profile).reasons : undefined}
                     onClick={() => handleCFPClick(cfp, index + 1)}
                   />
                 ))}
@@ -308,6 +309,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                         key={item.objectID}
                         cfp={item as CFP}
                         matchScore={hasProfile ? calculateMatchScore(item as CFP, profile).score : undefined}
+                        matchReasons={hasProfile ? calculateMatchScore(item as CFP, profile).reasons : undefined}
                         onClick={() => handleCFPClick(item as CFP, index + 1)}
                       />
                     )
@@ -440,6 +442,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
 interface CFPCarouselCardProps {
   cfp: CFP;
   matchScore?: number;
+  matchReasons?: string[];
   onClick?: () => void;
 }
 
@@ -455,7 +458,7 @@ function pickCityImage(cfp: CFP): string | null {
   return cfp.city_image_urls[index];
 }
 
-function CFPCarouselCard({ cfp, matchScore, onClick }: CFPCarouselCardProps) {
+function CFPCarouselCard({ cfp, matchScore, matchReasons, onClick }: CFPCarouselCardProps) {
   const urgency = getUrgencyLevel(cfp.daysUntilCfpClose);
   const urgencyColor = getUrgencyColor(urgency);
   const cityImage = useMemo(() => pickCityImage(cfp), [cfp]);
@@ -533,7 +536,12 @@ function CFPCarouselCard({ cfp, matchScore, onClick }: CFPCarouselCardProps) {
 
         <div className="cfp-carousel-card-footer">
           {matchScore !== undefined && matchScore > 0 && (
-            <span className="cfp-carousel-card-match">{matchScore}%</span>
+            <span
+              className={`cfp-carousel-card-match ${matchScore >= 70 ? 'match-high' : matchScore >= 50 ? 'match-medium' : 'match-low'}`}
+              title={matchReasons?.length ? matchReasons.join(' • ') : undefined}
+            >
+              {matchScore}% match
+            </span>
           )}
           <IntelBadges cfp={cfp} compact />
         </div>

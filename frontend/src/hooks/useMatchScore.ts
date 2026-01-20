@@ -15,28 +15,101 @@ export interface MatchResult {
 
 /**
  * Calculate match score for a single CFP
+ *
+ * Scoring breakdown:
+ * - Base: 30 points
+ * - Topic match: up to 30 points
+ * - Interview profile: up to 25 points (tech stack, interests, travel)
+ * - Experience level: up to 10 points
+ * - Format match: up to 5 points
+ * - Popularity: up to 10 points
  */
 export function calculateMatchScore(cfp: CFP, profile: UserProfile): MatchResult {
-  if (!profile.topics.length) {
+  const hasBasicProfile = profile.topics.length > 0;
+  const interview = profile.interview;
+
+  if (!hasBasicProfile && !interview?.techStack?.length) {
     return { score: 50, reasons: ['Set your interests for personalized matches'] };
   }
 
   const reasons: string[] = [];
-  let score = 40; // Base score
+  let score = 30; // Base score
 
-  // ===== Topic Match (up to +40) =====
   const cfpTopics = cfp.topicsNormalized || cfp.topics || [];
-  const matchedTopics = profile.topics.filter((userTopic) =>
-    cfpTopics.some((cfpTopic) =>
-      cfpTopic.toLowerCase().includes(userTopic.toLowerCase()) ||
-      userTopic.toLowerCase().includes(cfpTopic.toLowerCase())
-    )
-  );
+  const cfpTech = cfp.technologies || [];
+  const cfpLocation = cfp.location || {};
 
-  if (matchedTopics.length > 0) {
-    const topicScore = Math.min(40, (matchedTopics.length / profile.topics.length) * 40);
-    score += topicScore;
-    reasons.push(`Topics: ${matchedTopics.slice(0, 2).join(', ')}`);
+  // ===== Topic Match (up to +30) =====
+  const userTopics = [...profile.topics, ...(interview?.interests || [])];
+  if (userTopics.length > 0) {
+    const matchedTopics = userTopics.filter((userTopic) =>
+      cfpTopics.some((cfpTopic) =>
+        cfpTopic.toLowerCase().includes(userTopic.toLowerCase()) ||
+        userTopic.toLowerCase().includes(cfpTopic.toLowerCase())
+      )
+    );
+
+    if (matchedTopics.length > 0) {
+      const topicScore = Math.min(30, (matchedTopics.length / Math.min(userTopics.length, 5)) * 30);
+      score += topicScore;
+      reasons.push(`Topics: ${[...new Set(matchedTopics)].slice(0, 2).join(', ')}`);
+    }
+  }
+
+  // ===== Interview Profile Match (up to +25) =====
+  if (interview) {
+    // Tech stack match (+15)
+    if (interview.techStack && interview.techStack.length > 0) {
+      const allCfpTech = [...cfpTopics, ...cfpTech].map((t) => t.toLowerCase());
+      const matchedTech = interview.techStack.filter((tech) =>
+        allCfpTech.some((cfpT) => cfpT.includes(tech.toLowerCase()))
+      );
+      if (matchedTech.length > 0) {
+        score += Math.min(15, matchedTech.length * 5);
+        if (!reasons.some((r) => r.startsWith('Topics:'))) {
+          reasons.push(`Tech: ${matchedTech.slice(0, 2).join(', ')}`);
+        }
+      }
+    }
+
+    // Travel preferences (+10)
+    const cfpCity = cfpLocation.city?.toLowerCase() || '';
+    const cfpCountry = cfpLocation.country?.toLowerCase() || '';
+
+    if (interview.travelWants && interview.travelWants.length > 0) {
+      const wantedMatch = interview.travelWants.some(
+        (place) =>
+          cfpCity.includes(place.toLowerCase()) ||
+          cfpCountry.includes(place.toLowerCase()) ||
+          place.toLowerCase().includes(cfpCity) ||
+          place.toLowerCase().includes(cfpCountry)
+      );
+      if (wantedMatch) {
+        score += 10;
+        reasons.push('Dream destination!');
+      }
+    }
+
+    // Travel avoids penalty
+    if (interview.travelAvoids && interview.travelAvoids.length > 0) {
+      const avoidMatch = interview.travelAvoids.some(
+        (place) =>
+          cfpCity.includes(place.toLowerCase()) ||
+          cfpCountry.includes(place.toLowerCase())
+      );
+      if (avoidMatch) {
+        score -= 15;
+        reasons.push('Travel constraint');
+      }
+    }
+
+    // Speaking experience alignment
+    if (interview.speakingExperience === 'none' && cfpTopics.some((t) =>
+      t.toLowerCase().includes('beginner') || t.toLowerCase().includes('first')
+    )) {
+      score += 5;
+      reasons.push('First-timer friendly');
+    }
   }
 
   // ===== Experience Level Match (up to +10) =====
@@ -65,25 +138,23 @@ export function calculateMatchScore(cfp: CFP, profile: UserProfile): MatchResult
   // ===== Popularity Boost (up to +10) =====
   if (cfp.hnStories && cfp.hnStories > 0) {
     score += 3;
-    reasons.push('Trending on HN');
+    if (!reasons.some((r) => r.includes('HN'))) reasons.push('Trending on HN');
   }
   if (cfp.githubStars && cfp.githubStars > 100) {
     score += 3;
-    reasons.push('GitHub buzz');
+    if (!reasons.some((r) => r.includes('GitHub'))) reasons.push('GitHub buzz');
   }
   if (cfp.popularityScore && cfp.popularityScore > 50) {
     score += 4;
   }
 
   // ===== Urgency Consideration =====
-  if (cfp.daysUntilCfpClose !== undefined) {
-    if (cfp.daysUntilCfpClose <= 7) {
-      reasons.push('Closing soon!');
-    }
+  if (cfp.daysUntilCfpClose !== undefined && cfp.daysUntilCfpClose <= 7) {
+    reasons.push('Closing soon!');
   }
 
   return {
-    score: Math.round(Math.min(100, score)),
+    score: Math.round(Math.max(0, Math.min(100, score))),
     reasons: reasons.slice(0, 3), // Limit to 3 reasons
   };
 }
