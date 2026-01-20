@@ -32,7 +32,8 @@ export function InspireModal({ talk, matchingCFPs = [], onClose, onSelectCFP, on
       const inspiration = await generateInspiration(
         talk,
         profile.topics,
-        profile.experienceLevel
+        profile.experienceLevel,
+        profile.interview // Pass interview data for richer personalization
       );
       if (inspiration) {
         // Add matching CFPs to the result
@@ -47,7 +48,7 @@ export function InspireModal({ talk, matchingCFPs = [], onClose, onSelectCFP, on
       }
     };
     generate();
-  }, [talk, profile.topics, profile.experienceLevel, matchingCFPs, generateInspiration]);
+  }, [talk, profile.topics, profile.experienceLevel, profile.interview, matchingCFPs, generateInspiration]);
 
   // Close on escape
   useEffect(() => {

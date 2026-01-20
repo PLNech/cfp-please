@@ -7,7 +7,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY, AGENT_ID } from '../config';
-import type { Talk, CFP } from '../types';
+import type { Talk, CFP, InterviewProfile } from '../types';
 
 // ===== Types =====
 
@@ -53,10 +53,12 @@ export function useAgentGeneration() {
   const generateInspiration = useCallback(async (
     sourceTalk: Talk,
     userTopics: string[] = [],
-    experienceLevel: string = 'intermediate'
+    experienceLevel: string = 'intermediate',
+    interview?: InterviewProfile
   ): Promise<InspirationResult | null> => {
-    // Check cache first
-    const cacheKey = `inspire_${sourceTalk.objectID}_${userTopics.join(',')}_${experienceLevel}`;
+    // Check cache first (include interview hash for cache key)
+    const interviewHash = interview ? JSON.stringify(interview).slice(0, 50) : '';
+    const cacheKey = `inspire_${sourceTalk.objectID}_${userTopics.join(',')}_${experienceLevel}_${interviewHash}`;
     const cached = cacheRef.current.get(cacheKey);
     if (cached && cached.expiresAt > Date.now()) {
       return cached.data;
@@ -67,7 +69,7 @@ export function useAgentGeneration() {
 
     try {
       // Build the prompt for structured generation
-      const prompt = buildInspirationPrompt(sourceTalk, userTopics, experienceLevel);
+      const prompt = buildInspirationPrompt(sourceTalk, userTopics, experienceLevel, interview);
 
       const response = await fetch(
         `https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents/${AGENT_ID}/completions?compatibilityMode=ai-sdk-4&stream=false`,
@@ -155,11 +157,45 @@ export function useAgentGeneration() {
 function buildInspirationPrompt(
   sourceTalk: Talk,
   userTopics: string[],
-  experienceLevel: string
+  experienceLevel: string,
+  interview?: InterviewProfile
 ): string {
   const topicsStr = userTopics.length > 0
     ? userTopics.join(', ')
     : 'general software development';
+
+  // Build rich profile section from interview data
+  let profileSection = `USER PROFILE:
+- Interests: ${topicsStr}
+- Experience Level: ${experienceLevel}`;
+
+  if (interview) {
+    if (interview.role) {
+      profileSection += `\n- Role: ${interview.role}`;
+    }
+    if (interview.techStack?.length) {
+      profileSection += `\n- Tech Stack: ${interview.techStack.join(', ')}`;
+    }
+    if (interview.interests?.length) {
+      profileSection += `\n- Deep Interests: ${interview.interests.join(', ')}`;
+    }
+    if (interview.speakingExperience) {
+      profileSection += `\n- Speaking Experience: ${interview.speakingExperience}`;
+    }
+    if (interview.goals?.length) {
+      profileSection += `\n- Goals: ${interview.goals.join(', ')}`;
+    }
+    if (interview.speakingTopics?.length) {
+      profileSection += `\n- Topics They Want to Speak About: ${interview.speakingTopics.join(', ')}`;
+    }
+    // Include any raw freeform context that might contain unique insights
+    if (interview.rawResponses) {
+      const freeform = Object.values(interview.rawResponses).join(' ').slice(0, 500);
+      if (freeform.length > 50) {
+        profileSection += `\n- Background Context: ${freeform}`;
+      }
+    }
+  }
 
   return `You are a conference talk idea generator. Based on the following talk, generate 3 unique talk ideas that the user could submit to conferences.
 
@@ -169,19 +205,18 @@ SOURCE TALK:
 - Conference: ${sourceTalk.conference_name || 'Unknown'}
 - Topics: ${(sourceTalk.topics || []).join(', ') || 'Not specified'}
 
-USER PROFILE:
-- Interests: ${topicsStr}
-- Experience Level: ${experienceLevel}
+${profileSection}
 
 Generate 3 talk ideas that:
 1. Are inspired by the source talk but offer a fresh perspective
-2. Match the user's interests and experience level
-3. Would be relevant for tech conferences in 2026
+2. Leverage the user's unique background and experience${interview?.role ? ` as a ${interview.role}` : ''}
+3. Match their stated interests and goals
+4. Would be relevant for tech conferences in 2026
 
 For each idea, provide:
 - A compelling title (max 10 words)
 - A 1-2 sentence description
-- What makes this angle unique
+- What makes this angle unique (considering the user's specific background)
 
 Format your response as JSON:
 {

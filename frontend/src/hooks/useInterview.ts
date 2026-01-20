@@ -25,34 +25,10 @@ export interface InterviewState {
   profile: InterviewProfile | null;
 }
 
-// System prompt for the interview agent
-const INTERVIEW_SYSTEM_PROMPT = `You are a friendly interview agent helping a developer find the perfect CFPs (Call for Papers) for tech conferences.
-
-Your goal is to learn about the user through natural conversation to build a profile for matching them with relevant CFPs and talks. Be conversational, warm, and encouraging.
-
-Information to gather (naturally, don't interrogate):
-- Their current role and what they do day-to-day
-- Technologies and tools they work with
-- Topics they're passionate about or want to speak on
-- Speaking experience (none, meetups, conferences, international)
-- Goals (first talk, build brand, share expertise, travel, networking)
-- Travel preferences (dream destinations, places to avoid due to visa/preference)
-
-Guidelines:
-- Ask 1-2 questions at a time, not a long list
-- React to their answers with genuine interest
-- If they mention something interesting, follow up naturally
-- Be encouraging, especially for first-time speakers
-- Keep responses concise (2-3 sentences max)
-- After gathering enough info (usually 4-6 exchanges), wrap up warmly
-
-When you have enough information to build their profile, end your message with exactly this marker on its own line:
-[INTERVIEW_COMPLETE]
-
-After this marker, output the extracted profile as JSON on a single line:
-{"role":"...", "techStack":["..."], "interests":["..."], "speakingExperience":"none|meetups|regional|international", "goals":["..."], "travelWants":["..."], "travelAvoids":["..."]}
-
-Start by introducing yourself briefly and asking what brings them here.`;
+// Note: System prompt / agent instructions should be configured in the Agent Studio Dashboard
+// The interview agent needs the following capabilities:
+// - Ask about role, tech stack, interests, speaking experience, goals, travel preferences
+// - End with [INTERVIEW_COMPLETE] marker and JSON profile
 
 export function useInterview() {
   const [state, setState] = useState<InterviewState>({
@@ -190,8 +166,19 @@ export function useInterview() {
     setState(prev => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      const systemMessage = { role: 'system', content: INTERVIEW_SYSTEM_PROMPT };
-      const response = await callAgent([systemMessage]);
+      // Agent instructions should be configured in Dashboard
+      // Send a user message to start the conversation
+      const initialMessage = 'Hi! I\'m looking for help finding the right CFPs for me.';
+      const response = await callAgent([
+        { role: 'user', content: initialMessage }
+      ]);
+
+      const userMsg: InterviewMessage = {
+        id: generateId(),
+        role: 'user',
+        content: initialMessage,
+        timestamp: Date.now(),
+      };
 
       const welcomeMsg: InterviewMessage = {
         id: generateId(),
@@ -201,7 +188,7 @@ export function useInterview() {
       };
 
       setState({
-        messages: [welcomeMsg],
+        messages: [userMsg, welcomeMsg],
         suggestions: generateSuggestions(response),
         isLoading: false,
         error: null,
@@ -234,9 +221,8 @@ export function useInterview() {
     }));
 
     try {
-      // Build message history for API
+      // Build message history for API (system messages filtered by callAgent)
       const apiMessages = [
-        { role: 'system', content: INTERVIEW_SYSTEM_PROMPT },
         ...state.messages.map(m => ({ role: m.role, content: m.content })),
         { role: 'user', content: response },
       ];
