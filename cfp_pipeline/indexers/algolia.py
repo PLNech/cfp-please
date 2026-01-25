@@ -75,6 +75,8 @@ def configure_index(client: SearchClientSync, index_name: str) -> None:
             "filterOnly(redditPosts)",
             "filterOnly(devtoArticles)",
             "filterOnly(daysUntilCfpClose)",
+            # Sessionize enrichment filtering
+            "filterOnly(sessionizeEnriched)",
         ],
         # Custom ranking: urgency first (close deadlines rank higher)
         "customRanking": [

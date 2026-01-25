@@ -99,10 +99,19 @@ class CFP(BaseModel):
     intel_topics: list[str] = Field(default_factory=list)  # All topics from all sources
     intel_urls: list[str] = Field(default_factory=list)  # Related URLs
 
+    # Sessionize enrichment (from public CFP pages)
+    sessionize_url: Optional[str] = None  # e.g., https://sessionize.com/kubecon-2026
+    attendance: Optional[str] = None  # e.g., "10,000+", "450+"
+    session_formats: list[dict] = Field(default_factory=list)  # [{"name": "Full", "duration": "20-25min"}, ...]
+    speaker_benefits: dict = Field(default_factory=dict)  # {"travel": "$500-800", "hotel": "2-3 nights", "ticket": true}
+    target_audience: Optional[str] = None  # e.g., "3+ years experience"
+    tracks: list[str] = Field(default_factory=list)  # ["Platform Tech", "Platform Business"]
+
     # Meta
     source: str = "callingallpapers"
     enriched: bool = False  # True if LLM enrichment was applied
     intel_enriched: bool = False  # True if intel data was fetched
+    sessionize_enriched: bool = False  # True if Sessionize data was fetched
     last_updated: int = Field(default_factory=lambda: int(datetime.now().timestamp()))
 
     @computed_field
@@ -173,10 +182,18 @@ class CFP(BaseModel):
             # Aggregated
             "intelTopics": self.intel_topics,
             "intelUrls": self.intel_urls[:20],
+            # Sessionize enrichment
+            "sessionizeUrl": self.sessionize_url,
+            "attendance": self.attendance,
+            "sessionFormats": self.session_formats,
+            "speakerBenefits": self.speaker_benefits,
+            "targetAudience": self.target_audience,
+            "tracks": self.tracks,
             # Meta
             "source": self.source,
             "enriched": self.enriched,
             "intelEnriched": self.intel_enriched,
+            "sessionizeEnriched": self.sessionize_enriched,
             "lastUpdated": self.last_updated,
         }
         if self._geoloc:
