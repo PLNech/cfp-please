@@ -164,10 +164,21 @@ export interface InterviewProfile {
   sideProjects?: string[];          // Brief descriptions of side projects
   interests?: string[];             // ["AI/ML", "Open Source", "Developer Experience"]
   speakingTopics?: string[];        // Topics they'd like to speak about
-  travelWants?: string[];           // Cities/countries they want to visit
-  travelAvoids?: string[];          // Places to avoid (visa issues, preferences)
   speakingExperience?: 'none' | 'meetups' | 'regional' | 'international';
   goals?: string[];                 // ["Get first talk", "Speak internationally", "Build personal brand"]
+  // Location & Travel
+  homeCity?: string;                // City where they live
+  homeCountry?: string;             // Country where they live
+  maxTravelHours?: number | null;   // Max flight hours (null = no limit)
+  travelWants?: string[];           // Cities/countries they want to visit
+  travelAvoids?: string[];          // Places to avoid (visa issues, preferences)
+  preferRemote?: boolean;           // Prefer virtual events
+  preferredFormats?: ('in-person' | 'virtual' | 'hybrid')[];
+  // Speaker Benefits (deal-breakers)
+  requireTravelCovered?: boolean;   // Must cover travel expenses
+  requireHotelCovered?: boolean;    // Must cover hotel
+  requireHonorarium?: boolean;      // Only paid speaking
+  // Meta
   interviewedAt?: number;           // Timestamp of last interview
   rawResponses?: Record<string, string>; // Raw Q&A for context
 }

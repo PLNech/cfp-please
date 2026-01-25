@@ -250,3 +250,100 @@ Check: dark theme consistency, alignment, proper spacing.
 HTML entities in names (e.g., `U.S. Travel&#39;s ESTO`) must be:
 1. Decoded at scrape time (Python: `html.unescape()`)
 2. Escaped on render (React handles this, but verify)
+
+## Algolia Agent Studio
+
+### API Reference
+
+Base URL: `https://{APP_ID}.algolia.net/agent-studio/1`
+
+**Headers** (all requests):
+- `X-Algolia-Application-Id`: App ID
+- `X-Algolia-API-Key`: Admin key (editSettings ACL) for CRUD, Search key for completions
+
+**Endpoints**:
+| Method | Path | ACL | Purpose |
+|--------|------|-----|---------|
+| GET | `/agents` | settings | List agents |
+| POST | `/agents` | editSettings | Create agent |
+| GET | `/agents/{id}` | settings | Get agent |
+| PATCH | `/agents/{id}` | editSettings | Update agent |
+| DELETE | `/agents/{id}` | editSettings | Delete agent |
+| POST | `/agents/{id}/publish` | editSettings | Publish agent |
+| POST | `/agents/{id}/completions` | search | Chat with agent |
+
+### Agent Configuration Schema
+
+```json
+{
+  "name": "string (required)",
+  "description": "string | null",
+  "instructions": "string (system prompt, required)",
+  "model": "string | null",
+  "config": {
+    "temperature": 0.7,
+    "max_tokens": 1024,
+    "sendReasoning": true
+  },
+  "tools": [/* ToolConfig array */]
+}
+```
+
+### Tool Types
+
+**1. Client-Side Tool** (local execution, agent gets results back):
+```json
+{
+  "type": "client_side",
+  "name": "save_profile",
+  "description": "Saves user profile preferences locally",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "role": { "type": "string" },
+      "topics": { "type": "array", "items": { "type": "string" } }
+    },
+    "required": ["role"],
+    "additionalProperties": false
+  }
+}
+```
+
+**2. Algolia Search Tool**:
+```json
+{
+  "type": "algolia_search_index",
+  "name": "cfp_search",
+  "indices": [{
+    "index": "cfps",
+    "description": "Search open CFPs by topic, location, deadline"
+  }]
+}
+```
+
+### Client-Side Tool Pattern (Frontend)
+
+1. Agent calls tool → returns `tool_invocations` with `state: "call"`
+2. App executes locally, validates, returns result
+3. Agent processes result, continues conversation
+
+**Validation flow**: Agent extracts data → calls `save_profile` → app validates → returns `{success, errors}` → agent retries on error
+
+### Our Agents
+
+| Agent | Purpose | Tools |
+|-------|---------|-------|
+| TalkFlix Hero Selector | Pick featured CFP | `cfp_search` |
+| TalkFlix Match Score | Calculate user-CFP fit | none |
+| TalkFlix Inspire | Generate talk ideas | `cfp_search` |
+| **Profile Interview** | Collect user preferences | `save_profile` (client-side) |
+
+### Creating Agents via API
+
+```bash
+curl -X POST "https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents" \
+  -H "X-Algolia-Application-Id: ${ALGOLIA_APP_ID}" \
+  -H "X-Algolia-API-Key: ${ALGOLIA_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "...", "instructions": "...", "tools": [...]}'
+```

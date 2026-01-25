@@ -7,6 +7,7 @@ export const ALGOLIA_SPEAKERS_INDEX = import.meta.env.VITE_ALGOLIA_SPEAKERS_INDE
 
 // Agent Studio configuration
 export const AGENT_ID = import.meta.env.VITE_AGENT_ID || '9f27077f-f2bb-465f-a5cd-80cb8928995e';
+export const INTERVIEW_AGENT_ID = import.meta.env.VITE_INTERVIEW_AGENT_ID || '0d3817e0-9a14-45ce-9190-148620879be5';
 
 // Feature flags
 export const ENABLE_TALKS = true;
