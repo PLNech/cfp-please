@@ -61,10 +61,10 @@ export function useCarouselData(
       let filters = config.filters || '';
       const now = getNowTimestamp();
 
-      // Add open CFP filter for cfps index
-      if (config.index === 'cfps') {
+      // Add open CFP filter for cfps index (skip if already has cfpEndDate filter)
+      if (config.index === 'cfps' && !filters.includes('cfpEndDate')) {
         const openFilter = `cfpEndDate > ${now}`;
-        filters = filters ? `(${filters}) AND ${openFilter}` : openFilter;
+        filters = filters ? `${filters} AND ${openFilter}` : openFilter;
       }
 
       const response = await client.searchSingleIndex({

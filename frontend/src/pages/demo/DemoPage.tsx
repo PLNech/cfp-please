@@ -153,16 +153,18 @@ function GlobeCard({ title, subtitle, lat, lng, badge, cityImageUrl }: GlobeCard
     if (!canvasRef.current) return;
 
     // Cobe coordinate system:
-    // phi = horizontal rotation (0 = prime meridian facing camera)
-    // theta = vertical tilt (0 = equator level, negative = looking down from north)
-    // To center camera on a location: rotate globe so location faces us
-    const targetPhi = (-lng * Math.PI) / 180;  // Negative to rotate location to front
-    const targetTheta = (lat * Math.PI) / 180; // Positive for northern hemisphere
+    // phi = horizontal rotation around Y axis (longitude)
+    // theta = tilt angle (latitude) - 0 at equator, positive tilts down
+    // To center on [lat, lng]: negate phi to rotate marker to front, use lat directly for theta
+    // Cobe's default view: phi=0 shows Africa/Europe, theta=0 shows equator
+    // To show marker at center: phi should be -(lng+90)deg, theta should be lat
+    const targetPhi = ((-lng - 90) * Math.PI) / 180;
+    const targetTheta = (lat * Math.PI) / 180;
 
     globeRef.current = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
-      width: 400,
-      height: 400,
+      width: 640,   // Bigger for cropped view
+      height: 640,
       phi: targetPhi,
       theta: targetTheta,
       dark: 1,
@@ -173,7 +175,7 @@ function GlobeCard({ title, subtitle, lat, lng, badge, cityImageUrl }: GlobeCard
       markerColor: [1, 0.3, 0.3],     // Brighter red
       glowColor: [0.15, 0.2, 0.25],
       markers: [
-        { location: [lat, lng], size: 0.17 }  // Visible but not too large
+        { location: [lat, lng], size: 0.12 }  // Smaller, subtle dot
       ],
       onRender: (state) => {
         state.phi = targetPhi;

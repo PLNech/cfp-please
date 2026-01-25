@@ -1989,6 +1989,23 @@ body {
   filter: blur(0.5px);
 }
 
+/* Globe overlay on CFP cards - positioned lower-right, cropped */
+.cfp-card-globe {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  right: -120px;
+  bottom: -60px;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+.cfp-carousel-card:not(.has-city-image) .cfp-card-globe {
+  opacity: 1;
+}
+
 .cfp-carousel-card-city-overlay {
   position: absolute;
   inset: 0;
