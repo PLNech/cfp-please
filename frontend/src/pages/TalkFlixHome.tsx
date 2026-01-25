@@ -7,7 +7,6 @@
 
 import React, { useMemo, useCallback, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import createGlobe from 'cobe';
 import { Header, ProfileSidebar } from '../components/layout';
 import { HeroSection } from '../components/hero';
 import { CarouselRow } from '../components/carousel';
@@ -470,80 +469,15 @@ function pickCityImage(cfp: CFP): string | null {
   return cfp.city_image_urls[index];
 }
 
-// Globe overlay for CFP cards - shows location with subtle globe in corner
-function CardGlobe({ lat, lng }: { lat: number; lng: number }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || hasError) return;
-
-    // Check WebGL support before trying to create globe
-    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
-    if (!gl) {
-      setHasError(true);
-      return;
-    }
-
-    // Center globe view on the marker location
-    const targetPhi = ((-lng - 90) * Math.PI) / 180;
-    const targetTheta = (lat * Math.PI) / 180;
-
-    try {
-      globeRef.current = createGlobe(canvas, {
-        devicePixelRatio: 2,
-        width: 640,
-        height: 640,
-        phi: targetPhi,
-        theta: targetTheta,
-        dark: 1,
-        diffuse: 1.5,
-        mapSamples: 16000,
-        mapBrightness: 8,
-        baseColor: [0.2, 0.25, 0.3],
-        markerColor: [1, 0.3, 0.3],
-        glowColor: [0.15, 0.2, 0.25],
-        markers: [{ location: [lat, lng], size: 0.12 }],
-        onRender: (state) => {
-          state.phi = targetPhi;
-          state.theta = targetTheta;
-        },
-      });
-    } catch (err) {
-      console.warn('CardGlobe: Failed to create globe', err);
-      setHasError(true);
-    }
-
-    return () => {
-      if (globeRef.current) {
-        try {
-          globeRef.current.destroy();
-        } catch {
-          // Ignore cleanup errors
-        }
-        globeRef.current = null;
-      }
-    };
-  }, [lat, lng, hasError]);
-
-  // Don't render canvas if WebGL failed
-  if (hasError) return null;
-
-  return <canvas ref={canvasRef} className="cfp-card-globe" />;
-}
-
 function CFPCarouselCard({ cfp, matchScore, matchReasons, onClick }: CFPCarouselCardProps) {
   const urgency = getUrgencyLevel(cfp.daysUntilCfpClose);
   const urgencyColor = getUrgencyColor(urgency);
   const cityImage = useMemo(() => pickCityImage(cfp), [cfp]);
   const hasCityImage = !!cityImage;
-  const hasGeoLoc = cfp._geoloc?.lat && cfp._geoloc?.lng;
 
   return (
     <article
-      className={`cfp-carousel-card ${hasCityImage ? 'has-city-image' : ''} ${hasGeoLoc ? 'has-globe' : ''}`}
+      className={`cfp-carousel-card ${hasCityImage ? 'has-city-image' : ''}`}
       onClick={onClick}
       style={{ '--urgency-color': urgencyColor } as React.CSSProperties}
     >
@@ -580,8 +514,6 @@ function CFPCarouselCard({ cfp, matchScore, matchReasons, onClick }: CFPCarousel
             </span>
           </div>
         )}
-        {/* Globe overlay when geolocation available */}
-        {hasGeoLoc && <CardGlobe lat={cfp._geoloc!.lat} lng={cfp._geoloc!.lng} />}
         <TrendingIndicator popularityScore={cfp.popularityScore} />
       </div>
 

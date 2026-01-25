@@ -28,68 +28,50 @@ export function HeroSection({ cfp, loading = false, onSubmit, onSeeTalks }: Hero
   return (
     <section className="hero">
       <div className="hero-bg">
-        {/* Gradient or image background */}
         <div className="hero-gradient" />
       </div>
 
       <div className="hero-content">
-        <div className="hero-badges">
-          <TrendingIndicator popularityScore={cfp.popularityScore} />
-          <IntelBadges cfp={cfp} compact />
+        {/* Left column: main info */}
+        <div className="hero-main">
+          <div className="hero-badges">
+            <TrendingIndicator popularityScore={cfp.popularityScore} />
+            <IntelBadges cfp={cfp} compact />
+          </div>
+
+          <h2 className="hero-title">{cfp.name}</h2>
+
+          {cfp.location?.city && (
+            <p className="hero-location">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              {cfp.location.city}
+              {cfp.location.country && `, ${cfp.location.country}`}
+            </p>
+          )}
         </div>
 
-        <h2 className="hero-title">{cfp.name}</h2>
+        {/* Right column: countdown + actions */}
+        <div className="hero-side">
+          {cfp.cfpEndDate && <HeroCountdown deadline={cfp.cfpEndDate} />}
 
-        {cfp.location?.city && (
-          <p className="hero-location">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            {cfp.location.city}
-            {cfp.location.country && `, ${cfp.location.country}`}
-          </p>
-        )}
-
-        {cfp.cfpEndDate && (
-          <HeroCountdown deadline={cfp.cfpEndDate} />
-        )}
-
-        <div className="hero-actions">
-          <button className="hero-btn hero-btn-primary" onClick={onSubmit}>
-            Submit Now
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </button>
-          <button className="hero-btn hero-btn-secondary" onClick={onSeeTalks}>
-            See Talks
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
+          <div className="hero-actions">
+            <button className="hero-btn hero-btn-primary" onClick={onSubmit}>
+              Submit
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+            <button className="hero-btn hero-btn-secondary" onClick={onSeeTalks}>
+              Talks
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>
