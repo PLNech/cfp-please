@@ -1,5 +1,62 @@
 /* Autocomplete dark theme for TalkFlix */
+/* Panel renders at body level, so we need global selectors */
 
+/* Global panel styles (rendered outside component) */
+.aa-Panel {
+  --aa-primary-color-rgb: 255, 107, 107;
+  --aa-muted-color-rgb: 136, 136, 136;
+  --aa-text-color-rgb: 245, 245, 245;
+  --aa-background-color-rgb: 26, 26, 46;
+  --aa-panel-background-color-rgb: 26, 26, 46;
+
+  background: #1a1a2e !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  z-index: 9999 !important;
+}
+
+.aa-Panel * {
+  color: #f5f5f5;
+}
+
+.aa-SourceHeader {
+  padding: 8px 16px !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  color: #888 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.aa-Item {
+  padding: 10px 16px !important;
+  cursor: pointer !important;
+  background: transparent !important;
+}
+
+.aa-Item[aria-selected='true'],
+.aa-Item:hover {
+  background: rgba(255, 107, 107, 0.15) !important;
+}
+
+.aa-ItemContent {
+  color: #f5f5f5 !important;
+}
+
+.aa-ItemContentTitle {
+  color: #f5f5f5 !important;
+}
+
+.aa-NoResults {
+  padding: 16px !important;
+  color: #888 !important;
+  text-align: center !important;
+}
+
+/* Local component styles */
 .talkflix-autocomplete {
   --aa-primary-color-rgb: 255, 107, 107;
   --aa-muted-color-rgb: 136, 136, 136;
