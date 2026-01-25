@@ -38,19 +38,17 @@ export function Autocomplete({
   onSpeakerSelect,
 }: AutocompleteProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!containerRef.current || !panelRef.current) return;
+    if (!containerRef.current) return;
 
     const search = autocomplete({
       container: containerRef.current,
-      panelContainer: panelRef.current, // Render panel inside our container
+      // Let autocomplete manage its own panel for simpler rendering
       panelPlacement: 'input-wrapper-width',
-      detachedMediaQuery: 'none', // Disable detached mode
       placeholder,
-      openOnFocus: true,
+      openOnFocus: false,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       getSources({ query }): any {
         if (!query) {
@@ -185,7 +183,6 @@ export function Autocomplete({
   return (
     <div className="talkflix-autocomplete">
       <div ref={containerRef} className="talkflix-autocomplete-input" />
-      <div ref={panelRef} className="talkflix-autocomplete-panel" />
     </div>
   );
 }

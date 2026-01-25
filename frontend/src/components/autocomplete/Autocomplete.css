@@ -32,7 +32,13 @@
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 9999;
+  width: 100%;
+}
+
+/* Ensure panel has visible dimensions */
+.talkflix-autocomplete-panel:not(:empty) {
+  min-height: 50px;
 }
 
 /* Detached mode container */
@@ -74,15 +80,19 @@
   color: #ff6b6b;
 }
 
-/* Panel */
+/* Panel - ensure visible */
 .talkflix-autocomplete .aa-Panel,
 .talkflix-autocomplete-panel .aa-Panel {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
   margin-top: 8px;
   background: #1a1a2e;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   max-height: 70vh;
+  min-width: 300px;
   overflow-y: auto;
 }
 
