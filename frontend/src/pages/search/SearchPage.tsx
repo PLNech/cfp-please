@@ -1,10 +1,11 @@
 /**
  * SearchPage - Multi-index search with CFPs, Talks, and Speakers
  *
- * Full InstantSearch experience as a separate route.
+ * Full InstantSearch experience with same header as TalkFlixHome.
+ * URL-synced search query across all indexes.
  */
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
 import { InstantSearch, useHits, useSearchBox, useConfigure, useRefinementList, useInstantSearch } from 'react-instantsearch';
@@ -31,15 +32,38 @@ interface SearchPageProps {
 }
 
 export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPageProps) {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
+  const [query, setQuery] = useState(initialQuery);
   const [activeTab, setActiveTab] = useState<ResultType>('all');
   const navigate = useNavigate();
-  const { isFavoriteTalk, toggleFavoriteTalk, markTalkWatched } = useProfile();
+  const { profile, openProfile, isFavoriteTalk, toggleFavoriteTalk, markTalkWatched } = useProfile();
   const { clickCFP, clickTalk } = useInsights();
+
+  // Sync query with URL
+  useEffect(() => {
+    const urlQuery = searchParams.get('q') || '';
+    if (urlQuery !== query) {
+      setQuery(urlQuery);
+    }
+  }, [searchParams]);
+
+  // Update URL when query changes (debounced)
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (query !== (searchParams.get('q') || '')) {
+        setSearchParams(query ? { q: query } : {}, { replace: true });
+      }
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [query, searchParams, setSearchParams]);
 
   const handleBack = () => {
     navigate('/');
+  };
+
+  const handleQueryChange = (newQuery: string) => {
+    setQuery(newQuery);
   };
 
   // Track CFP click with position and queryID for click analytics
@@ -57,13 +81,51 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
 
   return (
     <div className="search-page">
-      <header className="search-page-header">
-        <button className="search-page-back" onClick={handleBack} aria-label="Go back">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      {/* Same header as TalkFlixHome */}
+      <header className="talkflix-header">
+        <button className="search-page-back-btn" onClick={handleBack} aria-label="Go back">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
-        <h1 className="search-page-title">Search</h1>
+
+        <div className="talkflix-logo" onClick={handleBack} style={{ cursor: 'pointer' }}>
+          <span className="talkflix-logo-icon">🎤</span>
+          <span className="talkflix-logo-text">TalkFlix</span>
+        </div>
+
+        {/* Search input - synced with URL */}
+        <div className="search-page-searchbar">
+          <svg className="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => handleQueryChange(e.target.value)}
+            placeholder="Search CFPs, talks, speakers..."
+            className="search-page-input"
+            autoFocus
+          />
+          {query && (
+            <button className="search-clear-btn" onClick={() => handleQueryChange('')}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        {/* Profile button */}
+        <button className="talkflix-profile-btn" onClick={openProfile}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          {profile.topics.length > 0 && <span className="profile-badge">{profile.topics.length}</span>}
+        </button>
       </header>
 
       {/* Tabs for filtering result type */}
@@ -87,7 +149,7 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
         {(activeTab === 'all' || activeTab === 'cfps') && (
           <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX_NAME}>
             <CFPSearchSection
-              initialQuery={initialQuery}
+              query={query}
               showTitle={activeTab === 'all'}
               onCFPClick={handleCFPClick}
             />
@@ -97,7 +159,7 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
         {(activeTab === 'all' || activeTab === 'talks') && (
           <InstantSearch searchClient={searchClient} indexName={ALGOLIA_TALKS_INDEX}>
             <TalkSearchSection
-              initialQuery={initialQuery}
+              query={query}
               showTitle={activeTab === 'all'}
               onTalkClick={handleTalkClick}
               isFavorite={isFavoriteTalk}
@@ -109,7 +171,7 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
         {(activeTab === 'all' || activeTab === 'speakers') && (
           <InstantSearch searchClient={searchClient} indexName={ALGOLIA_SPEAKERS_INDEX}>
             <SpeakerSearchSection
-              initialQuery={initialQuery}
+              query={query}
               showTitle={activeTab === 'all'}
               onSpeakerClick={onSpeakerClick}
             />
@@ -122,27 +184,25 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
 
 // ========== CFP Section ==========
 interface CFPSearchSectionProps {
-  initialQuery: string;
+  query: string;
   showTitle: boolean;
   onCFPClick?: (cfp: CFP, position: number, queryID?: string) => void;
 }
 
-function CFPSearchSection({ initialQuery, showTitle, onCFPClick }: CFPSearchSectionProps) {
+function CFPSearchSection({ query: externalQuery, showTitle, onCFPClick }: CFPSearchSectionProps) {
   useConfigure({
     hitsPerPage: showTitle ? 6 : 20,
-    clickAnalytics: true, // Enable queryID in response
+    clickAnalytics: true,
   });
-  const { query, refine } = useSearchBox();
+  const { refine } = useSearchBox();
   const { items: hits } = useHits<CFP>();
   const { results } = useInstantSearch();
   const queryID = results?.queryID;
 
-  // Set initial query on mount
-  useMemo(() => {
-    if (initialQuery && query !== initialQuery) {
-      refine(initialQuery);
-    }
-  }, [initialQuery]);
+  // Sync external query with InstantSearch
+  useEffect(() => {
+    refine(externalQuery);
+  }, [externalQuery, refine]);
 
   const handleClick = useCallback((cfp: CFP, position: number) => {
     onCFPClick?.(cfp, position, queryID);
@@ -151,7 +211,6 @@ function CFPSearchSection({ initialQuery, showTitle, onCFPClick }: CFPSearchSect
   return (
     <section className="search-section">
       {showTitle && <h2 className="search-section-title">CFPs ({hits.length})</h2>}
-      {!showTitle && <SearchInput query={query} refine={refine} placeholder="Search CFPs..." />}
       {!showTitle && <CFPFacets />}
 
       <div className="search-results">
@@ -227,28 +286,27 @@ function CFPResultCard({ cfp, onClick }: { cfp: CFP; onClick: () => void }) {
 
 // ========== Talk Section ==========
 interface TalkSearchSectionProps {
-  initialQuery: string;
+  query: string;
   showTitle: boolean;
   onTalkClick?: (talk: Talk, position: number, queryID?: string) => void;
   isFavorite: (id: string) => boolean;
   onToggleFavorite: (id: string) => void;
 }
 
-function TalkSearchSection({ initialQuery, showTitle, onTalkClick, isFavorite, onToggleFavorite }: TalkSearchSectionProps) {
+function TalkSearchSection({ query: externalQuery, showTitle, onTalkClick, isFavorite, onToggleFavorite }: TalkSearchSectionProps) {
   useConfigure({
     hitsPerPage: showTitle ? 6 : 20,
     clickAnalytics: true,
   });
-  const { query, refine } = useSearchBox();
+  const { refine } = useSearchBox();
   const { items: hits } = useHits<Talk>();
   const { results } = useInstantSearch();
   const queryID = results?.queryID;
 
-  useMemo(() => {
-    if (initialQuery && query !== initialQuery) {
-      refine(initialQuery);
-    }
-  }, [initialQuery]);
+  // Sync external query with InstantSearch
+  useEffect(() => {
+    refine(externalQuery);
+  }, [externalQuery, refine]);
 
   const handleClick = useCallback((talk: Talk, position: number) => {
     onTalkClick?.(talk, position, queryID);
@@ -257,7 +315,6 @@ function TalkSearchSection({ initialQuery, showTitle, onTalkClick, isFavorite, o
   return (
     <section className="search-section">
       {showTitle && <h2 className="search-section-title">Talks ({hits.length})</h2>}
-      {!showTitle && <SearchInput query={query} refine={refine} placeholder="Search talks..." />}
 
       <div className="search-results">
         {hits.length === 0 ? (
@@ -329,26 +386,24 @@ function TalkResultCard({
 
 // ========== Speaker Section ==========
 interface SpeakerSearchSectionProps {
-  initialQuery: string;
+  query: string;
   showTitle: boolean;
   onSpeakerClick?: (speaker: Speaker) => void;
 }
 
-function SpeakerSearchSection({ initialQuery, showTitle, onSpeakerClick }: SpeakerSearchSectionProps) {
+function SpeakerSearchSection({ query: externalQuery, showTitle, onSpeakerClick }: SpeakerSearchSectionProps) {
   useConfigure({ hitsPerPage: showTitle ? 6 : 20 });
-  const { query, refine } = useSearchBox();
+  const { refine } = useSearchBox();
   const { items: hits } = useHits<Speaker>();
 
-  useMemo(() => {
-    if (initialQuery && query !== initialQuery) {
-      refine(initialQuery);
-    }
-  }, [initialQuery]);
+  // Sync external query with InstantSearch
+  useEffect(() => {
+    refine(externalQuery);
+  }, [externalQuery, refine]);
 
   return (
     <section className="search-section">
       {showTitle && <h2 className="search-section-title">Speakers ({hits.length})</h2>}
-      {!showTitle && <SearchInput query={query} refine={refine} placeholder="Search speakers..." />}
 
       <div className="search-results speakers-grid">
         {hits.length === 0 ? (
@@ -402,30 +457,4 @@ function SpeakerResultCard({ speaker, onClick }: { speaker: Speaker; onClick: ()
   );
 }
 
-// ========== Shared Components ==========
-function SearchInput({
-  query,
-  refine,
-  placeholder,
-}: {
-  query: string;
-  refine: (value: string) => void;
-  placeholder: string;
-}) {
-  return (
-    <div className="search-input-wrapper">
-      <svg className="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
-      <input
-        type="search"
-        value={query}
-        onChange={(e) => refine(e.target.value)}
-        placeholder={placeholder}
-        className="search-input"
-        autoFocus
-      />
-    </div>
-  );
-}
+// Search input moved to header - unified search bar across page
