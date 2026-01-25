@@ -56,11 +56,17 @@ export interface CFP {
   popularityScore?: number;
   hnStories?: number;
   hnPoints?: number;
+  hnComments?: string[];     // Top HN comments for display
+  hnStoryTitles?: string[];  // For search
   githubRepos?: number;
   githubStars?: number;
+  githubDescriptions?: string[];
   redditPosts?: number;
   redditSubreddits?: string[];
+  redditComments?: string[]; // Top Reddit comments for display
+  redditTitles?: string[];
   devtoArticles?: number;
+  devtoTitles?: string[];
   intelEnriched?: boolean;
 
   // City hero images (from Unsplash)

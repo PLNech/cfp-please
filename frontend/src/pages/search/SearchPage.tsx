@@ -193,10 +193,19 @@ function CFPFacets() {
 }
 
 function CFPResultCard({ cfp, onClick }: { cfp: CFP; onClick: () => void }) {
+  // Truncate description to ~80 chars for card display
+  const truncateDesc = (desc?: string, maxLen = 80) => {
+    if (!desc) return null;
+    return desc.length > maxLen ? desc.slice(0, maxLen).trim() + '...' : desc;
+  };
+
   return (
     <article className="search-result-card" onClick={onClick}>
       <div className="search-result-badge cfp-badge">CFP</div>
       <h3 className="search-result-title">{cfp.name}</h3>
+      {cfp.description && (
+        <p className="search-result-description">{truncateDesc(cfp.description)}</p>
+      )}
       <p className="search-result-meta">
         {cfp.location?.city && <span>{cfp.location.city}</span>}
         {cfp.daysUntilCfpClose !== undefined && cfp.daysUntilCfpClose >= 0 && (

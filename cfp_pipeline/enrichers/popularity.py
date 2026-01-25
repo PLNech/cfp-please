@@ -171,6 +171,28 @@ class ConferenceIntel:
         }
 
 
+# Noise patterns to filter out (common false positives)
+# Format: (regex_pattern, min_year) - pattern before year is noise
+_NOISE_PATTERNS = [
+    (r'\bthis week in\b', 0),
+    (r'\bweekly(?: digest| roundup)?\b', 0),
+    (r'\bmonthly\b', 0),
+    (r'\bq&a\b', 0),
+    (r'\bama\b', 0),
+    (r'\bask me anything\b', 0),
+    (r'\bshow hn\b', 0),
+    (r'\bask hn\b', 0),
+    (r'\btell me anything\b', 0),
+    (r'\bi (?:built|made|wrote|created)\b', 0),
+    (r'\bintroducing\b', 0),
+    (r'\blooking for\b', 0),
+    (r'\bhelp with\b', 0),
+    (r'\bhow do i\b', 0),
+    (r'\bissue #?\d+\b', 2018),  # Newsletter issues (after 2018 is noise)
+    (r'\bfriday(?: is)? webday\b', 0),  # Webday newsletter
+]
+
+
 def _clean_name(name: str) -> str:
     """Clean conference name for search."""
     # Remove year
@@ -179,6 +201,39 @@ def _clean_name(name: str) -> str:
     name = re.sub(r'\s*-\s*CFP.*$', '', name, flags=re.IGNORECASE)
     name = re.sub(r'\s*\(.*\)$', '', name)
     return name.strip()
+
+
+def _is_noise(title: str, conference_name: str) -> bool:
+    """Check if a title is noise (false positive for the conference)."""
+    title_lower = title.lower()
+
+    # Check noise patterns first (newsletter/announcement patterns that are never about the conf)
+    for pattern, _ in _NOISE_PATTERNS:
+        if re.search(pattern, title_lower, re.IGNORECASE):
+            return True
+
+    # Clean conference name for matching (strip year)
+    conf_lower = _clean_name(conference_name).lower()
+
+    # Require conference name to appear (with optional year/suffix variations)
+    conf_variations = [
+        conf_lower,
+        conf_lower.replace(' ', ''),
+        conf_lower.replace(' ', '-'),
+    ]
+    conf_found = any(v in title_lower for v in conf_variations)
+
+    # Accept if title is short (<30 chars) and has the exact name
+    if len(title) < 30 and any(conf_lower in t for t in [title_lower]):
+        return False
+
+    # If title doesn't contain conference name at all, it's noise
+    if not conf_found:
+        return True
+
+    # Title mentions the conference - even with old years, it's relevant content!
+    # (FOSDEM 2020 videos are still about FOSDEM conference)
+    return False
 
 
 async def fetch_hn_intel(client: httpx.AsyncClient, name: str) -> dict:
@@ -212,8 +267,14 @@ async def fetch_hn_intel(client: httpx.AsyncClient, name: str) -> dict:
         topic_words = []
 
         for hit in data.get("hits", []):
+            title = hit.get("title", "")
+
+            # Filter noise - skip if not about this conference
+            if _is_noise(title, name):
+                continue
+
             story = HNStory(
-                title=hit.get("title", ""),
+                title=title,
                 url=hit.get("url", ""),
                 hn_url=f"https://news.ycombinator.com/item?id={hit.get('objectID', '')}",
                 points=hit.get("points", 0) or 0,

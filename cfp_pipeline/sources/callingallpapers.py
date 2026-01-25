@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -13,6 +14,39 @@ from rich.console import Console
 from cfp_pipeline.models import CFP, GeoLoc, Location, RawCAPRecord
 
 console = Console()
+
+
+def _repair_encoding(text: Optional[str]) -> Optional[str]:
+    """Repair common encoding issues in text fields."""
+    if not text:
+        return None
+
+    # Fix common encoding errors
+    # Remove null bytes
+    text = text.replace('\x00', '')
+
+    # Fix smart quotes and special chars that might be mangled
+    replacements = {
+        '\xe2\x80\x99': "'",  # Right single quote
+        '\xe2\x80\x9c': '"',  # Left double quote
+        '\xe2\x80\x9d': '"',  # Right double quote
+        '\xe2\x80\x93': '-',  # En dash
+        '\xe2\x80\x94': '--', # Em dash
+        '\xc3\xa9': 'e',      # e with accent
+        '\xc3\xa0': 'a',      # a with accent
+        '\xc3\xb1': 'n',      # n with tilde
+    }
+
+    for bad, good in replacements.items():
+        text = text.replace(bad, good) if isinstance(bad, str) else text
+
+    # Remove non-printable chars except newlines/tabs
+    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', text)
+
+    # Strip extra whitespace
+    text = ' '.join(text.split())
+
+    return text if text.strip() else None
 
 CAP_API_URL = "https://api.callingallpapers.com/v1/cfp"
 CACHE_DIR = Path(__file__).parent.parent.parent / ".cache"
@@ -132,10 +166,14 @@ def transform_cap_record(raw: RawCAPRecord) -> CFP:
     # Filter out empty tags (CAP often sends [''] which is useless)
     clean_tags = [t for t in raw.tags if t and t.strip()]
 
+    # Apply encoding repair to text fields
+    repaired_name = _repair_encoding(raw.name)
+    repaired_description = _repair_encoding(raw.description)
+
     cfp = CFP(
         objectID=generate_object_id(raw.uri),
-        name=raw.name,
-        description=raw.description,
+        name=repaired_name or raw.name,  # Fallback to original if repair returns None
+        description=repaired_description,
         url=raw.eventUri,
         cfp_url=raw.uri,
         icon_url=raw.iconUri,
