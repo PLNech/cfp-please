@@ -28,56 +28,103 @@ interface GlobeWidgetProps {
   lat?: number;
   lng?: number;
   label?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'default' | 'zoomed' | 'lowres' | 'smooth';
 }
 
-const GLOBE_SIZES = { sm: 60, md: 100, lg: 160 };
+const GLOBE_SIZES = { sm: 60, md: 100, lg: 160, xl: 200 };
 
-function GlobeWidget({ lat = 52.37, lng = 4.89, label = 'Amsterdam', size = 'md' }: GlobeWidgetProps) {
+function GlobeWidget({ lat = 52.37, lng = 4.89, label = 'Amsterdam', size = 'md', variant = 'default' }: GlobeWidgetProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const globeSize = GLOBE_SIZES[size];
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    let phi = 0;
-    const targetPhi = (lng + 90) * (Math.PI / 180);
-    const targetTheta = (90 - lat) * (Math.PI / 180) - Math.PI / 2;
+    const targetPhi = (lng * Math.PI) / 180;
+    const targetTheta = (lat * Math.PI) / 180;
+
+    // Variant-specific settings to combat moiré
+    const variantSettings = {
+      default: {
+        mapSamples: 16000,
+        mapBrightness: 6,
+        devicePixelRatio: 2,
+        scale: 1,
+        markerSize: size === 'sm' ? 0.25 : size === 'md' ? 0.2 : 0.15,
+      },
+      zoomed: {
+        // Render bigger globe, CSS will crop it
+        mapSamples: 20000,
+        mapBrightness: 5,
+        devicePixelRatio: 2,
+        scale: 2.5,  // Zoom in to show quarter
+        markerSize: 0.08,
+      },
+      lowres: {
+        // Fewer dots = less moiré
+        mapSamples: 4000,
+        mapBrightness: 8,
+        devicePixelRatio: 1.5,
+        scale: 1,
+        markerSize: size === 'sm' ? 0.3 : 0.25,
+      },
+      smooth: {
+        // Medium samples with blur
+        mapSamples: 8000,
+        mapBrightness: 5,
+        devicePixelRatio: 1,
+        scale: 1,
+        markerSize: size === 'sm' ? 0.3 : 0.25,
+      },
+    };
+
+    const settings = variantSettings[variant];
+    const renderSize = Math.round(globeSize * settings.scale);
 
     const globe = createGlobe(canvasRef.current, {
-      devicePixelRatio: 2,
-      width: globeSize * 2,
-      height: globeSize * 2,
+      devicePixelRatio: settings.devicePixelRatio,
+      width: renderSize * 2,
+      height: renderSize * 2,
       phi: targetPhi,
       theta: targetTheta,
       dark: 1,
       diffuse: 1.2,
-      mapSamples: 16000,
-      mapBrightness: 6,
+      mapSamples: settings.mapSamples,
+      mapBrightness: settings.mapBrightness,
       baseColor: [0.15, 0.2, 0.25],
-      markerColor: [1, 0.3, 0.3],         // Brighter red
+      markerColor: [1, 0.2, 0.2],
       glowColor: [0.1, 0.15, 0.2],
       markers: [
-        { location: [lat, lng], size: 0.15 }  // Bigger marker
+        { location: [lat, lng], size: settings.markerSize }
       ],
       onRender: (state) => {
-        state.phi = targetPhi + phi;
-        phi += 0.003;
+        state.phi = targetPhi;
+        state.theta = targetTheta;
       }
     });
 
     return () => globe.destroy();
-  }, [lat, lng, globeSize]);
+  }, [lat, lng, globeSize, size, variant]);
+
+  const isZoomed = variant === 'zoomed';
+  const isSmooth = variant === 'smooth';
 
   return (
-    <div className={`globe-widget globe-${size}`} title={label}>
+    <div
+      className={`globe-widget globe-${size} globe-variant-${variant}`}
+      title={label}
+      style={isZoomed ? { overflow: 'hidden' } : undefined}
+    >
       <canvas
         ref={canvasRef}
         style={{
-          width: globeSize,
-          height: globeSize,
-          maxWidth: '100%',
+          width: isZoomed ? globeSize * 2.5 : globeSize,
+          height: isZoomed ? globeSize * 2.5 : globeSize,
+          maxWidth: isZoomed ? undefined : '100%',
           aspectRatio: '1',
+          transform: isZoomed ? 'translate(-30%, -20%)' : undefined,
+          filter: isSmooth ? 'blur(0.5px)' : undefined,
         }}
       />
       {label && <span className="globe-label">{label}</span>}
@@ -95,49 +142,70 @@ interface GlobeCardProps {
   lat: number;
   lng: number;
   badge?: string;
+  cityImageUrl?: string;  // Unsplash city image to layer with globe
 }
 
-function GlobeCard({ title, subtitle, lat, lng, badge }: GlobeCardProps) {
+function GlobeCard({ title, subtitle, lat, lng, badge, cityImageUrl }: GlobeCardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    let phi = 0;
-    const targetPhi = (lng + 90) * (Math.PI / 180);
-    const targetTheta = (90 - lat) * (Math.PI / 180) - Math.PI / 2;
+    // Cobe coordinate system:
+    // phi = horizontal rotation (0 = prime meridian facing camera)
+    // theta = vertical tilt (0 = equator level, negative = looking down from north)
+    // To center camera on a location: rotate globe so location faces us
+    const targetPhi = (-lng * Math.PI) / 180;  // Negative to rotate location to front
+    const targetTheta = (lat * Math.PI) / 180; // Positive for northern hemisphere
 
-    const globe = createGlobe(canvasRef.current, {
+    globeRef.current = createGlobe(canvasRef.current, {
       devicePixelRatio: 2,
       width: 400,
       height: 400,
       phi: targetPhi,
       theta: targetTheta,
       dark: 1,
-      diffuse: 0.8,
-      mapSamples: 20000,
-      mapBrightness: 4,
-      baseColor: [0.1, 0.15, 0.2],
-      markerColor: [1, 0.3, 0.3],
-      glowColor: [0.05, 0.1, 0.15],
+      diffuse: 1.5,
+      mapSamples: 16000,
+      mapBrightness: 8,
+      baseColor: [0.2, 0.25, 0.3],
+      markerColor: [1, 0.3, 0.3],     // Brighter red
+      glowColor: [0.15, 0.2, 0.25],
       markers: [
-        { location: [lat, lng], size: 0.12 }
+        { location: [lat, lng], size: 0.17 }  // Visible but not too large
       ],
       onRender: (state) => {
-        state.phi = targetPhi + phi;
-        phi += 0.002;
+        state.phi = targetPhi;
+        state.theta = targetTheta;
       }
     });
 
-    return () => globe.destroy();
+    return () => {
+      if (globeRef.current) {
+        globeRef.current.destroy();
+        globeRef.current = null;
+      }
+    };
   }, [lat, lng]);
 
   return (
     <div className="globe-card">
+      {/* Layer 1: City image (if available) */}
+      {cityImageUrl && (
+        <img
+          src={cityImageUrl}
+          alt=""
+          className="globe-card-city-img"
+          loading="lazy"
+        />
+      )}
+      {/* Layer 2: Globe overlay */}
       <canvas
         ref={canvasRef}
-        className="globe-card-bg"
+        className="globe-card-globe"
       />
+      {/* Layer 3: Content with gradient */}
       <div className="globe-card-content">
         {badge && <span className="globe-card-badge">{badge}</span>}
         <h4>{title}</h4>
@@ -148,29 +216,105 @@ function GlobeCard({ title, subtitle, lat, lng, badge }: GlobeCardProps) {
 }
 
 // =============================================================================
-// LOCATION CONSENT MODAL
+// LOCATION CONSENT MODAL with OSM Autocomplete
 // =============================================================================
+
+interface OSMPlace {
+  place_id: number;
+  display_name: string;
+  lat: string;
+  lon: string;
+}
 
 interface LocationModalProps {
   isOpen: boolean;
   onClose: () => void;
   onLocate: () => void;
-  onManualEntry: (location: string) => void;
+  onManualEntry: (location: string, lat: number, lng: number) => void;
 }
 
 function LocationModal({ isOpen, onClose, onLocate, onManualEntry }: LocationModalProps) {
   const [manualInput, setManualInput] = useState('');
   const [isLocating, setIsLocating] = useState(false);
+  const [suggestions, setSuggestions] = useState<OSMPlace[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const debounceRef = useRef<number | null>(null);
+
+  // OSM Nominatim autocomplete
+  const searchPlaces = async (query: string) => {
+    if (query.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`,
+        { headers: { 'User-Agent': 'CFPPlease/1.0' } }
+      );
+      const data: OSMPlace[] = await response.json();
+      setSuggestions(data);
+    } catch (err) {
+      console.error('OSM search failed:', err);
+      setSuggestions([]);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleInputChange = (value: string) => {
+    setManualInput(value);
+
+    // Debounce search
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    debounceRef.current = window.setTimeout(() => {
+      searchPlaces(value);
+    }, 300);
+  };
+
+  const handleSelectSuggestion = (place: OSMPlace) => {
+    const shortName = place.display_name.split(',').slice(0, 2).join(',');
+    setManualInput(shortName);
+    setSuggestions([]);
+    onManualEntry(shortName, parseFloat(place.lat), parseFloat(place.lon));
+  };
 
   if (!isOpen) return null;
 
   const handleLocate = () => {
     setIsLocating(true);
-    // Simulate geolocation
-    setTimeout(() => {
+    // Use browser geolocation
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          // Reverse geocode to get city name
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`,
+              { headers: { 'User-Agent': 'CFPPlease/1.0' } }
+            );
+            const data = await response.json();
+            const city = data.address?.city || data.address?.town || data.address?.village || 'Your Location';
+            const country = data.address?.country || '';
+            const label = country ? `${city}, ${country}` : city;
+            onManualEntry(label, position.coords.latitude, position.coords.longitude);
+          } catch {
+            onManualEntry('Your Location', position.coords.latitude, position.coords.longitude);
+          }
+          setIsLocating(false);
+        },
+        () => {
+          setIsLocating(false);
+          alert('Could not get your location. Please enter manually.');
+        }
+      );
+    } else {
       setIsLocating(false);
       onLocate();
-    }, 1500);
+    }
   };
 
   return (
@@ -207,20 +351,29 @@ function LocationModal({ isOpen, onClose, onLocate, onManualEntry }: LocationMod
         </div>
 
         <div className="location-manual">
-          <input
-            type="text"
-            placeholder="Enter city or country..."
-            value={manualInput}
-            onChange={e => setManualInput(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && manualInput && onManualEntry(manualInput)}
-          />
-          <button
-            className="location-btn location-btn-secondary"
-            disabled={!manualInput}
-            onClick={() => onManualEntry(manualInput)}
-          >
-            Set
-          </button>
+          <div className="location-autocomplete">
+            <input
+              type="text"
+              placeholder="Enter city or country..."
+              value={manualInput}
+              onChange={e => handleInputChange(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && suggestions.length > 0) {
+                  handleSelectSuggestion(suggestions[0]);
+                }
+              }}
+            />
+            {isSearching && <span className="location-searching">...</span>}
+            {suggestions.length > 0 && (
+              <ul className="location-suggestions">
+                {suggestions.map(place => (
+                  <li key={place.place_id} onClick={() => handleSelectSuggestion(place)}>
+                    {place.display_name.split(',').slice(0, 3).join(',')}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
 
         <p className="location-modal-footer">
@@ -232,7 +385,7 @@ function LocationModal({ isOpen, onClose, onLocate, onManualEntry }: LocationMod
 }
 
 // =============================================================================
-// NEAR YOU CAROUSEL (Mock)
+// NEAR YOU CAROUSEL - Dynamic based on user location
 // =============================================================================
 
 interface NearYouCFP {
@@ -244,16 +397,60 @@ interface NearYouCFP {
   lng: number;
 }
 
-const MOCK_NEAR_YOU: NearYouCFP[] = [
-  { name: 'RustWeek 2026', location: 'Utrecht, NL', distance: '45 km', date: 'Jun 10-14', lat: 52.09, lng: 5.10 },
-  { name: 'Cloud Native Rejekts', location: 'Amsterdam, NL', distance: '52 km', date: 'Mar 31', lat: 52.37, lng: 4.89 },
-  { name: 'devCampNoord', location: 'Groningen, NL', distance: '180 km', date: 'May 3', lat: 53.21, lng: 6.59 },
-  { name: 'Techorama Belgium', location: 'Antwerp, BE', distance: '210 km', date: 'May 7-9', lat: 51.22, lng: 4.40 },
-  { name: 'DDD North', location: 'Hull, UK', distance: '450 km', date: 'Feb 22', lat: 53.77, lng: -0.37 },
+// Sample conferences around the world for demo
+const ALL_CONFERENCES: Omit<NearYouCFP, 'distance'>[] = [
+  { name: 'RustWeek 2026', location: 'Utrecht, NL', date: 'Jun 10-14', lat: 52.09, lng: 5.10 },
+  { name: 'Cloud Native Rejekts', location: 'Amsterdam, NL', date: 'Mar 31', lat: 52.37, lng: 4.89 },
+  { name: 'devCampNoord', location: 'Groningen, NL', date: 'May 3', lat: 53.21, lng: 6.59 },
+  { name: 'Techorama Belgium', location: 'Antwerp, BE', date: 'May 7-9', lat: 51.22, lng: 4.40 },
+  { name: 'DDD North', location: 'Hull, UK', date: 'Feb 22', lat: 53.77, lng: -0.37 },
+  { name: 'JSNation', location: 'Amsterdam, NL', date: 'Jun 12-13', lat: 52.38, lng: 4.90 },
+  { name: 'React Summit', location: 'Amsterdam, NL', date: 'Jun 14-15', lat: 52.38, lng: 4.90 },
+  { name: 'PyCon US', location: 'Pittsburgh, US', date: 'May 14-22', lat: 40.44, lng: -79.99 },
+  { name: 'JSConf Budapest', location: 'Budapest, HU', date: 'Jun 26-27', lat: 47.50, lng: 19.04 },
+  { name: 'NDC Oslo', location: 'Oslo, NO', date: 'Jun 9-13', lat: 59.91, lng: 10.75 },
+  { name: 'Devoxx France', location: 'Paris, FR', date: 'Apr 16-18', lat: 48.85, lng: 2.35 },
+  { name: 'DevTernity', location: 'Riga, LV', date: 'Dec 7-8', lat: 56.95, lng: 24.11 },
+  { name: 'QCon London', location: 'London, UK', date: 'Apr 7-9', lat: 51.51, lng: -0.13 },
+  { name: 'KubeCon EU', location: 'Paris, FR', date: 'Mar 18-21', lat: 48.85, lng: 2.35 },
+  { name: 'Codemotion Madrid', location: 'Madrid, ES', date: 'May 20-21', lat: 40.42, lng: -3.70 },
 ];
 
-function NearYouCarousel() {
-  const [userLocation, setUserLocation] = useState<string | null>('Amsterdam, NL');
+// Haversine distance in km
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+interface NearYouCarouselProps {
+  userLocation?: { lat: number; lng: number; label: string } | null;
+  onChangeLocation?: () => void;
+}
+
+function NearYouCarousel({ userLocation, onChangeLocation }: NearYouCarouselProps) {
+  // Calculate distances and sort by nearest
+  const nearYouCfps = React.useMemo<NearYouCFP[]>(() => {
+    const baseLat = userLocation?.lat ?? 52.37; // Default: Amsterdam
+    const baseLng = userLocation?.lng ?? 4.89;
+
+    return ALL_CONFERENCES
+      .map(conf => {
+        const distKm = haversineKm(baseLat, baseLng, conf.lat, conf.lng);
+        return {
+          ...conf,
+          distance: distKm < 100 ? `${Math.round(distKm)} km` : `${Math.round(distKm / 10) * 10} km`,
+          distKm,
+        };
+      })
+      .sort((a, b) => a.distKm - b.distKm)
+      .slice(0, 6);
+  }, [userLocation]);
 
   return (
     <div className="nearyou-carousel">
@@ -262,18 +459,21 @@ function NearYouCarousel() {
           <span className="nearyou-icon">📍</span>
           Near You
         </h3>
-        {userLocation && (
-          <span className="nearyou-location">
-            Based on {userLocation}
-            <button className="nearyou-change">Change</button>
-          </span>
-        )}
+        <span className="nearyou-location">
+          Based on {userLocation?.label || 'Amsterdam, NL'}
+          {onChangeLocation && (
+            <button className="nearyou-change" onClick={onChangeLocation}>Change</button>
+          )}
+        </span>
       </div>
 
       <div className="nearyou-scroll">
-        {MOCK_NEAR_YOU.map((cfp, i) => (
+        {nearYouCfps.map((cfp, i) => (
           <div key={i} className="nearyou-card">
-            <GlobeWidget lat={cfp.lat} lng={cfp.lng} size="sm" />
+            {/* Use simple location dot instead of globe to save WebGL contexts */}
+            <div className="nearyou-location-dot" title={cfp.location}>
+              <span className="location-dot-icon">📍</span>
+            </div>
             <div className="nearyou-card-content">
               <h4>{cfp.name}</h4>
               <div className="nearyou-card-meta">
@@ -301,8 +501,26 @@ const DEMO_CONFERENCES = [
   { name: 'DDD North', location: 'Hull, UK', lat: 53.77, lng: -0.37 },
 ];
 
-function MapTogglePreview() {
+// Custom icon for user location
+const userLocationIcon = new L.DivIcon({
+  className: 'user-location-marker',
+  html: '<div class="user-marker-dot"></div><div class="user-marker-pulse"></div>',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
+
+interface MapTogglePreviewProps {
+  userLocation?: { lat: number; lng: number; label: string } | null;
+}
+
+function MapTogglePreview({ userLocation }: MapTogglePreviewProps) {
   const [view, setView] = useState<'list' | 'map'>('list');
+
+  // Center map on user location if available
+  const mapCenter: [number, number] = userLocation
+    ? [userLocation.lat, userLocation.lng]
+    : [50, 10];
+  const mapZoom = userLocation ? 5 : 4;
 
   return (
     <div className="map-toggle-preview">
@@ -337,8 +555,8 @@ function MapTogglePreview() {
         ) : (
           <div className="map-toggle-map">
             <MapContainer
-              center={[50, 10]}
-              zoom={4}
+              center={mapCenter}
+              zoom={mapZoom}
               style={{ height: '100%', width: '100%' }}
               scrollWheelZoom={true}
             >
@@ -346,6 +564,16 @@ function MapTogglePreview() {
                 attribution='&copy; <a href="https://carto.com/">CARTO</a>'
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
               />
+              {/* User location marker */}
+              {userLocation && (
+                <Marker position={[userLocation.lat, userLocation.lng]} icon={userLocationIcon}>
+                  <Popup>
+                    <strong>📍 You</strong><br />
+                    {userLocation.label}
+                  </Popup>
+                </Marker>
+              )}
+              {/* Conference markers */}
               {DEMO_CONFERENCES.map((conf, i) => (
                 <Marker key={i} position={[conf.lat, conf.lng]}>
                   <Popup>
@@ -427,9 +655,8 @@ export function DemoPage() {
     setShowLocationModal(false);
   };
 
-  const handleManualEntry = (location: string) => {
-    // Mock: use entered location
-    setUserLocation({ lat: 48.85, lng: 2.35, label: location });
+  const handleManualEntry = (location: string, lat: number, lng: number) => {
+    setUserLocation({ lat, lng, label: location });
     setShowLocationModal(false);
   };
 
@@ -441,21 +668,50 @@ export function DemoPage() {
       </header>
 
       <main className="demo-content">
-        {/* Globe Widget */}
-        <section className="demo-section">
-          <h2>Globe Widget</h2>
-          <p className="demo-desc">Tiny dark globe with glowing location dot</p>
+        {/* Globe as Card Background Layer */}
+        <section className="demo-section demo-section-wide">
+          <h2>Globe + City Image Card</h2>
+          <p className="demo-desc">Layered: city photo + globe overlay + content gradient</p>
 
-          <div className="demo-row">
-            <GlobeWidget lat={52.37} lng={4.89} label="Amsterdam" size="sm" />
-            <GlobeWidget lat={40.71} lng={-74.01} label="New York" size="md" />
-            <GlobeWidget lat={35.68} lng={139.69} label="Tokyo" size="lg" />
-          </div>
+          <div className="globe-card-carousel">
+            {/* With city image */}
+            <GlobeCard
+              title="Devoxx France"
+              subtitle="Paris, France • Apr 16-18"
+              lat={48.85}
+              lng={2.35}
+              badge="12 days left"
+              cityImageUrl="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=640&q=80"
+            />
 
-          <div className="demo-row">
-            <GlobeWidget lat={-33.87} lng={151.21} label="Sydney" size="md" />
-            <GlobeWidget lat={51.51} lng={-0.13} label="London" size="md" />
-            <GlobeWidget lat={48.85} lng={2.35} label="Paris" size="md" />
+            {/* With city image */}
+            <GlobeCard
+              title="JSConf Budapest"
+              subtitle="Budapest, Hungary • Jun 26-27"
+              lat={47.50}
+              lng={19.04}
+              badge="45 km"
+              cityImageUrl="https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=640&q=80"
+            />
+
+            {/* Without city image - globe only */}
+            <GlobeCard
+              title="RustWeek 2026"
+              subtitle="Utrecht, Netherlands • Jun 10-14"
+              lat={52.09}
+              lng={5.10}
+              badge="New"
+            />
+
+            {/* Tokyo example */}
+            <GlobeCard
+              title="RubyKaigi 2026"
+              subtitle="Tokyo, Japan • May 15-17"
+              lat={35.68}
+              lng={139.69}
+              badge="Open"
+              cityImageUrl="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=640&q=80"
+            />
           </div>
         </section>
 
@@ -489,21 +745,12 @@ export function DemoPage() {
           <h2>Near You Carousel</h2>
           <p className="demo-desc">Geo-sorted CFPs with distance badges</p>
 
-          <NearYouCarousel />
+          <NearYouCarousel
+            userLocation={userLocation}
+            onChangeLocation={() => setShowLocationModal(true)}
+          />
         </section>
 
-        {/* Map Toggle */}
-        <section className="demo-section">
-          <h2>Map Toggle (Search Page)</h2>
-          <p className="demo-desc">Switch between list and map views</p>
-
-          <MapTogglePreview />
-        </section>
-
-        {/* Badges */}
-        <section className="demo-section">
-          <BadgeExperiments />
-        </section>
       </main>
 
       <LocationModal

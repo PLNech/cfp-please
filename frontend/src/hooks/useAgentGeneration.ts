@@ -7,6 +7,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY, AGENT_ID } from '../config';
+import { generateMessageId, generateConversationId } from '../utils/anonymousId';
 import type { Talk, CFP, InterviewProfile } from '../types';
 
 // ===== Types =====
@@ -71,8 +72,12 @@ export function useAgentGeneration() {
       // Build the prompt for structured generation
       const prompt = buildInspirationPrompt(sourceTalk, userTopics, experienceLevel, interview);
 
+      // Generate unique IDs for dashboard tracking
+      const conversationId = generateConversationId();
+      const messageId = generateMessageId();
+
       const response = await fetch(
-        `https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents/${AGENT_ID}/completions?compatibilityMode=ai-sdk-4&stream=false`,
+        `https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents/${AGENT_ID}/completions?compatibilityMode=ai-sdk-5&stream=false`,
         {
           method: 'POST',
           headers: {
@@ -81,7 +86,12 @@ export function useAgentGeneration() {
             'X-Algolia-API-Key': ALGOLIA_SEARCH_KEY,
           },
           body: JSON.stringify({
-            messages: [{ role: 'user', content: prompt }],
+            id: conversationId,
+            messages: [{
+              id: messageId,
+              role: 'user',
+              parts: [{ type: 'text', text: prompt }],
+            }],
           }),
         }
       );
@@ -91,7 +101,16 @@ export function useAgentGeneration() {
       }
 
       const data = await response.json();
-      const content = data.content || data.message || '';
+      // AI SDK v5: extract text from parts
+      let content = '';
+      if (data.parts) {
+        content = data.parts
+          .filter((p: { type: string }) => p.type === 'text')
+          .map((p: { text: string }) => p.text)
+          .join('');
+      } else {
+        content = data.content || data.message || '';
+      }
 
       // Parse the structured response
       const result = parseInspirationResponse(content, sourceTalk);

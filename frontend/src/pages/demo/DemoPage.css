@@ -12,6 +12,8 @@
   --color-primary: #e50914;
 
   min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
   background: var(--color-bg);
   color: var(--color-text);
   padding: 2rem;
@@ -129,39 +131,80 @@
   text-align: center;
 }
 
+/* Globe variant container for comparison */
+.globe-variant-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.globe-variant-demo .variant-label {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Zoomed variant uses overflow hidden */
+.globe-variant-zoomed {
+  overflow: hidden;
+  border-radius: 50%;
+}
+
 /* =============================================================================
-   GLOBE CARD - Globe as background texture
+   GLOBE CARD - City image + Globe layered
    ============================================================================= */
 
 .globe-card {
   position: relative;
-  width: 280px;
-  height: 180px;
+  width: 320px;
+  height: 200px;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  background: #141414;
 }
 
 .globe-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(229, 9, 20, 0.2);
+  box-shadow: 0 8px 30px rgba(229, 9, 20, 0.25);
 }
 
-.globe-card-bg {
+/* Layer 1: City image */
+.globe-card-city-img {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+/* Layer 2: Globe overlay */
+.globe-card-globe {
+  position: absolute;
+  width: 240px;
+  height: 240px;
   right: -40px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.6;
+  opacity: 0.85;           /* More visible */
   pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;  /* Blend with city image */
 }
 
+/* When no city image, globe is fully visible */
+.globe-card:not(:has(.globe-card-city-img)) .globe-card-globe {
+  opacity: 1;
+}
+
+/* Layer 3: Content with gradient */
 .globe-card-content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   height: 100%;
   padding: 1.25rem;
   display: flex;
@@ -169,9 +212,10 @@
   justify-content: flex-end;
   background: linear-gradient(
     135deg,
-    rgba(20, 20, 20, 0.95) 0%,
-    rgba(20, 20, 20, 0.7) 50%,
-    rgba(20, 20, 20, 0.4) 100%
+    rgba(10, 10, 10, 0.95) 0%,
+    rgba(10, 10, 10, 0.6) 40%,
+    rgba(10, 10, 10, 0.3) 70%,
+    transparent 100%
   );
 }
 
@@ -179,27 +223,59 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  padding: 0.25rem 0.5rem;
-  background: rgba(229, 9, 20, 0.9);
+  padding: 0.25rem 0.625rem;
+  background: rgba(229, 9, 20, 0.95);
   color: white;
   font-size: 0.7rem;
   font-weight: 600;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .globe-card h4 {
   margin: 0 0 0.25rem;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .globe-card p {
   margin: 0;
   font-size: 0.85rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Globe card carousel - horizontal scroll */
+.globe-card-carousel {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0 1rem;
+  margin: 0 -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #444 transparent;
+}
+
+.globe-card-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.globe-card-carousel::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 3px;
+}
+
+.globe-card-carousel .globe-card {
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
 /* =============================================================================
@@ -352,12 +428,16 @@
 }
 
 .location-manual {
-  display: flex;
-  gap: 0.5rem;
+  position: relative;
 }
 
-.location-manual input {
+.location-autocomplete {
+  position: relative;
   flex: 1;
+}
+
+.location-autocomplete input {
+  width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   border: 1px solid var(--color-border, #333);
@@ -366,13 +446,53 @@
   font-size: 1rem;
 }
 
-.location-manual input::placeholder {
+.location-autocomplete input::placeholder {
   color: var(--color-text-muted, #666);
 }
 
-.location-manual input:focus {
+.location-autocomplete input:focus {
   outline: none;
   border-color: var(--color-primary, #e50914);
+}
+
+.location-searching {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+}
+
+.location-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--color-surface, #1a1a1a);
+  border: 1px solid var(--color-border, #333);
+  border-radius: 8px;
+  margin-top: 0.25rem;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.location-suggestions li {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--color-border, #222);
+}
+
+.location-suggestions li:last-child {
+  border-bottom: none;
+}
+
+.location-suggestions li:hover {
+  background: rgba(229, 9, 20, 0.15);
 }
 
 .location-modal-footer {
@@ -430,12 +550,17 @@
   display: flex;
   gap: 1rem;
   overflow-x: auto;
+  overflow-y: visible;
   padding-bottom: 1rem;
+  padding-right: 1rem;  /* Space for last card */
+  margin: 0 -1.5rem;    /* Extend beyond section padding */
+  padding-left: 1.5rem;
   scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;  /* Smooth scroll on iOS */
 
-  /* Hide scrollbar but keep functionality */
+  /* Show scrollbar for visibility */
   scrollbar-width: thin;
-  scrollbar-color: #333 transparent;
+  scrollbar-color: #444 transparent;
 }
 
 .nearyou-scroll::-webkit-scrollbar {
@@ -462,6 +587,23 @@
   cursor: pointer;
   transition: all 0.2s;
   border: 1px solid var(--color-border, #2a2a2a);
+}
+
+/* Simple location dot (replaces globe to save WebGL contexts) */
+.nearyou-location-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.2) 0%, rgba(229, 9, 20, 0.1) 100%);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.location-dot-icon {
+  font-size: 1.25rem;
 }
 
 .nearyou-card:hover {
@@ -730,6 +872,51 @@
    RESPONSIVE
    ============================================================================= */
 
+/* User location marker on Leaflet map */
+.user-location-marker {
+  background: transparent;
+}
+
+.user-marker-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #3b82f6;
+  border: 2px solid white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.user-marker-pulse {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: user-pulse 2s ease-out infinite;
+}
+
+@keyframes user-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* =============================================================================
+   RESPONSIVE
+   ============================================================================= */
+
 @media (max-width: 768px) {
   .demo-page {
     padding: 1rem;
@@ -741,5 +928,10 @@
 
   .nearyou-card {
     flex: 0 0 260px;
+  }
+
+  .globe-card {
+    width: 100%;
+    max-width: 320px;
   }
 }

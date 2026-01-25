@@ -7,6 +7,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY, AGENT_ID } from '../config';
+import { generateMessageId, generateConversationId } from '../utils/anonymousId';
 import type { InterviewProfile } from '../types';
 
 export interface InterviewMessage {
@@ -42,7 +43,8 @@ export function useInterview() {
 
   const conversationIdRef = useRef<string | null>(null);
 
-  const generateId = () => `msg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  // Use centralized ID generation for dashboard tracking
+  const generateId = generateMessageId;
 
   // Generate contextual suggestions based on last assistant message
   const generateSuggestions = (assistantMessage: string): string[] => {
@@ -87,23 +89,24 @@ export function useInterview() {
     return [];
   };
 
-  // Call Agent Studio API
-  // Note: System prompt should be configured in Agent Dashboard, not sent via API
+  // Call Agent Studio API with AI SDK 5 format for dashboard tracking
   const callAgent = async (messages: Array<{ role: string; content: string }>): Promise<string> => {
-    // Filter out system messages - Agent Studio doesn't accept them in API calls
-    // The agent's instructions should be set in the Dashboard
-    const apiMessages = messages
-      .filter(m => m.role !== 'system')
-      .map(m => ({ role: m.role, content: m.content }));
-
-    // Build request body, omit conversationId if null
-    const body: Record<string, unknown> = { messages: apiMessages };
-    if (conversationIdRef.current) {
-      body.conversationId = conversationIdRef.current;
+    // Initialize conversation ID if starting new conversation
+    if (!conversationIdRef.current) {
+      conversationIdRef.current = generateConversationId();
     }
 
+    // Filter out system messages and format for AI SDK 5
+    const apiMessages = messages
+      .filter(m => m.role !== 'system')
+      .map(m => ({
+        id: generateId(),
+        role: m.role,
+        parts: [{ type: 'text', text: m.content }],
+      }));
+
     const response = await fetch(
-      `https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents/${AGENT_ID}/completions?compatibilityMode=ai-sdk-4&stream=false`,
+      `https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents/${AGENT_ID}/completions?compatibilityMode=ai-sdk-5&stream=false`,
       {
         method: 'POST',
         headers: {
@@ -111,7 +114,10 @@ export function useInterview() {
           'X-Algolia-Application-Id': ALGOLIA_APP_ID,
           'X-Algolia-API-Key': ALGOLIA_SEARCH_KEY,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          id: conversationIdRef.current,
+          messages: apiMessages,
+        }),
       }
     );
 
@@ -122,10 +128,13 @@ export function useInterview() {
 
     const data = await response.json();
 
-    if (data.conversationId) {
-      conversationIdRef.current = data.conversationId;
+    // AI SDK v5: extract text from parts
+    if (data.parts) {
+      return data.parts
+        .filter((p: { type: string }) => p.type === 'text')
+        .map((p: { text: string }) => p.text)
+        .join('');
     }
-
     return data.content || data.message || '';
   };
 

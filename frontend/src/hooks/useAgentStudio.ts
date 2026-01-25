@@ -4,8 +4,10 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY, AGENT_ID } from '../config';
+import { getAnonymousUserId, generateMessageId, generateConversationId } from '../utils/anonymousId';
 
 interface AgentMessage {
+  id: string;
   role: 'user' | 'assistant';
   content: string;
 }
@@ -59,15 +61,28 @@ export function useAgentStudio() {
     setIsLoading(true);
     setError(null);
 
-    // Add user message to history
+    // Initialize conversation ID if starting new conversation
+    if (!conversationIdRef.current) {
+      conversationIdRef.current = generateConversationId();
+    }
+
+    // Add user message with unique ID
+    const userMsgId = generateMessageId();
     messagesRef.current = [
       ...messagesRef.current,
-      { role: 'user', content: userMessage }
+      { id: userMsgId, role: 'user', content: userMessage }
     ];
 
     try {
+      // Build messages in AI SDK 5 format with IDs
+      const apiMessages = messagesRef.current.map(m => ({
+        id: m.id,
+        role: m.role,
+        parts: [{ type: 'text', text: m.content }],
+      }));
+
       const response = await fetch(
-        `https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents/${AGENT_ID}/completions?compatibilityMode=ai-sdk-4&stream=false`,
+        `https://${ALGOLIA_APP_ID}.algolia.net/agent-studio/1/agents/${AGENT_ID}/completions?compatibilityMode=ai-sdk-5&stream=false`,
         {
           method: 'POST',
           headers: {
@@ -76,8 +91,8 @@ export function useAgentStudio() {
             'X-Algolia-API-Key': ALGOLIA_SEARCH_KEY,
           },
           body: JSON.stringify({
-            messages: messagesRef.current,
-            conversationId: conversationIdRef.current,
+            id: conversationIdRef.current,
+            messages: apiMessages,
           }),
         }
       );
@@ -89,16 +104,24 @@ export function useAgentStudio() {
 
       const data = await response.json();
 
-      // Store conversation ID for continuity
-      if (data.conversationId) {
-        conversationIdRef.current = data.conversationId;
+      // AI SDK v5 format: extract text from parts
+      let assistantMessage = '';
+      if (data.content) {
+        assistantMessage = data.content;
+      } else if (data.parts) {
+        assistantMessage = data.parts
+          .filter((p: { type: string }) => p.type === 'text')
+          .map((p: { text: string }) => p.text)
+          .join('');
+      } else if (data.message) {
+        assistantMessage = data.message;
       }
 
-      // AI SDK v4 format: content is the message text
-      const assistantMessage = data.content || data.message || '';
+      // Add assistant message with unique ID
+      const assistantMsgId = generateMessageId();
       messagesRef.current = [
         ...messagesRef.current,
-        { role: 'assistant', content: assistantMessage }
+        { id: assistantMsgId, role: 'assistant', content: assistantMessage }
       ];
 
       // Extract sources from tool_invocations
