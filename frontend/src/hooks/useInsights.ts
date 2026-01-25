@@ -23,17 +23,12 @@ function initInsights() {
   initialized = true;
 }
 
-// Generate anonymous user token
+// Import centralized user ID for consistency across all analytics
+import { getAnonymousUserId } from '../utils/anonymousId';
+
+// Get user token - use centralized ID for consistency
 function getUserToken(): string {
-  const key = 'cfp_user_token';
-  let token = localStorage.getItem(key);
-
-  if (!token) {
-    token = `anon_${Math.random().toString(36).substring(2, 15)}`;
-    localStorage.setItem(key, token);
-  }
-
-  return token;
+  return getAnonymousUserId();
 }
 
 export interface InsightsEvents {

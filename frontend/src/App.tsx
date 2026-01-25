@@ -159,9 +159,9 @@ function App() {
     setSelectedCfp(cfp);
   };
 
-  const handleTalkClick = (talk: Talk) => {
-    // Open YouTube video in new tab
-    window.open(talk.url, '_blank', 'noopener');
+  const handleTalkClick = (_talk: Talk) => {
+    // TalkFlixHome handles modal opening internally
+    // This callback is for external tracking/state if needed
   };
 
   const handleSpeakerClick = (speaker: Speaker) => {

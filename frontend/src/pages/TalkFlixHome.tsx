@@ -66,8 +66,8 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
     navigate(`/search?q=${encodeURIComponent(conferenceName)}`);
   }, [navigate]);
 
-  // Insights for click tracking
-  const { clickTalk, clickCFP, clickInspire, viewCarousel } = useInsights();
+  // Insights for click tracking + conversion events
+  const { clickTalk, clickCFP, clickInspire, viewCarousel, watchTalk, convertCFP } = useInsights();
 
   // Related talks for selected talk
   const { relatedTalks, loading: relatedLoading } = useRelatedTalks(
@@ -117,12 +117,15 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
   }, [carousels, viewCarousel]);
 
   const handleSubmit = useCallback(() => {
+    if (hero?.objectID) {
+      convertCFP(hero.objectID); // Track CFP submission conversion
+    }
     if (hero?.cfpUrl) {
       window.open(hero.cfpUrl, '_blank', 'noopener');
     } else if (hero?.url) {
       window.open(hero.url, '_blank', 'noopener');
     }
-  }, [hero]);
+  }, [hero, convertCFP]);
 
   const handleSeeTalks = useCallback(() => {
     // Scroll to talks carousel
@@ -432,7 +435,10 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
           talk={playerTalk}
           isOpen={!!playerTalk}
           onClose={() => setPlayerTalk(null)}
-          onTrackWatch={(talkId) => markTalkWatched(talkId)}
+          onTrackWatch={(talkId) => {
+            markTalkWatched(talkId);
+            watchTalk(talkId); // Conversion event for Algolia Insights
+          }}
         />
       )}
     </div>

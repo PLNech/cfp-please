@@ -4,7 +4,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY, AGENT_ID } from '../config';
-import { getAnonymousUserId, generateMessageId, generateConversationId } from '../utils/anonymousId';
+import { generateMessageId, generateConversationId } from '../utils/anonymousId';
 
 interface AgentMessage {
   id: string;

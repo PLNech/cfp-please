@@ -515,7 +515,8 @@ interface MapTogglePreviewProps {
   userLocation?: { lat: number; lng: number; label: string } | null;
 }
 
-function MapTogglePreview({ userLocation }: MapTogglePreviewProps) {
+// Prototype component - exported for future use
+export function MapTogglePreview({ userLocation }: MapTogglePreviewProps) {
   const [view, setView] = useState<'list' | 'map'>('list');
 
   // Center map on user location if available
@@ -596,7 +597,8 @@ function MapTogglePreview({ userLocation }: MapTogglePreviewProps) {
 // BADGE EXPERIMENTS
 // =============================================================================
 
-function BadgeExperiments() {
+// Prototype component - exported for future use
+export function BadgeExperiments() {
   return (
     <div className="badge-experiments">
       <h3>Badge & Highlight Styles</h3>
