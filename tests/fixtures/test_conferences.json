@@ -1,0 +1,605 @@
+{
+  "conferences": [
+    {
+      "objectID": null,
+      "name": "Data Saturday Romania 2026",
+      "city": "Timi\u015foara",
+      "country": "Romania"
+    },
+    {
+      "objectID": null,
+      "name": "Cloud Native Rejekts EU 2026",
+      "city": "Amsterdam",
+      "country": "The Netherlands"
+    },
+    {
+      "objectID": null,
+      "name": "DDD North 2026",
+      "city": "Kingston upon Hull",
+      "country": "United Kingdom"
+    },
+    {
+      "objectID": null,
+      "name": "kode24",
+      "city": "Oslo",
+      "country": "Norway"
+    },
+    {
+      "objectID": null,
+      "name": "SQLSATURDAY SAO PAULO 2026",
+      "city": "S\u00e3o Paulo",
+      "country": "Brazil"
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform Bootcamp 2026 - LIMA",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "SharpCoding 2026 Roma",
+      "city": "Rome",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "kode24-dagen 5.0",
+      "city": "Oslo",
+      "country": "Norway"
+    },
+    {
+      "objectID": null,
+      "name": "Global Azure Portugal 2026",
+      "city": "Lisbon",
+      "country": "Portugal"
+    },
+    {
+      "objectID": null,
+      "name": "Arbeidernes Ungdomsfylking i Telemark \u00c5rsm\u00f8te 2026",
+      "city": "Skien",
+      "country": "Norway"
+    },
+    {
+      "objectID": null,
+      "name": "devCampNoord 2026",
+      "city": "Groningen",
+      "country": "The Netherlands"
+    },
+    {
+      "objectID": null,
+      "name": "RustWeek 2026",
+      "city": "Utrecht",
+      "country": "The Netherlands"
+    },
+    {
+      "objectID": null,
+      "name": "OpenSearchCon Europe 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Azure AI Winter Jam",
+      "city": "Hilversum",
+      "country": "The Netherlands"
+    },
+    {
+      "objectID": null,
+      "name": "JNation 2026",
+      "city": "Coimbra",
+      "country": "Portugal"
+    },
+    {
+      "objectID": null,
+      "name": "SQLBits 2026",
+      "city": "Newport",
+      "country": "United Kingdom"
+    },
+    {
+      "objectID": null,
+      "name": "WTM Scotland - International Women&#39;s Day 2026",
+      "city": "Glasgow",
+      "country": "United Kingdom"
+    },
+    {
+      "objectID": null,
+      "name": "Day of Data Richmond 2026",
+      "city": "Richmond",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "Conf42 Machine Learning 2026",
+      "city": "Online",
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "DevOps Not Dead - NYC 2026 Q1",
+      "city": "Harness",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "devopsdays Atlanta 2026",
+      "city": "Atlanta",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "BSides Nashville 2026",
+      "city": "Nashville",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": " AgentCon Bangkok",
+      "city": "Bangkok",
+      "country": "Thailand"
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform Bootcamp T\u00fcrkiye 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "PyConf Hyderabad 2026",
+      "city": "Hyderabad",
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform Bootcamp Madrid  2026",
+      "city": "Madrid",
+      "country": "Spain"
+    },
+    {
+      "objectID": null,
+      "name": "AgentCamp Ponferrada 2026",
+      "city": "Ponferrada",
+      "country": "Spain"
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform Bootcamp Barcelona 2026",
+      "city": "Barcelona",
+      "country": "Spain"
+    },
+    {
+      "objectID": null,
+      "name": "Empowering Kazakhstan's Future: IT & AI Insights 2026",
+      "city": "Taldykorgan",
+      "country": "Kazakhstan"
+    },
+    {
+      "objectID": null,
+      "name": "MCP Dev Summit",
+      "city": "New York",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "MakeIT 2026 /  JCON OpenBlend Slovenia 2026",
+      "city": "Portoro\u017e",
+      "country": "Slovenia"
+    },
+    {
+      "objectID": null,
+      "name": "Code Camp Wellington 2026",
+      "city": "Wellington",
+      "country": "New Zealand"
+    },
+    {
+      "objectID": null,
+      "name": "Data Point Prague 2026",
+      "city": "Prague",
+      "country": "Czech Republic"
+    },
+    {
+      "objectID": null,
+      "name": "Platmosphere | Chapter 2026: Master the Vibe",
+      "city": "Milan",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "AICD - Kairouan 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "DevFest Pisa",
+      "city": "Pisa",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "2026 NCCI Annual Conference ",
+      "city": "Pittsburgh",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "Microsoft JDConf 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "TechMang 2026",
+      "city": "Mangaluru",
+      "country": "India"
+    },
+    {
+      "objectID": null,
+      "name": "Directions Community Spanish BC Day 2026",
+      "city": "Madrid",
+      "country": "Spain"
+    },
+    {
+      "objectID": null,
+      "name": "try! Swift Tokyo 2026",
+      "city": "Tokyo",
+      "country": "Japan"
+    },
+    {
+      "objectID": null,
+      "name": "SREday New York City 2026 Q1",
+      "city": "Harness.io",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "Nerdearla Chile 2026",
+      "city": "Santiago",
+      "country": "Chile"
+    },
+    {
+      "objectID": null,
+      "name": "AWS Community Day Ahmedabad 2026",
+      "city": "GUCEC",
+      "country": "India"
+    },
+    {
+      "objectID": null,
+      "name": "Security BSidesLjubljana 0x7EA",
+      "city": "Ljubljana",
+      "country": "Slovenia"
+    },
+    {
+      "objectID": null,
+      "name": "CNCF-hosted Co-located Events Europe 2026",
+      "city": "Amsterdam",
+      "country": "The Netherlands"
+    },
+    {
+      "objectID": null,
+      "name": "Xen Spring Meetup 2026",
+      "city": "Grenoble",
+      "country": "France"
+    },
+    {
+      "objectID": null,
+      "name": "Web Day 2026",
+      "city": "Milan",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "Devopsdays Copenhagen",
+      "city": "Copenhagen",
+      "country": "Denmark"
+    },
+    {
+      "objectID": null,
+      "name": "JFTL",
+      "city": "Montrouge",
+      "country": "France"
+    },
+    {
+      "objectID": null,
+      "name": "Stir Trek 2026",
+      "city": "Columbus",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform Bootcamp - Nicaragua 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Observability Summit North America 2026",
+      "city": "Minneapolis",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "TDWI M\u00fcnchen 2026",
+      "city": "Munich",
+      "country": "Germany"
+    },
+    {
+      "objectID": null,
+      "name": "AI Memory and Founders Night",
+      "city": "Berlin",
+      "country": "Germany"
+    },
+    {
+      "objectID": null,
+      "name": "AI Coding Summit",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "SQL Saturday Lima - 2026",
+      "city": "Lima",
+      "country": "Peru"
+    },
+    {
+      "objectID": null,
+      "name": "[un]prompted | The AI Security Practitioner Conference",
+      "city": "San Francisco",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "Microsoft Purview and Defender Days, 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "ERS Davos 2026 - Thriving in Disruption ",
+      "city": "Davos",
+      "country": "Switzerland"
+    },
+    {
+      "objectID": null,
+      "name": "MCP Conference New York",
+      "city": "New City",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "Neos Conference 2026",
+      "city": "Karlsruhe",
+      "country": "Germany"
+    },
+    {
+      "objectID": null,
+      "name": "SREday London 2026 Q1",
+      "city": "London",
+      "country": "United Kingdom"
+    },
+    {
+      "objectID": null,
+      "name": "Techorama 2026 Belgium ",
+      "city": "Antwerpen",
+      "country": "Belgium"
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform Bootcamp 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "AI Maitri - Dubai 2026",
+      "city": "Dubai Internet City",
+      "country": "United Arab Emirates"
+    },
+    {
+      "objectID": null,
+      "name": "La Product Conf Paris 2026",
+      "city": "Paris",
+      "country": "France"
+    },
+    {
+      "objectID": null,
+      "name": "Global Azure Veneto 2026",
+      "city": "Vicenza",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "Tenerife Winter Sessions 2026",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Women Techmakers Belfast 2026",
+      "city": "Belfast",
+      "country": "United Kingdom"
+    },
+    {
+      "objectID": null,
+      "name": "Digital Rights and Inclusion Forum",
+      "city": "Abidjan",
+      "country": "Ivory Coast"
+    },
+    {
+      "objectID": null,
+      "name": "iOSKonf26",
+      "city": "Skopje",
+      "country": "Macedonia"
+    },
+    {
+      "objectID": null,
+      "name": "NG Baguette Conf 2026",
+      "city": "Paris",
+      "country": "France"
+    },
+    {
+      "objectID": null,
+      "name": "HackConRD 2026",
+      "city": "Santo Domingo",
+      "country": "Dominican Republic"
+    },
+    {
+      "objectID": null,
+      "name": "Securing AI in the Real World: Call for Practitioner Stories \u2013 AI Security Conference",
+      "city": "Online",
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Torino.NET",
+      "city": "Turin",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "AWS Oceania Virtual Community Day April 2026",
+      "city": "Online",
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Power BI & Fabric Barcelona a Pallej\u00e0",
+      "city": "Barcelona",
+      "country": "Spain"
+    },
+    {
+      "objectID": null,
+      "name": "FOSDEM 2026",
+      "city": "Brussels",
+      "country": "Belgium"
+    },
+    {
+      "objectID": null,
+      "name": "SOUG Day Bern 11. M\u00e4rz 2026",
+      "city": "Die Mobiliar",
+      "country": "3001 Bern"
+    },
+    {
+      "objectID": null,
+      "name": "NEACAC Annual Meeting & Conference",
+      "city": "Chestnut Hill",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "U.S. Travel&#39;s ESTO 2026",
+      "city": "Philadelphia",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "Microsoft TechCon 365 Chicago 2026",
+      "city": "Chicago",
+      "country": "USA"
+    },
+    {
+      "objectID": null,
+      "name": "2026 KCD Applications (2H)",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Craft Conference 2026",
+      "city": "Budapest",
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Cloud Community Circle",
+      "city": "Bengaluru",
+      "country": "India"
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform Bootcamp, Ahmedabad 2026 (In-Person)",
+      "city": "Ahmedabad",
+      "country": "India"
+    },
+    {
+      "objectID": null,
+      "name": "DataTLV 2026",
+      "city": "Rishon LeTsiyyon",
+      "country": "Israel"
+    },
+    {
+      "objectID": null,
+      "name": "PlatforMa 2026",
+      "city": "Tel Aviv",
+      "country": "Israel"
+    },
+    {
+      "objectID": null,
+      "name": "Evento Internacional de datos Valencia 2026",
+      "city": "Valencia",
+      "country": "Spain"
+    },
+    {
+      "objectID": null,
+      "name": "DevOpsDays Zurich 2026",
+      "city": "Winterthur",
+      "country": "Switzerland"
+    },
+    {
+      "objectID": null,
+      "name": "AI fokus 2026",
+      "city": "Stockholm",
+      "country": "Sweden"
+    },
+    {
+      "objectID": null,
+      "name": "OWASP Italy Day 2026 - Call for Speakers",
+      "city": "Cagliari",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "Linux Meeting 2026 Palermo ",
+      "city": "Palermo",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "Global Azure Milano 2026",
+      "city": "Milan",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "GopherCon Europe 2026 in Berlin",
+      "city": "Berlin",
+      "country": "Germany"
+    },
+    {
+      "objectID": null,
+      "name": "DevConf 2026",
+      "city": "Heerlen",
+      "country": "The Netherlands"
+    },
+    {
+      "objectID": null,
+      "name": "AgentCamp 2026 - Milan - Winter Edition",
+      "city": null,
+      "country": null
+    },
+    {
+      "objectID": null,
+      "name": "Global Azure Torino 2026",
+      "city": "Turin",
+      "country": "Italy"
+    },
+    {
+      "objectID": null,
+      "name": "Global Power Platform & Agent Bootcamp Zaragoza 2026",
+      "city": "Zaragoza",
+      "country": "Spain"
+    }
+  ],
+  "count": 100
+}

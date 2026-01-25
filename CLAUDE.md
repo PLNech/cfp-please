@@ -1,184 +1,150 @@
 # CallForPapersPlease - Project Guidelines
 
-## Overview
-CFP aggregator with AI-powered discovery. Chat-first UX with map visualization.
-**Two Algolia indexes**: `cfps` (conferences) + `cfps_talks` (YouTube talks with FK).
+## Vision
+
+**A trust engine for CFP discovery** - Help speakers find conferences they'll actually care about, without lying to them.
+
+Core principles:
+1. **Data trust** - Real data or nothing. Never fabricate counts.
+2. **Pipeline-first** - Validate source → scrape → index → frontend. Each stage verified before next.
+3. **Good citizen** - Cache scraped data in indexes (`cfps_intel_*`). Don't re-hit APIs needlessly.
+4. **Relevance** - Personalized to user's situation (location, interests, preferences).
+5. **Freshness** - No stale CFPs, no expired deadlines, automated refresh.
+
+## Pipeline Methodology
+
+Every feature follows this validation chain. **Each stage must be verified before the next.**
+
+```
+┌─────────┐    ┌─────────┐    ┌─────────┐    ┌──────────┐
+│ SOURCE  │ →  │ SCRAPE  │ →  │  INDEX  │ →  │ FRONTEND │
+│         │    │         │    │         │    │          │
+│ What    │    │ What we │    │ What    │    │ What     │
+│ exists  │    │ extract │    │ Algolia │    │ user     │
+│ in wild │    │ + clean │    │ stores  │    │ sees     │
+└─────────┘    └─────────┘    └─────────┘    └──────────┘
+     ↓              ↓              ↓              ↓
+  Audit API     Verify N       Query test     Screenshot
+  responses     samples        + schema       verification
+```
+
+### Validation Gates
+
+| Stage | Gate | Tool |
+|-------|------|------|
+| Source | "Does this API/site actually return X?" | `curl`, manual check |
+| Scrape | "Do we extract correctly for N=100 samples?" | `verify_intel.py`, test fixtures |
+| Index | "Is it queryable as expected?" | Algolia dashboard, test queries |
+| Frontend | "Does it render correctly?" | Playwright screenshots |
+
+**Rules:**
+- Never design UI for data you haven't validated through scrape + index
+- Never declare victory from <10 samples - use full test set (`tests/fixtures/test_conferences.json`)
+- Description generation (MiniMax) only AFTER intel data is verified
 
 ## Tech Stack
-- **Backend**: Python + Poetry (cfp_pipeline/)
-- **Frontend**: React + TypeScript + Vite (frontend/)
-- **Search**: Algolia InstantSearch (2 indexes)
+
+- **Backend**: Python + Poetry (`cfp_pipeline/`)
+- **Frontend**: React + TypeScript + Vite (`frontend/`)
+- **Search**: Algolia InstantSearch (multi-index)
 - **Map**: Leaflet + OpenStreetMap
 - **LLM**: Algolia Enablers API (MiniMax M2.1)
 - **YouTube**: yt-dlp (no API key needed)
 
-## Testing Strategy
+## Algolia Index Architecture
 
-### Python (cfp_pipeline)
+### Primary Indexes
 
-**Framework**: pytest + pytest-asyncio
+| Index | Entries | Purpose |
+|-------|---------|---------|
+| `cfps` | ~424 | Main conferences |
+| `cfps_talks` | ~4274 | YouTube talks (FK: `conference_id`) |
+| `cfps_speakers` | ~1425 | Speaker profiles |
 
-**Test Structure**:
-```
-tests/
-  unit/
-    test_normalizers.py    # Location/topic normalization
-    test_models.py         # Pydantic model validation
-  integration/
-    test_enrichers.py      # LLM enrichment (mock API)
-    test_sources.py        # CAP API client (mock responses)
-    test_algolia.py        # Algolia indexing (test index)
-```
+### Intel Indexes (Cached Scrapes)
 
-**Key Test Patterns**:
-1. **Normalizers**: Pure functions, table-driven tests
-   ```python
-   @pytest.mark.parametrize("input,expected", [
-       ("San Francisco, CA, USA", {"city": "San Francisco", "region": "West Coast"}),
-       ("Berlin, Germany", {"city": "Berlin", "continent": "Europe"}),
-   ])
-   def test_normalize_location(input, expected):
-       result = normalize_location(input)
-       assert result.city == expected.get("city")
-   ```
+| Index | Entries | Source |
+|-------|---------|--------|
+| `cfps_intel_hn` | ~163 | Hacker News stories/comments |
+| `cfps_intel_github` | ~183 | GitHub repos/discussions |
+| `cfps_intel_reddit` | ~375 | Reddit posts/comments |
+| `cfps_intel_devto` | ~22 | Dev.to articles |
 
-2. **LLM Enrichment**: Mock HTTP responses, test retry logic
-3. **Algolia**: Use test index, cleanup after tests
+**Why separate indexes?** Good citizen principle - scrape once, query many. Don't re-hit HN/Reddit/GitHub on every request.
 
-**Run Tests**:
-```bash
-poetry run pytest tests/ -v
-poetry run pytest tests/unit/ --cov=cfp_pipeline  # with coverage
-```
+### Sorting Replicas
 
-### Frontend (React)
+`cfps_deadline_asc`, `cfps_github_desc`, `cfps_hn_desc`, `cfps_popularity_desc`
 
-**Framework**: Vitest + React Testing Library
+## Data Sources & Trust Status
 
-**Test Structure**:
-```
-src/
-  components/
-    __tests__/
-      CFPCard.test.tsx
-      Chat.test.tsx
-      CFPMap.test.tsx
-```
+| Source | Data | Trust | Notes |
+|--------|------|-------|-------|
+| CallingAllPapers API | CFP basics | ✅ | Core source |
+| Conference URLs | Descriptions, topics | ⚠️ | 60% extraction success |
+| HN (via Algolia API) | Stories, comments | ⚠️ | Filtered - was fabricating |
+| Reddit | Posts, comments | ❓ | Needs audit |
+| GitHub | Repos, stars | ❓ | Needs audit |
+| YouTube (yt-dlp) | Talks | ✅ | FK to conferences |
+| Sessionize | CFP structure, fields | ❓ | Not yet integrated |
 
-**Key Test Patterns**:
-1. **Components**: Render with mock data, test interactions
-2. **InstantSearch**: Mock useHits/useSearchBox hooks
-3. **Map**: Mock Leaflet, test marker rendering
+### Potential New Sources
 
-**Run Tests**:
-```bash
-cd frontend
-npm test
-npm run test:coverage
-```
+| Source | What it offers | Integration complexity |
+|--------|----------------|----------------------|
+| Sessionize | CFP form fields, session formats, speaker slots | Medium - scrape or API? |
+| Papercall | Similar to Sessionize | Medium |
+| Confs.tech | Curated tech conferences | Low - JSON API |
+| Dev.to events | Community events | Low - API |
 
-### E2E Tests (Playwright)
+### Intel Filtering (Lessons Learned)
 
-**Framework**: Playwright (headless chromium)
+**Problem discovered**: "118 HN stories" for RustWeek when only 1 real result existed.
 
-**Config**: `frontend/playwright.config.ts`
-- baseURL: `http://localhost:5177/cfp-please/`
-- Screenshots: `frontend/screenshots/`
-- Tests: `frontend/e2e/`
+**Root cause**: Newsletters ("This Week in Rust"), Show HN spam, unrelated mentions.
 
-**Run Tests**:
-```bash
-cd frontend
-npx playwright test e2e/ --project=chromium
-```
+**Solution**: Noise filter in `cfp_pipeline/enrichers/popularity.py`:
+- Filters newsletters (`"This Week in *"`, `"Issue #"`, `"Show HN"`)
+- Requires conference name in title
+- Keeps historical content (FOSDEM 2020 videos still about FOSDEM)
 
-**Testing Patterns**:
-1. **Screenshot-driven debugging**: Always save screenshots for visual verification
-   ```typescript
-   await page.screenshot({ path: './screenshots/test-name.png', fullPage: true });
-   ```
+**Verification**: `poetry run python cfp_pipeline/verify_intel.py "Conference Name"`
 
-2. **Position assertions**: Verify dropdown/panel positioning
-   ```typescript
-   const inputBox = await input.boundingBox();
-   const panelBox = await panel.boundingBox();
-   const distance = panelBox.y - (inputBox.y + inputBox.height);
-   expect(distance).toBeLessThan(50); // Panel should be near input
-   ```
+## Test Fixtures
 
-3. **Specific selectors**: Avoid broad selectors that match multiple elements
-   ```typescript
-   // Bad: matches carousel headers too
-   page.locator('[class*="header"]')
-   // Good: specific class
-   page.locator('.talkflix-header')
-   ```
+Test data lives in `tests/fixtures/`:
+- `test_conferences.json` - 100 conferences for validation (mix of large/small, known/obscure)
 
-4. **Section filtering with regex**: Use regex for partial matches
-   ```typescript
-   page.locator('.search-section-title').filter({ hasText: /^CFPs/ })
-   ```
-
-5. **Wait for network**: Use networkidle for SPAs
-   ```typescript
-   await page.waitForLoadState('networkidle');
-   ```
-
-**Key Tests**:
-- `test-search.spec.ts`: Autocomplete positioning, search page dark theme, multi-index results
-
-## Environment Variables
-
-### Backend (.env)
-- `ALGOLIA_APP_ID` - Algolia application ID
-- `ALGOLIA_API_KEY` - Admin API key (for indexing)
-- `ALGOLIA_INDEX_NAME` - Index name (default: cfps)
-- `ENABLERS_JWT` - Algolia Enablers API token
-
-### Frontend (.env.local)
-- `VITE_ALGOLIA_APP_ID` - Same as backend
-- `VITE_ALGOLIA_SEARCH_KEY` - Search-only API key
-- `VITE_ALGOLIA_INDEX_NAME` - Same as backend
-
-## Git Workflow
-
-- `master` - stable, protected
-- `feature/*` - feature branches
-- `fix/*` - bug fixes
-
-Commits: conventional commits (`feat:`, `fix:`, `docs:`, `test:`)
+**Always test against this set when changing scraping/enrichment logic.**
 
 ## Common Commands
 
 ```bash
 # CFP Pipeline
-poetry run cfp fetch              # Fetch CFPs from sources
-poetry run cfp enrich --limit 50  # Enrich with LLM
-poetry run cfp sync               # Push to Algolia cfps index
-poetry run cfp url-stats          # Show URL extraction stats
+poetry run cfp fetch              # Fetch from sources
+poetry run cfp enrich --limit 50  # LLM enrichment
+poetry run cfp sync               # Push to Algolia
 
-# URL Extraction (scrape conference pages)
-poetry run cfp collect-urls       # Collect URLs from all sources
-poetry run cfp extract --limit 50 # Extract CFP data from URLs
-poetry run cfp extract --retry    # Retry failed (transient errors only)
-poetry run cfp extract -f         # Force retry (ignore backoff)
+# URL Extraction
+poetry run cfp collect-urls       # Collect URLs
+poetry run cfp extract --limit 50 # Extract CFP data
+poetry run cfp extract --retry    # Retry transient errors
 
-# Talks Pipeline (YouTube)
-poetry run cfp fetch-talks -c "KubeCon" --talks 100  # Single conference
-poetry run cfp fetch-talks --limit 20 --talks 50    # Batch from top CFPs
-poetry run cfp talks-stats                           # Show talks index stats
+# Talks Pipeline
+poetry run cfp fetch-talks -c "KubeCon" --talks 100
+poetry run cfp talks-stats
+
+# Intel Verification (CRITICAL)
+poetry run python cfp_pipeline/verify_intel.py "Conference Name"
 
 # Frontend
-cd frontend && npm run dev   # Dev server
-npm run build               # Production build
-
-# Tests
-poetry run pytest tests/ -v
+cd frontend && npm run dev
+npx playwright test e2e/ --project=chromium
 ```
 
 ## Architecture
 
-### Models Package (`cfp_pipeline/models/`)
+### Models (`cfp_pipeline/models/`)
 ```
 models/
 ├── __init__.py      # Exports: CFP, Location, GeoLoc, Talk
@@ -187,80 +153,100 @@ models/
 ```
 **Note**: Use `cfp.object_id` (snake_case) in Python, `objectID` in Algolia.
 
-### URL Extraction Pipeline (`cfp_pipeline/extractors/`)
+### Extractors (`cfp_pipeline/extractors/`)
 ```
 extractors/
-├── fetch.py         # httpx + Playwright fallback for SPAs
-├── url_store.py     # Persistent URL store with retry tracking
-├── structured.py    # Schema.org / OpenGraph extraction
+├── fetch.py         # httpx + Playwright fallback
+├── url_store.py     # Persistent store with retry tracking
+├── structured.py    # Schema.org / OpenGraph
 ├── heuristics.py    # HTML pattern matching
-└── pipeline.py      # Orchestrates all extractors
+└── pipeline.py      # Orchestrator
 ```
 
-### Retry Strategy (URL Extraction)
-- **Retryable errors**: timeout, connection, 429, 5xx
-- **Permanent errors**: 404, 403, low_confidence
+### Retry Strategy
+- **Retryable**: timeout, connection, 429, 5xx
+- **Permanent**: 404, 403, low_confidence
 - **Backoff**: 1h → 6h → 24h (max 3 retries)
 
-### Talks Index Schema (`cfps_talks`)
-```json
-{
-  "objectID": "yt_VIDEO_ID",
-  "conference_id": "abc123",     // FK to cfps
-  "conference_name": "KubeCon",
-  "title": "Kubernetes Design Principles",
-  "speaker": "Saad Ali",
-  "year": 2024,                  // Facet
-  "view_count": 139284,
-  "url": "https://youtube.com/watch?v=..."
-}
+## Environment Variables
+
+### Backend (.env)
+- `ALGOLIA_APP_ID`, `ALGOLIA_API_KEY`, `ALGOLIA_INDEX_NAME`
+- `ALGOLIA_SEARCH_API_KEY` - Read-only key
+- `ENABLERS_JWT` - Algolia Enablers API token
+- `UNSPLASH_ACCESS_KEY` - City images
+
+### Frontend (.env.local)
+- `VITE_ALGOLIA_APP_ID`, `VITE_ALGOLIA_SEARCH_KEY`, `VITE_ALGOLIA_INDEX_NAME`
+
+## Git Workflow
+
+- `main` - stable
+- `feature/*` - feature branches
+- `fix/*` - bug fixes
+
+Commits: conventional commits (`feat:`, `fix:`, `docs:`, `test:`)
+
+## Testing Strategy
+
+### Pipeline Validation (Most Important)
+
+```bash
+# Verify intel data across full test set
+poetry run python cfp_pipeline/verify_intel.py --batch
+
+# Integration test for enrichers
+poetry run pytest tests/integration/test_intel_accuracy.py -v
 ```
 
-## Algolia Index Schema
+### Python (cfp_pipeline)
 
-Key fields for search:
-- `name` - Conference name (searchable)
-- `description` - LLM-enriched description
-- `topicsNormalized` - Facet for topics
-- `location.region` - Facet for region
-- `cfpEndDate` - Timestamp for filtering open CFPs
-- `_geoloc` - Geo search
+pytest + pytest-asyncio. Table-driven tests for normalizers, mocked HTTP for LLM.
 
-## Notes
+### Frontend (React)
 
-- Always filter to open CFPs: `filters: cfpEndDate > ${now}`
-- Deadline urgency: <=7 days (critical), <=30 days (warning), else OK
-- LLM enrichment: 8 parallel workers, DDG fallback for unreachable URLs
+Vitest + React Testing Library.
 
-### MiniMax API Tips
-- Model returns `reasoning` + `content` fields
-- Use extended timeouts (60s+) for complex prompts
-- If `content` is null but `reasoning` exists, model is still thinking - retry
-- Step-by-step extraction (description → topics → languages) works better than one-shot
+### E2E (Playwright)
 
-### YouTube Search (yt-dlp)
-- Use quoted conference names: `'"PyCon" 2024 presentation OR talk'`
-- Strip year from conference name before searching (e.g., "KubeCon 2026" → "KubeCon")
-- Filter out shorts (<5min) and non-talk content (trailers, recaps)
-- Sort by view_count for popular talks
+**Config**: `frontend/playwright.config.ts`
+
+**Critical patterns**:
+1. Screenshot-driven debugging - always save screenshots
+2. Wait for network with `networkidle`
+3. Use specific selectors, not broad class matches
+
+## Technical Notes
+
+### MiniMax API
+- Returns `reasoning` + `content` fields
+- Use 60s+ timeouts
+- If `content` is null but `reasoning` exists → retry
+- Step-by-step extraction works better than one-shot
+- **Only use for description generation AFTER intel is verified**
+
+### YouTube (yt-dlp)
+- Quoted conference names: `'"PyCon" 2024 presentation OR talk'`
+- Strip year before searching
+- Filter shorts (<5min) and non-talk content
+- Sort by view_count
 
 ### Frontend CSS
-- Design system with CSS custom properties (`--color-primary`, `--space-*`)
+- CSS custom properties (`--color-primary`, `--space-*`)
 - Mobile-first: bottom nav, slide-over filters, 48px touch targets
-- Spacing scale: 4px base (`--space-1` = 0.25rem)
+- Dark theme: explicit background/border on all inputs
+- **Always theme third-party components** (Algolia autocomplete is light by default)
 
-### UX Quality Gates (CRITICAL)
-**Always visually verify UI changes with Playwright screenshots before considering done.**
-- After any CSS/component change: `npx playwright screenshot http://localhost:5173/cfp-please/ screenshots/verify.png`
-- Check: dark theme consistency, alignment, no white boxes on dark backgrounds, proper spacing
-- Third-party components (autocomplete, datepickers, modals) MUST be themed to match the app
-- Never ship UI that "looks broken" - if something looks off, fix it before moving on
-- Common gotchas:
-  - Algolia autocomplete default theme is light - always override with dark theme CSS
-  - CSS variables may not cascade to third-party components
-  - Input fields need explicit background/border colors in dark themes
+### UX Quality Gates
 
-### Data Quality (as of session)
-- CFPs: 404 open, 0% descriptions, 58% geoloc, 17% topics
-- Talks: separate index, FK to conferences
-- URL store: 597 URLs, ~60% extraction success rate
+**Always visually verify UI changes with Playwright screenshots.**
+```bash
+npx playwright screenshot http://localhost:5173/cfp-please/ screenshots/verify.png
+```
+Check: dark theme consistency, alignment, proper spacing.
+
+## Encoding Fix
+
+HTML entities in names (e.g., `U.S. Travel&#39;s ESTO`) must be:
+1. Decoded at scrape time (Python: `html.unescape()`)
+2. Escaped on render (React handles this, but verify)

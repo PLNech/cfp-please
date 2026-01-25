@@ -1147,6 +1147,106 @@ def sync_intel(
             )
 
 
+# ===== SESSIONIZE ENRICHMENT =====
+
+
+@app.command()
+def sync_sessionize(
+    limit: int = typer.Option(20, "--limit", "-l", help="Max CFPs to enrich (0 = all with Sessionize URLs)"),
+    force: bool = typer.Option(False, "--force", "-f", help="Re-enrich even if already done"),
+    url: str = typer.Option(None, "--url", "-u", help="Test a single Sessionize URL"),
+    index_name: str = typer.Option(
+        None, "--index", "-i",
+        help="Algolia index name (default: ALGOLIA_INDEX_NAME env var)"
+    ),
+):
+    """Enrich CFPs with Sessionize data (session formats, speaker benefits, etc).
+
+    Scrapes public Sessionize CFP pages to extract:
+    - Session formats (talks, workshops, lightning talks) with durations
+    - Speaker benefits (travel, hotel, free ticket)
+    - Attendance estimates
+    - Tracks/topics
+    """
+    from cfp_pipeline.enrichers.sessionize import (
+        test_scrape,
+        enrich_cfps_with_sessionize,
+        is_sessionize_url,
+    )
+
+    # Single URL test mode
+    if url:
+        asyncio.run(test_scrape(url))
+        return
+
+    index_name = index_name or os.environ.get("ALGOLIA_INDEX_NAME", "cfps")
+
+    # Get Algolia client
+    try:
+        client = get_algolia_client()
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+
+    async def run():
+        # Run pipeline to get CFPs
+        cfps = await run_pipeline(filter_open_only=True)
+        if not cfps:
+            return []
+
+        # Count Sessionize URLs
+        sessionize_count = sum(
+            1 for c in cfps
+            if is_sessionize_url(c.cfp_url) or is_sessionize_url(c.url)
+        )
+        console.print(f"[dim]Found {sessionize_count} CFPs with Sessionize URLs[/dim]")
+
+        # Enrich with Sessionize
+        limit_val = limit if limit > 0 else None
+        return await enrich_cfps_with_sessionize(
+            cfps,
+            limit=limit_val,
+            skip_existing=not force,
+        )
+
+    cfps = asyncio.run(run())
+
+    if not cfps:
+        console.print("[yellow]No CFPs to sync[/yellow]")
+        raise typer.Exit(0)
+
+    # Index records
+    indexed_count = index_cfps(client, index_name, cfps)
+
+    # Count sessionize-enriched
+    enriched_count = sum(1 for c in cfps if c.sessionize_enriched)
+
+    stats = get_index_stats(client, index_name)
+    console.print(f"\n[bold green]Sessionize sync complete![/bold green]")
+    console.print(f"  Index: {stats.get('index_name')}")
+    console.print(f"  Total records: {stats.get('num_records', 'unknown')}")
+    console.print(f"  Sessionize-enriched: {enriched_count}")
+
+    # Show sample enriched
+    enriched = [c for c in cfps if c.sessionize_enriched and c.session_formats]
+    if enriched:
+        console.print(f"\n[bold]Sample Enriched CFPs:[/bold]")
+        for c in enriched[:5]:
+            formats = ", ".join(f"{f['name']}" for f in c.session_formats[:3])
+            benefits = []
+            if c.speaker_benefits.get('travel'):
+                benefits.append(f"Travel: {c.speaker_benefits['travel']}")
+            if c.speaker_benefits.get('hotel'):
+                benefits.append(f"Hotel: {c.speaker_benefits['hotel']}")
+            if c.speaker_benefits.get('ticket'):
+                benefits.append("Free ticket")
+
+            console.print(f"  {c.name[:40]}")
+            console.print(f"    Formats: {formats}")
+            if benefits:
+                console.print(f"    Benefits: {', '.join(benefits)}")
+
+
 # ===== SPEAKERS COMMANDS =====
 
 

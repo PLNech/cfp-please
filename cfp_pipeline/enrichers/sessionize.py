@@ -166,6 +166,7 @@ class SessionizeData:
 
     # Status
     is_open: bool = True
+    event_format: Optional[str] = None  # 'virtual', 'in-person', or 'hybrid'
     error: Optional[str] = None
 
 
@@ -433,6 +434,60 @@ async def geocode_location(location_raw: str) -> Optional[tuple[float, float]]:
             return result
 
     return None
+
+
+def detect_event_format(data: 'SessionizeData') -> str:
+    """Detect event format using multiple signals from SessionizeData.
+
+    Returns: 'virtual', 'in-person', or 'hybrid'
+
+    Scoring approach (avoids brittle single-signal detection):
+    - Location = "Online"/"Virtual" → strong virtual signal
+    - Detailed venue location → strong physical signal
+    - Travel/hotel benefits → strong physical signal
+    - Empty location + no benefits → weak virtual signal
+    """
+    loc = (data.location_raw or '').lower().strip()
+    text = (data.clean_text or '').lower()
+
+    # === STRONG SIGNALS (definitive) ===
+
+    # Explicit virtual location
+    virtual_locations = ['online', 'virtual', 'worldwide', 'global', 'digital', 'remote']
+    if loc in virtual_locations:
+        return 'virtual'
+
+    # Explicit hybrid mention
+    if 'hybrid' in loc or 'hybrid' in text[:500]:
+        return 'hybrid'
+
+    # Travel/hotel benefits = definitely physical
+    if data.benefits.travel or data.benefits.hotel:
+        return 'in-person'
+
+    # Detailed venue location (e.g., "Convention Center City, Country")
+    # Physical locations are typically 20+ chars with venue names
+    if len(loc) > 20 and ',' in loc:
+        return 'in-person'
+
+    # === WEAK SIGNALS (for edge cases) ===
+
+    # Physical keywords in text
+    physical_keywords = ['venue', 'on-site', 'in person', 'in-person', 'catering', 'lunch', 'dinner']
+    if any(kw in text for kw in physical_keywords):
+        return 'in-person'
+
+    # Virtual keywords in text
+    virtual_keywords = ['online event', 'virtual event', 'join online', 'fully online', 'virtual conference']
+    if any(kw in text for kw in virtual_keywords):
+        return 'virtual'
+
+    # Has any location at all → likely physical
+    if loc and loc not in ['', 'tba', 'tbd', 'to be announced']:
+        return 'in-person'
+
+    # Default: can't determine (treat as in-person to avoid false positives)
+    return 'in-person'
 
 
 # Format name normalization for deduplication
@@ -718,6 +773,9 @@ async def scrape_sessionize(url: str) -> SessionizeData:
     # Get clean text - naturally result of extraction + cleanup
     data.clean_text = cleaner.get_clean_text(max_length=4000)
 
+    # Detect event format (virtual/in-person/hybrid) using multiple signals
+    data.event_format = detect_event_format(data)
+
     return data
 
 
@@ -763,6 +821,14 @@ def sessionize_data_to_cfp_fields(data: SessionizeData) -> dict:
     if data.clean_text:
         updates['_sessionize_full_text'] = data.clean_text
 
+    # Event format (virtual/in-person/hybrid)
+    if data.event_format:
+        updates['event_format'] = data.event_format
+
+    # Store location_raw for geocoding (done in enrich_cfp_with_sessionize)
+    if data.location_raw:
+        updates['_location_raw'] = data.location_raw
+
     return updates
 
 
@@ -795,6 +861,8 @@ async def enrich_cfp_with_sessionize(cfp: CFP) -> CFP:
 
     # Apply updates
     updates = sessionize_data_to_cfp_fields(data)
+    location_raw = None
+
     for key, value in updates.items():
         if key.startswith('_'):
             # Special handling for conditional updates
@@ -802,8 +870,27 @@ async def enrich_cfp_with_sessionize(cfp: CFP) -> CFP:
                 cfp.description = value
             elif key == '_sessionize_full_text' and not cfp.full_text:
                 cfp.full_text = value
+            elif key == '_location_raw':
+                location_raw = value
         else:
             setattr(cfp, key, value)
+
+    # Geocoding: populate _geoloc and enrich location model
+    if location_raw and data.event_format != 'virtual':
+        # Geocode to lat/lng
+        coords = await geocode_location(location_raw)
+        if coords:
+            from cfp_pipeline.models import GeoLoc
+            cfp._geoloc = GeoLoc(lat=coords[0], lng=coords[1])
+
+        # Enrich location model with NER-extracted city/country
+        entities = extract_location_entities(location_raw)
+        if entities.get('city') and not cfp.location.city:
+            cfp.location.city = entities['city']
+        if entities.get('country') and not cfp.location.country:
+            cfp.location.country = entities['country']
+        if not cfp.location.raw:
+            cfp.location.raw = location_raw
 
     return cfp
 

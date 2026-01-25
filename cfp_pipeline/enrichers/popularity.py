@@ -8,6 +8,47 @@ Pulls MAXIMUM data from multiple sources for dashboard richness:
 - DuckDuckGo: web results, news
 
 All APIs are keyless - no authentication required.
+
+# =============================================================================
+# AUDIT FINDINGS (Jan 2026) - CRITICAL: DATA QUALITY ISSUES
+# =============================================================================
+# The intel indexes (cfps_intel_hn, cfps_intel_reddit, cfps_intel_github) have
+# severe noise problems. DO NOT USE until rebuilt.
+#
+# HN Audit Results (11% accuracy, 89% noise):
+#   - Short names catastrophic: "WAX" matched 5.3M stories, "APE" 2.9M
+#   - Newsletter confusion: "This Week in Rust" != RustWeek conference
+#   - Query too broad: searches anywhere in story, not just title
+#   - FIX: Use quoted search '"FOSDEM"', skip names <=4 chars, validate titles
+#
+# Reddit Audit Results (33% accuracy, 67% noise):
+#   - No subreddit filtering: r/BestofRedditorUpdates, r/Superstonk top results
+#   - r/CFB (College Football) matched "kode24" due to "code" substring
+#   - FIX: Allowlist tech subreddits only, validate conference name in title
+#
+# GitHub Audit Results (84.6% signal - BEST of all sources):
+#   - Official + related repos: 84.6% (vs 11% HN, 33% Reddit)
+#   - Short names still problematic: "HOW2026" pulled 332K stars of noise
+#   - Well-named conferences have excellent quality (Stir Trek, kode24, DDD North)
+#   - FIX: Skip <4 char names, filter <5 star repos unless org match
+#   - VERDICT: FILTER (keep source, apply aggressive filtering)
+#
+# NEXT STEPS:
+#   1. Clear all cfps_intel_* indexes
+#   2. Implement fixes below (quoted search, title validation, quality thresholds)
+#   3. Rebuild with strict validation
+#   4. Target: >80% precision
+#
+# See: docs/INTEL_REBUILD_PLAN.md, Task #22
+# =============================================================================
+
+# TODO(intel-rebuild): Use quoted phrase search for HN: f'"{clean}"'
+# TODO(intel-rebuild): Skip conference names <= 4 characters (WAX, APE, HOW unfixable)
+# TODO(intel-rebuild): Post-fetch validation: title MUST contain conference name
+# TODO(intel-rebuild): Minimum quality threshold: 5pts OR 2 comments (HN), 10 upvotes (Reddit)
+# TODO(intel-rebuild): Reddit allowlist: only tech subreddits (programming, devops, kubernetes, etc.)
+# TODO(intel-rebuild): Add confidence scoring: high/medium/low per result
+# TODO(intel-rebuild): Only index results with confidence >= medium
 """
 
 import asyncio
