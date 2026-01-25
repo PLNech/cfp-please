@@ -141,6 +141,11 @@ export function useProfile() {
     [profile.favoriteTalks]
   );
 
+  const isTalkWatched = useCallback(
+    (talkId: string) => profile.watchedTalks.includes(talkId),
+    [profile.watchedTalks]
+  );
+
   // Speaker following
   const toggleFavoriteSpeaker = useCallback((speakerId: string) => {
     setProfileState((prev) => {
@@ -192,6 +197,7 @@ export function useProfile() {
     markTalkWatched,
     toggleFavoriteTalk,
     isFavoriteTalk,
+    isTalkWatched,
     toggleFavoriteSpeaker,
     isFollowingSpeaker,
     resetProfile,

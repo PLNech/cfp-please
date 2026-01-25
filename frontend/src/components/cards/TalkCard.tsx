@@ -11,6 +11,7 @@ interface TalkCardProps {
   matchScore?: number; // 0-100 if profile set
   position?: number; // Position in list (for analytics)
   isFavorite?: boolean;
+  isWatched?: boolean; // Show watched checkmark indicator
   onClick?: () => void;
   onInspire?: () => void;
   onToggleFavorite?: (talkId: string) => void;
@@ -36,7 +37,7 @@ function generateGradient(text: string): string {
   return `linear-gradient(135deg, hsl(${hue1}, 70%, 35%) 0%, hsl(${hue2}, 60%, 25%) 100%)`;
 }
 
-export function TalkCard({ talk, matchScore, position, isFavorite, onClick, onInspire, onToggleFavorite, onTrackClick }: TalkCardProps) {
+export function TalkCard({ talk, matchScore, position, isFavorite, isWatched, onClick, onInspire, onToggleFavorite, onTrackClick }: TalkCardProps) {
   const formattedViews = formatViews(talk.view_count);
   const duration = formatDuration(talk.duration_seconds);
   const gradient = generateGradient(talk.conference_name || talk.title);
@@ -96,6 +97,15 @@ export function TalkCard({ talk, matchScore, position, isFavorite, onClick, onIn
         </div>
 
         {duration && <span className="talk-card-duration">{duration}</span>}
+
+        {/* Watched indicator */}
+        {isWatched && (
+          <span className="talk-card-watched" title="Watched">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+          </span>
+        )}
 
         {/* Favorite heart button */}
         {onToggleFavorite && (

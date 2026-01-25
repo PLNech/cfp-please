@@ -45,6 +45,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
     markTalkWatched,
     toggleFavoriteTalk,
     isFavoriteTalk,
+    isTalkWatched,
     toggleFavoriteSpeaker,
     isFollowingSpeaker,
     setInterview,
@@ -201,6 +202,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                     talk={talk}
                     position={index + 1}
                     isFavorite={isFavoriteTalk(talk.objectID)}
+                    isWatched={isTalkWatched(talk.objectID)}
                     onClick={() => handleTalkClick(talk, index + 1)}
                     onInspire={() => handleInspireClick(talk)}
                     onToggleFavorite={toggleFavoriteTalk}
@@ -249,6 +251,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                     talk={talk}
                     position={index + 1}
                     isFavorite={isFavoriteTalk(talk.objectID)}
+                    isWatched={isTalkWatched(talk.objectID)}
                     onClick={() => handleTalkClick(talk, index + 1)}
                     onInspire={() => handleInspireClick(talk)}
                     onToggleFavorite={toggleFavoriteTalk}
@@ -303,6 +306,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                         talk={item as Talk}
                         position={index + 1}
                         isFavorite={isFavoriteTalk(item.objectID)}
+                        isWatched={isTalkWatched(item.objectID)}
                         onClick={() => handleTalkClick(item as Talk, index + 1)}
                         onInspire={() => handleInspireClick(item as Talk)}
                         onToggleFavorite={toggleFavoriteTalk}
@@ -337,6 +341,7 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
                     talk={talk}
                     position={index + 1}
                     isFavorite={isFavoriteTalk(talk.objectID)}
+                    isWatched={isTalkWatched(talk.objectID)}
                     onClick={() => handleTalkClick(talk, index + 1)}
                     onInspire={() => handleInspireClick(talk)}
                     onToggleFavorite={toggleFavoriteTalk}
