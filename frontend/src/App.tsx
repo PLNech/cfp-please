@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TalkFlixHome } from './pages/TalkFlixHome';
 import { SearchPage } from './pages/search';
+import { DemoPage } from './pages/demo';
 import { SpeakerModal } from './components/speakers';
 import type { CFP, Talk, Speaker } from './types';
 import './App.css';
@@ -189,6 +190,7 @@ function App() {
             />
           }
         />
+        <Route path="/demo" element={<DemoPage />} />
       </Routes>
 
       {/* CFP Detail Modal */}
