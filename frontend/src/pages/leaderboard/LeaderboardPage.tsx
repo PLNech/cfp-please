@@ -11,7 +11,7 @@
 import { useState, useMemo } from 'react';
 import { Header } from '../../components/layout';
 import { CarouselRow } from '../../components/carousel';
-import { SpeakerModal, LeaderboardCard, SpeakerCard } from '../../components/speakers';
+import { SpeakerModal, LeaderboardCard, SpeakerCard, SpeakerAvatar } from '../../components/speakers';
 import { useProfile } from '../../hooks/useProfile';
 import {
   useSpeakersLeaderboard,
@@ -118,12 +118,7 @@ export function LeaderboardPage() {
               {/* #2 - Silver (left) */}
               <div className="podium-place podium-silver" onClick={() => setSelectedSpeaker(podium[1])}>
                 <div className="podium-medal">🥈</div>
-                <div className="podium-avatar">
-                  <img
-                    src={podium[1].image_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(podium[1].name)}&size=120&background=C0C0C0&color=fff`}
-                    alt={podium[1].name}
-                  />
-                </div>
+                <SpeakerAvatar speaker={podium[1]} size="lg" borderColor="#C0C0C0" />
                 <h3 className="podium-name">{podium[1].name}</h3>
                 <p className="podium-company">{podium[1].company}</p>
                 <div className="podium-score">{formatNumber(podium[1].total_views)} views</div>
@@ -133,12 +128,7 @@ export function LeaderboardPage() {
               {/* #1 - Gold (center, elevated) */}
               <div className="podium-place podium-gold" onClick={() => setSelectedSpeaker(podium[0])}>
                 <div className="podium-medal">🥇</div>
-                <div className="podium-avatar">
-                  <img
-                    src={podium[0].image_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(podium[0].name)}&size=120&background=FFD700&color=fff`}
-                    alt={podium[0].name}
-                  />
-                </div>
+                <SpeakerAvatar speaker={podium[0]} size="xl" borderColor="#FFD700" />
                 <h3 className="podium-name">{podium[0].name}</h3>
                 <p className="podium-company">{podium[0].company}</p>
                 <div className="podium-score">{formatNumber(podium[0].total_views)} views</div>
@@ -148,12 +138,7 @@ export function LeaderboardPage() {
               {/* #3 - Bronze (right) */}
               <div className="podium-place podium-bronze" onClick={() => setSelectedSpeaker(podium[2])}>
                 <div className="podium-medal">🥉</div>
-                <div className="podium-avatar">
-                  <img
-                    src={podium[2].image_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(podium[2].name)}&size=120&background=CD7F32&color=fff`}
-                    alt={podium[2].name}
-                  />
-                </div>
+                <SpeakerAvatar speaker={podium[2]} size="lg" borderColor="#CD7F32" />
                 <h3 className="podium-name">{podium[2].name}</h3>
                 <p className="podium-company">{podium[2].company}</p>
                 <div className="podium-score">{formatNumber(podium[2].total_views)} views</div>

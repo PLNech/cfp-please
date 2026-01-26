@@ -5,8 +5,8 @@
  * Click opens SpeakerModal.
  */
 
-import { useState, useEffect } from 'react';
 import type { Speaker } from '../../types';
+import { SpeakerAvatar } from './SpeakerAvatar';
 
 interface LeaderboardCardProps {
   speaker: Speaker;
@@ -30,33 +30,14 @@ function getMedalStyle(position: number): { color: string; bg: string; emoji: st
   }
 }
 
-/**
- * Generate avatar URL (simplified from SpeakerCard)
- */
-function getAvatarUrl(speaker: Speaker): string {
-  if (speaker.image_url) return speaker.image_url;
-  if (speaker.github) return `https://github.com/${speaker.github}.png?size=80`;
-  const encodedName = encodeURIComponent(speaker.name);
-  return `https://ui-avatars.com/api/?name=${encodedName}&size=80&background=667eea&color=fff&bold=true`;
-}
-
 export function LeaderboardCard({ speaker, position, onClick }: LeaderboardCardProps) {
-  const [avatarError, setAvatarError] = useState(false);
   const medal = getMedalStyle(position);
-
-  // Reset error state when speaker changes
-  useEffect(() => {
-    setAvatarError(false);
-  }, [speaker.objectID]);
 
   const formatViews = (views: number) => {
     if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M`;
     if (views >= 1000) return `${Math.floor(views / 1000)}K`;
     return views.toString();
   };
-
-  const avatarUrl = getAvatarUrl(speaker);
-  const fallbackUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(speaker.name)}&size=80&background=667eea&color=fff&bold=true`;
 
   return (
     <article
@@ -73,22 +54,7 @@ export function LeaderboardCard({ speaker, position, onClick }: LeaderboardCardP
       </div>
 
       {/* Avatar */}
-      <div className="leaderboard-avatar">
-        {!avatarError ? (
-          <img
-            src={avatarUrl}
-            alt={speaker.name}
-            onError={() => setAvatarError(true)}
-            className="leaderboard-avatar-img"
-          />
-        ) : (
-          <img
-            src={fallbackUrl}
-            alt={speaker.name}
-            className="leaderboard-avatar-img"
-          />
-        )}
-      </div>
+      <SpeakerAvatar speaker={speaker} size="sm" className="leaderboard-avatar" />
 
       {/* Info */}
       <div className="leaderboard-info">

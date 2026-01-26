@@ -7,6 +7,7 @@
 import { useEffect } from 'react';
 import { useTalksByIds } from '../../hooks/useTalksByIds';
 import { TalkCard } from '../cards/TalkCard';
+import { SpeakerAvatar } from './SpeakerAvatar';
 import type { Speaker, Talk } from '../../types';
 
 interface SpeakerModalProps {
@@ -32,13 +33,6 @@ export function SpeakerModal({
 }: SpeakerModalProps) {
   // Fetch speaker's top talks
   const { talks, loading } = useTalksByIds(speaker.top_talk_ids || [], 10);
-
-  const initials = speaker.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
 
   const formatViews = (views: number) => {
     if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M`;
@@ -75,17 +69,7 @@ export function SpeakerModal({
 
         {/* Header */}
         <div className="speaker-modal-header">
-          {speaker.image_url ? (
-            <img
-              src={speaker.image_url}
-              alt={speaker.name}
-              className="speaker-modal-avatar speaker-modal-avatar-img"
-            />
-          ) : (
-            <div className="speaker-modal-avatar speaker-modal-avatar-fallback">
-              {initials}
-            </div>
-          )}
+          <SpeakerAvatar speaker={speaker} size="lg" className="speaker-modal-avatar" />
           <div className="speaker-modal-info">
             <h2 className="speaker-modal-name">{speaker.name}</h2>
             {speaker.tagline && (
