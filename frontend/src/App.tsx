@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TalkFlixHome } from './pages/TalkFlixHome';
 import { SearchPage } from './pages/search';
 import { DemoPage } from './pages/demo';
+import { LeaderboardPage } from './pages/leaderboard';
 import { SpeakerModal } from './components/speakers';
 import type { CFP, Talk, Speaker } from './types';
 import './App.css';
@@ -191,6 +192,7 @@ function App() {
           }
         />
         <Route path="/demo" element={<DemoPage />} />
+        <Route path="/leaderboard" element={<LeaderboardPage />} />
       </Routes>
 
       {/* CFP Detail Modal */}
