@@ -5,7 +5,7 @@
  * URL-synced search query across all indexes.
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
 import { InstantSearch, useHits, useSearchBox, useConfigure, useRefinementList, useInstantSearch } from 'react-instantsearch';
@@ -191,13 +191,14 @@ interface CFPSearchSectionProps {
 
 function CFPSearchSection({ query: externalQuery, showTitle, onCFPClick }: CFPSearchSectionProps) {
   useConfigure({
-    hitsPerPage: showTitle ? 6 : 20,
+    hitsPerPage: showTitle ? 24 : 20, // Fetch enough for carousel pages
     clickAnalytics: true,
   });
   const { refine } = useSearchBox();
   const { items: hits } = useHits<CFP>();
   const { results } = useInstantSearch();
   const queryID = results?.queryID;
+  const totalHits = results?.nbHits ?? 0;
 
   // Sync external query with InstantSearch
   useEffect(() => {
@@ -208,24 +209,43 @@ function CFPSearchSection({ query: externalQuery, showTitle, onCFPClick }: CFPSe
     onCFPClick?.(cfp, position, queryID);
   }, [onCFPClick, queryID]);
 
+  // Folded empty state for "all" tab
+  if (showTitle && totalHits === 0) {
+    return (
+      <section className="search-section search-section-empty">
+        <h2 className="search-section-title search-section-title-empty">CFPs (0)</h2>
+      </section>
+    );
+  }
+
   return (
     <section className="search-section">
-      {showTitle && <h2 className="search-section-title">CFPs ({hits.length})</h2>}
+      {showTitle && <h2 className="search-section-title">CFPs ({totalHits})</h2>}
       {!showTitle && <CFPFacets />}
 
-      <div className="search-results">
-        {hits.length === 0 ? (
-          <p className="search-no-results">No CFPs found</p>
-        ) : (
-          hits.map((cfp, index) => (
+      {hits.length === 0 ? (
+        <p className="search-no-results">No CFPs found matching your search</p>
+      ) : showTitle ? (
+        <CarouselResults totalHits={Math.min(totalHits, hits.length)} itemWidth={300}>
+          {hits.map((cfp, index) => (
             <CFPResultCard
               key={cfp.objectID}
               cfp={cfp}
               onClick={() => handleClick(cfp, index + 1)}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </CarouselResults>
+      ) : (
+        <div className="search-results search-results-grid">
+          {hits.map((cfp, index) => (
+            <CFPResultCard
+              key={cfp.objectID}
+              cfp={cfp}
+              onClick={() => handleClick(cfp, index + 1)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -295,13 +315,14 @@ interface TalkSearchSectionProps {
 
 function TalkSearchSection({ query: externalQuery, showTitle, onTalkClick, isFavorite, onToggleFavorite }: TalkSearchSectionProps) {
   useConfigure({
-    hitsPerPage: showTitle ? 6 : 20,
+    hitsPerPage: showTitle ? 24 : 20, // Fetch enough for carousel pages
     clickAnalytics: true,
   });
   const { refine } = useSearchBox();
   const { items: hits } = useHits<Talk>();
   const { results } = useInstantSearch();
   const queryID = results?.queryID;
+  const totalHits = results?.nbHits ?? 0;
 
   // Sync external query with InstantSearch
   useEffect(() => {
@@ -312,15 +333,24 @@ function TalkSearchSection({ query: externalQuery, showTitle, onTalkClick, isFav
     onTalkClick?.(talk, position, queryID);
   }, [onTalkClick, queryID]);
 
+  // Folded empty state for "all" tab
+  if (showTitle && totalHits === 0) {
+    return (
+      <section className="search-section search-section-empty">
+        <h2 className="search-section-title search-section-title-empty">Talks (0)</h2>
+      </section>
+    );
+  }
+
   return (
     <section className="search-section">
-      {showTitle && <h2 className="search-section-title">Talks ({hits.length})</h2>}
+      {showTitle && <h2 className="search-section-title">Talks ({totalHits})</h2>}
 
-      <div className="search-results">
-        {hits.length === 0 ? (
-          <p className="search-no-results">No talks found</p>
-        ) : (
-          hits.map((talk, index) => (
+      {hits.length === 0 ? (
+        <p className="search-no-results">No talks found matching your search</p>
+      ) : showTitle ? (
+        <CarouselResults totalHits={Math.min(totalHits, hits.length)} itemWidth={300}>
+          {hits.map((talk, index) => (
             <TalkResultCard
               key={talk.objectID}
               talk={talk}
@@ -328,9 +358,21 @@ function TalkSearchSection({ query: externalQuery, showTitle, onTalkClick, isFav
               onClick={() => handleClick(talk, index + 1)}
               onToggleFavorite={() => onToggleFavorite(talk.objectID)}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </CarouselResults>
+      ) : (
+        <div className="search-results search-results-grid">
+          {hits.map((talk, index) => (
+            <TalkResultCard
+              key={talk.objectID}
+              talk={talk}
+              isFavorite={isFavorite(talk.objectID)}
+              onClick={() => handleClick(talk, index + 1)}
+              onToggleFavorite={() => onToggleFavorite(talk.objectID)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -392,32 +434,53 @@ interface SpeakerSearchSectionProps {
 }
 
 function SpeakerSearchSection({ query: externalQuery, showTitle, onSpeakerClick }: SpeakerSearchSectionProps) {
-  useConfigure({ hitsPerPage: showTitle ? 6 : 20 });
+  useConfigure({ hitsPerPage: showTitle ? 24 : 20 }); // Fetch enough for carousel pages
   const { refine } = useSearchBox();
   const { items: hits } = useHits<Speaker>();
+  const { results } = useInstantSearch();
+  const totalHits = results?.nbHits ?? 0;
 
   // Sync external query with InstantSearch
   useEffect(() => {
     refine(externalQuery);
   }, [externalQuery, refine]);
 
+  // Folded empty state for "all" tab
+  if (showTitle && totalHits === 0) {
+    return (
+      <section className="search-section search-section-empty">
+        <h2 className="search-section-title search-section-title-empty">Speakers (0)</h2>
+      </section>
+    );
+  }
+
   return (
     <section className="search-section">
-      {showTitle && <h2 className="search-section-title">Speakers ({hits.length})</h2>}
+      {showTitle && <h2 className="search-section-title">Speakers ({totalHits})</h2>}
 
-      <div className="search-results speakers-grid">
-        {hits.length === 0 ? (
-          <p className="search-no-results">No speakers found</p>
-        ) : (
-          hits.map((speaker) => (
+      {hits.length === 0 ? (
+        <p className="search-no-results">No speakers found matching your search</p>
+      ) : showTitle ? (
+        <CarouselResults totalHits={Math.min(totalHits, hits.length)} itemWidth={220}>
+          {hits.map((speaker) => (
             <SpeakerResultCard
               key={speaker.objectID}
               speaker={speaker}
               onClick={() => onSpeakerClick?.(speaker)}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </CarouselResults>
+      ) : (
+        <div className="search-results search-results-grid speakers-grid">
+          {hits.map((speaker) => (
+            <SpeakerResultCard
+              key={speaker.objectID}
+              speaker={speaker}
+              onClick={() => onSpeakerClick?.(speaker)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -454,6 +517,88 @@ function SpeakerResultCard({ speaker, onClick }: { speaker: Speaker; onClick: ()
         </div>
       )}
     </article>
+  );
+}
+
+// ========== Carousel Component ==========
+interface CarouselResultsProps {
+  children: ReactNode[];
+  itemWidth?: number;
+  totalHits: number;
+}
+
+function CarouselResults({ children, itemWidth = 300, totalHits }: CarouselResultsProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 6;
+  const totalPages = Math.ceil(totalHits / itemsPerPage);
+  const gap = 16; // var(--space-4)
+
+  const scrollToPage = (page: number) => {
+    if (!scrollRef.current) return;
+    const scrollAmount = page * (itemWidth + gap) * itemsPerPage;
+    scrollRef.current.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+    setCurrentPage(page);
+  };
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const scrollLeft = scrollRef.current.scrollLeft;
+    const pageWidth = (itemWidth + gap) * itemsPerPage;
+    const newPage = Math.round(scrollLeft / pageWidth);
+    if (newPage !== currentPage) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const canGoPrev = currentPage > 0;
+  const canGoNext = currentPage < totalPages - 1;
+
+  return (
+    <div className="search-results-wrapper">
+      <button
+        className="carousel-nav carousel-prev"
+        onClick={() => scrollToPage(currentPage - 1)}
+        disabled={!canGoPrev}
+        aria-label="Previous page"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+
+      <div
+        ref={scrollRef}
+        className="search-results"
+        onScroll={handleScroll}
+      >
+        {children}
+      </div>
+
+      <button
+        className="carousel-nav carousel-next"
+        onClick={() => scrollToPage(currentPage + 1)}
+        disabled={!canGoNext}
+        aria-label="Next page"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
+
+      {totalPages > 1 && (
+        <div className="carousel-pagination">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              className={`carousel-dot ${i === currentPage ? 'active' : ''}`}
+              onClick={() => scrollToPage(i)}
+              aria-label={`Go to page ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 

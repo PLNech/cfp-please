@@ -5,7 +5,7 @@
  * personalization via profile, agent works invisibly.
  */
 
-import React, { useMemo, useCallback, useState, useEffect, useRef } from 'react';
+import React, { useMemo, useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Header, ProfileSidebar } from '../components/layout';
 import { HeroSection } from '../components/hero';
