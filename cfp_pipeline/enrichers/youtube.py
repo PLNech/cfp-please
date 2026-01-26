@@ -109,6 +109,7 @@ def _extract_speaker_from_title(title: str) -> tuple[str, Optional[str]]:
 def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
     """Synchronous YouTube search using yt-dlp (flat mode for speed)."""
     import yt_dlp
+    import re
 
     ydl_opts = {
         'quiet': True,
@@ -120,6 +121,40 @@ def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
     }
 
     results = []
+
+    # Year extraction from title (for conferences like "PyCon 2023")
+    # Year extraction from title - matches any conference name + year, or standalone year
+    conf_year_pattern = re.compile(
+        r'(?:pycon|jsconf|reactconf|vueconf|kubecon|dotnet|dotai|ndc|goto|strangeloop|'
+        r'infoq|velocity|rubyconf|elixirconf|rustconf|gophercon|defcon|bsides|fosdem|'
+        r'jsworld|vueconf|react\s?world|frontend\s?nation|tech\s?talk|tech\s?conference|'
+        r'shift|strapi|nuxt|vue|react|js|all\s?hands|devfest|meetup|summit|symposium)\s*[:#\s\-]?\s*(\d{4})',
+        re.IGNORECASE
+    )
+
+    def _extract_year_from_title(title: str) -> Optional[int]:
+        """Extract year from conference title pattern."""
+        if not title:
+            return None
+
+        # First try conference-specific pattern
+        match = conf_year_pattern.search(title)
+        if match:
+            try:
+                year = int(match.group(1))
+                if 2010 <= year <= 2030:
+                    return year
+            except ValueError:
+                pass
+
+        # Fall back: find any 4-digit year in title
+        generic_year = re.search(r'(20[12]\d{2})', title)
+        if generic_year:
+            year = int(generic_year.group(1))
+            if 2010 <= year <= 2025:
+                return year
+
+        return None
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -134,12 +169,18 @@ def _search_youtube_sync(query: str, max_results: int = 10) -> list[dict]:
                     continue
 
                 year = None
+                # Try upload_date first (from metadata)
                 upload_date = entry.get('upload_date')
                 if upload_date and len(upload_date) >= 4:
                     try:
                         year = int(upload_date[:4])
                     except ValueError:
                         pass
+
+                # Fall back to title-based extraction for conferences
+                if not year:
+                    title = entry.get('title', '')
+                    year = _extract_year_from_title(title)
 
                 title = entry.get('title', '')
                 clean_title, speaker = _extract_speaker_from_title(title)
@@ -674,3 +715,209 @@ async def fetch_talks_for_conferences(
         console.print(f"[green]  +{len(talks)} talks[/green]")
 
     return all_talks
+
+
+# ===== SPEAKER-AWARE DISCOVERY FUNCTIONS =====
+
+async def search_talks_by_speaker(
+    speaker_name: str,
+    max_results: int = 50,
+    years: Optional[list[int]] = None,
+) -> list[dict]:
+    """Search YouTube for talks by a specific speaker.
+
+    Uses multiple query strategies to find conference talks by a speaker.
+
+    Args:
+        speaker_name: Name of the speaker to search for
+        max_results: Maximum number of results
+        years: Optional years to focus on
+
+    Returns:
+        List of talk dicts with speaker info
+    """
+    queries = []
+
+    # Build queries
+    base_query = f'"{speaker_name}"'
+
+    if years:
+        for year in years:
+            queries.append(f"{base_query} {year} conference talk OR presentation OR keynote")
+        # Also try without year for more results
+        queries.append(f"{base_query} conference talk OR presentation")
+    else:
+        queries.append(f"{base_query} conference talk OR presentation OR keynote OR tech talk")
+
+    all_results = []
+
+    for query in queries:
+        console.print(f"[dim]  Searching: '{query}'[/dim]")
+
+        loop = asyncio.get_event_loop()
+        results = await loop.run_in_executor(
+            _executor, _search_youtube_sync, query, max_results // len(queries) + 5
+        )
+
+        for r in results:
+            r['search_query'] = query
+            r['speaker_name'] = speaker_name
+
+        all_results.extend(results)
+
+    # Deduplicate by video ID
+    seen_ids = set()
+    unique_results = []
+    for r in all_results:
+        vid = r.get('id', '')
+        if vid and vid not in seen_ids:
+            seen_ids.add(vid)
+            unique_results.append(r)
+
+    # Filter results
+    filtered = []
+    for r in unique_results:
+        duration = r.get('duration_seconds') or 0
+        title_lower = r.get('original_title', '').lower()
+
+        # Skip short videos
+        if duration > 0 and duration < 300:
+            continue
+
+        # Skip non-talk content
+        skip_keywords = ['trailer', 'teaser', 'promo', 'highlight', 'aftermovie', 'recap', 'shorts', 'interview']
+        if any(kw in title_lower for kw in skip_keywords):
+            continue
+
+        # Ensure speaker field is set (from search)
+        if not r.get('speaker'):
+            r['speaker'] = speaker_name
+
+        filtered.append(r)
+
+    # Sort by view count
+    filtered.sort(key=lambda x: x.get('view_count') or 0, reverse=True)
+
+    console.print(f"[dim]  Found {len(filtered)} talks for {speaker_name}[/dim]")
+    return filtered[:max_results]
+
+
+async def discover_channels_for_speaker(
+    speaker_name: str,
+    max_talks: int = 100,
+) -> list[dict]:
+    """Discover all YouTube channels a speaker has talks on.
+
+    Uses speaker search to find talks, then groups by channel.
+
+    Args:
+        speaker_name: Name of the speaker
+        max_talks: Maximum talks to analyze
+
+    Returns:
+        List of channels with talk counts and metadata
+    """
+    talks = await search_talks_by_speaker(speaker_name, max_results=max_talks)
+
+    # Group by channel
+    channels: dict[str, dict] = defaultdict(lambda: {
+        'name': None,
+        'url': None,
+        'talk_count': 0,
+        'talks': [],
+        'years': set(),
+        'total_views': 0,
+    })
+
+    for talk in talks:
+        channel_name = talk.get('channel') or talk.get('channel_url', 'Unknown')
+        channel_url = talk.get('channel_url')
+
+        # Use channel name as key, but store URL too
+        key = channel_name
+        ch_data = channels[key]
+        ch_data['name'] = channel_name
+        ch_data['url'] = channel_url
+        ch_data['talk_count'] += 1
+        ch_data['talks'].append(talk)
+        ch_data['total_views'] += talk.get('view_count', 0)
+
+        year = talk.get('year')
+        if year:
+            ch_data['years'].add(year)
+
+    # Sort by talk count
+    sorted_channels = sorted(
+        channels.values(),
+        key=lambda x: x['talk_count'],
+        reverse=True
+    )
+
+    result = []
+    for ch in sorted_channels:
+        result.append({
+            'name': ch['name'],
+            'url': ch['url'],
+            'talk_count': ch['talk_count'],
+            'years': sorted(ch['years']),
+            'total_views': ch['total_views'],
+            'avg_views': ch['total_views'] // max(1, ch['talk_count']),
+        })
+
+    return result
+
+
+async def search_speakers_batch(
+    speakers: list[str],
+    max_results_per_speaker: int = 30,
+    max_concurrent: int = 3,
+) -> dict[str, list[dict]]:
+    """Search for talks by multiple speakers in parallel.
+
+    Args:
+        speakers: List of speaker names
+        max_results_per_speaker: Max talks per speaker
+        max_concurrent: Max concurrent searches
+
+    Returns:
+        Dict mapping speaker name to their talks
+    """
+    semaphore = asyncio.Semaphore(max_concurrent)
+    results: dict[str, list[dict]] = {}
+
+    async def search_one(speaker: str) -> tuple[str, list[dict]]:
+        async with semaphore:
+            talks = await search_talks_by_speaker(speaker, max_results_per_speaker)
+            return speaker, talks
+
+    tasks = [search_one(s) for s in speakers]
+
+    for coro in asyncio.as_completed(tasks):
+        speaker, talks = await coro
+        results[speaker] = talks
+
+    return results
+
+
+def extract_speakers_from_talks(talks: list[dict]) -> list[str]:
+    """Extract unique speakers from a list of talks.
+
+    Args:
+        talks: List of talk dicts
+
+    Returns:
+        List of unique speaker names
+    """
+    speakers = set()
+
+    for talk in talks:
+        speaker = talk.get('speaker')
+        if speaker:
+            speakers.add(speaker)
+
+        # Also check speakers array
+        for sp in talk.get('speakers', []):
+            if sp:
+                speakers.add(sp)
+
+    return sorted(speakers)

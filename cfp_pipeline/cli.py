@@ -1514,5 +1514,291 @@ def generate_events(
     console.print(f"5. Upload the corresponding CSV:\n   - {cfp_path}\n   - {talk_path}")
 
 
+# ===== Discovery Commands =====
+
+
+@app.command()
+def discover_speakers(
+    speakers: str = typer.Argument(..., help="Comma-separated speaker names to discover from"),
+    max_speakers: int = typer.Option(50, "--max-speakers", "-m", help="Max speakers to process"),
+    max_talks: int = typer.Option(30, "--max-talks", "-t", help="Max talks per speaker"),
+    concurrent: int = typer.Option(3, "--concurrent", "-c", help="Max concurrent searches"),
+    clear: bool = typer.Option(False, "--clear", help="Clear existing discovery data first"),
+):
+    """Discover talks and channels for specific speakers.
+
+    Uses BFS to find:
+    - Talks by the speakers
+    - YouTube channels they speak on
+    - New speakers who also speak on those channels
+
+    Example:
+        cfp discover-speakers "Daniel Phiri,Guido van Rossum"
+        cfp discover-speakers "Daniel Phiri" --max-speakers 100 --max-talks 50
+    """
+    from cfp_pipeline.discovery.engine import DiscoveryEngine
+
+    engine = DiscoveryEngine()
+
+    if clear:
+        engine.clear()
+
+    # Load existing if not clearing
+    if not clear:
+        engine.load()
+
+    # Parse speakers
+    speaker_list = [s.strip() for s in speakers.split(",") if s.strip()]
+    if not speaker_list:
+        console.print("[red]No speakers provided[/red]")
+        raise typer.Exit(1)
+
+    console.print(f"[cyan]Starting discovery from {len(speaker_list)} seed speakers...[/cyan]")
+
+    # Add seed speakers
+    added = engine.add_seed_speakers(speaker_list)
+    console.print(f"[green]Added {added} seed speakers[/green]")
+
+    # Run discovery
+    stats = asyncio.run(engine.discover_from_speakers(
+        max_speakers=max_speakers,
+        max_talks_per_speaker=max_talks,
+        max_concurrent=concurrent,
+    ))
+
+    # Save state
+    engine.save()
+
+    # Print summary
+    engine.print_summary()
+
+    console.print(f"\n[bold]Discovery Stats:[/bold]")
+    console.print(f"  Speakers processed: {stats['new_speakers_last_run']}")
+    console.print(f"  Channels discovered: {stats['new_channels_last_run']}")
+    console.print(f"  Talks discovered: {stats['new_talks_last_run']}")
+
+
+@app.command()
+def discover_channels(
+    channel_urls: str = typer.Argument(..., help="Comma-separated YouTube channel URLs"),
+    max_talks: int = typer.Option(20, "--max-talks", "-t", help="Max talks per channel"),
+    min_duration: int = typer.Option(5, "--min-duration", "-d", help="Min talk duration in minutes"),
+):
+    """Discover talks and speakers from YouTube channels.
+
+    Extracts all talks from channels and builds a speaker list.
+
+    Example:
+        cfp discover-channels "https://youtube.com/@Algolia,https://youtube.com/@Vercel"
+        cfp discover-channels "https://youtube.com/@Prisma" --min-duration 10
+    """
+    import yt_dlp
+    from cfp_pipeline.discovery.engine import DiscoveryEngine, _is_conference_channel
+
+    engine = DiscoveryEngine()
+    engine.load()
+
+    url_list = [u.strip() for u in channel_urls.split(",") if u.strip()]
+
+    console.print(f"[cyan]Discovering from {len(url_list)} channels...[/cyan]")
+
+    for channel_url in url_list:
+        # Normalize to videos page
+        if not channel_url.endswith('/videos'):
+            if channel_url.endswith('/'):
+                channel_url = channel_url[:-1]
+            channel_url = f"{channel_url}/videos"
+
+        console.print(f"[dim]Fetching: {channel_url}[/dim]")
+
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'skip_download': True,
+            'extract_flat': True,
+            'ignoreerrors': True,
+        }
+
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                result = ydl.extract_info(channel_url, download=False)
+
+                if not result or 'entries' not in result:
+                    console.print(f"[yellow]No videos found at {channel_url}[/yellow]")
+                    continue
+
+                channel_name = result.get('playlist_uploader') or result.get('channel') or 'Unknown'
+
+                # Check if it's a conference channel
+                is_conf = _is_conference_channel(channel_name)
+
+                console.print(f"[cyan]  {channel_name}: {len(result['entries'])} videos[/cyan]")
+
+                # Process each video
+                speaker_counts: dict[str, int] = {}
+                talks_found = 0
+
+                for entry in result['entries']:
+                    if not entry:
+                        continue
+
+                    duration = entry.get('duration') or 0
+                    if duration < min_duration * 60:
+                        continue
+
+                    # Extract speaker from title
+                    from cfp_pipeline.enrichers.youtube import _extract_speaker_from_title
+                    title = entry.get('title', '')
+                    clean_title, speaker = _extract_speaker_from_title(title)
+
+                    video_id = entry.get('id', '')
+                    if not video_id:
+                        continue
+
+                    # Create talk record
+                    if video_id not in engine.talks:
+                        engine.talks[video_id] = {
+                            'youtube_id': video_id,
+                            'title': clean_title,
+                            'speaker': speaker,
+                            'url': f"https://www.youtube.com/watch?v={video_id}",
+                            'channel': channel_name,
+                            'year': None,
+                            'view_count': entry.get('view_count', 0),
+                            'duration_seconds': duration,
+                            'thumbnail_url': entry.get('thumbnail'),
+                            'source': 'channel_discovery',
+                            'discovered_at': datetime.now().isoformat(),
+                            'ingested': False,
+                        }
+                        talks_found += 1
+
+                    if speaker:
+                        speaker_counts[speaker] = speaker_counts.get(speaker, 0) + 1
+
+                console.print(f"    [green]Added {talks_found} talks ({len(speaker_counts)} speakers)[/green]")
+
+                # Add or update channel
+                if channel_name not in engine.channels:
+                    from cfp_pipeline.discovery.engine import DiscoveryChannel
+                    engine.channels[channel_name] = DiscoveryChannel(
+                        name=channel_name,
+                        url=channel_url,
+                        source="channel_import",
+                        is_conference=is_conf,
+                    )
+
+                ch = engine.channels[channel_name]
+                ch.talk_count += talks_found
+                ch.speakers = list(speaker_counts.keys())
+
+        except Exception as e:
+            console.print(f"[red]Error fetching {channel_url}: {e}[/red]")
+            continue
+
+    # Save state
+    engine.save()
+    engine.print_summary()
+
+
+@app.command()
+def explore(
+    limit: int = typer.Option(20, "--limit", "-l", help="Items per category"),
+    format: str = typer.Option("table", "--format", "-f", help="Output format: table, json"),
+    conference_only: bool = typer.Option(False, "--conference-only", help="Only show conference channels"),
+):
+    """Explore discovered speakers and channels for --explore deep dives.
+
+    Shows the current discovery graph with:
+    - Top conference channels (for deep-dive CFP fetching)
+    - Top speakers (for finding similar speakers)
+    - Statistics about what's been discovered
+
+    Example:
+        cfp explore
+        cfp explore --limit 50 --conference-only
+        cfp explore --format json
+    """
+    from cfp_pipeline.discovery.engine import DiscoveryEngine, load_discovery_list
+
+    engine = DiscoveryEngine()
+    loaded = engine.load()
+
+    if not loaded:
+        console.print("[yellow]No discovery data found. Run:[/yellow]")
+        console.print("  cfp discover-speakers \"Speaker Name\"")
+        console.print("  cfp discover-channels https://youtube.com/@Channel")
+        raise typer.Exit(0)
+
+    engine.print_summary()
+
+    if format == "json":
+        import json
+        data = {
+            "channels": engine.get_channels_for_explore(limit=limit),
+            "speakers": engine.get_speakers_for_explore(limit=limit),
+            "stats": engine.stats,
+        }
+        console.print(json.dumps(data, indent=2))
+        return
+
+    # Show top channels
+    channels = engine.get_top_channels(limit=limit, conference_only=conference_only)
+
+    if channels:
+        table = Table(title="Top Channels")
+        table.add_column("Channel", style="cyan")
+        table.add_column("Talks", justify="right")
+        table.add_column("Speakers", justify="right")
+        table.add_column("Type")
+
+        for ch in channels:
+            ch_type = "CONF" if ch.is_conference else "COMP" if ch.is_company else "OTHER"
+            table.add_row(
+                ch.name[:40],
+                str(ch.talk_count),
+                str(len(ch.speakers)),
+                ch_type,
+            )
+
+        console.print(table)
+
+    # Show top speakers
+    speakers = engine.get_top_speakers(limit=limit)
+
+    if speakers:
+        table = Table(title="Top Speakers")
+        table.add_column("Speaker", style="green")
+        table.add_column("Talks", justify="right")
+        table.add_column("Views", justify="right")
+        table.add_column("Channels")
+
+        for sp in speakers:
+            table.add_row(
+                sp.name[:30],
+                str(sp.talk_count),
+                f"{sp.total_views:,}",
+                str(len(sp.channels)),
+            )
+
+        console.print(table)
+
+    console.print("\n[bold]Next steps for deep dives:[/bold]")
+    console.print("1. Pick a channel and run: cfp fetch-talks -c \"Channel Name\" --talks 100")
+    console.print("2. Pick a speaker and run: cfp discover-speakers \"Speaker Name\" --max-speakers 100")
+    console.print("3. Clear and restart: cfp discover-speakers \"New Speaker\" --clear")
+
+
+@app.command()
+def discovery_clear():
+    """Clear all discovery data."""
+    from cfp_pipeline.discovery.engine import DiscoveryEngine
+
+    engine = DiscoveryEngine()
+    engine.clear()
+
+    console.print("[green]Discovery data cleared[/green]")
+
+
 if __name__ == "__main__":
     app()
