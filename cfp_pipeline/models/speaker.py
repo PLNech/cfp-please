@@ -92,6 +92,24 @@ class Speaker(BaseModel):
     linkedin: Optional[str] = Field(default=None, description="LinkedIn URL")
     github: Optional[str] = Field(default=None, description="GitHub username")
 
+    # ===== IMAGE & BIO (from Sessionize) =====
+    image_url: Optional[str] = Field(
+        default=None,
+        description="Profile photo URL (from Sessionize)"
+    )
+    tagline: Optional[str] = Field(
+        default=None,
+        description="Short bio/tagline"
+    )
+    location: Optional[str] = Field(
+        default=None,
+        description="Speaker location (city, country)"
+    )
+    sessionize_slug: Optional[str] = Field(
+        default=None,
+        description="Sessionize profile slug for linking"
+    )
+
     # ===== ACHIEVEMENTS (computed) =====
     achievements: list[str] = Field(
         default_factory=list,

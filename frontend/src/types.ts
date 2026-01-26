@@ -151,6 +151,13 @@ export interface Speaker {
   twitter?: string;
   linkedin?: string;
   github?: string;
+  sessionize_slug?: string;
+  sessionize_url?: string;
+
+  // Profile (from Sessionize)
+  image_url?: string;
+  tagline?: string;
+  location?: string;
 
   // Achievements
   achievements: string[];

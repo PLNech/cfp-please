@@ -86,6 +86,9 @@ BLOCKED_SPEAKER_NAMES = {
     "dev room", "main stage", "workshop", "tutorial", "panel",
     "lightning talk", "demo", "keynote", "opening", "closing",
     "live stream", "full talk", "conference talk", "tech talks",
+    "opening keynote", "closing keynote", "sponsored keynote",
+    "opening session", "closing session", "opening ceremony", "closing ceremony",
+    "demo lab", "on tutorial",
     # Technical terms mistakenly parsed as names
     "functional programming", "java programs interview", "rust dev room",
     "system design", "data structure", "world example", "spring history",
@@ -94,15 +97,26 @@ BLOCKED_SPEAKER_NAMES = {
     "java interview", "python interview", "coding interview", "technical interview",
     "programming tutorial", "coding tutorial", "web development", "software engineering",
     "software development", "full stack", "front end", "back end", "api design",
-    # Common false patterns (Title Case phrases)
+    # Common false patterns (Title Case phrases parsed as names)
     "applied psychology", "the carbon language", "platform engineering",
     "cloud native", "machine learning", "deep learning", "artificial intelligence",
     "open source", "best practices", "design patterns", "code review",
     "distributed systems", "microservices architecture", "event sourcing",
     "domain driven design", "test driven development", "behavior driven development",
-    # Channel/playlist names
+    # "Beyond X" / "Building X" / "Scaling X" patterns (talk title prefixes)
+    "beyond pandas", "beyond chat", "beyond java", "beyond labels",
+    "beyond monitoring", "beyond orchestration", "beyond production",
+    "building resilient", "scaling smarter", "scaling system",
+    "modern routing", "based linting", "based threats",
+    "unlocking digital ownership", "unlocking innovation",
+    "optimising machine learning workflows", "optimizing istio autoscaling",
+    "open source chaos engineering", "driven microservices adoption journey",
+    # Channel/playlist/company names
     "strange loop", "goto conference", "devoxx", "qcon", "infoq",
     "tech world", "developer advocate", "devrel", "community",
+    "cloud training", "tech sherpas", "cloudnativefolks community",
+    "testcontainers desktop", "playwright java", "swift programming logic",
+    "windows developer", "umbraco keynote", "vispero responds", "many lives",
     # Common YouTube title fragments
     "part one", "part two", "part 1", "part 2", "episode 1", "episode 2",
     "day one", "day two", "day 1", "day 2", "session 1", "session 2",
@@ -180,7 +194,12 @@ def configure_speakers_index(client: SearchClientSync, index_name: Optional[str]
             "achievements",
             "profile_url",
             "twitter",
+            "linkedin",
             "github",
+            "image_url",
+            "tagline",
+            "location",
+            "sessionize_slug",
         ],
     }
 

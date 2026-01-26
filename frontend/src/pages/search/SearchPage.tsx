@@ -39,6 +39,26 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
   const navigate = useNavigate();
   const { profile, openProfile, isFavoriteTalk, toggleFavoriteTalk, markTalkWatched } = useProfile();
   const { clickCFP, clickTalk } = useInsights();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Ctrl+K to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Auto-focus on desktop
+  useEffect(() => {
+    if (window.innerWidth >= 1024) {
+      searchInputRef.current?.focus();
+    }
+  }, []);
 
   // Sync query with URL
   useEffect(() => {
@@ -101,12 +121,12 @@ export function SearchPage({ onCFPClick, onTalkClick, onSpeakerClick }: SearchPa
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
           <input
+            ref={searchInputRef}
             type="search"
             value={query}
             onChange={(e) => handleQueryChange(e.target.value)}
             placeholder="Search CFPs, talks, speakers..."
             className="search-page-input"
-            autoFocus
           />
           {query && (
             <button className="search-clear-btn" onClick={() => handleQueryChange('')}>
@@ -499,12 +519,30 @@ function SpeakerResultCard({ speaker, onClick }: { speaker: Speaker; onClick: ()
     return views.toString();
   };
 
+  // Gravatar fallback using name hash (deterministic color)
+  const gravatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(speaker.name)}&background=random&color=fff&size=100`;
+
   return (
     <article className="search-result-card speaker-result" onClick={onClick}>
       <div className="search-result-badge speaker-badge">Speaker</div>
-      <div className="speaker-avatar">{initials}</div>
+      {speaker.image_url ? (
+        <img
+          src={speaker.image_url}
+          alt={speaker.name}
+          className="speaker-avatar speaker-avatar-img"
+          loading="lazy"
+        />
+      ) : (
+        <div
+          className="speaker-avatar speaker-avatar-fallback"
+          style={{ backgroundImage: `url(${gravatarUrl})` }}
+        >
+          {initials}
+        </div>
+      )}
       <h3 className="search-result-title">{speaker.name}</h3>
-      {speaker.company && <p className="speaker-company">{speaker.company}</p>}
+      {speaker.tagline && <p className="speaker-tagline">{speaker.tagline}</p>}
+      {!speaker.tagline && speaker.company && <p className="speaker-company">{speaker.company}</p>}
       <p className="search-result-meta">
         <span title="Talks">{speaker.talk_count} talks</span>
         <span title="Views">{formatViews(speaker.total_views)} views</span>
