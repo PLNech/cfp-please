@@ -4,6 +4,7 @@
  * Shows detailed stats, achievements, topics, and talks carousel.
  */
 
+import { useEffect } from 'react';
 import { useTalksByIds } from '../../hooks/useTalksByIds';
 import { TalkCard } from '../cards/TalkCard';
 import type { Speaker, Talk } from '../../types';
@@ -51,6 +52,17 @@ export function SpeakerModal({
     }
   };
 
+  // Escape key closes modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   return (
     <div className="speaker-modal-overlay" onClick={handleBackdropClick}>
       <div className="speaker-modal">
@@ -63,11 +75,27 @@ export function SpeakerModal({
 
         {/* Header */}
         <div className="speaker-modal-header">
-          <div className="speaker-modal-avatar">{initials}</div>
+          {speaker.image_url ? (
+            <img
+              src={speaker.image_url}
+              alt={speaker.name}
+              className="speaker-modal-avatar speaker-modal-avatar-img"
+            />
+          ) : (
+            <div className="speaker-modal-avatar speaker-modal-avatar-fallback">
+              {initials}
+            </div>
+          )}
           <div className="speaker-modal-info">
             <h2 className="speaker-modal-name">{speaker.name}</h2>
-            {speaker.company && (
+            {speaker.tagline && (
+              <p className="speaker-modal-tagline">{speaker.tagline}</p>
+            )}
+            {speaker.company && !speaker.tagline && (
               <p className="speaker-modal-company">{speaker.company}</p>
+            )}
+            {speaker.location && (
+              <p className="speaker-modal-location">{speaker.location}</p>
             )}
             {onFollow && (
               <button
@@ -140,7 +168,10 @@ export function SpeakerModal({
                 <button
                   key={conf}
                   className="conference-tag clickable"
-                  onClick={() => onConferenceClick?.(conf)}
+                  onClick={() => {
+                    console.log('[SpeakerModal] Conference badge clicked:', conf);
+                    onConferenceClick?.(conf);
+                  }}
                 >
                   {conf}
                   {speaker.conference_counts?.[conf] && (
