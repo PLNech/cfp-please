@@ -57,12 +57,27 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
 
   const navigate = useNavigate();
 
+  // Escape key closes all modals
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setInspireTalk(null);
+        setSelectedTalk(null);
+        setPlayerTalk(null);
+        setSelectedSpeaker(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Navigate to search with speaker or conference query
   const handleSpeakerSearch = useCallback((speakerName: string) => {
     navigate(`/search?q=${encodeURIComponent(speakerName)}`);
   }, [navigate]);
 
   const handleConferenceSearch = useCallback((conferenceName: string) => {
+    console.log('[TalkFlixHome] Conference clicked:', conferenceName);
     navigate(`/search?q=${encodeURIComponent(conferenceName)}`);
   }, [navigate]);
 
@@ -443,6 +458,8 @@ export function TalkFlixHome({ onCFPClick, onTalkClick }: TalkFlixHomeProps) {
             markTalkWatched(talkId);
             watchTalk(talkId); // Conversion event for Algolia Insights
           }}
+          onSpeakerClick={handleSpeakerSearch}
+          onConferenceClick={handleConferenceSearch}
         />
       )}
     </div>

@@ -40,6 +40,19 @@ export function Autocomplete({
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
+  // Ctrl+K to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        const input = containerRef.current?.querySelector<HTMLInputElement>('.aa-Input');
+        input?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   useEffect(() => {
     if (!containerRef.current) return;
 

@@ -5,7 +5,7 @@
  * Click-to-load: shows thumbnail until user explicitly plays.
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Talk } from '../../types';
 import './TalkPlayer.css';
 
@@ -14,6 +14,8 @@ interface TalkPlayerProps {
   isOpen: boolean;
   onClose: () => void;
   onTrackWatch?: (talkId: string) => void;
+  onSpeakerClick?: (speakerName: string) => void;
+  onConferenceClick?: (conferenceName: string) => void;
 }
 
 // Extract video ID from objectID or URL
@@ -31,7 +33,7 @@ function getThumbnailUrl(videoId: string): string {
   return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 }
 
-export function TalkPlayer({ talk, isOpen, onClose, onTrackWatch }: TalkPlayerProps) {
+export function TalkPlayer({ talk, isOpen, onClose, onTrackWatch, onSpeakerClick, onConferenceClick }: TalkPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoId = getVideoId(talk);
 
@@ -52,6 +54,17 @@ export function TalkPlayer({ talk, isOpen, onClose, onTrackWatch }: TalkPlayerPr
       handleClose();
     }
   };
+
+  // Escape key closes player
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   return (
     <div className="talk-player-overlay" onClick={handleBackdropClick}>
@@ -105,9 +118,34 @@ export function TalkPlayer({ talk, isOpen, onClose, onTrackWatch }: TalkPlayerPr
         <div className="talk-player-info">
           <h2 className="talk-player-title">{talk.title}</h2>
           <p className="talk-player-meta">
-            {talk.speaker && <span className="talk-player-speaker">{talk.speaker}</span>}
+            {talk.speaker && (
+              <button
+                className="talk-player-speaker clickable"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSpeakerClick?.(talk.speaker!);
+                  handleClose();
+                }}
+              >
+                {talk.speaker}
+              </button>
+            )}
             {talk.speaker && talk.conference_name && ' • '}
-            <span className="talk-player-conference">{talk.conference_name}</span>
+            {talk.conference_name && (
+              <button
+                className="talk-player-conference clickable"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  // Strip years from conference name (e.g., "Agile Lyon 2026 (2024)" -> "Agile Lyon")
+                  const cleanConf = talk.conference_name!.replace(/\s*\(?(?:19|20)\d{2}(?:\))?/g, '').trim();
+                  console.log('[TalkPlayer] Conference clicked:', talk.conference_name, '->', cleanConf);
+                  onConferenceClick?.(cleanConf);
+                  handleClose();
+                }}
+              >
+                {talk.conference_name}
+              </button>
+            )}
             {talk.year && <span className="talk-player-year"> ({talk.year})</span>}
           </p>
           {talk.view_count && (

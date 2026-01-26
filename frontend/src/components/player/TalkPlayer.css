@@ -129,8 +129,36 @@
   color: #a5b4fc;
 }
 
+.talk-player-speaker.clickable {
+  cursor: pointer;
+  transition: color 0.15s;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+}
+
+.talk-player-speaker.clickable:hover {
+  color: #c7d2fe;
+  text-decoration: underline;
+}
+
 .talk-player-conference {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.talk-player-conference.clickable {
+  cursor: pointer;
+  transition: color 0.15s;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+}
+
+.talk-player-conference.clickable:hover {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
 }
 
 .talk-player-year {
